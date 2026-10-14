@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="tipo-recurso" content="Presentación con ejemplos">
+  <title>Sesión s01 — Razones, proporciones y porcentaje | EXANI-II</title>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    :root {
+      --exani-azul: #1B7FC4;
+      --exani-azul-marino: #003865;
+      --exani-verde: #8BC34A;
+      --exani-blanco: #FFFFFF;
+      --exani-gris-oscuro: #333333;
+      --exani-gris-claro: #E0E0E0;
+      --exani-fondo-secundario: #F5F5F5;
+      --exani-texto-secundario: #666666;
+      --exani-error: #D9534F;
+      --exani-advertencia: #FF6A14;
+      --radio-borde: 8px;
+      --sombra-suave: 0 4px 6px rgba(0, 56, 101, 0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Segoe UI", Roboto, -apple-system, sans-serif;
+      background: var(--exani-fondo-secundario);
+      color: var(--exani-gris-oscuro);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .contenedor {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--exani-blanco);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--sombra-suave);
+    }
+
+    header {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      padding: 22px 28px 24px;
+      text-align: center;
+    }
+
+    header .institucion {
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    header p { font-size: 0.98rem; opacity: 0.95; }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.7rem; }
+      header { padding: 18px 16px; }
+    }
+
+    .progreso { height: 6px; background: var(--exani-gris-claro); overflow: hidden; }
+    .progreso-barra { height: 100%; background: var(--exani-verde); width: 9%; transition: width 0.3s ease; }
+
+    main { flex: 1; padding: 32px 40px; position: relative; }
+
+    .diapositiva { display: none; animation: fadeIn 0.35s ease; }
+    .diapositiva.activa { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .titulo-diapo {
+      font-size: 1.6rem;
+      color: var(--exani-azul-marino);
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--exani-verde);
+    }
+
+    .objetivo-diapo {
+      background: var(--exani-fondo-secundario);
+      border-left: 4px solid var(--exani-azul);
+      padding: 12px 16px;
+      border-radius: var(--radio-borde);
+      margin-bottom: 20px;
+      font-size: 0.98rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 0.94rem;
+    }
+
+    table th {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 600;
+    }
+
+    table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--exani-gris-claro);
+      vertical-align: top;
+    }
+
+    table tr:nth-child(even) td { background: #FAFAFA; }
+
+    .nota {
+      background: #E8F4FB;
+      border-left: 4px solid var(--exani-azul);
+      padding: 12px 16px;
+      border-radius: var(--radio-borde);
+      margin: 16px 0;
+      font-size: 0.94rem;
+    }
+
+    .alerta {
+      background: #FFF4E5;
+      border-left: 4px solid var(--exani-advertencia);
+      padding: 12px 16px;
+      border-radius: var(--radio-borde);
+      margin: 16px 0;
+      font-size: 0.94rem;
+    }
+
+    .anticipa {
+      background: #F0F8FE;
+      border-left: 4px solid var(--exani-azul);
+      border-radius: var(--radio-borde);
+      padding: 14px 18px;
+      margin: 18px 0;
+    }
+
+    .anticipa h4 {
+      color: var(--exani-azul-marino);
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .anticipa p { font-size: 0.92rem; margin-bottom: 8px; }
+    .anticipa details { margin-top: 6px; font-size: 0.9rem; }
+
+    .anticipa summary {
+      cursor: pointer;
+      color: var(--exani-azul);
+      font-weight: 600;
+      padding: 4px 0;
+    }
+
+    .anticipa summary:hover { color: var(--exani-azul-marino); text-decoration: underline; }
+
+    .anticipa details p {
+      margin-top: 8px;
+      padding: 10px 12px;
+      background: var(--exani-blanco);
+      border-radius: 6px;
+    }
+
+    .contenido-teorico { margin-bottom: 20px; font-size: 0.98rem; }
+
+    .contenido-teorico h3 {
+      color: var(--exani-azul-marino);
+      font-size: 1.1rem;
+      margin: 14px 0 8px;
+    }
+
+    .contenido-teorico ul { margin-left: 22px; margin-bottom: 10px; }
+    .contenido-teorico li { margin-bottom: 6px; }
+
+    .ejemplo-resuelto {
+      background: #FAFDF6;
+      border: 1px solid #DDEBD0;
+      border-radius: var(--radio-borde);
+      padding: 18px 20px;
+      margin: 20px 0;
+    }
+
+    .ejemplo-resuelto h3 {
+      color: var(--exani-azul-marino);
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+    }
+
+    .ejemplo-resuelto > p { margin-bottom: 14px; font-size: 0.95rem; }
+
+    .paso-ejemplo {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 8px 0;
+      font-size: 0.94rem;
+    }
+
+    .num-paso {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .detalle-ejemplo {
+      flex: 1;
+      min-width: 0;
+      overflow-x: hidden;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      padding-top: 2px;
+    }
+
+    .resultado-ejemplo {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: var(--exani-verde);
+      color: var(--exani-blanco);
+      border-radius: var(--radio-borde);
+      font-weight: 600;
+      font-size: 0.96rem;
+    }
+
+    .caja-interactiva {
+      background: var(--exani-fondo-secundario);
+      border: 2px solid var(--exani-azul);
+      border-radius: var(--radio-borde);
+      padding: 20px;
+      margin: 22px 0;
+    }
+
+    .caja-interactiva h3 {
+      color: var(--exani-azul-marino);
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+
+    .instruccion-caja {
+      font-size: 0.88rem;
+      color: var(--exani-texto-secundario);
+      margin-bottom: 14px;
+    }
+
+    .grupo-inputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .input-wrapper { display: flex; flex-direction: column; gap: 4px; }
+
+    .input-wrapper label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--exani-azul-marino);
+    }
+
+    .input-wrapper input,
+    .input-wrapper select {
+      padding: 9px 12px;
+      border: 1px solid var(--exani-gris-claro);
+      border-radius: var(--radio-borde);
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: var(--exani-blanco);
+      color: var(--exani-gris-oscuro);
+    }
+
+    .input-wrapper input:focus,
+    .input-wrapper select:focus {
+      outline: 3px solid rgba(27, 127, 196, 0.25);
+      border-color: var(--exani-azul);
+    }
+
+    .btn-primario {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      border: none;
+      padding: 10px 22px;
+      border-radius: var(--radio-borde);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+
+    .btn-primario:hover { background: var(--exani-azul-marino); }
+    .btn-primario:focus { outline: 3px solid rgba(27, 127, 196, 0.4); outline-offset: 2px; }
+
+    .resultado {
+      margin-top: 14px;
+      padding: 14px 16px;
+      background: var(--exani-blanco);
+      border-radius: var(--radio-borde);
+      border: 1px solid var(--exani-gris-claro);
+      font-size: 0.94rem;
+      min-height: 50px;
+    }
+
+    .resultado.exito { border-color: var(--exani-verde); background: #FAFDF6; }
+    .resultado.error { border-color: var(--exani-error); background: #FDF3F2; color: var(--exani-error); }
+    .resultado.advertencia { border-color: var(--exani-advertencia); background: #FFF8EE; color: #A05200; }
+
+    .paso-resultado {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 4px 0;
+      font-size: 0.93rem;
+    }
+
+    .resultado-final {
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: var(--exani-verde);
+      color: var(--exani-blanco);
+      border-radius: var(--radio-borde);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .resultado-final.error-final { background: var(--exani-error); }
+
+    .tabla-resumen { margin-bottom: 22px; }
+
+    .tabla-resumen h3 {
+      color: var(--exani-azul-marino);
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+    }
+
+    .errores-comunes {
+      background: #FFF4E5;
+      border-left: 4px solid var(--exani-advertencia);
+      border-radius: var(--radio-borde);
+      padding: 16px 20px;
+      margin-bottom: 22px;
+    }
+
+    .errores-comunes h3 {
+      color: #A05200;
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .errores-comunes ul { margin-left: 22px; }
+    .errores-comunes li { margin-bottom: 6px; font-size: 0.94rem; }
+
+    .mensaje-cierre {
+      background: #E8F4FB;
+      border-left: 4px solid var(--exani-azul);
+      padding: 16px 20px;
+      border-radius: var(--radio-borde);
+      font-size: 0.95rem;
+    }
+
+    .mensaje-cierre code {
+      background: var(--exani-blanco);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: var(--exani-azul-marino);
+      font-weight: 600;
+    }
+
+    .navegacion {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      border-top: 1px solid var(--exani-gris-claro);
+      background: var(--exani-blanco);
+      gap: 12px;
+    }
+
+    .navegacion button {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      border: none;
+      padding: 10px 20px;
+      border-radius: var(--radio-borde);
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+
+    .navegacion button:hover:not(:disabled) { background: var(--exani-azul-marino); }
+    .navegacion button:disabled { background: var(--exani-gris-claro); color: var(--exani-texto-secundario); cursor: not-allowed; }
+    .navegacion button:focus { outline: 3px solid rgba(27, 127, 196, 0.4); outline-offset: 2px; }
+
+    #indicador {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--exani-azul-marino);
+    }
+
+    .footer-info {
+      background: var(--exani-azul-marino);
+      color: var(--exani-blanco);
+      padding: 14px 28px;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      main { padding: 22px 18px; }
+      .navegacion { padding: 14px 18px; }
+      .navegacion button { padding: 9px 14px; font-size: 0.85rem; }
+      #indicador { font-size: 0.82rem; }
+      .titulo-diapo { font-size: 1.35rem; }
+      .grupo-inputs { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <header>
+      <div class="institucion">Pensamiento Matemático</div>
+      <h1>EXANI-II</h1>
+      <p>Sesión s01 — Razones, proporciones y porcentaje</p>
+    </header>
+
+    <div class="progreso" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="9">
+      <div class="progreso-barra" id="progresoBarra"></div>
+    </div>
+
+    <main id="contenedorDiapositivas">
+
+      <!-- ===================== DIAPOSITIVA 1 ===================== -->
+      <section class="diapositiva activa" data-diapo="1">
+        <h2 class="titulo-diapo">Bienvenida</h2>
+
+        <p class="objetivo-diapo">
+          <strong>Objetivo:</strong> Comprender y aplicar los conceptos de razón, proporción,
+          regla de tres, porcentaje, incremento porcentual, decremento porcentual, descuento,
+          descuento en cascada y aumento en la resolución de problemas del contexto cotidiano y académico.
+        </p>
+
+        <h3 style="color:var(--exani-azul-marino); font-size:1.1rem; margin-bottom:10px;">Temario</h3>
+        <table class="tabla-temario">
+          <tr><th>Tema</th><th>Subárea</th></tr>
+          <tr><td>Razón aritmética y geométrica</td><td>Comprensión de lo matemático — Conexiones</td></tr>
+          <tr><td>Proporción y propiedad fundamental</td><td>Comprensión de lo matemático — Conexiones</td></tr>
+          <tr><td>Regla de tres directa e inversa</td><td>Comprensión de lo matemático — Estimación</td></tr>
+          <tr><td>Porcentaje</td><td>Comprensión de lo matemático — Estimación</td></tr>
+          <tr><td>Incremento porcentual</td><td>Comprensión de lo matemático — Estimación</td></tr>
+          <tr><td>Decremento porcentual</td><td>Comprensión de lo matemático — Estimación</td></tr>
+          <tr><td>Descuento simple</td><td>Comprensión de lo matemático — Estimación</td></tr>
+          <tr><td>Descuento en cascada</td><td>Comprensión de lo matemático — Estimación</td></tr>
+          <tr><td>Aumento simple</td><td>Comprensión de lo matemático — Estimación</td></tr>
+        </table>
+
+        <div class="nota">
+          <strong>Cómo usar esta presentación:</strong> Cada diapositiva incluye un ejemplo
+          resuelto, un bloque de anticipación y una caja interactiva. Primero anticipa el resultado
+          con tu intuición, luego manipula los valores para ver el procedimiento paso a paso.
+        </div>
+      </section>
+
+      <!-- ===================== DIAPOSITIVA 2: RAZÓN ===================== -->
+      <section class="diapositiva" data-diapo="2">
+        <h2 class="titulo-diapo">Razón</h2>
+
+        <div class="contenido-teorico">
+          <p>Una <strong>razón</strong> es la comparación de dos cantidades por medio de una operación. Existen dos tipos:</p>
+          <ul>
+            <li><strong>Razón aritmética:</strong> compara por <em>diferencia</em>. $a - b$.</li>
+            <li><strong>Razón geométrica:</strong> compara por <em>cociente</em>. $\frac{a}{b}$, con $b \neq 0$.</li>
+          </ul>
+          <p>En una razón geométrica $\frac{a}{b}$, el primer término $a$ se llama <strong>antecedente</strong> y el segundo $b$, <strong>consecuente</strong>.</p>
+        </div>
+
+        <div class="ejemplo-resuelto">
+          <h3>Ejemplo resuelto</h3>
+          <p><strong>Problema:</strong> En una caja hay 12 lápices rojos y 4 lápices azules. ¿Cuál es la razón geométrica de lápices rojos a lápices azules?</p>
+
+          <div class="paso-ejemplo">
+            <span class="num-paso">1</span>
+            <span class="detalle-ejemplo">Identificamos los datos: rojos = 12 (antecedente), azules = 4 (consecuente).</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">2</span>
+            <span class="detalle-ejemplo">Planteamos la razón geométrica: $\frac{12}{4}$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">3</span>
+            <span class="detalle-ejemplo">Dividimos: $\frac{12}{4} = 3$.</span>
+          </div>
+
+          <div class="resultado-ejemplo">
+            La razón es 3, es decir, hay 3 lápices rojos por cada lápiz azul.
+          </div>
+        </div>
+
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>Si el antecedente es 12 y el consecuente es 4, ¿la razón será mayor o menor que 1? ¿Por qué?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Como 12 es mayor que 4, la razón será mayor que 1 (12 ÷ 4 = 3). Si el antecedente fuera menor que el consecuente, la razón sería menor que 1 (por ejemplo, 4 ÷ 12 = 0.33).</p>
+          </details>
+        </div>
+
+        <div class="caja-interactiva">
+          <h3>Calculadora de razón</h3>
+          <p class="instruccion-caja">Ingresa el antecedente y el consecuente para obtener la razón.</p>
+
+          <div class="grupo-inputs">
+            <div class="input-wrapper">
+              <label for="razon-tipo">Tipo de razón:</label>
+              <select id="razon-tipo" autocomplete="off">
+                <option value="geometrica">Geométrica (cociente)</option>
+                <option value="aritmetica">Aritmética (diferencia)</option>
+              </select>
+            </div>
+            <div class="input-wrapper">
+              <label for="razon-a">Antecedente:</label>
+              <input type="text" id="razon-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="razon-b">Consecuente:</label>
+              <input type="text" id="razon-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper" style="justify-content:flex-end;">
+              <button class="btn-primario" id="btn-razon">Calcular</button>
+            </div>
+          </div>
+
+          <div class="resultado" id="res-razon" role="status" aria-live="polite">
+            El resultado aparecerá aquí...
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== DIAPOSITIVA 3: PROPORCIÓN ===================== -->
+      <section class="diapositiva" data-diapo="3">
+        <h2 class="titulo-diapo">Proporción</h2>
+
+        <div class="contenido-teorico">
+          <p>Una <strong>proporción</strong> es la igualdad entre dos razones:</p>
+          <p style="text-align:center; font-size:1.1rem; margin:12px 0;">$\frac{a}{b} = \frac{c}{d}$</p>
+          <p>La <strong>propiedad fundamental</strong> establece que el producto de los extremos es igual al producto de los medios:</p>
+          <p style="text-align:center; font-size:1.1rem; margin:12px 0;">$a \cdot d = b \cdot c$</p>
+          <p>Cuando esta igualdad se cumple, decimos que las cantidades son <strong>proporcionales</strong>.</p>
+        </div>
+
+        <div class="ejemplo-resuelto">
+          <h3>Ejemplo resuelto</h3>
+          <p><strong>Problema:</strong> Verificar si $\frac{4}{6} = \frac{8}{12}$.</p>
+
+          <div class="paso-ejemplo">
+            <span class="num-paso">1</span>
+            <span class="detalle-ejemplo">Identificamos: $a = 4$, $b = 6$, $c = 8$, $d = 12$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">2</span>
+            <span class="detalle-ejemplo">Producto de extremos: $a \cdot d = 4 \cdot 12 = 48$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">3</span>
+            <span class="detalle-ejemplo">Producto de medios: $b \cdot c = 6 \cdot 8 = 48$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">4</span>
+            <span class="detalle-ejemplo">Comparamos: $48 = 48$. Son proporcionales.</span>
+          </div>
+
+          <div class="resultado-ejemplo">
+            Son proporcionales: $\frac{4}{6} = \frac{8}{12}$.
+          </div>
+        </div>
+
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>Sin hacer la multiplicación, ¿crees que las dos fracciones son equivalentes? ¿Por qué?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Sí, porque si simplificamos $\frac{4}{6}$ dividiendo entre 2 obtenemos $\frac{2}{3}$, y $\frac{8}{12}$ dividido entre 4 también da $\frac{2}{3}$. Ambas representan el mismo valor decimal (0.666…).</p>
+          </details>
+        </div>
+
+        <div class="caja-interactiva">
+          <h3>Verificador de proporción</h3>
+          <p class="instruccion-caja">Ingresa los cuatro términos para verificar si forman una proporción.</p>
+
+          <div class="grupo-inputs">
+            <div class="input-wrapper">
+              <label for="prop-a">a:</label>
+              <input type="text" id="prop-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="prop-b">b:</label>
+              <input type="text" id="prop-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="prop-c">c:</label>
+              <input type="text" id="prop-c" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="prop-d">d:</label>
+              <input type="text" id="prop-d" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper" style="justify-content:flex-end;">
+              <button class="btn-primario" id="btn-proporcion">Verificar</button>
+            </div>
+          </div>
+
+          <div class="resultado" id="res-proporcion" role="status" aria-live="polite">
+            El resultado aparecerá aquí...
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== DIAPOSITIVA 4: REGLA DE TRES ===================== -->
+      <section class="diapositiva" data-diapo="4">
+        <h2 class="titulo-diapo">Regla de tres</h2>
+
+        <div class="contenido-teorico">
+          <p>La <strong>regla de tres</strong> permite encontrar un valor desconocido a partir de tres valores conocidos.</p>
+          <ul>
+            <li><strong>Directa:</strong> cuando al aumentar una cantidad, la otra también aumenta. $\frac{a}{b} = \frac{c}{x}$ → $x = \frac{b \cdot c}{a}$.</li>
+            <li><strong>Inversa:</strong> cuando al aumentar una cantidad, la otra disminuye. $a \cdot b = c \cdot x$ → $x = \frac{a \cdot b}{c}$.</li>
+          </ul>
+        </div>
+
+        <div class="ejemplo-resuelto">
+          <h3>Ejemplo resuelto</h3>
+          <p><strong>Problema:</strong> Si 4 cuadernos cuestan 60 pesos, ¿cuánto cuestan 10 cuadernos?</p>
+
+          <div class="paso-ejemplo">
+            <span class="num-paso">1</span>
+            <span class="detalle-ejemplo">Identificamos: 4 cuadernos → 60 pesos; 10 cuadernos → $x$ pesos.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">2</span>
+            <span class="detalle-ejemplo">Planteamos la proporción: $\frac{4}{60} = \frac{10}{x}$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">3</span>
+            <span class="detalle-ejemplo">Producto cruzado: $4x = 60 \cdot 10 = 600$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">4</span>
+            <span class="detalle-ejemplo">Despejamos: $x = \frac{600}{4} = 150$.</span>
+          </div>
+
+          <div class="resultado-ejemplo">
+            10 cuadernos cuestan 150 pesos.
+          </div>
+        </div>
+
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>Si 4 cuadernos cuestan 60 pesos, ¿10 cuadernos costarán más o menos del doble de 60 pesos? ¿Por qué?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Costarán más que el doble. El doble de 4 cuadernos serían 8, que costarían 120 pesos. Como 10 es mayor que 8, el costo será mayor a 120 pesos: exactamente 150 pesos.</p>
+          </details>
+        </div>
+
+        <div class="caja-interactiva">
+          <h3>Calculadora de regla de tres</h3>
+          <p class="instruccion-caja">Ingresa los tres valores conocidos para encontrar el cuarto.</p>
+
+          <div class="grupo-inputs">
+            <div class="input-wrapper">
+              <label for="rdt-tipo">Tipo:</label>
+              <select id="rdt-tipo" autocomplete="off">
+                <option value="directa">Directa</option>
+                <option value="inversa">Inversa</option>
+              </select>
+            </div>
+            <div class="input-wrapper">
+              <label for="rdt-a">a:</label>
+              <input type="text" id="rdt-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="rdt-b">b:</label>
+              <input type="text" id="rdt-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="rdt-c">c:</label>
+              <input type="text" id="rdt-c" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper" style="justify-content:flex-end;">
+              <button class="btn-primario" id="btn-rdt">Calcular</button>
+            </div>
+          </div>
+
+          <div class="resultado" id="res-rdt" role="status" aria-live="polite">
+            El resultado aparecerá aquí...
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== DIAPOSITIVA 5: PORCENTAJE ===================== -->
+      <section class="diapositiva" data-diapo="5">
+        <h2 class="titulo-diapo">Porcentaje</h2>
+
+        <div class="contenido-teorico">
+          <p>El <strong>porcentaje</strong> es una razón cuyo consecuente es 100. Se denota con el símbolo $\%$.</p>
+          <p>Para calcular el $p\%$ de una cantidad $n$:</p>
+          <p style="text-align:center; font-size:1.1rem; margin:12px 0;">$\text{Porcentaje} = \frac{p \cdot n}{100}$</p>
+          <p><strong>Procedimiento alternativo:</strong> convierte el porcentaje a decimal y multiplica directamente:</p>
+          <p style="text-align:center; font-size:1.1rem; margin:12px 0;">$\text{Porcentaje} = \left(\frac{p}{100}\right) \cdot n$</p>
+        </div>
+
+        <div class="ejemplo-resuelto">
+          <h3>Ejemplo resuelto</h3>
+          <p><strong>Problema:</strong> ¿Cuánto es el 25% de 80?</p>
+
+          <div class="paso-ejemplo">
+            <span class="num-paso">1</span>
+            <span class="detalle-ejemplo">Identificamos: $p = 25$, $n = 80$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">2</span>
+            <span class="detalle-ejemplo"><strong>Método 1 (fórmula):</strong> $\frac{25 \cdot 80}{100} = \frac{2000}{100} = 20$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">3</span>
+            <span class="detalle-ejemplo"><strong>Método 2 (alternativo):</strong> $25\% = 0.25$, entonces $0.25 \cdot 80 = 20$.</span>
+          </div>
+
+          <div class="resultado-ejemplo">
+            El 25% de 80 es 20, por ambos métodos.
+          </div>
+        </div>
+
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>El 25% de 80 es equivalente a dividir 80 entre 4. ¿El resultado será mayor, menor o igual a 20?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Será exactamente 20. El 25% es la cuarta parte: 80 ÷ 4 = 20. Este es un atajo útil: el 25% equivale a dividir entre 4.</p>
+          </details>
+        </div>
+
+        <div class="caja-interactiva">
+          <h3>Calculadora de porcentaje</h3>
+          <p class="instruccion-caja">Calcula el porcentaje de una cantidad.</p>
+
+          <div class="grupo-inputs">
+            <div class="input-wrapper">
+              <label for="pct-p">Porcentaje (%):</label>
+              <input type="text" id="pct-p" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="pct-n">Cantidad:</label>
+              <input type="text" id="pct-n" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper" style="justify-content:flex-end;">
+              <button class="btn-primario" id="btn-porcentaje">Calcular</button>
+            </div>
+          </div>
+
+          <div class="resultado" id="res-porcentaje" role="status" aria-live="polite">
+            El resultado aparecerá aquí...
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== DIAPOSITIVA 6: INCREMENTO PORCENTUAL ===================== -->
+      <section class="diapositiva" data-diapo="6">
+        <h2 class="titulo-diapo">Incremento porcentual</h2>
+
+        <div class="contenido-teorico">
+          <p>El <strong>incremento porcentual</strong> mide cuánto creció una cantidad respecto a su valor inicial, expresado en porcentaje.</p>
+          <p style="text-align:center; font-size:1.1rem; margin:12px 0;">$\text{Incremento \%} = \frac{V_f - V_i}{V_i} \times 100$</p>
+          <p>Donde $V_i$ es el valor inicial y $V_f$ es el valor final. Si el resultado es positivo, hubo un incremento.</p>
+          <p><strong>Procedimiento alternativo:</strong></p>
+          <p style="text-align:center; font-size:1.1rem; margin:12px 0;">$\text{Incremento \%} = \left(\frac{V_f}{V_i} - 1\right) \times 100$</p>
+        </div>
+
+        <div class="ejemplo-resuelto">
+          <h3>Ejemplo resuelto</h3>
+          <p><strong>Problema:</strong> Un producto pasó de costar 200 pesos a 250 pesos. ¿Cuál fue el incremento porcentual?</p>
+
+          <div class="paso-ejemplo">
+            <span class="num-paso">1</span>
+            <span class="detalle-ejemplo">Identificamos: $V_i = 200$, $V_f = 250$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">2</span>
+            <span class="detalle-ejemplo"><strong>Método 1:</strong> $\frac{250 - 200}{200} \times 100 = \frac{50}{200} \times 100 = 0.25 \times 100 = 25\%$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">3</span>
+            <span class="detalle-ejemplo"><strong>Método 2 (alternativo):</strong> $\left(\frac{250}{200} - 1\right) \times 100 = (1.25 - 1) \times 100 = 25\%$.</span>
+          </div>
+
+          <div class="resultado-ejemplo">
+            El producto tuvo un incremento del 25%.
+          </div>
+        </div>
+
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>Si un producto pasa de 200 a 250 pesos, ¿el incremento será mayor o menor al 30%?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Será menor al 30%. El incremento es de 50 pesos sobre 200, que equivale al 25%. Si el incremento hubiera sido del 30%, el precio final habría sido 260 pesos.</p>
+          </details>
+        </div>
+
+        <div class="caja-interactiva">
+          <h3>Calculadora de incremento porcentual</h3>
+          <p class="instruccion-caja">Ingresa el valor inicial y el valor final para calcular el incremento porcentual.</p>
+
+          <div class="grupo-inputs">
+            <div class="input-wrapper">
+              <label for="inc-vi">Valor inicial ($V_i$):</label>
+              <input type="text" id="inc-vi" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="inc-vf">Valor final ($V_f$):</label>
+              <input type="text" id="inc-vf" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper" style="justify-content:flex-end;">
+              <button class="btn-primario" id="btn-incremento">Calcular</button>
+            </div>
+          </div>
+
+          <div class="resultado" id="res-incremento" role="status" aria-live="polite">
+            El resultado aparecerá aquí...
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== DIAPOSITIVA 7: DECREMENTO PORCENTUAL ===================== -->
+      <section class="diapositiva" data-diapo="7">
+        <h2 class="titulo-diapo">Decremento porcentual</h2>
+
+        <div class="contenido-teorico">
+          <p>El <strong>decremento porcentual</strong> mide cuánto disminuyó una cantidad respecto a su valor inicial, expresado en porcentaje.</p>
+          <p style="text-align:center; font-size:1.1rem; margin:12px 0;">$\text{Decremento \%} = \frac{V_i - V_f}{V_i} \times 100$</p>
+          <p>Donde $V_i$ es el valor inicial y $V_f$ es el valor final. Si el resultado es positivo, hubo un decremento.</p>
+          <p><strong>Procedimiento alternativo:</strong></p>
+          <p style="text-align:center; font-size:1.1rem; margin:12px 0;">$\text{Decremento \%} = \left(1 - \frac{V_f}{V_i}\right) \times 100$</p>
+        </div>
+
+        <div class="ejemplo-resuelto">
+          <h3>Ejemplo resuelto</h3>
+          <p><strong>Problema:</strong> Un artículo pasó de costar 500 pesos a 400 pesos. ¿Cuál fue el decremento porcentual?</p>
+
+          <div class="paso-ejemplo">
+            <span class="num-paso">1</span>
+            <span class="detalle-ejemplo">Identificamos: $V_i = 500$, $V_f = 400$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">2</span>
+            <span class="detalle-ejemplo"><strong>Método 1:</strong> $\frac{500 - 400}{500} \times 100 = \frac{100}{500} \times 100 = 0.20 \times 100 = 20\%$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">3</span>
+            <span class="detalle-ejemplo"><strong>Método 2 (alternativo):</strong> $\left(1 - \frac{400}{500}\right) \times 100 = (1 - 0.80) \times 100 = 20\%$.</span>
+          </div>
+
+          <div class="resultado-ejemplo">
+            El artículo tuvo un decremento del 20%.
+          </div>
+        </div>
+
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>Si un artículo pasa de 500 a 400 pesos, ¿el decremento será igual, mayor o menor al 25%?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Será menor al 25%. El decremento es de 100 pesos sobre 500, que equivale al 20%. Si el decremento hubiera sido del 25%, el precio final habría sido 375 pesos.</p>
+          </details>
+        </div>
+
+        <div class="caja-interactiva">
+          <h3>Calculadora de decremento porcentual</h3>
+          <p class="instruccion-caja">Ingresa el valor inicial y el valor final para calcular el decremento porcentual.</p>
+
+          <div class="grupo-inputs">
+            <div class="input-wrapper">
+              <label for="dec-vi">Valor inicial ($V_i$):</label>
+              <input type="text" id="dec-vi" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="dec-vf">Valor final ($V_f$):</label>
+              <input type="text" id="dec-vf" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper" style="justify-content:flex-end;">
+              <button class="btn-primario" id="btn-decremento">Calcular</button>
+            </div>
+          </div>
+
+          <div class="resultado" id="res-decremento" role="status" aria-live="polite">
+            El resultado aparecerá aquí...
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== DIAPOSITIVA 8: DESCUENTO ===================== -->
+      <section class="diapositiva" data-diapo="8">
+        <h2 class="titulo-diapo">Descuento</h2>
+
+        <div class="contenido-teorico">
+          <p>Un <strong>descuento</strong> es una reducción planificada sobre el precio original. Si el precio original es $P_o$ y el descuento es $d\%$, entonces:</p>
+          <ul>
+            <li><strong>Monto del descuento:</strong> $D = P_o \cdot \frac{d}{100}$.</li>
+            <li><strong>Precio final (método 1):</strong> $P_f = P_o - D$.</li>
+            <li><strong>Precio final (método 2, alternativo):</strong> $P_f = P_o \cdot \left(1 - \frac{d}{100}\right)$.</li>
+          </ul>
+          <div class="nota">
+            <strong>Diferencia clave:</strong> el <em>descuento</em> es una reducción planificada que se aplica sobre un precio. El <em>decremento porcentual</em> mide cuánto cambió realmente una cantidad entre dos momentos.
+          </div>
+        </div>
+
+        <div class="ejemplo-resuelto">
+          <h3>Ejemplo resuelto</h3>
+          <p><strong>Problema:</strong> Un artículo cuesta 500 pesos y tiene un descuento del 20%. ¿Cuál es el precio final?</p>
+
+          <div class="paso-ejemplo">
+            <span class="num-paso">1</span>
+            <span class="detalle-ejemplo">Identificamos: $P_o = 500$, $d = 20$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">2</span>
+            <span class="detalle-ejemplo"><strong>Método 1:</strong> $D = 500 \cdot \frac{20}{100} = 100$. Precio final: $500 - 100 = 400$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">3</span>
+            <span class="detalle-ejemplo"><strong>Método 2 (alternativo):</strong> $500 \cdot 0.80 = 400$.</span>
+          </div>
+
+          <div class="resultado-ejemplo">
+            El precio final es 400 pesos (ahorro de 100 pesos), por ambos métodos.
+          </div>
+        </div>
+
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>Si el descuento es del 20% sobre 500 pesos, ¿el precio final será mayor o menor que 450 pesos?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Será menor. El 20% de 500 pesos es 100 pesos, así que el precio final es 400 pesos, que es menor a 450 pesos. Si el descuento fuera del 10%, el precio final sería 450 pesos exactamente.</p>
+          </details>
+        </div>
+
+        <div class="caja-interactiva">
+          <h3>Calculadora de descuento</h3>
+          <p class="instruccion-caja">Calcula el precio final después del descuento.</p>
+
+          <div class="grupo-inputs">
+            <div class="input-wrapper">
+              <label for="desc-po">Precio original:</label>
+              <input type="text" id="desc-po" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="desc-d">Descuento (%):</label>
+              <input type="text" id="desc-d" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper" style="justify-content:flex-end;">
+              <button class="btn-primario" id="btn-descuento">Calcular</button>
+            </div>
+          </div>
+
+          <div class="resultado" id="res-descuento" role="status" aria-live="polite">
+            El resultado aparecerá aquí...
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== DIAPOSITIVA 9: DESCUENTO EN CASCADA ===================== -->
+      <section class="diapositiva" data-diapo="9">
+        <h2 class="titulo-diapo">Descuento en cascada</h2>
+
+        <div class="contenido-teorico">
+          <p>Un <strong>descuento en cascada</strong> (o sucesivo) es la aplicación de <strong>dos o más descuentos consecutivos</strong>, donde cada descuento se aplica sobre el precio ya rebajado por el anterior.</p>
+          <p>Si el precio original es $P_o$ y se aplican descuentos $d_1\%$ y $d_2\%$ (en ese orden):</p>
+          <p style="text-align:center; font-size:1.05rem; margin:12px 0;">$P_f = P_o \cdot \left(1 - \frac{d_1}{100}\right) \cdot \left(1 - \frac{d_2}{100}\right)$</p>
+          <div class="alerta">
+            <strong>Error común:</strong> sumar los porcentajes. Un 10% + 20% en cascada <em>no</em> equivale a un 30%. El descuento efectivo es del 28%.
+          </div>
+          <p><strong>Procedimiento paso a paso:</strong></p>
+          <ol style="margin-left:22px;">
+            <li>Calcular el precio tras el primer descuento: $P_1 = P_o \cdot (1 - d_1/100)$.</li>
+            <li>Calcular el precio final: $P_f = P_1 \cdot (1 - d_2/100)$.</li>
+          </ol>
+        </div>
+
+        <div class="ejemplo-resuelto">
+          <h3>Ejemplo resuelto</h3>
+          <p><strong>Problema:</strong> Un artículo cuesta 500 pesos. Se aplica primero un descuento del 10% y luego otro del 20% sobre el precio ya rebajado. ¿Cuál es el precio final?</p>
+
+          <div class="paso-ejemplo">
+            <span class="num-paso">1</span>
+            <span class="detalle-ejemplo">Identificamos: $P_o = 500$, $d_1 = 10\%$, $d_2 = 20\%$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">2</span>
+            <span class="detalle-ejemplo"><strong>Método 1 (paso a paso):</strong> $P_1 = 500 \cdot 0.90 = 450$. Luego, $P_f = 450 \cdot 0.80 = 360$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">3</span>
+            <span class="detalle-ejemplo"><strong>Método 2 (directo):</strong> $P_f = 500 \cdot 0.90 \cdot 0.80 = 500 \cdot 0.72 = 360$.</span>
+          </div>
+
+          <div class="resultado-ejemplo">
+            El precio final es 360 pesos. Descuento efectivo: 28% (no 30%).
+          </div>
+        </div>
+
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>Si aplicas 10% + 20% en cascada sobre 500 pesos, ¿el descuento efectivo será igual, mayor o menor al 30%?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Será menor al 30%. El descuento efectivo es del 28%. La razón: el segundo descuento se aplica sobre el precio ya rebajado, no sobre el original.</p>
+          </details>
+        </div>
+
+        <div class="caja-interactiva">
+          <h3>Calculadora de descuento en cascada</h3>
+          <p class="instruccion-caja">Calcula el precio final aplicando dos descuentos sucesivos.</p>
+
+          <div class="grupo-inputs">
+            <div class="input-wrapper">
+              <label for="dc-po">Precio original:</label>
+              <input type="text" id="dc-po" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="dc-d1">Primer descuento (%):</label>
+              <input type="text" id="dc-d1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="dc-d2">Segundo descuento (%):</label>
+              <input type="text" id="dc-d2" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper" style="justify-content:flex-end;">
+              <button class="btn-primario" id="btn-cascada">Calcular</button>
+            </div>
+          </div>
+
+          <div class="resultado" id="res-cascada" role="status" aria-live="polite">
+            El resultado aparecerá aquí...
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== DIAPOSITIVA 10: AUMENTO ===================== -->
+      <section class="diapositiva" data-diapo="10">
+        <h2 class="titulo-diapo">Aumento</h2>
+
+        <div class="contenido-teorico">
+          <p>Un <strong>aumento</strong> es un incremento planificado sobre el precio original. Si el precio original es $P_o$ y el aumento es $a\%$, entonces:</p>
+          <ul>
+            <li><strong>Monto del aumento:</strong> $A = P_o \cdot \frac{a}{100}$.</li>
+            <li><strong>Precio final (método 1):</strong> $P_f = P_o + A$.</li>
+            <li><strong>Precio final (método 2, alternativo):</strong> $P_f = P_o \cdot \left(1 + \frac{a}{100}\right)$.</li>
+          </ul>
+          <div class="nota">
+            <strong>Diferencia clave:</strong> el <em>aumento</em> es un incremento planificado sobre un precio. El <em>incremento porcentual</em> mide cuánto cambió realmente una cantidad entre dos momentos.
+          </div>
+        </div>
+
+        <div class="ejemplo-resuelto">
+          <h3>Ejemplo resuelto</h3>
+          <p><strong>Problema:</strong> Un producto cuesta 200 pesos y tiene un aumento del 15%. ¿Cuál es el precio final?</p>
+
+          <div class="paso-ejemplo">
+            <span class="num-paso">1</span>
+            <span class="detalle-ejemplo">Identificamos: $P_o = 200$, $a = 15$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">2</span>
+            <span class="detalle-ejemplo"><strong>Método 1:</strong> $A = 200 \cdot \frac{15}{100} = 30$. Precio final: $200 + 30 = 230$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">3</span>
+            <span class="detalle-ejemplo"><strong>Método 2 (alternativo):</strong> $200 \cdot 1.15 = 230$.</span>
+          </div>
+
+          <div class="resultado-ejemplo">
+            El precio final es 230 pesos (aumento de 30 pesos), por ambos métodos.
+          </div>
+        </div>
+
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>Si un producto de 200 pesos aumenta 15%, ¿el precio final será mayor o menor que 220 pesos?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Será mayor. El 15% de 200 pesos es 30 pesos, así que el precio final es 230 pesos, que es mayor a 220 pesos. El 10% habría dado 220 pesos exactamente.</p>
+          </details>
+        </div>
+
+        <div class="caja-interactiva">
+          <h3>Calculadora de aumento</h3>
+          <p class="instruccion-caja">Calcula el precio final después del aumento.</p>
+
+          <div class="grupo-inputs">
+            <div class="input-wrapper">
+              <label for="aum-po">Precio original:</label>
+              <input type="text" id="aum-po" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="aum-a">Aumento (%):</label>
+              <input type="text" id="aum-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper" style="justify-content:flex-end;">
+              <button class="btn-primario" id="btn-aumento">Calcular</button>
+            </div>
+          </div>
+
+          <div class="resultado" id="res-aumento" role="status" aria-live="polite">
+            El resultado aparecerá aquí...
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== DIAPOSITIVA 11: RESUMEN ===================== -->
+      <section class="diapositiva" data-diapo="11">
+        <h2 class="titulo-diapo">Resumen</h2>
+
+        <div class="tabla-resumen">
+          <h3>Fórmulas clave</h3>
+          <table>
+            <tr><th>Concepto</th><th>Fórmula</th></tr>
+            <tr><td>Razón geométrica</td><td>$r = \frac{a}{b}$, con $b \neq 0$</td></tr>
+            <tr><td>Proporción</td><td>$\frac{a}{b} = \frac{c}{d} \Rightarrow a \cdot d = b \cdot c$</td></tr>
+            <tr><td>Regla de tres directa</td><td>$x = \frac{b \cdot c}{a}$</td></tr>
+            <tr><td>Regla de tres inversa</td><td>$x = \frac{a \cdot b}{c}$</td></tr>
+            <tr><td>Porcentaje (método 1)</td><td>$\frac{p \cdot n}{100}$</td></tr>
+            <tr><td>Porcentaje (método 2)</td><td>$\left(\frac{p}{100}\right) \cdot n$</td></tr>
+            <tr><td>Incremento % (método 1)</td><td>$\frac{V_f - V_i}{V_i} \times 100$</td></tr>
+            <tr><td>Incremento % (método 2)</td><td>$\left(\frac{V_f}{V_i} - 1\right) \times 100$</td></tr>
+            <tr><td>Decremento % (método 1)</td><td>$\frac{V_i - V_f}{V_i} \times 100$</td></tr>
+            <tr><td>Decremento % (método 2)</td><td>$\left(1 - \frac{V_f}{V_i}\right) \times 100$</td></tr>
+            <tr><td>Descuento (método 1)</td><td>$P_f = P_o - P_o \cdot \frac{d}{100}$</td></tr>
+            <tr><td>Descuento (método 2)</td><td>$P_f = P_o \cdot \left(1 - \frac{d}{100}\right)$</td></tr>
+            <tr><td>Descuento en cascada</td><td>$P_f = P_o \cdot \left(1 - \frac{d_1}{100}\right) \cdot \left(1 - \frac{d_2}{100}\right)$</td></tr>
+            <tr><td>Aumento (método 1)</td><td>$P_f = P_o + P_o \cdot \frac{a}{100}$</td></tr>
+            <tr><td>Aumento (método 2)</td><td>$P_f = P_o \cdot \left(1 + \frac{a}{100}\right)$</td></tr>
+          </table>
+        </div>
+
+        <div class="errores-comunes">
+          <h3>Errores comunes</h3>
+          <ul>
+            <li>Confundir razón aritmética con geométrica.</li>
+            <li>Invertir los términos de la proporción (antecedente y consecuente).</li>
+            <li>No convertir el porcentaje a decimal antes de multiplicar.</li>
+            <li>Olvidar que el descuento se aplica sobre el precio original, no sobre el precio ya rebajado.</li>
+            <li>Confundir regla de tres directa con inversa.</li>
+            <li>Sumar descuentos sucesivos como si fueran uno solo (10% + 20% no es 30%).</li>
+            <li>Confundir incremento con aumento: el incremento mide una variación real; el aumento es un incremento planificado.</li>
+            <li>Dividir entre el valor final en lugar del valor inicial al calcular el porcentaje de cambio.</li>
+            <li>Confundir el signo del cambio: si $V_f < V_i$ es un decremento (positivo), no un incremento negativo.</li>
+          </ul>
+        </div>
+
+        <div class="mensaje-cierre">
+          <strong>Siguiente paso:</strong> Abre <code>s01-actividades.html</code> para practicar con la calculadora, la actividad de aprendizaje de 10 casos y el examen de 10 reactivos.
+        </div>
+      </section>
+
+    </main>
+
+    <div class="navegacion">
+      <button id="btnAnterior" disabled aria-label="Diapositiva anterior">Anterior</button>
+      <span id="indicador">Diapositiva 1 de 11</span>
+      <button id="btnSiguiente" aria-label="Diapositiva siguiente">Siguiente</button>
+    </div>
+
+    <div class="footer-info">
+      <strong>Objetivo:</strong> Aplicar razones, proporciones, regla de tres, porcentaje, incremento y decremento porcentual, descuento, descuento en cascada y aumento en la resolución de problemas.
+    </div>
+  </div>
+
+  <script>
+    var estado = {
+      diapoActual: 0,
+      totalDiapos: 0
+    };
+
+    function renderMath(element) {
+      if (!element) return;
+      function intentar() {
+        if (window.MathJax && window.MathJax.startup && window.MathJax.startup.promise) {
+          window.MathJax.startup.promise
+            .then(function () { return window.MathJax.typesetPromise([element]); })
+            .catch(function (err) { console.warn('MathJax typeset falló:', err); });
+        } else {
+          setTimeout(intentar, 100);
+        }
+      }
+      intentar();
+    }
+
+    function limpiarEntradaNumerica(texto) {
+      if (texto == null) return '';
+      return String(texto)
+        .replace(/^[^0-9\/.,+\-−]+/g, '')
+        .replace(/[^0-9\/.,+\-−]/g, '')
+        .trim();
+    }
+
+    function parsearNumero(texto) {
+      if (texto == null) return NaN;
+      texto = limpiarEntradaNumerica(texto);
+      if (texto === '') return NaN;
+      texto = texto.replace(',', '.').replace(/−/g, '-');
+      if (texto.indexOf('/') !== -1) {
+        var p = texto.split('/');
+        if (p.length !== 2) return NaN;
+        var n = parseFloat(p[0]), d = parseFloat(p[1]);
+        if (isNaN(n) || isNaN(d) || d === 0) return NaN;
+        return n / d;
+      }
+      var x = parseFloat(texto);
+      return isNaN(x) ? NaN : x;
+    }
+
+    function formatearNumero(n) {
+      if (Math.abs(n - Math.round(n)) < 1e-9) return Math.round(n).toString();
+      return parseFloat(n.toFixed(4)).toString();
+    }
+
+    function formatearResta(m, n, resultado) {
+      var mStr = formatearNumero(m);
+      var nStr = formatearNumero(n);
+      var rStr = formatearNumero(resultado);
+      if (n < 0) return '$' + mStr + ' - (' + nStr + ') = ' + rStr + '$';
+      return '$' + mStr + ' - ' + nStr + ' = ' + rStr + '$';
+    }
+
+    function algunCampoVacio(ids) {
+      for (var i = 0; i < ids.length; i++) {
+        var el = document.getElementById(ids[i]);
+        if (!el) continue;
+        if (limpiarEntradaNumerica(el.value) === '') return true;
+      }
+      return false;
+    }
+
+    function mostrarDiapo(index) {
+      var diapos = document.querySelectorAll('.diapositiva');
+      diapos.forEach(function (d, i) {
+        d.classList.toggle('activa', i === index);
+      });
+      estado.diapoActual = index;
+
+      var indicador = document.getElementById('indicador');
+      if (indicador) indicador.textContent = 'Diapositiva ' + (index + 1) + ' de ' + estado.totalDiapos;
+
+      var btnAnt = document.getElementById('btnAnterior');
+      var btnSig = document.getElementById('btnSiguiente');
+      if (btnAnt) btnAnt.disabled = (index === 0);
+      if (btnSig) btnSig.disabled = (index === estado.totalDiapos - 1);
+
+      var progreso = ((index + 1) / estado.totalDiapos) * 100;
+      var barra = document.getElementById('progresoBarra');
+      if (barra) barra.style.width = progreso + '%';
+
+      var progEl = document.querySelector('.progreso');
+      if (progEl) progEl.setAttribute('aria-valuenow', Math.round(progreso));
+
+      renderMath(document.getElementById('contenedorDiapositivas'));
+    }
+
+    function iniciarNavegacion() {
+      var diapos = document.querySelectorAll('.diapositiva');
+      estado.totalDiapos = diapos.length;
+
+      var btnAnt = document.getElementById('btnAnterior');
+      var btnSig = document.getElementById('btnSiguiente');
+
+      if (btnAnt) {
+        btnAnt.addEventListener('click', function () {
+          if (estado.diapoActual > 0) mostrarDiapo(estado.diapoActual - 1);
+        });
+      }
+      if (btnSig) {
+        btnSig.addEventListener('click', function () {
+          if (estado.diapoActual < estado.totalDiapos - 1) mostrarDiapo(estado.diapoActual + 1);
+        });
+      }
+
+      document.addEventListener('keydown', function (e) {
+        var tag = (e.target && e.target.tagName) || '';
+        if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+        if (e.key === 'ArrowLeft' && estado.diapoActual > 0) {
+          mostrarDiapo(estado.diapoActual - 1);
+        } else if (e.key === 'ArrowRight' && estado.diapoActual < estado.totalDiapos - 1) {
+          mostrarDiapo(estado.diapoActual + 1);
+        }
+      });
+
+      mostrarDiapo(0);
+    }
+
+    function mostrarResultado(idResultado, html, tipo) {
+      var el = document.getElementById(idResultado);
+      if (!el) return;
+      el.className = 'resultado' + (tipo ? ' ' + tipo : '');
+      el.innerHTML = html;
+      renderMath(el);
+    }
+
+    function mostrarAdvertencia(idResultado, mensaje) {
+      mostrarResultado(idResultado, mensaje, 'advertencia');
+    }
+
+    function mostrarError(idResultado, mensaje) {
+      mostrarResultado(idResultado, mensaje, 'error');
+    }
+
+    function calcularRazon() {
+      var idRes = 'res-razon';
+      if (algunCampoVacio(['razon-a', 'razon-b'])) return mostrarAdvertencia(idRes, 'Completa todos los campos.');
+
+      var tipoEl = document.getElementById('razon-tipo');
+      var tipo = tipoEl ? tipoEl.value : 'geometrica';
+      var a = parsearNumero(document.getElementById('razon-a').value);
+      var b = parsearNumero(document.getElementById('razon-b').value);
+      if (isNaN(a) || isNaN(b)) return mostrarError(idRes, 'Ingresa valores numéricos válidos.');
+
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Datos: antecedente $= ' + formatearNumero(a) + '$, consecuente $= ' + formatearNumero(b) + '$.</span></div>';
+
+      if (tipo === 'geometrica') {
+        if (b === 0) return mostrarError(idRes, 'El consecuente no puede ser cero.');
+        var r = a / b;
+        html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Razón geométrica: $\\frac{' + formatearNumero(a) + '}{' + formatearNumero(b) + '}$.</span></div>';
+        html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Resultado: $\\frac{' + formatearNumero(a) + '}{' + formatearNumero(b) + '} = ' + formatearNumero(r) + '$.</span></div>';
+        html += '<div class="resultado-final">Razón = ' + formatearNumero(r) + '</div>';
+      } else {
+        var d = a - b;
+        html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Razón aritmética: ' + formatearResta(a, b, d) + '.</span></div>';
+        html += '<div class="resultado-final">Razón = ' + formatearNumero(d) + '</div>';
+      }
+      mostrarResultado(idRes, html, 'exito');
+    }
+
+    function verificarProporcion() {
+      var idRes = 'res-proporcion';
+      if (algunCampoVacio(['prop-a', 'prop-b', 'prop-c', 'prop-d'])) return mostrarAdvertencia(idRes, 'Completa los cuatro campos.');
+
+      var a = parsearNumero(document.getElementById('prop-a').value);
+      var b = parsearNumero(document.getElementById('prop-b').value);
+      var c = parsearNumero(document.getElementById('prop-c').value);
+      var d = parsearNumero(document.getElementById('prop-d').value);
+      if (isNaN(a) || isNaN(b) || isNaN(c) || isNaN(d)) return mostrarError(idRes, 'Ingresa valores numéricos válidos.');
+      if (b === 0 || d === 0) return mostrarError(idRes, 'Los denominadores no pueden ser cero.');
+
+      var pE = a * d, pM = b * c;
+      var prop = Math.abs(pE - pM) < 1e-9;
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>$\\frac{' + formatearNumero(a) + '}{' + formatearNumero(b) + '} = \\frac{' + formatearNumero(c) + '}{' + formatearNumero(d) + '}$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Producto de extremos: $' + formatearNumero(a) + ' \\cdot ' + formatearNumero(d) + ' = ' + formatearNumero(pE) + '$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Producto de medios: $' + formatearNumero(b) + ' \\cdot ' + formatearNumero(c) + ' = ' + formatearNumero(pM) + '$.</span></div>';
+      if (prop) {
+        html += '<div class="resultado-final">Son proporcionales: ' + formatearNumero(pE) + ' = ' + formatearNumero(pM) + '</div>';
+      } else {
+        html += '<div class="resultado-final error-final">No son proporcionales: ' + formatearNumero(pE) + ' ≠ ' + formatearNumero(pM) + '</div>';
+      }
+      mostrarResultado(idRes, html, prop ? 'exito' : 'error');
+    }
+
+    function calcularReglaDeTres() {
+      var idRes = 'res-rdt';
+      if (algunCampoVacio(['rdt-a', 'rdt-b', 'rdt-c'])) return mostrarAdvertencia(idRes, 'Completa los tres campos.');
+
+      var tipoEl = document.getElementById('rdt-tipo');
+      var tipo = tipoEl ? tipoEl.value : 'directa';
+      var a = parsearNumero(document.getElementById('rdt-a').value);
+      var b = parsearNumero(document.getElementById('rdt-b').value);
+      var c = parsearNumero(document.getElementById('rdt-c').value);
+      if (isNaN(a) || isNaN(b) || isNaN(c)) return mostrarError(idRes, 'Ingresa valores numéricos válidos.');
+
+      var html = '';
+      if (tipo === 'directa') {
+        if (a === 0) return mostrarError(idRes, 'El valor de a no puede ser cero.');
+        var x = (b * c) / a;
+        html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Regla de tres directa: $\\frac{' + formatearNumero(a) + '}{' + formatearNumero(b) + '} = \\frac{' + formatearNumero(c) + '}{x}$.</span></div>';
+        html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Producto cruzado: $' + formatearNumero(a) + ' \\cdot x = ' + formatearNumero(b * c) + '$.</span></div>';
+        html += '<div class="paso-resultado"><span class="num-paso">3</span><span>$x = \\frac{' + formatearNumero(b * c) + '}{' + formatearNumero(a) + '} = ' + formatearNumero(x) + '$.</span></div>';
+        html += '<div class="resultado-final">$x = ' + formatearNumero(x) + '$</div>';
+      } else {
+        if (c === 0) return mostrarError(idRes, 'El valor de c no puede ser cero.');
+        var x2 = (a * b) / c;
+        html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Regla de tres inversa: $' + formatearNumero(a) + ' \\cdot ' + formatearNumero(b) + ' = ' + formatearNumero(c) + ' \\cdot x$.</span></div>';
+        html += '<div class="paso-resultado"><span class="num-paso">2</span><span>$' + formatearNumero(a * b) + ' = ' + formatearNumero(c) + ' \\cdot x$.</span></div>';
+        html += '<div class="paso-resultado"><span class="num-paso">3</span><span>$x = \\frac{' + formatearNumero(a * b) + '}{' + formatearNumero(c) + '} = ' + formatearNumero(x2) + '$.</span></div>';
+        html += '<div class="resultado-final">$x = ' + formatearNumero(x2) + '$</div>';
+      }
+      mostrarResultado(idRes, html, 'exito');
+    }
+
+    function calcularPorcentaje() {
+      var idRes = 'res-porcentaje';
+      if (algunCampoVacio(['pct-p', 'pct-n'])) return mostrarAdvertencia(idRes, 'Completa ambos campos.');
+
+      var p = parsearNumero(document.getElementById('pct-p').value);
+      var n = parsearNumero(document.getElementById('pct-n').value);
+      if (isNaN(p) || isNaN(n)) return mostrarError(idRes, 'Ingresa valores numéricos válidos.');
+
+      var r = (p * n) / 100;
+      var pDecimal = p / 100;
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span><strong>Método 1 (fórmula):</strong> $\\frac{p \\cdot n}{100} = \\frac{' + formatearNumero(p) + ' \\cdot ' + formatearNumero(n) + '}{100} = ' + formatearNumero(r) + '$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span><strong>Método 2 (alternativo):</strong> $' + formatearNumero(pDecimal) + ' \\times ' + formatearNumero(n) + ' = ' + formatearNumero(r) + '$.</span></div>';
+      html += '<div class="resultado-final">' + formatearNumero(p) + '% de ' + formatearNumero(n) + ' = ' + formatearNumero(r) + '</div>';
+      mostrarResultado(idRes, html, 'exito');
+    }
+
+    function calcularIncremento() {
+      var idRes = 'res-incremento';
+      if (algunCampoVacio(['inc-vi', 'inc-vf'])) return mostrarAdvertencia(idRes, 'Completa ambos campos.');
+
+      var vi = parsearNumero(document.getElementById('inc-vi').value);
+      var vf = parsearNumero(document.getElementById('inc-vf').value);
+      if (isNaN(vi) || isNaN(vf)) return mostrarError(idRes, 'Ingresa valores numéricos válidos.');
+      if (vi === 0) return mostrarError(idRes, 'El valor inicial no puede ser cero.');
+      if (vf <= vi) return mostrarError(idRes, 'El valor final debe ser mayor que el inicial para un incremento. Si es menor, usa la calculadora de decremento.');
+
+      var dif = vf - vi;
+      var inc = (dif / vi) * 100;
+      var factor = vf / vi;
+
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Datos: $V_i = ' + formatearNumero(vi) + '$, $V_f = ' + formatearNumero(vf) + '$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span><strong>Método 1 (fórmula):</strong> $\\frac{V_f - V_i}{V_i} \\times 100 = \\frac{' + formatearNumero(dif) + '}{' + formatearNumero(vi) + '} \\times 100 = ' + formatearNumero(inc) + '\\%$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span><strong>Método 2 (alternativo):</strong> $(' + formatearNumero(factor) + ' - 1) \\times 100 = ' + formatearNumero(inc) + '\\%$.</span></div>';
+      html += '<div class="resultado-final">Incremento = ' + formatearNumero(inc) + '%</div>';
+      mostrarResultado(idRes, html, 'exito');
+    }
+
+    function calcularDecremento() {
+      var idRes = 'res-decremento';
+      if (algunCampoVacio(['dec-vi', 'dec-vf'])) return mostrarAdvertencia(idRes, 'Completa ambos campos.');
+
+      var vi = parsearNumero(document.getElementById('dec-vi').value);
+      var vf = parsearNumero(document.getElementById('dec-vf').value);
+      if (isNaN(vi) || isNaN(vf)) return mostrarError(idRes, 'Ingresa valores numéricos válidos.');
+      if (vi === 0) return mostrarError(idRes, 'El valor inicial no puede ser cero.');
+      if (vf >= vi) return mostrarError(idRes, 'El valor final debe ser menor que el inicial para un decremento. Si es mayor, usa la calculadora de incremento.');
+
+      var dif = vi - vf;
+      var dec = (dif / vi) * 100;
+      var factor = vf / vi;
+
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Datos: $V_i = ' + formatearNumero(vi) + '$, $V_f = ' + formatearNumero(vf) + '$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span><strong>Método 1 (fórmula):</strong> $\\frac{V_i - V_f}{V_i} \\times 100 = \\frac{' + formatearNumero(dif) + '}{' + formatearNumero(vi) + '} \\times 100 = ' + formatearNumero(dec) + '\\%$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span><strong>Método 2 (alternativo):</strong> $(1 - ' + formatearNumero(factor) + ') \\times 100 = ' + formatearNumero(dec) + '\\%$.</span></div>';
+      html += '<div class="resultado-final">Decremento = ' + formatearNumero(dec) + '%</div>';
+      mostrarResultado(idRes, html, 'exito');
+    }
+
+    function calcularDescuento() {
+      var idRes = 'res-descuento';
+      if (algunCampoVacio(['desc-po', 'desc-d'])) return mostrarAdvertencia(idRes, 'Completa ambos campos.');
+
+      var po = parsearNumero(document.getElementById('desc-po').value);
+      var d = parsearNumero(document.getElementById('desc-d').value);
+      if (isNaN(po) || isNaN(d)) return mostrarError(idRes, 'Ingresa valores numéricos válidos.');
+      if (d < 0 || d > 100) return mostrarError(idRes, 'El descuento debe estar entre 0 y 100.');
+
+      var monto = po * (d / 100);
+      var pf = po - monto;
+      var factor = (100 - d) / 100;
+
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Precio original: ' + formatearNumero(po) + ' pesos, descuento: ' + formatearNumero(d) + '%.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span><strong>Método 1:</strong> monto del descuento: $' + formatearNumero(po) + ' \\cdot \\frac{' + formatearNumero(d) + '}{100} = ' + formatearNumero(monto) + '$. Precio final: ' + formatearResta(po, monto, pf) + '.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span><strong>Método 2 (alternativo):</strong> $' + formatearNumero(po) + ' \\times ' + formatearNumero(factor) + ' = ' + formatearNumero(pf) + '$.</span></div>';
+      html += '<div class="resultado-final">Precio final: ' + formatearNumero(pf) + ' pesos (ahorro: ' + formatearNumero(monto) + ' pesos)</div>';
+      mostrarResultado(idRes, html, 'exito');
+    }
+
+    function calcularCascada() {
+      var idRes = 'res-cascada';
+      if (algunCampoVacio(['dc-po', 'dc-d1', 'dc-d2'])) return mostrarAdvertencia(idRes, 'Completa los tres campos.');
+
+      var po = parsearNumero(document.getElementById('dc-po').value);
+      var d1 = parsearNumero(document.getElementById('dc-d1').value);
+      var d2 = parsearNumero(document.getElementById('dc-d2').value);
+      if (isNaN(po) || isNaN(d1) || isNaN(d2)) return mostrarError(idRes, 'Ingresa valores numéricos válidos.');
+      if (d1 < 0 || d1 > 100 || d2 < 0 || d2 > 100) return mostrarError(idRes, 'Cada descuento debe estar entre 0 y 100.');
+
+      var factor1 = (100 - d1) / 100;
+      var factor2 = (100 - d2) / 100;
+      var p1 = po * factor1;
+      var pf = p1 * factor2;
+      var descTotal = po - pf;
+      var pctEfectivo = (descTotal / po) * 100;
+
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Precio original: ' + formatearNumero(po) + ' pesos.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span><strong>Primer descuento (' + formatearNumero(d1) + '%):</strong> $' + formatearNumero(po) + ' \\times ' + formatearNumero(factor1) + ' = ' + formatearNumero(p1) + '$ pesos.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span><strong>Segundo descuento (' + formatearNumero(d2) + '%):</strong> $' + formatearNumero(p1) + ' \\times ' + formatearNumero(factor2) + ' = ' + formatearNumero(pf) + '$ pesos.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">4</span><span><strong>Método directo:</strong> $' + formatearNumero(po) + ' \\times ' + formatearNumero(factor1) + ' \\times ' + formatearNumero(factor2) + ' = ' + formatearNumero(pf) + '$ pesos.</span></div>';
+      html += '<div class="resultado-final">Precio final: ' + formatearNumero(pf) + ' pesos | Descuento efectivo: ' + formatearNumero(pctEfectivo) + '% (ahorro: ' + formatearNumero(descTotal) + ' pesos)</div>';
+      mostrarResultado(idRes, html, 'exito');
+    }
+
+    function calcularAumento() {
+      var idRes = 'res-aumento';
+      if (algunCampoVacio(['aum-po', 'aum-a'])) return mostrarAdvertencia(idRes, 'Completa ambos campos.');
+
+      var po = parsearNumero(document.getElementById('aum-po').value);
+      var a = parsearNumero(document.getElementById('aum-a').value);
+      if (isNaN(po) || isNaN(a)) return mostrarError(idRes, 'Ingresa valores numéricos válidos.');
+      if (a < 0) return mostrarError(idRes, 'El aumento no puede ser negativo.');
+
+      var monto = po * (a / 100);
+      var pf = po + monto;
+      var factor = (100 + a) / 100;
+
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Precio original: ' + formatearNumero(po) + ' pesos, aumento: ' + formatearNumero(a) + '%.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span><strong>Método 1:</strong> monto del aumento: $' + formatearNumero(po) + ' \\cdot \\frac{' + formatearNumero(a) + '}{100} = ' + formatearNumero(monto) + '$. Precio final: $' + formatearNumero(po) + ' + ' + formatearNumero(monto) + ' = ' + formatearNumero(pf) + '$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span><strong>Método 2 (alternativo):</strong> $' + formatearNumero(po) + ' \\times ' + formatearNumero(factor) + ' = ' + formatearNumero(pf) + '$.</span></div>';
+      html += '<div class="resultado-final">Precio final: ' + formatearNumero(pf) + ' pesos (aumento: ' + formatearNumero(monto) + ' pesos)</div>';
+      mostrarResultado(idRes, html, 'exito');
+    }
+
+    function iniciarCajasInteractivas() {
+      var btnRazon = document.getElementById('btn-razon');
+      if (btnRazon) btnRazon.addEventListener('click', calcularRazon);
+
+      var btnProp = document.getElementById('btn-proporcion');
+      if (btnProp) btnProp.addEventListener('click', verificarProporcion);
+
+      var btnRdt = document.getElementById('btn-rdt');
+      if (btnRdt) btnRdt.addEventListener('click', calcularReglaDeTres);
+
+      var btnPct = document.getElementById('btn-porcentaje');
+      if (btnPct) btnPct.addEventListener('click', calcularPorcentaje);
+
+      var btnInc = document.getElementById('btn-incremento');
+      if (btnInc) btnInc.addEventListener('click', calcularIncremento);
+
+      var btnDec = document.getElementById('btn-decremento');
+      if (btnDec) btnDec.addEventListener('click', calcularDecremento);
+
+      var btnDesc = document.getElementById('btn-descuento');
+      if (btnDesc) btnDesc.addEventListener('click', calcularDescuento);
+
+      var btnCascada = document.getElementById('btn-cascada');
+      if (btnCascada) btnCascada.addEventListener('click', calcularCascada);
+
+      var btnAum = document.getElementById('btn-aumento');
+      if (btnAum) btnAum.addEventListener('click', calcularAumento);
+
+      var paresEnter = [
+        { ids: ['razon-a', 'razon-b'], fn: calcularRazon },
+        { ids: ['prop-a', 'prop-b', 'prop-c', 'prop-d'], fn: verificarProporcion },
+        { ids: ['rdt-a', 'rdt-b', 'rdt-c'], fn: calcularReglaDeTres },
+        { ids: ['pct-p', 'pct-n'], fn: calcularPorcentaje },
+        { ids: ['inc-vi', 'inc-vf'], fn: calcularIncremento },
+        { ids: ['dec-vi', 'dec-vf'], fn: calcularDecremento },
+        { ids: ['desc-po', 'desc-d'], fn: calcularDescuento },
+        { ids: ['dc-po', 'dc-d1', 'dc-d2'], fn: calcularCascada },
+        { ids: ['aum-po', 'aum-a'], fn: calcularAumento }
+      ];
+
+      paresEnter.forEach(function (par) {
+        par.ids.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (!el) return;
+          el.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') { e.preventDefault(); par.fn(); }
+          });
+        });
+      });
+    }
+
+    function iniciarRecurso() {
+      iniciarNavegacion();
+      iniciarCajasInteractivas();
+      renderMath(document.body);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', iniciarRecurso);
+    } else {
+      iniciarRecurso();
+    }
+  </script>
+</body>
+</html>

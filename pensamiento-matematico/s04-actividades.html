@@ -1,0 +1,2539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="tipo-recurso" content="Actividades interactivas">
+  <title>Actividades: Inecuaciones lineales | EXANI-II</title>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root {
+      --exani-azul: #1B7FC4;
+      --exani-azul-marino: #003865;
+      --exani-verde: #8BC34A;
+      --exani-blanco: #FFFFFF;
+      --exani-gris-oscuro: #333333;
+      --exani-gris-claro: #E0E0E0;
+      --exani-fondo: #FFFFFF;
+      --exani-fondo-secundario: #F5F5F5;
+      --exani-texto: #333333;
+      --exani-texto-secundario: #666666;
+      --exani-borde: #E0E0E0;
+      --exani-acierto: #8BC34A;
+      --exani-error: #D9534F;
+      --exani-advertencia: #FF6A14;
+      --radio-borde: 12px;
+      --sombra-suave: 0 4px 6px rgba(0, 56, 101, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--exani-fondo);
+      color: var(--exani-texto);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .contenedor { max-width: 1200px; margin: 0 auto; padding-bottom: 40px; }
+    header {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      padding: 22px 28px 24px;
+      text-align: center;
+    }
+    header .institucion {
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+    header p { font-size: 0.98rem; opacity: 0.95; }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.7rem; }
+    }
+    .tabs {
+      display: flex;
+      background: var(--exani-fondo-secundario);
+      border-bottom: 2px solid var(--exani-borde);
+      margin: 0;
+    }
+    .tab {
+      flex: 1;
+      padding: 14px 20px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--exani-texto-secundario);
+      transition: all 0.2s;
+      border-bottom: 3px solid transparent;
+    }
+    .tab:hover { background: var(--exani-blanco); color: var(--exani-azul); }
+    .tab.activo {
+      color: var(--exani-azul);
+      border-bottom-color: var(--exani-azul);
+      background: var(--exani-blanco);
+    }
+    .seccion { display: none; padding: 24px 20px; }
+    .seccion.activa { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 { color: var(--exani-azul-marino); margin-bottom: 16px; font-size: 1.5rem; }
+    h3 { color: var(--exani-azul-marino); margin: 16px 0 10px; font-size: 1.15rem; }
+    .layout-calculadora {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 20px;
+    }
+    @media (max-width: 900px) {
+      .layout-calculadora { grid-template-columns: 1fr; }
+    }
+    .panel-control, .panel-desarrollo {
+      background: var(--exani-fondo-secundario);
+      padding: 20px;
+      border-radius: var(--radio-borde);
+      border: 1px solid var(--exani-borde);
+    }
+    .input-group { margin-bottom: 12px; }
+    .input-group label {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--exani-texto-secundario);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .input-group input, .input-group select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--exani-borde);
+      border-radius: 6px;
+      font-size: 1rem;
+      background: var(--exani-blanco);
+      transition: border-color 0.2s;
+    }
+    .input-group input:focus, .input-group select:focus {
+      outline: none;
+      border-color: var(--exani-azul);
+      box-shadow: 0 0 0 2px rgba(27, 127, 196, 0.15);
+    }
+    .campos { display: none; }
+    .campos.activos { display: block; }
+    .fila-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .btn-primario {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      border: none;
+      padding: 11px 22px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+      margin-top: 8px;
+    }
+    .btn-primario:hover { background: var(--exani-azul-marino); }
+    .btn-secundario {
+      background: var(--exani-blanco);
+      color: var(--exani-azul);
+      border: 1px solid var(--exani-azul);
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 8px;
+      transition: all 0.2s;
+    }
+    .btn-secundario:hover { background: var(--exani-azul); color: var(--exani-blanco); }
+    .ejemplos-rapidos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .ejemplo-btn {
+      background: var(--exani-blanco);
+      border: 1px solid var(--exani-azul);
+      color: var(--exani-azul);
+      padding: 6px 11px;
+      border-radius: 6px;
+      font-size: 0.83rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ejemplo-btn:hover { background: var(--exani-azul); color: var(--exani-blanco); }
+    .panel-desarrollo {
+      background: var(--exani-blanco);
+      min-height: 400px;
+    }
+    .placeholder-inicial {
+      text-align: center;
+      color: var(--exani-texto-secundario);
+      padding: 40px 20px;
+      font-style: italic;
+    }
+    .paso {
+      display: flex;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--exani-fondo-secundario);
+      border-radius: 6px;
+      margin-bottom: 8px;
+      align-items: flex-start;
+    }
+    .cuerpo-paso {
+      flex: 1;
+      min-width: 0;
+    }
+    .detalle-paso {
+      overflow-x: hidden;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      font-size: 0.95rem;
+    }
+    .num-paso {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .resultado-final {
+      margin-top: 12px;
+      padding: 14px 18px;
+      background: var(--exani-verde);
+      color: var(--exani-blanco);
+      border-radius: 6px;
+      font-weight: 600;
+      text-align: center;
+      font-size: 1.05rem;
+    }
+    .barra-progreso-general {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding: 12px 16px;
+      background: var(--exani-fondo-secundario);
+      border-radius: var(--radio-borde);
+    }
+    .texto-progreso {
+      font-size: 0.9rem;
+      color: var(--exani-texto-secundario);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .progreso-track {
+      flex: 1;
+      height: 8px;
+      background: var(--exani-gris-claro);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progreso-fill {
+      height: 100%;
+      background: var(--exani-verde);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .tarjeta-caso {
+      background: var(--exani-blanco);
+      border: 1px solid var(--exani-borde);
+      border-radius: var(--radio-borde);
+      padding: 22px;
+      box-shadow: var(--sombra-suave);
+    }
+    .meta-caso {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--exani-borde);
+    }
+    .numero-caso {
+      font-weight: 700;
+      color: var(--exani-azul-marino);
+      font-size: 1.05rem;
+    }
+    .nivel-caso {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .nivel-caso.basico { background: #E8F5E9; color: #2E7D32; }
+    .nivel-caso.medio { background: #E3F2FD; color: #1565C0; }
+    .nivel-caso.alto { background: #FFF3E0; color: #E65100; }
+    .enunciado {
+      background: var(--exani-fondo-secundario);
+      padding: 14px 18px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      border-left: 4px solid var(--exani-azul);
+    }
+    .etiqueta-caso {
+      font-size: 0.75rem;
+      color: var(--exani-texto-secundario);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    #textoEnunciado { font-size: 1rem; line-height: 1.6; }
+    .expresion-caso {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      text-align: center;
+      padding: 8px;
+      background: var(--exani-blanco);
+      border-radius: 4px;
+    }
+    .expresion-caso:empty { display: none; }
+    .fase {
+      margin-top: 18px;
+      padding: 16px;
+      background: var(--exani-fondo-secundario);
+      border-radius: 6px;
+      border: 1px solid var(--exani-borde);
+    }
+    .fase h3 {
+      color: var(--exani-azul-marino);
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+    .anticipa {
+      background: #F0F8FE;
+      border-left: 4px solid var(--exani-azul);
+      border-radius: var(--radio-borde);
+      padding: 14px 18px;
+      margin: 16px 0;
+    }
+    .anticipa h4 {
+      color: var(--exani-azul-marino);
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+    .anticipa p { font-size: 0.92rem; margin-bottom: 8px; }
+    .anticipa details { margin-top: 6px; font-size: 0.9rem; }
+    .anticipa summary {
+      cursor: pointer;
+      color: var(--exani-azul);
+      font-weight: 600;
+      padding: 4px 0;
+    }
+    .anticipa summary:hover { color: var(--exani-azul-marino); text-decoration: underline; }
+    .anticipa details p {
+      margin-top: 8px;
+      padding: 10px 12px;
+      background: var(--exani-blanco);
+      border-radius: 6px;
+    }
+    .opciones-fase {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 10px 0;
+    }
+    .opcion-btn {
+      background: var(--exani-blanco);
+      border: 2px solid var(--exani-borde);
+      padding: 10px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .opcion-btn:hover:not(:disabled) {
+      border-color: var(--exani-azul);
+      background: #F0F8FE;
+    }
+    .opcion-btn.correcta {
+      border-color: var(--exani-verde);
+      background: #E8F5E9;
+      color: #2E7D32;
+      font-weight: 600;
+    }
+    .opcion-btn.incorrecta {
+      border-color: var(--exani-error);
+      background: #FFEBEE;
+      color: var(--exani-error);
+    }
+    .opcion-btn:disabled { cursor: not-allowed; }
+    .feedback {
+      margin-top: 10px;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 0.93rem;
+      min-height: 20px;
+    }
+    .feedback.exito {
+      background: #E8F5E9;
+      border-left: 4px solid var(--exani-verde);
+      color: #2E7D32;
+    }
+    .feedback.error {
+      background: #FFEBEE;
+      border-left: 4px solid var(--exani-error);
+      color: var(--exani-error);
+    }
+    .feedback.advertencia {
+      background: #FFF3E0;
+      border-left: 4px solid var(--exani-advertencia);
+      color: var(--exani-advertencia);
+    }
+    .intentos {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--exani-texto-secundario);
+      font-style: italic;
+    }
+    .acciones-fase {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-pista {
+      background: var(--exani-blanco);
+      color: var(--exani-advertencia);
+      border: 1px solid var(--exani-advertencia);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-pista:hover { background: var(--exani-advertencia); color: var(--exani-blanco); }
+    .btn-verificar {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-verificar:hover { background: var(--exani-azul-marino); }
+    .btn-verificar:disabled {
+      background: var(--exani-gris-claro);
+      color: var(--exani-texto-secundario);
+      cursor: not-allowed;
+    }
+    .navegacion-casos {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--exani-borde);
+    }
+    .btn-navegacion {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      border: none;
+      padding: 9px 18px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-navegacion.secundario {
+      background: var(--exani-blanco);
+      color: var(--exani-azul);
+      border: 1px solid var(--exani-azul);
+    }
+    .btn-navegacion:disabled {
+      background: var(--exani-gris-claro);
+      color: var(--exani-texto-secundario);
+      cursor: not-allowed;
+      border-color: var(--exani-gris-claro);
+    }
+    .indicador-caso {
+      font-weight: 600;
+      color: var(--exani-azul-marino);
+      font-size: 0.9rem;
+    }
+    .pantalla-final {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+      background: var(--exani-fondo-secundario);
+      border-radius: var(--radio-borde);
+      margin-top: 20px;
+    }
+    .pantalla-final.activa { display: block; }
+    .medalla { font-size: 4rem; margin-bottom: 10px; }
+    .puntaje-final {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--exani-azul-marino);
+      margin: 10px 0;
+    }
+    .progress-container {
+      background: var(--exani-gris-claro);
+      height: 6px;
+      border-radius: 3px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      background: var(--exani-verde);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .quiz-view { display: block; }
+    .question-meta {
+      font-size: 0.85rem;
+      color: var(--exani-texto-secundario);
+      margin-bottom: 6px;
+    }
+    .question-tipo {
+      display: inline-block;
+      padding: 3px 10px;
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .question-text {
+      font-size: 1.05rem;
+      margin-bottom: 16px;
+      padding: 14px;
+      background: var(--exani-fondo-secundario);
+      border-radius: 6px;
+      border-left: 4px solid var(--exani-azul);
+    }
+    .options-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .option-item {
+      background: var(--exani-blanco);
+      border: 2px solid var(--exani-borde);
+      padding: 12px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+    }
+    .option-item:hover:not(.disabled) {
+      border-color: var(--exani-azul);
+      background: #F0F8FE;
+    }
+    .option-item.correcta {
+      border-color: var(--exani-verde);
+      background: #E8F5E9;
+      color: #2E7D32;
+      font-weight: 600;
+    }
+    .option-item.incorrecta {
+      border-color: var(--exani-error);
+      background: #FFEBEE;
+      color: var(--exani-error);
+    }
+    .option-item.disabled { cursor: not-allowed; opacity: 0.85; }
+    .feedback-box {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 6px;
+      font-size: 0.93rem;
+      min-height: 20px;
+    }
+    .feedback-box.exito {
+      background: #E8F5E9;
+      border-left: 4px solid var(--exani-verde);
+      color: #2E7D32;
+    }
+    .feedback-box.error {
+      background: #FFEBEE;
+      border-left: 4px solid var(--exani-error);
+      color: var(--exani-error);
+    }
+    .btn-next, .btn-restart {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      border: none;
+      padding: 11px 22px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn-next:hover, .btn-restart:hover { background: var(--exani-azul-marino); }
+    .btn-next:disabled {
+      background: var(--exani-gris-claro);
+      color: var(--exani-texto-secundario);
+      cursor: not-allowed;
+    }
+    .results-view {
+      display: none;
+      text-align: center;
+      padding: 30px 20px;
+      background: var(--exani-fondo-secundario);
+      border-radius: var(--radio-borde);
+    }
+    .results-view.activa { display: block; }
+    .score-display {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--exani-azul-marino);
+      margin: 16px 0;
+    }
+    .results-message {
+      font-size: 1rem;
+      color: var(--exani-texto);
+      margin-bottom: 16px;
+    }
+    .footer-info {
+      text-align: center;
+      padding: 16px 20px;
+      color: var(--exani-texto-secundario);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--exani-borde);
+      margin-top: 20px;
+    }
+    canvas {
+      display: block;
+      max-width: 100%;
+      margin: 14px auto;
+      background: var(--exani-blanco);
+      border: 1px solid var(--exani-borde);
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <header>
+      <div class="institucion">Pensamiento Matemático</div>
+      <h1>EXANI-II</h1>
+      <p>Actividades: Inecuaciones lineales</p>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab activo" data-tab="calculadora" role="tab" aria-selected="true" aria-controls="seccion-calculadora">Calculadora</button>
+      <button class="tab" data-tab="actividad" role="tab" aria-selected="false" aria-controls="seccion-actividad">Actividad</button>
+      <button class="tab" data-tab="examen" role="tab" aria-selected="false" aria-controls="seccion-examen">Examen</button>
+    </nav>
+
+    <!-- SECCIÓN 1: CALCULADORA -->
+    <section id="seccion-calculadora" class="seccion activa" role="tabpanel">
+      <div class="layout-calculadora">
+        <div class="panel-control">
+          <h2>Calculadora</h2>
+          <div class="input-group">
+            <label for="tipo-operacion">Tipo de operación:</label>
+            <select id="tipo-operacion">
+              <option value="basica">Inecuación básica</option>
+              <option value="ambos">Variable en ambos miembros</option>
+              <option value="parentesis">Con paréntesis</option>
+              <option value="fraccion">Con fracciones</option>
+              <option value="verificar">Verificar solución</option>
+              <option value="graficar">Graficar en recta</option>
+            </select>
+          </div>
+
+          <!-- Campos: básica ax+b □ c -->
+          <div id="campos-basica" class="campos activos">
+            <div class="fila-inputs">
+              <div class="input-group">
+                <label for="bas-a">Coeficiente a:</label>
+                <input type="text" id="bas-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+              </div>
+              <div class="input-group">
+                <label for="bas-b">Término b:</label>
+                <input type="text" id="bas-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="bas-simbolo">Símbolo:</label>
+              <select id="bas-simbolo">
+                <option value="<">&lt;</option>
+                <option value="≤">≤</option>
+                <option value=">">&gt;</option>
+                <option value="≥">≥</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="bas-c">Término c:</label>
+              <input type="text" id="bas-c" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+          </div>
+
+          <!-- Campos: ambos miembros ax+b □ cx+d -->
+          <div id="campos-ambos" class="campos">
+            <div class="fila-inputs">
+              <div class="input-group">
+                <label for="amb-a">Coeficiente a:</label>
+                <input type="text" id="amb-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+              </div>
+              <div class="input-group">
+                <label for="amb-b">Término b:</label>
+                <input type="text" id="amb-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="amb-simbolo">Símbolo:</label>
+              <select id="amb-simbolo">
+                <option value="<">&lt;</option>
+                <option value="≤">≤</option>
+                <option value=">">&gt;</option>
+                <option value="≥">≥</option>
+              </select>
+            </div>
+            <div class="fila-inputs">
+              <div class="input-group">
+                <label for="amb-c">Coeficiente c:</label>
+                <input type="text" id="amb-c" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+              </div>
+              <div class="input-group">
+                <label for="amb-d">Término d:</label>
+                <input type="text" id="amb-d" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+              </div>
+            </div>
+          </div>
+
+          <!-- Campos: paréntesis a(x+b) + cx □ d -->
+          <div id="campos-parentesis" class="campos">
+            <div class="fila-inputs">
+              <div class="input-group">
+                <label for="par-a">Coef. del paréntesis:</label>
+                <input type="text" id="par-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+              </div>
+              <div class="input-group">
+                <label for="par-b">Término dentro:</label>
+                <input type="text" id="par-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+              </div>
+            </div>
+            <div class="fila-inputs">
+              <div class="input-group">
+                <label for="par-c">Coef. de x suelto:</label>
+                <input type="text" id="par-c" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+              </div>
+              <div class="input-group">
+                <label for="par-simbolo">Símbolo:</label>
+                <select id="par-simbolo">
+                  <option value="<">&lt;</option>
+                  <option value="≤">≤</option>
+                  <option value=">">&gt;</option>
+                  <option value="≥">≥</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="par-d">Término independiente:</label>
+              <input type="text" id="par-d" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+          </div>
+
+          <!-- Campos: fracción (ax+b)/c □ d -->
+          <div id="campos-fraccion" class="campos">
+            <div class="fila-inputs">
+              <div class="input-group">
+                <label for="fra-a">Coef. del numerador:</label>
+                <input type="text" id="fra-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+              </div>
+              <div class="input-group">
+                <label for="fra-b">Término del numerador:</label>
+                <input type="text" id="fra-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+              </div>
+            </div>
+            <div class="fila-inputs">
+              <div class="input-group">
+                <label for="fra-c">Denominador:</label>
+                <input type="text" id="fra-c" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+              </div>
+              <div class="input-group">
+                <label for="fra-simbolo">Símbolo:</label>
+                <select id="fra-simbolo">
+                  <option value="<">&lt;</option>
+                  <option value="≤">≤</option>
+                  <option value=">">&gt;</option>
+                  <option value="≥">≥</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="fra-d">Término independiente:</label>
+              <input type="text" id="fra-d" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+          </div>
+
+          <!-- Campos: verificar -->
+          <div id="campos-verificar" class="campos">
+            <div class="fila-inputs">
+              <div class="input-group">
+                <label for="ver-x">Valor de x:</label>
+                <input type="text" id="ver-x" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+              </div>
+              <div class="input-group">
+                <label for="ver-a">Coeficiente a:</label>
+                <input type="text" id="ver-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+              </div>
+            </div>
+            <div class="fila-inputs">
+              <div class="input-group">
+                <label for="ver-b">Término b:</label>
+                <input type="text" id="ver-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+              </div>
+              <div class="input-group">
+                <label for="ver-simbolo">Símbolo:</label>
+                <select id="ver-simbolo">
+                  <option value="<">&lt;</option>
+                  <option value="≤">≤</option>
+                  <option value=">">&gt;</option>
+                  <option value="≥">≥</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="ver-c">Término c:</label>
+              <input type="text" id="ver-c" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+          </div>
+
+          <!-- Campos: graficar -->
+          <div id="campos-graficar" class="campos">
+            <div class="input-group">
+              <label for="graf-simbolo">Símbolo:</label>
+              <select id="graf-simbolo">
+                <option value="<">&lt;</option>
+                <option value="≤">≤</option>
+                <option value=">">&gt;</option>
+                <option value="≥">≥</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="graf-a">Valor crítico:</label>
+              <input type="text" id="graf-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+          </div>
+
+          <button class="btn-primario" id="btn-calcular">Calcular</button>
+          <button class="btn-secundario" id="btn-reiniciar-calc">Reiniciar</button>
+
+          <h3>Ejemplos</h3>
+          <div class="ejemplos-rapidos">
+            <button class="ejemplo-btn" data-ejemplo="basica">4x − 5 ≤ 11</button>
+            <button class="ejemplo-btn" data-ejemplo="ambos">5x − 3 &lt; 2x + 9</button>
+            <button class="ejemplo-btn" data-ejemplo="parentesis">3(x − 2) + 5x &gt; 14</button>
+            <button class="ejemplo-btn" data-ejemplo="fraccion">(2x − 1)/3 ≥ 3</button>
+            <button class="ejemplo-btn" data-ejemplo="verificar">x = 6 en 2x − 3 &gt; 7</button>
+            <button class="ejemplo-btn" data-ejemplo="graficar">x ≥ −2</button>
+          </div>
+        </div>
+
+        <div class="panel-desarrollo">
+          <h2>Desarrollo paso a paso</h2>
+          <div id="desarrollo-calc">
+            <div class="placeholder-inicial">
+              Selecciona el tipo de operación, ingresa los datos y presiona "Calcular".
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: ACTIVIDAD -->
+    <section id="seccion-actividad" class="seccion" role="tabpanel">
+      <div class="barra-progreso-general">
+        <span class="texto-progreso" id="progresoTexto">Caso 1 de 10</span>
+        <div class="progreso-track">
+          <div class="progreso-fill" id="progresoFill" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+        </div>
+        <span class="texto-progreso" id="progresoPuntaje">0 / 10</span>
+      </div>
+
+      <div class="tarjeta-caso" id="tarjetaCaso">
+        <div class="meta-caso">
+          <div class="numero-caso" id="numeroCaso">Caso 1 de 10</div>
+          <div class="nivel-caso basico" id="nivelCaso">Básico</div>
+        </div>
+        <div class="enunciado">
+          <div class="etiqueta-caso" id="etiquetaCaso">Caso</div>
+          <div id="textoEnunciado">Cargando caso...</div>
+          <div class="expresion-caso" id="expresionCaso"></div>
+        </div>
+
+        <!-- Fase 1 -->
+        <div class="fase" id="fase1">
+          <h3>Fase 1 — Diagnóstico</h3>
+          <div class="anticipa">
+            <h4>Anticipa el resultado</h4>
+            <p>Antes de responder, ¿qué tipo de operación crees que se necesita aquí?</p>
+            <details>
+              <summary>Ver respuesta</summary>
+              <p>Lee con atención el enunciado y busca palabras clave que indiquen el tipo de inecuación.</p>
+            </details>
+          </div>
+          <p id="preguntaFase1"></p>
+          <div class="opciones-fase" id="opcionesFase1"></div>
+          <div class="feedback" id="feedbackFase1"></div>
+          <div class="intentos" id="intentosFase1">Intento 1 de 3</div>
+        </div>
+
+        <!-- Fase 2 -->
+        <div class="fase" id="fase2" style="display:none;">
+          <h3>Fase 2 — Estrategia</h3>
+          <div class="anticipa">
+            <h4>Anticipa el resultado</h4>
+            <p>¿Qué valor intermedio obtendrás al aplicar el primer paso?</p>
+            <details>
+              <summary>Ver respuesta</summary>
+              <p>Realiza la operación indicada en el enunciado con cuidado.</p>
+            </details>
+          </div>
+          <div id="inputsFase2"></div>
+          <div class="acciones-fase">
+            <button class="btn-pista" id="btnPistaFase2">Pista</button>
+            <button class="btn-verificar" id="btnVerificarFase2">Verificar</button>
+          </div>
+          <div class="feedback" id="feedbackFase2"></div>
+          <div class="intentos" id="intentosFase2">Intento 1 de 3</div>
+        </div>
+
+        <!-- Fase 3 -->
+        <div class="fase" id="fase3" style="display:none;">
+          <h3>Fase 3 — Ejecución</h3>
+          <div class="anticipa">
+            <h4>Anticipa el resultado</h4>
+            <p>¿Cuál crees que será el conjunto solución de esta inecuación?</p>
+            <details>
+              <summary>Ver respuesta</summary>
+              <p>Recuerda aplicar las propiedades de las desigualdades con cuidado, especialmente al dividir entre un número negativo.</p>
+            </details>
+          </div>
+          <div id="inputsFase3"></div>
+          <div class="acciones-fase">
+            <button class="btn-pista" id="btnPistaFase3">Pista</button>
+            <button class="btn-verificar" id="btnVerificarFase3">Verificar</button>
+          </div>
+          <div class="feedback" id="feedbackFase3"></div>
+          <div class="intentos" id="intentosFase3">Intento 1 de 3</div>
+        </div>
+
+        <!-- Fase 4 -->
+        <div class="fase" id="fase4" style="display:none;">
+          <h3>Error frecuente</h3>
+          <div class="anticipa">
+            <h4>Anticipa el resultado</h4>
+            <p>¿Cuál crees que es el error más común al resolver este tipo de problema?</p>
+            <details>
+              <summary>Ver respuesta</summary>
+              <p>Reflexiona sobre las reglas que aplicaste en las fases anteriores.</p>
+            </details>
+          </div>
+          <p id="preguntaFase4"></p>
+          <div class="opciones-fase" id="opcionesFase4"></div>
+          <div class="feedback" id="feedbackFase4"></div>
+          <div class="intentos" id="intentosFase4">Intento 1 de 3</div>
+        </div>
+
+        <div class="navegacion-casos">
+          <button class="btn-navegacion secundario" id="btnAnterior">Caso anterior</button>
+          <span class="indicador-caso" id="indicadorCaso">Caso 1 de 10</span>
+          <button class="btn-navegacion" id="btnSiguiente" disabled>Siguiente caso</button>
+        </div>
+      </div>
+
+      <div class="pantalla-final" id="pantallaFinal">
+        <div class="medalla" id="medallaFinal">🏅</div>
+        <h2>Práctica completada</h2>
+        <div class="puntaje-final" id="puntajeFinal">0 / 10</div>
+        <p id="mensajeFinal"></p>
+        <button class="btn-primario" id="btnReiniciarActividad">Reiniciar práctica</button>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: EXAMEN -->
+    <section id="seccion-examen" class="seccion" role="tabpanel">
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+      </div>
+      <div id="quizView" class="quiz-view">
+        <div class="question-meta" id="questionMeta">Reactivo 1 de 10</div>
+        <div class="question-tipo" id="questionTipo">Concepto</div>
+        <div class="question-text" id="questionText">Cargando pregunta...</div>
+        <ul class="options-list" id="optionsList" role="list"></ul>
+        <div class="feedback-box" id="feedbackBox" role="status" aria-live="polite"></div>
+        <button class="btn-next" id="btnNext" aria-label="Avanzar al siguiente reactivo">Siguiente Reactivo</button>
+      </div>
+      <div id="resultsView" class="results-view">
+        <h2>Evaluación Finalizada</h2>
+        <div class="score-display" id="finalScore">0/10</div>
+        <div class="results-message" id="resultsMessage"></div>
+        <button class="btn-restart" id="btnRestart" aria-label="Reiniciar la evaluación">Intentar de nuevo</button>
+      </div>
+    </section>
+
+    <div class="footer-info">
+      <strong>Objetivo:</strong> Resolver inecuaciones lineales de una variable, interpretar su solución como intervalos y representarla gráficamente en la recta numérica.
+    </div>
+  </div>
+
+  <script>
+    // ===== UTILIDADES =====
+    function renderMath(element) {
+      if (!element) return;
+      function intentar() {
+        if (window.MathJax && window.MathJax.startup && window.MathJax.startup.promise) {
+          window.MathJax.startup.promise
+            .then(function () { return window.MathJax.typesetPromise([element]); })
+            .catch(function (err) { console.warn('MathJax typeset falló:', err); });
+        } else {
+          setTimeout(intentar, 100);
+        }
+      }
+      intentar();
+    }
+
+    function limpiarEntradaNumerica(texto) {
+      if (texto == null) return '';
+      return String(texto)
+        .replace(/^[^0-9\/.,+\-−]+/g, '')
+        .replace(/[^0-9\/.,+\-−]/g, '')
+        .trim();
+    }
+
+    function parsearNumero(texto) {
+      if (texto == null) return NaN;
+      texto = limpiarEntradaNumerica(texto);
+      if (texto === '') return NaN;
+      texto = texto.replace(',', '.').replace(/−/g, '-');
+      if (texto.indexOf('/') !== -1) {
+        var p = texto.split('/');
+        if (p.length !== 2) return NaN;
+        var n = parseFloat(p[0]), d = parseFloat(p[1]);
+        if (isNaN(n) || isNaN(d) || d === 0) return NaN;
+        return n / d;
+      }
+      var x = parseFloat(texto);
+      return isNaN(x) ? NaN : x;
+    }
+
+    function formatearNumero(n) {
+      if (Math.abs(n - Math.round(n)) < 1e-9) return Math.round(n).toString();
+      return parseFloat(n.toFixed(4)).toString();
+    }
+
+    function formatearResta(m, n, resultado) {
+      var mStr = formatearNumero(m);
+      var nStr = formatearNumero(n);
+      var rStr = formatearNumero(resultado);
+      if (n < 0) return '$' + mStr + ' - (' + nStr + ') = ' + rStr + '$';
+      return '$' + mStr + ' - ' + nStr + ' = ' + rStr + '$';
+    }
+
+    function simboloLatex(s) {
+      var mapa = { '<': '<', '≤': '\\leq', '>': '>', '≥': '\\geq' };
+      return mapa[s] || s;
+    }
+
+    function simboloInvertido(s) {
+      var mapa = { '<': '>', '≤': '≥', '>': '<', '≥': '≤' };
+      return mapa[s] || s;
+    }
+
+    function simboloTexto(s) {
+      var mapa = { '<': '<', '≤': '≤', '>': '>', '≥': '≥' };
+      return mapa[s] || s;
+    }
+
+    function mostrarResultado(elemento, html, tipo) {
+      if (!elemento) return;
+      tipo = tipo || 'exito';
+      elemento.className = 'feedback ' + tipo;
+      elemento.innerHTML = html;
+      renderMath(elemento);
+    }
+
+    function algunCampoVacio(ids) {
+      for (var i = 0; i < ids.length; i++) {
+        var el = document.getElementById(ids[i]);
+        if (!el) continue;
+        if (limpiarEntradaNumerica(el.value) === '') return true;
+      }
+      return false;
+    }
+
+    function obtenerValor(id) {
+      var el = document.getElementById(id);
+      if (!el) return NaN;
+      return parsearNumero(el.value);
+    }
+
+    function obtenerTexto(id) {
+      var el = document.getElementById(id);
+      if (!el) return '';
+      return el.value;
+    }
+
+    function shuffleArray(array) {
+      var arr = array.slice();
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+      }
+      return arr;
+    }
+
+    // ===== NAVEGACIÓN POR PESTAÑAS =====
+    function iniciarTabs() {
+      var tabs = document.querySelectorAll('.tab');
+      var secciones = document.querySelectorAll('.seccion');
+      tabs.forEach(function(tab) {
+        var btn = tab;
+        if (!btn) return;
+        btn.addEventListener('click', function() {
+          var target = this.getAttribute('data-tab');
+          tabs.forEach(function(t) {
+            t.classList.remove('activo');
+            t.setAttribute('aria-selected', 'false');
+          });
+          this.classList.add('activo');
+          this.setAttribute('aria-selected', 'true');
+          secciones.forEach(function(s) { s.classList.remove('activa'); });
+          var seccionActiva = document.getElementById('seccion-' + target);
+          if (seccionActiva) seccionActiva.classList.add('activa');
+          renderMath(document.getElementById('seccion-' + target));
+        });
+      });
+    }
+
+    // ===== CALCULADORA =====
+    var tipoActual = 'basica';
+
+    function cambiarCampos() {
+      var tipo = obtenerTexto('tipo-operacion');
+      var campos = document.querySelectorAll('.campos');
+      campos.forEach(function(c) { c.classList.remove('activos'); });
+      var activo = document.getElementById('campos-' + tipo);
+      if (activo) activo.classList.add('activos');
+      tipoActual = tipo;
+    }
+
+    function calcularBasica() {
+      var res = document.getElementById('desarrollo-calc');
+      if (algunCampoVacio(['bas-a', 'bas-b', 'bas-c'])) {
+        res.innerHTML = '<div class="feedback advertencia">Completa todos los campos.</div>';
+        return;
+      }
+      var a = obtenerValor('bas-a');
+      var b = obtenerValor('bas-b');
+      var c = obtenerValor('bas-c');
+      var simbolo = obtenerTexto('bas-simbolo');
+      if (isNaN(a) || isNaN(b) || isNaN(c)) {
+        res.innerHTML = '<div class="feedback error">Ingresa valores numéricos válidos.</div>';
+        return;
+      }
+      if (a === 0) {
+        res.innerHTML = '<div class="feedback error">El coeficiente de x no puede ser cero.</div>';
+        return;
+      }
+      var nuevoC = c - b;
+      var simboloNuevo = a < 0 ? simboloInvertido(simbolo) : simbolo;
+      var resultado = nuevoC / a;
+
+      var html = '';
+      html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Inecuación: $' + formatearNumero(a) + 'x ' + (b >= 0 ? '+ ' + formatearNumero(b) : '- ' + formatearNumero(Math.abs(b))) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(c) + '$</div></div></div>';
+      html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">' + (b >= 0 ? 'Restamos' : 'Sumamos') + ' $' + formatearNumero(Math.abs(b)) + '$ en ambos lados: $' + formatearNumero(a) + 'x ' + simboloTexto(simbolo) + ' ' + formatearNumero(c) + (b >= 0 ? ' - ' + formatearNumero(b) : ' + ' + formatearNumero(Math.abs(b))) + '$</div></div></div>';
+      html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">Simplificamos: $' + formatearNumero(a) + 'x ' + simboloTexto(simbolo) + ' ' + formatearNumero(nuevoC) + '$</div></div></div>';
+      if (a < 0) {
+        html += '<div class="paso"><span class="num-paso">4</span><div class="cuerpo-paso"><div class="detalle-paso">Dividimos entre $' + formatearNumero(a) + '$ (negativo) e invertimos el sentido: $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</div></div></div>';
+      } else {
+        html += '<div class="paso"><span class="num-paso">4</span><div class="cuerpo-paso"><div class="detalle-paso">Dividimos entre $' + formatearNumero(a) + '$: $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</div></div></div>';
+      }
+      html += '<div class="resultado-final">Solución: $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</div>';
+      res.innerHTML = html;
+      renderMath(res);
+    }
+
+    function calcularAmbos() {
+      var res = document.getElementById('desarrollo-calc');
+      if (algunCampoVacio(['amb-a', 'amb-b', 'amb-c', 'amb-d'])) {
+        res.innerHTML = '<div class="feedback advertencia">Completa todos los campos.</div>';
+        return;
+      }
+      var a = obtenerValor('amb-a');
+      var b = obtenerValor('amb-b');
+      var c = obtenerValor('amb-c');
+      var d = obtenerValor('amb-d');
+      var simbolo = obtenerTexto('amb-simbolo');
+      if ([a,b,c,d].some(isNaN)) {
+        res.innerHTML = '<div class="feedback error">Ingresa valores numéricos válidos.</div>';
+        return;
+      }
+      var coefFinal = a - c;
+      var indepFinal = d - b;
+
+      var html = '';
+      html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Inecuación: $' + formatearNumero(a) + 'x ' + (b >= 0 ? '+ ' + formatearNumero(b) : '- ' + formatearNumero(Math.abs(b))) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(c) + 'x ' + (d >= 0 ? '+ ' + formatearNumero(d) : '- ' + formatearNumero(Math.abs(d))) + '$</div></div></div>';
+      html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Restamos $' + formatearNumero(c) + 'x$ en ambos lados: $' + formatearNumero(a - c) + 'x ' + (b >= 0 ? '+ ' + formatearNumero(b) : '- ' + formatearNumero(Math.abs(b))) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(d) + '$</div></div></div>';
+      html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">' + (b >= 0 ? 'Restamos' : 'Sumamos') + ' $' + formatearNumero(Math.abs(b)) + '$ en ambos lados: $' + formatearNumero(coefFinal) + 'x ' + simboloTexto(simbolo) + ' ' + formatearNumero(indepFinal) + '$</div></div></div>';
+
+      if (coefFinal === 0) {
+        var comparacion;
+        if (simbolo === '<') comparacion = b < d;
+        else if (simbolo === '≤') comparacion = b <= d;
+        else if (simbolo === '>') comparacion = b > d;
+        else comparacion = b >= d;
+        if (comparacion) {
+          html += '<div class="resultado-final">La desigualdad $' + formatearNumero(b) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(d) + '$ siempre es verdadera. Solución: $\\mathbb{R}$.</div>';
+        } else {
+          html += '<div class="resultado-final" style="background: var(--exani-error);">La desigualdad $' + formatearNumero(b) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(d) + '$ es falsa. Solución: $\\emptyset$.</div>';
+        }
+        res.innerHTML = html;
+        renderMath(res);
+        return;
+      }
+
+      var simboloNuevo = coefFinal < 0 ? simboloInvertido(simbolo) : simbolo;
+      var resultado = indepFinal / coefFinal;
+
+      html += '<div class="paso"><span class="num-paso">4</span><div class="cuerpo-paso"><div class="detalle-paso">Dividimos entre $' + formatearNumero(coefFinal) + '$' + (coefFinal < 0 ? ' (negativo, se invierte)' : '') + ': $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</div></div></div>';
+      html += '<div class="resultado-final">Solución: $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</div>';
+      res.innerHTML = html;
+      renderMath(res);
+    }
+
+    function calcularParentesis() {
+      var res = document.getElementById('desarrollo-calc');
+      if (algunCampoVacio(['par-a', 'par-b', 'par-c', 'par-d'])) {
+        res.innerHTML = '<div class="feedback advertencia">Completa todos los campos.</div>';
+        return;
+      }
+      var a = obtenerValor('par-a');
+      var b = obtenerValor('par-b');
+      var c = obtenerValor('par-c');
+      var d = obtenerValor('par-d');
+      var simbolo = obtenerTexto('par-simbolo');
+      if ([a,b,c,d].some(isNaN)) {
+        res.innerHTML = '<div class="feedback error">Ingresa valores numéricos válidos.</div>';
+        return;
+      }
+      var coefX = a + c;
+      var indep = a * b;
+
+      var html = '';
+      html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Inecuación: $' + formatearNumero(a) + '(x ' + (b >= 0 ? '+ ' + formatearNumero(b) : '- ' + formatearNumero(Math.abs(b))) + ') ' + (c >= 0 ? '+ ' + formatearNumero(c) + 'x' : '- ' + formatearNumero(Math.abs(c)) + 'x') + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(d) + '$</div></div></div>';
+      html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Distribuimos: $' + formatearNumero(a) + 'x ' + (indep >= 0 ? '+ ' + formatearNumero(indep) : '- ' + formatearNumero(Math.abs(indep))) + ' ' + (c >= 0 ? '+ ' + formatearNumero(c) + 'x' : '- ' + formatearNumero(Math.abs(c)) + 'x') + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(d) + '$</div></div></div>';
+      html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">Agrupamos términos semejantes: $' + formatearNumero(coefX) + 'x ' + (indep >= 0 ? '+ ' + formatearNumero(indep) : '- ' + formatearNumero(Math.abs(indep))) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(d) + '$</div></div></div>';
+
+      var nuevoD = d - indep;
+      var simboloNuevo = coefX < 0 ? simboloInvertido(simbolo) : simbolo;
+      var resultado = nuevoD / coefX;
+
+      html += '<div class="paso"><span class="num-paso">4</span><div class="cuerpo-paso"><div class="detalle-paso">' + (indep >= 0 ? 'Restamos' : 'Sumamos') + ' $' + formatearNumero(Math.abs(indep)) + '$ en ambos lados: $' + formatearNumero(coefX) + 'x ' + simboloTexto(simbolo) + ' ' + formatearNumero(nuevoD) + '$</div></div></div>';
+      html += '<div class="paso"><span class="num-paso">5</span><div class="cuerpo-paso"><div class="detalle-paso">Dividimos entre $' + formatearNumero(coefX) + '$' + (coefX < 0 ? ' (negativo, se invierte)' : '') + ': $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</div></div></div>';
+      html += '<div class="resultado-final">Solución: $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</div>';
+      res.innerHTML = html;
+      renderMath(res);
+    }
+
+    function calcularFraccion() {
+      var res = document.getElementById('desarrollo-calc');
+      if (algunCampoVacio(['fra-a', 'fra-b', 'fra-c', 'fra-d'])) {
+        res.innerHTML = '<div class="feedback advertencia">Completa todos los campos.</div>';
+        return;
+      }
+      var a = obtenerValor('fra-a');
+      var b = obtenerValor('fra-b');
+      var c = obtenerValor('fra-c');
+      var d = obtenerValor('fra-d');
+      var simbolo = obtenerTexto('fra-simbolo');
+      if ([a,b,c,d].some(isNaN)) {
+        res.innerHTML = '<div class="feedback error">Ingresa valores numéricos válidos.</div>';
+        return;
+      }
+      if (c === 0) {
+        res.innerHTML = '<div class="feedback error">El denominador no puede ser cero.</div>';
+        return;
+      }
+      var coefX = a / c;
+      var indep = b / c;
+      var nuevoD = d - indep;
+      var simboloNuevo = coefX < 0 ? simboloInvertido(simbolo) : simbolo;
+      var resultado = nuevoD / coefX;
+
+      var html = '';
+      html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Inecuación: $\\frac{' + formatearNumero(a) + 'x ' + (b >= 0 ? '+ ' + formatearNumero(b) : '- ' + formatearNumero(Math.abs(b))) + '}{' + formatearNumero(c) + '} ' + simboloTexto(simbolo) + ' ' + formatearNumero(d) + '$</div></div></div>';
+      html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Separamos la fracción: $\\frac{' + formatearNumero(a) + '}{' + formatearNumero(c) + '}x ' + (indep >= 0 ? '+ ' + formatearNumero(indep) : '- ' + formatearNumero(Math.abs(indep))) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(d) + '$</div></div></div>';
+      html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">' + (indep >= 0 ? 'Restamos' : 'Sumamos') + ' $' + formatearNumero(Math.abs(indep)) + '$ en ambos lados: $' + formatearNumero(coefX) + 'x ' + simboloTexto(simbolo) + ' ' + formatearNumero(nuevoD) + '$</div></div></div>';
+      html += '<div class="paso"><span class="num-paso">4</span><div class="cuerpo-paso"><div class="detalle-paso">Dividimos entre $' + formatearNumero(coefX) + '$' + (coefX < 0 ? ' (negativo, se invierte)' : '') + ': $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</div></div></div>';
+      html += '<div class="resultado-final">Solución: $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</div>';
+      res.innerHTML = html;
+      renderMath(res);
+    }
+
+    function calcularVerificar() {
+      var res = document.getElementById('desarrollo-calc');
+      if (algunCampoVacio(['ver-x', 'ver-a', 'ver-b', 'ver-c'])) {
+        res.innerHTML = '<div class="feedback advertencia">Completa todos los campos.</div>';
+        return;
+      }
+      var x = obtenerValor('ver-x');
+      var a = obtenerValor('ver-a');
+      var b = obtenerValor('ver-b');
+      var c = obtenerValor('ver-c');
+      var simbolo = obtenerTexto('ver-simbolo');
+      if (isNaN(x) || isNaN(a) || isNaN(b) || isNaN(c)) {
+        res.innerHTML = '<div class="feedback error">Ingresa valores numéricos válidos.</div>';
+        return;
+      }
+      if (a === 0) {
+        res.innerHTML = '<div class="feedback error">El coeficiente de x no puede ser cero.</div>';
+        return;
+      }
+      var ladoIzq = a * x + b;
+      var ladoDer = c;
+      var comparacion;
+      var esVerdadera;
+      if (simbolo === '<') { comparacion = '<'; esVerdadera = ladoIzq < ladoDer; }
+      else if (simbolo === '≤') { comparacion = '\\leq'; esVerdadera = ladoIzq <= ladoDer; }
+      else if (simbolo === '>') { comparacion = '>'; esVerdadera = ladoIzq > ladoDer; }
+      else { comparacion = '\\geq'; esVerdadera = ladoIzq >= ladoDer; }
+
+      var html = '';
+      html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Sustituimos $x = ' + formatearNumero(x) + '$ en la inecuación $' + formatearNumero(a) + 'x ' + (b >= 0 ? '+ ' + formatearNumero(b) : '- ' + formatearNumero(Math.abs(b))) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(c) + '$.</div></div></div>';
+      html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Lado izquierdo: $' + formatearNumero(a) + '(' + formatearNumero(x) + ')' + (b >= 0 ? ' + ' + formatearNumero(b) : ' - ' + formatearNumero(Math.abs(b))) + ' = ' + formatearNumero(ladoIzq) + '$</div></div></div>';
+      html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">Comparamos: $' + formatearNumero(ladoIzq) + ' ' + comparacion + ' ' + formatearNumero(ladoDer) + '$</div></div></div>';
+      if (esVerdadera) {
+        html += '<div class="resultado-final">Verdadero: $x = ' + formatearNumero(x) + '$ SÍ es solución.</div>';
+      } else {
+        html += '<div class="resultado-final" style="background: var(--exani-error);">Falso: $x = ' + formatearNumero(x) + '$ NO es solución.</div>';
+      }
+      res.innerHTML = html;
+      renderMath(res);
+    }
+
+    function configurarCanvasHiDPI(canvas) {
+      var dpr = window.devicePixelRatio || 1;
+      var rect = canvas.getBoundingClientRect();
+      var w = rect.width || 700;
+      var h = rect.height || 180;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      var ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+      return { ctx: ctx, w: w, h: h };
+    }
+
+    function calcularGraficar() {
+      var res = document.getElementById('desarrollo-calc');
+      if (algunCampoVacio(['graf-a'])) {
+        res.innerHTML = '<div class="feedback advertencia">Ingresa el valor crítico.</div>';
+        return;
+      }
+      var a = obtenerValor('graf-a');
+      var simbolo = obtenerTexto('graf-simbolo');
+      if (isNaN(a)) {
+        res.innerHTML = '<div class="feedback error">Ingresa un valor numérico válido.</div>';
+        return;
+      }
+
+      var html = '';
+      html += '<canvas id="canvasGraf" width="700" height="180" aria-label="Recta numérica con la solución"></canvas>';
+
+      var intervalo;
+      if (simbolo === '<') intervalo = '(-\\infty, ' + formatearNumero(a) + ')';
+      else if (simbolo === '≤') intervalo = '(-\\infty, ' + formatearNumero(a) + ']';
+      else if (simbolo === '>') intervalo = '(' + formatearNumero(a) + ', +\\infty)';
+      else intervalo = '[' + formatearNumero(a) + ', +\\infty)';
+
+      html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Valor crítico: $x = ' + formatearNumero(a) + '$.</div></div></div>';
+      html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">' + ((simbolo === '≤' || simbolo === '≥') ? 'Círculo lleno (extremo incluido).' : 'Círculo vacío (extremo no incluido).') + '</div></div></div>';
+      html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">' + ((simbolo === '<' || simbolo === '≤') ? 'Sombreado hacia la izquierda (hacia $-\\infty$).' : 'Sombreado hacia la derecha (hacia $+\\infty$).') + '</div></div></div>';
+      html += '<div class="resultado-final">Solución: $x ' + simboloTexto(simbolo) + ' ' + formatearNumero(a) + '$, es decir, $' + intervalo + '$.</div>';
+      res.innerHTML = html;
+      renderMath(res);
+
+      setTimeout(function() {
+        var canvas = document.getElementById('canvasGraf');
+        if (!canvas) return;
+        var config = configurarCanvasHiDPI(canvas);
+        var ctx = config.ctx;
+        var W = config.w;
+        var H = config.h;
+
+        ctx.save();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.restore();
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, W, H);
+
+        var margen = Math.max(3, Math.abs(a) + 3);
+        var xMin = a - margen;
+        var xMax = a + margen;
+        var yLinea = H / 2;
+
+        function toPixel(x) { return ((x - xMin) / (xMax - xMin)) * W; }
+
+        ctx.strokeStyle = '#003865';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(0, yLinea);
+        ctx.lineTo(W, yLinea);
+        ctx.stroke();
+
+        ctx.fillStyle = '#003865';
+        ctx.beginPath();
+        ctx.moveTo(W, yLinea);
+        ctx.lineTo(W - 10, yLinea - 5);
+        ctx.lineTo(W - 10, yLinea + 5);
+        ctx.closePath();
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(0, yLinea);
+        ctx.lineTo(10, yLinea - 5);
+        ctx.lineTo(10, yLinea + 5);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = '#333333';
+        ctx.font = '12px sans-serif';
+        ctx.textAlign = 'center';
+        var inicio = Math.ceil(xMin);
+        var fin = Math.floor(xMax);
+        for (var i = inicio; i <= fin; i++) {
+          var px = toPixel(i);
+          ctx.strokeStyle = '#E0E0E0';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(px, yLinea - 5);
+          ctx.lineTo(px, yLinea + 5);
+          ctx.stroke();
+          ctx.fillStyle = '#333333';
+          ctx.fillText(i.toString(), px, yLinea + 20);
+        }
+
+        var px_a = toPixel(a);
+        ctx.strokeStyle = '#8BC34A';
+        ctx.lineWidth = 6;
+        ctx.beginPath();
+        if (simbolo === '<' || simbolo === '≤') {
+          ctx.moveTo(0, yLinea);
+          ctx.lineTo(px_a, yLinea);
+        } else {
+          ctx.moveTo(px_a, yLinea);
+          ctx.lineTo(W, yLinea);
+        }
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(px_a, yLinea, 7, 0, 2 * Math.PI);
+        if (simbolo === '≤' || simbolo === '≥') {
+          ctx.fillStyle = '#1B7FC4';
+          ctx.fill();
+        } else {
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fill();
+          ctx.strokeStyle = '#1B7FC4';
+          ctx.lineWidth = 2.5;
+          ctx.stroke();
+        }
+
+        ctx.fillStyle = '#003865';
+        ctx.font = 'bold 14px sans-serif';
+        ctx.fillText(formatearNumero(a), px_a, yLinea - 15);
+      }, 50);
+    }
+
+    function calcular() {
+      if (tipoActual === 'basica') calcularBasica();
+      else if (tipoActual === 'ambos') calcularAmbos();
+      else if (tipoActual === 'parentesis') calcularParentesis();
+      else if (tipoActual === 'fraccion') calcularFraccion();
+      else if (tipoActual === 'verificar') calcularVerificar();
+      else if (tipoActual === 'graficar') calcularGraficar();
+    }
+
+    function reiniciarCalc() {
+      var inputs = document.querySelectorAll('.campos input');
+      inputs.forEach(function(inp) { inp.value = ''; });
+      var res = document.getElementById('desarrollo-calc');
+      res.innerHTML = '<div class="placeholder-inicial">Selecciona el tipo de operación, ingresa los datos y presiona "Calcular".</div>';
+    }
+
+    function cargarEjemplo(tipo) {
+      reiniciarCalc();
+      var sel = document.getElementById('tipo-operacion');
+      sel.value = tipo;
+      cambiarCampos();
+      if (tipo === 'basica') {
+        document.getElementById('bas-a').value = '4';
+        document.getElementById('bas-b').value = '-5';
+        document.getElementById('bas-simbolo').value = '≤';
+        document.getElementById('bas-c').value = '11';
+      } else if (tipo === 'ambos') {
+        document.getElementById('amb-a').value = '5';
+        document.getElementById('amb-b').value = '-3';
+        document.getElementById('amb-simbolo').value = '<';
+        document.getElementById('amb-c').value = '2';
+        document.getElementById('amb-d').value = '9';
+      } else if (tipo === 'parentesis') {
+        document.getElementById('par-a').value = '3';
+        document.getElementById('par-b').value = '-2';
+        document.getElementById('par-c').value = '5';
+        document.getElementById('par-simbolo').value = '>';
+        document.getElementById('par-d').value = '14';
+      } else if (tipo === 'fraccion') {
+        document.getElementById('fra-a').value = '2';
+        document.getElementById('fra-b').value = '-1';
+        document.getElementById('fra-c').value = '3';
+        document.getElementById('fra-simbolo').value = '≥';
+        document.getElementById('fra-d').value = '3';
+      } else if (tipo === 'verificar') {
+        document.getElementById('ver-x').value = '6';
+        document.getElementById('ver-a').value = '2';
+        document.getElementById('ver-b').value = '-3';
+        document.getElementById('ver-simbolo').value = '>';
+        document.getElementById('ver-c').value = '7';
+      } else if (tipo === 'graficar') {
+        document.getElementById('graf-simbolo').value = '≥';
+        document.getElementById('graf-a').value = '-2';
+      }
+      calcular();
+    }
+
+    function iniciarCalculadora() {
+      var sel = document.getElementById('tipo-operacion');
+      if (sel) sel.addEventListener('change', cambiarCampos);
+      var btn = document.getElementById('btn-calcular');
+      if (btn) btn.addEventListener('click', calcular);
+      var btnR = document.getElementById('btn-reiniciar-calc');
+      if (btnR) btnR.addEventListener('click', reiniciarCalc);
+      document.querySelectorAll('.ejemplo-btn').forEach(function(b) {
+        b.addEventListener('click', function() {
+          cargarEjemplo(this.getAttribute('data-ejemplo'));
+        });
+      });
+    }
+
+    // ===== ACTIVIDAD =====
+    // ===== DISTRIBUCIÓN DE DIFICULTAD (interna, NO visible) =====
+    // Sesión: s04 — Inecuaciones lineales
+    // Perfil: Introductoria
+    // Fáciles (Básicos): 4 | Medios: 3 | Difíciles (Altos): 3
+    // Referencia: docs/clasificacion-dificultad-pm.md
+
+    var casos = [
+      // BÁSICOS (4)
+      {
+        nivel: 'basico',
+        enunciado: 'Verifica si $x = 5$ es solución de la inecuación $2x - 3 > 7$.',
+        expresion: '',
+        fase1: {
+          pregunta: '¿Qué tipo de operación necesitas realizar?',
+          opciones: [
+            { texto: 'Sustituir $x = 5$ y comparar', correcta: true, feedback: 'Correcto: se sustituye el valor y se verifica si la desigualdad se cumple.' },
+            { texto: 'Despejar $x$ primero', correcta: false, feedback: 'Incorrecto: como ya tienes el valor de $x$, basta con sustituirlo y verificar.' },
+            { texto: 'Graficar en la recta numérica', correcta: false, feedback: 'Incorrecto: graficar es útil para representar la solución, no para verificar un valor específico.' }
+          ]
+        },
+        fase2: {
+          inputs: [{ label: 'Lado izquierdo: $2(5) - 3 = $', respuesta: 7 }],
+          pista: 'Sustituye $x = 5$ en $2x - 3$: calcula $2 \\times 5 - 3$.'
+        },
+        fase3: {
+          opciones: [
+            { texto: '$7 > 7$ es verdadero, SÍ es solución', correcta: false, feedback: 'Incorrecto: $7 > 7$ es falso porque 7 no es estrictamente mayor que 7.' },
+            { texto: '$7 > 7$ es falso, NO es solución', correcta: true, feedback: 'Correcto: al sustituir, $2(5) - 3 = 7$, y $7 > 7$ es falso.' },
+            { texto: '$7 \\geq 7$ es verdadero, SÍ es solución', correcta: false, feedback: 'Incorrecto: la inecuación original es $>$, no $\\geq$.' }
+          ],
+          pista: 'Recuerda: $>$ significa estrictamente mayor. ¿7 es estrictamente mayor que 7?'
+        },
+        fase4: {
+          pregunta: '¿Cuál es el error más común al verificar una solución?',
+          opciones: [
+            { texto: 'Confundir $>$ con $\\geq$ al comparar', correcta: true, feedback: 'Correcto: es muy común olvidar que $>$ no incluye la igualdad.' },
+            { texto: 'Sumar en lugar de restar', correcta: false, feedback: 'Incorrecto: el error más común es confundir los símbolos de desigualdad.' },
+            { texto: 'Olvidar el signo negativo', correcta: false, feedback: 'Incorrecto: aunque es un error común, no es el más frecuente al verificar.' }
+          ]
+        }
+      },
+      {
+        nivel: 'basico',
+        enunciado: 'Resuelve la inecuación $3x + 6 \\leq 15$.',
+        expresion: '',
+        fase1: {
+          pregunta: '¿Cuál es el primer paso para resolver esta inecuación?',
+          opciones: [
+            { texto: 'Restar 6 en ambos lados', correcta: true, feedback: 'Correcto: primero aislamos el término con $x$ restando 6.' },
+            { texto: 'Dividir entre 3', correcta: false, feedback: 'Incorrecto: antes de dividir, debemos aislar el término con $x$ restando 6.' },
+            { texto: 'Sumar 6 en ambos lados', correcta: false, feedback: 'Incorrecto: para aislar $3x$, debemos restar 6, no sumar.' }
+          ]
+        },
+        fase2: {
+          inputs: [{ label: 'Después de restar 6: $3x \\leq $', respuesta: 9 }],
+          pista: 'Calcula $15 - 6$.'
+        },
+        fase3: {
+          opciones: [
+            { texto: '$x \\leq 3$', correcta: true, feedback: 'Correcto: al dividir $3x \\leq 9$ entre 3, obtenemos $x \\leq 3$.' },
+            { texto: '$x \\geq 3$', correcta: false, feedback: 'Incorrecto: al dividir entre un número positivo (3), el sentido NO se invierte.' },
+            { texto: '$x < 3$', correcta: false, feedback: 'Incorrecto: el símbolo $\\leq$ se conserva porque dividimos entre un positivo.' }
+          ],
+          pista: 'Divide $9 \\div 3$. ¿El sentido de la desigualdad cambia al dividir entre un número positivo?'
+        },
+        fase4: {
+          pregunta: '¿Cuál es el error más común al resolver $3x + 6 \\leq 15$?',
+          opciones: [
+            { texto: 'Invertir el sentido al dividir entre 3', correcta: true, feedback: 'Correcto: muchos estudiantes invierten el sentido por error, pero solo se invierte al dividir entre un negativo.' },
+            { texto: 'Sumar 6 en lugar de restar', correcta: false, feedback: 'Incorrecto: el error más común es invertir el sentido al dividir entre positivo.' },
+            { texto: 'Olvidar el símbolo $\\leq$', correcta: false, feedback: 'Incorrecto: el error más común es invertir el sentido al dividir entre positivo.' }
+          ]
+        }
+      },
+      {
+        nivel: 'basico',
+        enunciado: 'Resuelve la inecuación $-2x < 10$.',
+        expresion: '',
+        fase1: {
+          pregunta: '¿Qué debes tener en cuenta al dividir entre $-2$?',
+          opciones: [
+            { texto: 'El sentido de la desigualdad se invierte', correcta: true, feedback: 'Correcto: al dividir entre un número negativo, el sentido se invierte.' },
+            { texto: 'El sentido se conserva', correcta: false, feedback: 'Incorrecto: al dividir entre un negativo, el sentido SIEMPRE se invierte.' },
+            { texto: 'No se puede dividir entre negativo', correcta: false, feedback: 'Incorrecto: sí se puede, pero se invierte el sentido.' }
+          ]
+        },
+        fase2: {
+          inputs: [{ label: 'Al dividir $10 \\div (-2) = $', respuesta: -5 }],
+          pista: 'Recuerda las leyes de los signos: positivo entre negativo es negativo.'
+        },
+        fase3: {
+          opciones: [
+            { texto: '$x < -5$', correcta: false, feedback: 'Incorrecto: al dividir entre $-2$, el sentido se invierte, así que $<$ se convierte en $>$.' },
+            { texto: '$x > -5$', correcta: true, feedback: 'Correcto: $-2x < 10 \\Rightarrow x > -5$ (sentido invertido).' },
+            { texto: '$x \\leq -5$', correcta: false, feedback: 'Incorrecto: el símbolo original es $<$ (estricto), al invertirse sigue siendo estricto ($>$).' }
+          ],
+          pista: 'El símbolo $<$ se invierte a $>$. El resultado de $10 \\div (-2)$ es $-5$.'
+        },
+        fase4: {
+          pregunta: '¿Cuál es el error más común al resolver $-2x < 10$?',
+          opciones: [
+            { texto: 'Olvidar invertir el sentido al dividir entre negativo', correcta: true, feedback: 'Correcto: es el error más frecuente. Al dividir entre $-2$, el $<$ debe convertirse en $>$.' },
+            { texto: 'Calcular mal el signo del resultado', correcta: false, feedback: 'Incorrecto: aunque es un error, el más común es no invertir el sentido.' },
+            { texto: 'Confundir $<$ con $\\leq$', correcta: false, feedback: 'Incorrecto: el error más común es no invertir el sentido.' }
+          ]
+        }
+      },
+      {
+        nivel: 'basico',
+        enunciado: 'Representa gráficamente la solución de $x \\geq -2$.',
+        expresion: '',
+        fase1: {
+          pregunta: '¿El círculo en $-2$ será lleno o vacío?',
+          opciones: [
+            { texto: 'Lleno, porque $\\geq$ incluye el extremo', correcta: true, feedback: 'Correcto: $\\geq$ incluye el $-2$, entonces el círculo es lleno.' },
+            { texto: 'Vacío, porque $\\geq$ no incluye el extremo', correcta: false, feedback: 'Incorrecto: $\\geq$ SÍ incluye el $-2$, por eso el círculo es lleno.' },
+            { texto: 'Depende del valor de $x$', correcta: false, feedback: 'Incorrecto: el tipo de círculo depende del símbolo, no del valor.' }
+          ]
+        },
+        fase2: {
+          inputs: [{ label: '¿Hacia dónde se sombrea? (1 = izquierda, 2 = derecha)', respuesta: 2 }],
+          pista: '$x \\geq -2$ significa "mayor o igual", entonces se sombrea hacia los números mayores.'
+        },
+        fase3: {
+          opciones: [
+            { texto: 'Círculo lleno en $-2$, sombreado hacia la derecha: $[-2, +\\infty)$', correcta: true, feedback: 'Correcto: $\\geq$ usa círculo lleno y se sombrea hacia $+\\infty$.' },
+            { texto: 'Círculo vacío en $-2$, sombreado hacia la derecha: $(-2, +\\infty)$', correcta: false, feedback: 'Incorrecto: $\\geq$ incluye el extremo, entonces el círculo es lleno, no vacío.' },
+            { texto: 'Círculo lleno en $-2$, sombreado hacia la izquierda: $(-\\infty, -2]$', correcta: false, feedback: 'Incorrecto: $\\geq$ significa "mayor", entonces se sombrea hacia la derecha.' }
+          ],
+          pista: 'Recuerda: $\\geq$ → círculo lleno. "Mayor" → hacia la derecha.'
+        },
+        fase4: {
+          pregunta: '¿Cuál es el error más común al graficar $x \\geq -2$?',
+          opciones: [
+            { texto: 'Confundir círculo lleno y vacío', correcta: true, feedback: 'Correcto: es muy común usar círculo vacío cuando debería ser lleno (o viceversa).' },
+            { texto: 'Sombrear hacia el lado equivocado', correcta: false, feedback: 'Incorrecto: aunque sucede, el error más común es confundir los círculos.' },
+            { texto: 'Olvidar las flechas en los extremos', correcta: false, feedback: 'Incorrecto: el error más común es confundir los círculos.' }
+          ]
+        }
+      },
+      // MEDIOS (3)
+      {
+        nivel: 'medio',
+        enunciado: 'Resuelve la inecuación $5x - 3 < 2x + 9$.',
+        expresion: '',
+        fase1: {
+          pregunta: '¿Qué debes hacer primero cuando la variable está en ambos lados?',
+          opciones: [
+            { texto: 'Restar $2x$ en ambos lados para agrupar la variable', correcta: true, feedback: 'Correcto: primero pasamos todos los términos con $x$ a un lado.' },
+            { texto: 'Dividir entre 5', correcta: false, feedback: 'Incorrecto: antes de dividir, debemos agrupar los términos con $x$.' },
+            { texto: 'Sumar 3 en ambos lados', correcta: false, feedback: 'Incorrecto: lo más eficiente es primero agrupar la variable restando $2x$.' }
+          ]
+        },
+        fase2: {
+          inputs: [{ label: 'Después de restar $2x$ y sumar 3: $3x < $', respuesta: 12 }],
+          pista: 'Resta $2x$ en ambos lados: $5x - 2x = 3x$. Suma 3 en ambos lados: $9 + 3 = 12$.'
+        },
+        fase3: {
+          opciones: [
+            { texto: '$x < 4$', correcta: true, feedback: 'Correcto: $3x < 12 \\Rightarrow x < 4$.' },
+            { texto: '$x > 4$', correcta: false, feedback: 'Incorrecto: al dividir entre 3 (positivo), el sentido NO se invierte.' },
+            { texto: '$x \\leq 4$', correcta: false, feedback: 'Incorrecto: el símbolo original es $<$ (estricto), se conserva.' }
+          ],
+          pista: 'Divide $12 \\div 3$. ¿El 3 es positivo o negativo?'
+        },
+        fase4: {
+          pregunta: '¿Cuál es el error más común al resolver inecuaciones con variable en ambos lados?',
+          opciones: [
+            { texto: 'No agrupar correctamente los términos con $x$', correcta: true, feedback: 'Correcto: es común olvidar restar la variable del lado derecho o hacer mal la resta.' },
+            { texto: 'Invertir el sentido al dividir entre positivo', correcta: false, feedback: 'Incorrecto: el error más común es no agrupar bien los términos.' },
+            { texto: 'Olvidar el término independiente', correcta: false, feedback: 'Incorrecto: el error más común es no agrupar bien los términos.' }
+          ]
+        }
+      },
+      {
+        nivel: 'medio',
+        enunciado: 'Resuelve la inecuación $3(x - 2) + 5x > 14$.',
+        expresion: '',
+        fase1: {
+          pregunta: '¿Cuál es el primer paso cuando hay paréntesis?',
+          opciones: [
+            { texto: 'Aplicar la propiedad distributiva', correcta: true, feedback: 'Correcto: primero distribuimos el 3 en $(x - 2)$.' },
+            { texto: 'Sumar 2 en ambos lados', correcta: false, feedback: 'Incorrecto: antes de sumar, debemos eliminar el paréntesis distribuyendo.' },
+            { texto: 'Dividir entre 3', correcta: false, feedback: 'Incorrecto: no podemos dividir entre 3 porque hay un $+5x$ fuera del paréntesis.' }
+          ]
+        },
+        fase2: {
+          inputs: [{ label: 'Después de distribuir y agrupar: $8x - 6 > 14$. Suma 6: $8x > $', respuesta: 20 }],
+          pista: 'Distribuye: $3(x - 2) = 3x - 6$. Agrupa: $3x + 5x = 8x$. Suma 6 en ambos lados.'
+        },
+        fase3: {
+          opciones: [
+            { texto: '$x > \\frac{20}{8} = 2.5$', correcta: true, feedback: 'Correcto: $8x > 20 \\Rightarrow x > 2.5$.' },
+            { texto: '$x < 2.5$', correcta: false, feedback: 'Incorrecto: al dividir entre 8 (positivo), el sentido NO se invierte.' },
+            { texto: '$x > 14$', correcta: false, feedback: 'Incorrecto: olvidaste agrupar los términos con $x$ antes de dividir.' }
+          ],
+          pista: 'Divide $20 \\div 8$. Simplifica la fracción si es posible.'
+        },
+        fase4: {
+          pregunta: '¿Cuál es el error más común al resolver inecuaciones con paréntesis?',
+          opciones: [
+            { texto: 'No distribuir correctamente el coeficiente', correcta: true, feedback: 'Correcto: es muy común olvidar multiplicar ambos términos dentro del paréntesis.' },
+            { texto: 'Invertir el sentido al dividir entre positivo', correcta: false, feedback: 'Incorrecto: el error más común es no distribuir bien.' },
+            { texto: 'Confundir los signos dentro del paréntesis', correcta: false, feedback: 'Incorrecto: aunque sucede, el error más común es no distribuir bien.' }
+          ]
+        }
+      },
+      {
+        nivel: 'medio',
+        enunciado: 'Resuelve la inecuación $\\frac{2x - 1}{3} \\geq 3$.',
+        expresion: '',
+        fase1: {
+          pregunta: '¿Cómo eliminas el denominador 3?',
+          opciones: [
+            { texto: 'Multiplicar ambos lados por 3', correcta: true, feedback: 'Correcto: al multiplicar por 3, eliminamos el denominador.' },
+            { texto: 'Dividir entre 3', correcta: false, feedback: 'Incorrecto: para eliminar el denominador, multiplicamos, no dividimos.' },
+            { texto: 'Restar 3 en ambos lados', correcta: false, feedback: 'Incorrecto: para eliminar el denominador, multiplicamos ambos lados por 3.' }
+          ]
+        },
+        fase2: {
+          inputs: [{ label: 'Después de multiplicar por 3 y sumar 1: $2x \\geq $', respuesta: 10 }],
+          pista: 'Multiplica por 3: $2x - 1 \\geq 9$. Suma 1: $2x \\geq 10$.'
+        },
+        fase3: {
+          opciones: [
+            { texto: '$x \\geq 5$', correcta: true, feedback: 'Correcto: $2x \\geq 10 \\Rightarrow x \\geq 5$.' },
+            { texto: '$x > 5$', correcta: false, feedback: 'Incorrecto: el símbolo original es $\\geq$, se conserva al dividir entre positivo.' },
+            { texto: '$x \\leq 5$', correcta: false, feedback: 'Incorrecto: al dividir entre 2 (positivo), el sentido NO se invierte.' }
+          ],
+          pista: 'Divide $10 \\div 2$. ¿El 2 es positivo o negativo?'
+        },
+        fase4: {
+          pregunta: '¿Cuál es el error más común al resolver inecuaciones con fracciones?',
+          opciones: [
+            { texto: 'Multiplicar solo un lado por el denominador', correcta: true, feedback: 'Correcto: es común olvidar multiplicar AMBOS lados por el denominador.' },
+            { texto: 'Invertir el sentido al dividir entre positivo', correcta: false, feedback: 'Incorrecto: el error más común es no multiplicar ambos lados.' },
+            { texto: 'Confundir el numerador con el denominador', correcta: false, feedback: 'Incorrecto: el error más común es no multiplicar ambos lados.' }
+          ]
+        }
+      },
+      // ALTOS (3)
+      {
+        nivel: 'alto',
+        enunciado: 'Resuelve la inecuación $-4(x + 1) + 2x \\geq 3x - 12$.',
+        expresion: '',
+        fase1: {
+          pregunta: '¿Qué debes hacer primero?',
+          opciones: [
+            { texto: 'Distribuir el $-4$ en $(x + 1)$', correcta: true, feedback: 'Correcto: primero distribuimos para eliminar el paréntesis.' },
+            { texto: 'Restar $2x$ en ambos lados', correcta: false, feedback: 'Incorrecto: antes de restar, debemos distribuir el $-4$.' },
+            { texto: 'Sumar 12 en ambos lados', correcta: false, feedback: 'Incorrecto: primero distribuimos, luego agrupamos.' }
+          ]
+        },
+        fase2: {
+          inputs: [{ label: 'Después de distribuir y agrupar: $-4x - 4 + 2x \\geq 3x - 12$. Simplifica el lado izquierdo: $-2x - 4 \\geq 3x - 12$. Resta $3x$ y suma 4: $-5x \\geq $', respuesta: -8 }],
+          pista: 'Distribuye: $-4(x + 1) = -4x - 4$. Agrupa: $-4x + 2x = -2x$. Resta $3x$ y suma 4 en ambos lados.'
+        },
+        fase3: {
+          opciones: [
+            { texto: '$x \\leq \\frac{8}{5} = 1.6$', correcta: true, feedback: 'Correcto: $-5x \\geq -8 \\Rightarrow x \\leq \\frac{8}{5}$ (sentido invertido).' },
+            { texto: '$x \\geq 1.6$', correcta: false, feedback: 'Incorrecto: al dividir entre $-5$ (negativo), el sentido SÍ se invierte.' },
+            { texto: '$x \\leq -1.6$', correcta: false, feedback: 'Incorrecto: $-8 \\div (-5) = \\frac{8}{5}$, no $-\\frac{8}{5}$.' }
+          ],
+          pista: 'Divide $-8 \\div (-5)$. Recuerda: negativo entre negativo es positivo, y el sentido se invierte.'
+        },
+        fase4: {
+          pregunta: '¿Cuál es el error más común al resolver esta inecuación?',
+          opciones: [
+            { texto: 'No invertir el sentido al dividir entre $-5$', correcta: true, feedback: 'Correcto: es muy común olvidar invertir el sentido al dividir entre un negativo.' },
+            { texto: 'Distribuir mal el $-4$', correcta: false, feedback: 'Incorrecto: aunque sucede, el error más común es no invertir el sentido.' },
+            { texto: 'Calcular mal $-8 \\div (-5)$', correcta: false, feedback: 'Incorrecto: el error más común es no invertir el sentido.' }
+          ]
+        }
+      },
+      {
+        nivel: 'alto',
+        enunciado: 'Resuelve la inecuación $\\frac{x - 3}{2} - \\frac{x + 1}{4} < 1$.',
+        expresion: '',
+        fase1: {
+          pregunta: '¿Cuál es el mínimo común múltiplo (mcm) de 2 y 4?',
+          opciones: [
+            { texto: '4', correcta: true, feedback: 'Correcto: el mcm de 2 y 4 es 4.' },
+            { texto: '8', correcta: false, feedback: 'Incorrecto: el mcm de 2 y 4 es 4, no 8.' },
+            { texto: '6', correcta: false, feedback: 'Incorrecto: el mcm de 2 y 4 es 4, no 6.' }
+          ]
+        },
+        fase2: {
+          inputs: [{ label: 'Después de multiplicar por 4 y simplificar: $2(x - 3) - (x + 1) < 4$. Distribuye y agrupa: $x - 7 < 4$. Suma 7: $x < $', respuesta: 11 }],
+          pista: 'Multiplica por 4: $2(x - 3) - (x + 1) < 4$. Distribuye: $2x - 6 - x - 1 < 4$. Agrupa: $x - 7 < 4$. Suma 7.'
+        },
+        fase3: {
+          opciones: [
+            { texto: '$x < 11$, es decir, $x \\in (-\\infty, 11)$', correcta: true, feedback: 'Correcto: $x < 11$.' },
+            { texto: '$x \\leq 11$', correcta: false, feedback: 'Incorrecto: el símbolo original es $<$ (estricto), se conserva.' },
+            { texto: '$x > 11$', correcta: false, feedback: 'Incorrecto: al restar, el sentido no cambia. Es $x < 11$.' }
+          ],
+          pista: 'Calcula $4 + 7$. El símbolo $<$ se conserva porque no dividimos entre negativo.'
+        },
+        fase4: {
+          pregunta: '¿Cuál es el error más común al resolver inecuaciones con varias fracciones?',
+          opciones: [
+            { texto: 'No encontrar el mcm correcto', correcta: true, feedback: 'Correcto: es común calcular mal el mcm o no multiplicar todos los términos.' },
+            { texto: 'Invertir el sentido al dividir', correcta: false, feedback: 'Incorrecto: el error más común es no encontrar el mcm.' },
+            { texto: 'Distribuir mal el signo negativo', correcta: false, feedback: 'Incorrecto: aunque sucede, el error más común es no encontrar el mcm.' }
+          ]
+        }
+      },
+      {
+        nivel: 'alto',
+        enunciado: 'Resuelve la inecuación $3x + 5 > 3x - 2$.',
+        expresion: '',
+        fase1: {
+          pregunta: '¿Qué pasa si restas $3x$ en ambos lados?',
+          opciones: [
+            { texto: 'La variable se cancela y queda una desigualdad numérica', correcta: true, feedback: 'Correcto: $3x - 3x = 0$, entonces queda $5 > -2$.' },
+            { texto: 'Obtienes $x > 0$', correcta: false, feedback: 'Incorrecto: al restar $3x$, la variable desaparece completamente.' },
+            { texto: 'La inecuación no tiene solución', correcta: false, feedback: 'Incorrecto: la variable se cancela, pero la desigualdad resultante determina la solución.' }
+          ]
+        },
+        fase2: {
+          inputs: [{ label: 'Después de cancelar $3x$: $5 > -2$. ¿Es verdadera (1) o falsa (0)?', respuesta: 1 }],
+          pista: 'Compara: ¿5 es mayor que $-2$?'
+        },
+        fase3: {
+          opciones: [
+            { texto: 'La solución es todos los reales ($\\mathbb{R}$)', correcta: true, feedback: 'Correcto: como $5 > -2$ siempre es verdadera, cualquier valor de $x$ satisface la inecuación.' },
+            { texto: 'La solución es el conjunto vacío ($\\emptyset$)', correcta: false, feedback: 'Incorrecto: $5 > -2$ es verdadera, entonces SÍ hay soluciones.' },
+            { texto: 'La solución es $x > 0$', correcta: false, feedback: 'Incorrecto: la variable se canceló, así que la solución no depende de $x$.' }
+          ],
+          pista: 'Si la desigualdad numérica es verdadera, la solución es todos los reales.'
+        },
+        fase4: {
+          pregunta: '¿Cuál es el error más común al resolver inecuaciones donde la variable se cancela?',
+          opciones: [
+            { texto: 'Concluir que no hay solución cuando sí la hay', correcta: true, feedback: 'Correcto: es común pensar que si la variable se cancela, no hay solución, pero depende de la desigualdad resultante.' },
+            { texto: 'Invertir el sentido al dividir', correcta: false, feedback: 'Incorrecto: aquí no se divide, la variable se cancela.' },
+            { texto: 'Distribuir mal los términos', correcta: false, feedback: 'Incorrecto: el error más común es concluir mal cuando la variable se cancela.' }
+          ]
+        }
+      }
+    ];
+
+    var estadoActividad = {
+      casoActual: 0,
+      faseActual: 1,
+      intentosFase: 1,
+      casosCompletados: [],
+      puntaje: 0
+    };
+
+    var STORAGE_KEY = 'lab_exani_s04_resueltos';
+
+    function guardarProgreso() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(estadoActividad.casosCompletados));
+      } catch (e) {
+        console.warn('localStorage no disponible:', e);
+      }
+    }
+
+    function cargarProgreso() {
+      try {
+        var datos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        estadoActividad.casosCompletados = datos;
+      } catch (e) {
+        estadoActividad.casosCompletados = [];
+      }
+    }
+
+    function mostrarCaso(index) {
+      var c = casos[index];
+      if (!c) return;
+      estadoActividad.casoActual = index;
+      estadoActividad.faseActual = 1;
+      estadoActividad.intentosFase = 1;
+
+      document.getElementById('numeroCaso').textContent = 'Caso ' + (index + 1) + ' de ' + casos.length;
+      document.getElementById('indicadorCaso').textContent = 'Caso ' + (index + 1) + ' de ' + casos.length;
+      document.getElementById('progresoTexto').textContent = 'Caso ' + (index + 1) + ' de ' + casos.length;
+      var nivelEl = document.getElementById('nivelCaso');
+      nivelEl.textContent = c.nivel === 'basico' ? 'Básico' : (c.nivel === 'medio' ? 'Medio' : 'Alto');
+      nivelEl.className = 'nivel-caso ' + c.nivel;
+      document.getElementById('etiquetaCaso').textContent = 'Caso ' + c.nivel;
+      document.getElementById('textoEnunciado').innerHTML = c.enunciado;
+      document.getElementById('expresionCaso').innerHTML = c.expresion || '';
+
+      document.getElementById('fase1').style.display = 'block';
+      document.getElementById('fase2').style.display = 'none';
+      document.getElementById('fase3').style.display = 'none';
+      document.getElementById('fase4').style.display = 'none';
+
+      // Fase 1
+      document.getElementById('preguntaFase1').textContent = c.fase1.pregunta;
+      var cont1 = document.getElementById('opcionesFase1');
+      cont1.innerHTML = '';
+      c.fase1.opciones.forEach(function(op, i) {
+        var btn = document.createElement('button');
+        btn.className = 'opcion-btn';
+        btn.innerHTML = op.texto;
+        btn.setAttribute('data-index', i);
+        btn.addEventListener('click', function() {
+          verificarFase1(i);
+        });
+        cont1.appendChild(btn);
+      });
+      document.getElementById('feedbackFase1').className = 'feedback';
+      document.getElementById('feedbackFase1').innerHTML = '';
+      document.getElementById('intentosFase1').textContent = 'Intento 1 de 3';
+
+      actualizarBotonesActividad();
+      actualizarProgreso();
+      renderMath(document.getElementById('tarjetaCaso'));
+    }
+
+    function verificarFase1(index) {
+      var c = casos[estadoActividad.casoActual];
+      var op = c.fase1.opciones[index];
+      var botones = document.querySelectorAll('#opcionesFase1 .opcion-btn');
+      var feedback = document.getElementById('feedbackFase1');
+
+      if (op.correcta) {
+        botones[index].classList.add('correcta');
+        botones.forEach(function(b) { b.disabled = true; });
+        feedback.className = 'feedback exito';
+        feedback.innerHTML = 'Correcto: ' + op.feedback;
+        renderMath(feedback);
+        avanzarFase();
+      } else {
+        botones[index].classList.add('incorrecta');
+        botones[index].disabled = true;
+        estadoActividad.intentosFase++;
+        if (estadoActividad.intentosFase > 3) {
+          feedback.className = 'feedback error';
+          feedback.innerHTML = 'Respuesta correcta: ' + c.fase1.opciones.find(function(o) { return o.correcta; }).texto + '. ' + op.feedback;
+          renderMath(feedback);
+          avanzarFase();
+        } else {
+          feedback.className = 'feedback error';
+          feedback.innerHTML = 'Incorrecto. ' + op.feedback;
+          renderMath(feedback);
+          document.getElementById('intentosFase1').textContent = 'Intento ' + estadoActividad.intentosFase + ' de 3';
+        }
+      }
+    }
+
+    function avanzarFase() {
+      estadoActividad.faseActual++;
+      estadoActividad.intentosFase = 1;
+      if (estadoActividad.faseActual === 2) {
+        document.getElementById('fase2').style.display = 'block';
+        configurarFase2();
+      } else if (estadoActividad.faseActual === 3) {
+        document.getElementById('fase3').style.display = 'block';
+        configurarFase3();
+      } else if (estadoActividad.faseActual === 4) {
+        document.getElementById('fase4').style.display = 'block';
+        configurarFase4();
+      } else if (estadoActividad.faseActual === 5) {
+        completarCaso();
+      }
+    }
+
+    function configurarFase2() {
+      var c = casos[estadoActividad.casoActual];
+      var cont = document.getElementById('inputsFase2');
+      cont.innerHTML = '';
+      c.fase2.inputs.forEach(function(inp, i) {
+        var div = document.createElement('div');
+        div.className = 'input-group';
+        div.innerHTML = '<label>' + inp.label + '</label><input type="text" id="fase2-input-' + i + '" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">';
+        cont.appendChild(div);
+      });
+      document.getElementById('feedbackFase2').className = 'feedback';
+      document.getElementById('feedbackFase2').innerHTML = '';
+      document.getElementById('intentosFase2').textContent = 'Intento 1 de 3';
+      renderMath(cont);
+    }
+
+    function verificarFase2() {
+      var c = casos[estadoActividad.casoActual];
+      var feedback = document.getElementById('feedbackFase2');
+      var todosCorrectos = true;
+      c.fase2.inputs.forEach(function(inp, i) {
+        var el = document.getElementById('fase2-input-' + i);
+        if (!el) return;
+        var val = parsearNumero(el.value);
+        if (Math.abs(val - inp.respuesta) > 1e-6) {
+          todosCorrectos = false;
+        }
+      });
+
+      if (todosCorrectos) {
+        feedback.className = 'feedback exito';
+        feedback.innerHTML = 'Correcto: los valores intermedios son correctos.';
+        renderMath(feedback);
+        avanzarFase();
+      } else {
+        estadoActividad.intentosFase++;
+        if (estadoActividad.intentosFase > 3) {
+          var respuestaCorrecta = c.fase2.inputs.map(function(inp) { return formatearNumero(inp.respuesta); }).join(', ');
+          feedback.className = 'feedback error';
+          feedback.innerHTML = 'Respuesta correcta: ' + respuestaCorrecta + '.';
+          renderMath(feedback);
+          avanzarFase();
+        } else {
+          feedback.className = 'feedback error';
+          feedback.innerHTML = 'Incorrecto. Revisa tus cálculos.';
+          renderMath(feedback);
+          document.getElementById('intentosFase2').textContent = 'Intento ' + estadoActividad.intentosFase + ' de 3';
+        }
+      }
+    }
+
+    function configurarFase3() {
+      var c = casos[estadoActividad.casoActual];
+      var cont = document.getElementById('inputsFase3');
+      cont.innerHTML = '';
+      var w = document.createElement('div');
+      w.className = 'input-group';
+      var html = '<label for="fase3-select">Selecciona el resultado:</label>';
+      html += '<select id="fase3-select">';
+      html += '<option value="">-- Selecciona --</option>';
+      c.fase3.opciones.forEach(function(op, i) {
+        html += '<option value="' + i + '">' + op.texto + '</option>';
+      });
+      html += '</select>';
+      w.innerHTML = html;
+      cont.appendChild(w);
+      document.getElementById('feedbackFase3').className = 'feedback';
+      document.getElementById('feedbackFase3').innerHTML = '';
+      document.getElementById('intentosFase3').textContent = 'Intento 1 de 3';
+      renderMath(cont);
+    }
+
+    function verificarFase3() {
+      var c = casos[estadoActividad.casoActual];
+      var sel = document.getElementById('fase3-select');
+      var feedback = document.getElementById('feedbackFase3');
+      if (!sel || sel.value === '') {
+        feedback.className = 'feedback advertencia';
+        feedback.innerHTML = 'Selecciona una opción.';
+        return;
+      }
+      var index = parseInt(sel.value);
+      var op = c.fase3.opciones[index];
+      if (op.correcta) {
+        feedback.className = 'feedback exito';
+        feedback.innerHTML = 'Correcto: ' + op.feedback;
+        renderMath(feedback);
+        avanzarFase();
+      } else {
+        estadoActividad.intentosFase++;
+        if (estadoActividad.intentosFase > 3) {
+          var correcta = c.fase3.opciones.find(function(o) { return o.correcta; });
+          feedback.className = 'feedback error';
+          feedback.innerHTML = 'Respuesta correcta: ' + correcta.texto + '. ' + op.feedback;
+          renderMath(feedback);
+          avanzarFase();
+        } else {
+          feedback.className = 'feedback error';
+          feedback.innerHTML = 'Incorrecto. ' + op.feedback;
+          renderMath(feedback);
+          document.getElementById('intentosFase3').textContent = 'Intento ' + estadoActividad.intentosFase + ' de 3';
+        }
+      }
+    }
+
+    function configurarFase4() {
+      var c = casos[estadoActividad.casoActual];
+      document.getElementById('preguntaFase4').textContent = c.fase4.pregunta;
+      var cont = document.getElementById('opcionesFase4');
+      cont.innerHTML = '';
+      c.fase4.opciones.forEach(function(op, i) {
+        var btn = document.createElement('button');
+        btn.className = 'opcion-btn';
+        btn.innerHTML = op.texto;
+        btn.setAttribute('data-index', i);
+        btn.addEventListener('click', function() {
+          verificarFase4(i);
+        });
+        cont.appendChild(btn);
+      });
+      document.getElementById('feedbackFase4').className = 'feedback';
+      document.getElementById('feedbackFase4').innerHTML = '';
+      document.getElementById('intentosFase4').textContent = 'Intento 1 de 3';
+      renderMath(document.getElementById('fase4'));
+    }
+
+    function verificarFase4(index) {
+      var c = casos[estadoActividad.casoActual];
+      var op = c.fase4.opciones[index];
+      var botones = document.querySelectorAll('#opcionesFase4 .opcion-btn');
+      var feedback = document.getElementById('feedbackFase4');
+
+      if (op.correcta) {
+        botones[index].classList.add('correcta');
+        botones.forEach(function(b) { b.disabled = true; });
+        feedback.className = 'feedback exito';
+        feedback.innerHTML = 'Correcto: ' + op.feedback;
+        renderMath(feedback);
+        avanzarFase();
+      } else {
+        botones[index].classList.add('incorrecta');
+        botones[index].disabled = true;
+        estadoActividad.intentosFase++;
+        if (estadoActividad.intentosFase > 3) {
+          var correcta = c.fase4.opciones.find(function(o) { return o.correcta; });
+          feedback.className = 'feedback error';
+          feedback.innerHTML = 'Respuesta correcta: ' + correcta.texto + '. ' + op.feedback;
+          renderMath(feedback);
+          avanzarFase();
+        } else {
+          feedback.className = 'feedback error';
+          feedback.innerHTML = 'Incorrecto. ' + op.feedback;
+          renderMath(feedback);
+          document.getElementById('intentosFase4').textContent = 'Intento ' + estadoActividad.intentosFase + ' de 3';
+        }
+      }
+    }
+
+    function completarCaso() {
+      if (estadoActividad.casosCompletados.indexOf(estadoActividad.casoActual) === -1) {
+        estadoActividad.casosCompletados.push(estadoActividad.casoActual);
+        estadoActividad.puntaje++;
+        guardarProgreso();
+      }
+      actualizarProgreso();
+      actualizarBotonesActividad();
+    }
+
+    function actualizarProgreso() {
+      var pct = (estadoActividad.casosCompletados.length / casos.length) * 100;
+      var fill = document.getElementById('progresoFill');
+      if (fill) {
+        fill.style.width = pct + '%';
+        fill.setAttribute('aria-valuenow', Math.round(pct));
+      }
+      document.getElementById('progresoPuntaje').textContent = estadoActividad.casosCompletados.length + ' / ' + casos.length;
+    }
+
+    function actualizarBotonesActividad() {
+      var btnAnterior = document.getElementById('btnAnterior');
+      var btnSiguiente = document.getElementById('btnSiguiente');
+      if (!btnAnterior || !btnSiguiente) return;
+      btnAnterior.disabled = estadoActividad.casoActual === 0;
+      var completado = estadoActividad.casosCompletados.indexOf(estadoActividad.casoActual) !== -1;
+      btnSiguiente.disabled = !completado;
+      btnSiguiente.textContent = (estadoActividad.casoActual === casos.length - 1)
+        ? 'Finalizar'
+        : (completado ? 'Siguiente caso' : 'Siguiente caso (sin completar)');
+    }
+
+    function mostrarPantallaFinal() {
+      document.getElementById('tarjetaCaso').style.display = 'none';
+      var pantalla = document.getElementById('pantallaFinal');
+      pantalla.classList.add('activa');
+      document.getElementById('puntajeFinal').textContent = estadoActividad.casosCompletados.length + ' / ' + casos.length;
+      var pct = (estadoActividad.casosCompletados.length / casos.length) * 100;
+      var medalla, mensaje;
+      if (pct === 100) {
+        medalla = '🏆';
+        mensaje = '¡Excelente! Has completado todos los casos correctamente.';
+      } else if (pct >= 70) {
+        medalla = '🥈';
+        mensaje = '¡Muy bien! Has completado la mayoría de los casos.';
+      } else {
+        medalla = '🥉';
+        mensaje = 'Buen intento. Repasa los conceptos y vuelve a intentarlo.';
+      }
+      document.getElementById('medallaFinal').textContent = medalla;
+      document.getElementById('mensajeFinal').textContent = mensaje;
+    }
+
+    function reiniciarActividad() {
+      estadoActividad = {
+        casoActual: 0,
+        faseActual: 1,
+        intentosFase: 1,
+        casosCompletados: [],
+        puntaje: 0
+      };
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      document.getElementById('tarjetaCaso').style.display = 'block';
+      document.getElementById('pantallaFinal').classList.remove('activa');
+      mostrarCaso(0);
+    }
+
+    function iniciarActividad() {
+      cargarProgreso();
+      mostrarCaso(0);
+      var btnAnt = document.getElementById('btnAnterior');
+      if (btnAnt) btnAnt.addEventListener('click', function() {
+        if (estadoActividad.casoActual > 0) mostrarCaso(estadoActividad.casoActual - 1);
+      });
+      var btnSig = document.getElementById('btnSiguiente');
+      if (btnSig) btnSig.addEventListener('click', function() {
+        if (estadoActividad.casoActual === casos.length - 1) {
+          mostrarPantallaFinal();
+        } else {
+          mostrarCaso(estadoActividad.casoActual + 1);
+        }
+      });
+      var btnV2 = document.getElementById('btnVerificarFase2');
+      if (btnV2) btnV2.addEventListener('click', verificarFase2);
+      var btnP2 = document.getElementById('btnPistaFase2');
+      if (btnP2) btnP2.addEventListener('click', function() {
+        var c = casos[estadoActividad.casoActual];
+        var feedback = document.getElementById('feedbackFase2');
+        feedback.className = 'feedback advertencia';
+        feedback.innerHTML = 'Pista: ' + c.fase2.pista;
+        renderMath(feedback);
+      });
+      var btnV3 = document.getElementById('btnVerificarFase3');
+      if (btnV3) btnV3.addEventListener('click', verificarFase3);
+      var btnP3 = document.getElementById('btnPistaFase3');
+      if (btnP3) btnP3.addEventListener('click', function() {
+        var c = casos[estadoActividad.casoActual];
+        var feedback = document.getElementById('feedbackFase3');
+        feedback.className = 'feedback advertencia';
+        feedback.innerHTML = 'Pista: ' + c.fase3.pista;
+        renderMath(feedback);
+      });
+      var btnR = document.getElementById('btnReiniciarActividad');
+      if (btnR) btnR.addEventListener('click', reiniciarActividad);
+    }
+
+    // ===== EXAMEN =====
+    // ===== DISTRIBUCIÓN DE DIFICULTAD (interna, NO visible) =====
+    // Sesión: s04 — Inecuaciones lineales
+    // Perfil: Introductoria
+    // Fáciles: 4 | Medios: 3 | Difíciles: 3
+    // Tipos: 2 concepto + 2 cálculo + 1 interpretación + 1 modelación + 2 resolución + 1 error + 1 evaluación
+
+    var rawQuestions = [
+      // FÁCILES (4)
+      {
+        tipo: 'Concepto',
+        dificultad: 'facil',
+        texto: '¿Qué es una inecuación lineal?',
+        opciones: [
+          { texto: 'Una igualdad entre dos expresiones con variable elevada a la primera potencia', correcta: false, feedback: 'Incorrecto: una igualdad es una ecuación, no una inecuación.' },
+          { texto: 'Una desigualdad entre dos expresiones donde la variable tiene exponente 1', correcta: true, feedback: 'Correcto: una inecuación lineal es una desigualdad con variable de exponente 1.' },
+          { texto: 'Una expresión algebraica con variables elevadas al cuadrado', correcta: false, feedback: 'Incorrecto: si la variable está al cuadrado, es cuadrática, no lineal.' }
+        ]
+      },
+      {
+        tipo: 'Cálculo',
+        dificultad: 'facil',
+        texto: 'Resuelve la inecuación $2x + 4 > 10$.',
+        opciones: [
+          { texto: '$x > 3$', correcta: true, feedback: 'Correcto: $2x > 6 \\Rightarrow x > 3$.' },
+          { texto: '$x < 3$', correcta: false, feedback: 'Incorrecto: al dividir entre 2 (positivo), el sentido NO se invierte.' },
+          { texto: '$x > 7$', correcta: false, feedback: 'Incorrecto: primero restas 4, no sumas. $2x > 10 - 4 = 6$.' }
+        ]
+      },
+      {
+        tipo: 'Resolución',
+        dificultad: 'facil',
+        texto: '¿Cuál es el conjunto solución de $x \\leq 3$?',
+        opciones: [
+          { texto: '$(-\\infty, 3]$', correcta: true, feedback: 'Correcto: $\\leq$ incluye el 3, entonces es intervalo cerrado en 3.' },
+          { texto: '$(-\\infty, 3)$', correcta: false, feedback: 'Incorrecto: $\\leq$ incluye el 3, entonces el intervalo es cerrado, no abierto.' },
+          { texto: '$(3, +\\infty)$', correcta: false, feedback: 'Incorrecto: $\\leq$ significa "menor o igual", entonces va hacia $-\\infty$, no hacia $+\\infty$.' }
+        ]
+      },
+      {
+        tipo: 'Interpretación',
+        dificultad: 'facil',
+        texto: 'En la recta numérica, si ves un círculo lleno en 2 y sombreado hacia la derecha, ¿qué inecuación representa?',
+        opciones: [
+          { texto: '$x \\geq 2$', correcta: true, feedback: 'Correcto: círculo lleno = incluye el 2; sombreado a la derecha = mayor.' },
+          { texto: '$x > 2$', correcta: false, feedback: 'Incorrecto: si el círculo es lleno, el 2 está incluido, entonces es $\\geq$, no $>$.' },
+          { texto: '$x \\leq 2$', correcta: false, feedback: 'Incorrecto: sombreado hacia la derecha significa "mayor", no "menor".' }
+        ]
+      },
+      // MEDIOS (3)
+      {
+        tipo: 'Modelación',
+        dificultad: 'medio',
+        texto: 'Traduce a inecuación: "Un número aumentado en 5 es menor que 12".',
+        opciones: [
+          { texto: '$x + 5 < 12$', correcta: true, feedback: 'Correcto: "aumentado en 5" = $+5$; "menor que" = $<$.' },
+          { texto: '$x - 5 < 12$', correcta: false, feedback: 'Incorrecto: "aumentado en 5" significa sumar 5, no restar.' },
+          { texto: '$x + 5 \\leq 12$', correcta: false, feedback: 'Incorrecto: "menor que" es estricto ($<$), no "menor o igual" ($\\leq$).' }
+        ]
+      },
+      {
+        tipo: 'Resolución',
+        dificultad: 'medio',
+        texto: 'Resuelve la inecuación $-3x + 6 \\leq 15$.',
+        opciones: [
+          { texto: '$x \\geq -3$', correcta: true, feedback: 'Correcto: $-3x \\leq 9 \\Rightarrow x \\geq -3$ (sentido invertido al dividir entre $-3$).' },
+          { texto: '$x \\leq -3$', correcta: false, feedback: 'Incorrecto: al dividir entre $-3$ (negativo), el sentido se invierte.' },
+          { texto: '$x \\leq 3$', correcta: false, feedback: 'Incorrecto: primero restas 6: $-3x \\leq 9$. Luego divides entre $-3$: $x \\geq -3$.' }
+        ]
+      },
+      {
+        tipo: 'Error',
+        dificultad: 'medio',
+        texto: 'Un estudiante resolvió $-2x > 8$ y obtuvo $x > -4$. ¿Cuál fue su error?',
+        opciones: [
+          { texto: 'No invirtió el sentido al dividir entre $-2$', correcta: true, feedback: 'Correcto: al dividir entre $-2$, el $>$ debe convertirse en $<$. La respuesta correcta es $x < -4$.' },
+          { texto: 'Calculó mal el signo del resultado', correcta: false, feedback: 'Incorrecto: el signo del resultado está bien ($-4$). El error es no invertir el sentido.' },
+          { texto: 'Dividió entre 2 en lugar de $-2$', correcta: false, feedback: 'Incorrecto: sí dividió entre $-2$, pero olvidó invertir el sentido.' }
+        ]
+      },
+      // DIFÍCILES (3)
+      {
+        tipo: 'Evaluación',
+        dificultad: 'dificil',
+        texto: 'Resuelve la inecuación $\\frac{x + 2}{3} > \\frac{x - 1}{2}$.',
+        opciones: [
+          { texto: '$x > 7$', correcta: false, feedback: 'Incorrecto: multiplica por 6: $2(x + 2) > 3(x - 1)$. Distribuye: $2x + 4 > 3x - 3$. Resta $2x$ y suma 3: $7 > x$, es decir, $x < 7$.' },
+          { texto: '$x < 7$', correcta: true, feedback: 'Correcto: mcm = 6. Multiplica: $2(x + 2) > 3(x - 1)$. Simplifica: $x < 7$.' },
+          { texto: '$x < -7$', correcta: false, feedback: 'Incorrecto: el resultado es $x < 7$, no $x < -7$. Revisa los signos.' }
+        ]
+      },
+      {
+        tipo: 'Resolución',
+        dificultad: 'dificil',
+        texto: 'Resuelve la inecuación $2(x - 3) + 4x \\leq 5x + 1$.',
+        opciones: [
+          { texto: '$x \\leq 7$', correcta: true, feedback: 'Correcto: $2x - 6 + 4x \\leq 5x + 1 \\Rightarrow 6x - 6 \\leq 5x + 1 \\Rightarrow x \\leq 7$.' },
+          { texto: '$x \\geq 7$', correcta: false, feedback: 'Incorrecto: al restar $5x$ y sumar 6, el sentido se conserva. Es $x \\leq 7$.' },
+          { texto: '$x \\leq -7$', correcta: false, feedback: 'Incorrecto: $1 + 6 = 7$, no $-7$. Es $x \\leq 7$.' }
+        ]
+      },
+      {
+        tipo: 'Concepto',
+        dificultad: 'dificil',
+        texto: '¿Cuál es la solución de la inecuación $4x + 2 < 4x - 1$?',
+        opciones: [
+          { texto: 'Todos los números reales ($\\mathbb{R}$)', correcta: false, feedback: 'Incorrecto: al restar $4x$, queda $2 < -1$, que es falso. No hay solución.' },
+          { texto: 'El conjunto vacío ($\\emptyset$)', correcta: true, feedback: 'Correcto: al cancelar $4x$, queda $2 < -1$, que es siempre falso. No hay solución.' },
+          { texto: '$x < 0$', correcta: false, feedback: 'Incorrecto: la variable se cancela, así que la solución no depende de $x$.' }
+        ]
+      }
+    ];
+
+    var preguntas = [];
+    var preguntaActual = 0;
+    var puntajeExamen = 0;
+    var respondida = false;
+
+    function iniciarExamen() {
+      preguntas = shuffleArray(rawQuestions);
+      preguntaActual = 0;
+      puntajeExamen = 0;
+      document.getElementById('quizView').style.display = 'block';
+      document.getElementById('resultsView').classList.remove('activa');
+      cargarPregunta();
+    }
+
+    function cargarPregunta() {
+      if (preguntaActual >= preguntas.length) {
+        mostrarResultados();
+        return;
+      }
+      respondida = false;
+      var p = preguntas[preguntaActual];
+      document.getElementById('questionMeta').textContent = 'Reactivo ' + (preguntaActual + 1) + ' de ' + preguntas.length;
+      document.getElementById('questionTipo').textContent = p.tipo;
+      document.getElementById('questionText').innerHTML = p.texto;
+      var lista = document.getElementById('optionsList');
+      lista.innerHTML = '';
+      p.opciones.forEach(function(op, i) {
+        var li = document.createElement('li');
+        li.className = 'option-item';
+        li.innerHTML = op.texto;
+        li.setAttribute('data-index', i);
+        li.setAttribute('role', 'button');
+        li.setAttribute('tabindex', '0');
+        li.addEventListener('click', function() {
+          seleccionarOpcion(i);
+        });
+        li.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            seleccionarOpcion(i);
+          }
+        });
+        lista.appendChild(li);
+      });
+      document.getElementById('feedbackBox').className = 'feedback-box';
+      document.getElementById('feedbackBox').innerHTML = '';
+      var btn = document.getElementById('btnNext');
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = (preguntaActual === preguntas.length - 1) ? 'Ver resultados' : 'Siguiente Reactivo';
+      }
+      var pct = ((preguntaActual) / preguntas.length) * 100;
+      var bar = document.getElementById('progressBar');
+      if (bar) {
+        bar.style.width = pct + '%';
+        bar.setAttribute('aria-valuenow', Math.round(pct));
+      }
+      renderMath(document.getElementById('quizView'));
+    }
+
+    function seleccionarOpcion(index) {
+      if (respondida) return;
+      respondida = true;
+      var p = preguntas[preguntaActual];
+      var op = p.opciones[index];
+      var items = document.querySelectorAll('.option-item');
+      items.forEach(function(it, i) {
+        it.classList.add('disabled');
+        if (p.opciones[i].correcta) it.classList.add('correcta');
+      });
+      var feedback = document.getElementById('feedbackBox');
+      if (op.correcta) {
+        puntajeExamen++;
+        feedback.className = 'feedback-box exito';
+        feedback.innerHTML = 'Correcto: ' + op.feedback;
+      } else {
+        items[index].classList.add('incorrecta');
+        feedback.className = 'feedback-box error';
+        feedback.innerHTML = 'Incorrecto: ' + op.feedback;
+      }
+      renderMath(feedback);
+      var btn = document.getElementById('btnNext');
+      if (btn) btn.disabled = false;
+    }
+
+    function mostrarResultados() {
+      document.getElementById('quizView').style.display = 'none';
+      var res = document.getElementById('resultsView');
+      res.classList.add('activa');
+      document.getElementById('finalScore').textContent = puntajeExamen + '/10';
+      var msg;
+      if (puntajeExamen === 10) {
+        msg = '¡Excelente! Dominas las inecuaciones lineales.';
+      } else if (puntajeExamen >= 7) {
+        msg = '¡Muy bien! Tienes un buen dominio, pero puedes mejorar en algunos temas.';
+      } else if (puntajeExamen >= 5) {
+        msg = 'Buen intento. Repasa los conceptos y vuelve a intentarlo.';
+      } else {
+        msg = 'Necesitas repasar. Te recomendamos volver a la presentación y practicar más.';
+      }
+      document.getElementById('resultsMessage').textContent = msg;
+      var bar = document.getElementById('progressBar');
+      if (bar) {
+        bar.style.width = '100%';
+        bar.setAttribute('aria-valuenow', 100);
+      }
+    }
+
+    function iniciarExamenListeners() {
+      var btnNext = document.getElementById('btnNext');
+      if (btnNext) btnNext.addEventListener('click', function() {
+        preguntaActual++;
+        cargarPregunta();
+      });
+      var btnRestart = document.getElementById('btnRestart');
+      if (btnRestart) btnRestart.addEventListener('click', iniciarExamen);
+    }
+
+    // ===== INICIALIZACIÓN =====
+    function iniciarRecurso() {
+      iniciarTabs();
+      iniciarCalculadora();
+      iniciarActividad();
+      iniciarExamen();
+      iniciarExamenListeners();
+      renderMath(document.body);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', iniciarRecurso);
+    } else {
+      iniciarRecurso();
+    }
+  </script>
+</body>
+</html>

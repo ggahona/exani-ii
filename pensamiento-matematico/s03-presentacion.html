@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="tipo-recurso" content="Presentación con ejemplos">
+<title>Sesión s03 — Leyes de los exponentes y simplificación de expresiones algebraicas | EXANI-II</title>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    svg: { fontCache: 'global' },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  :root {
+    --exani-azul: #1B7FC4;
+    --exani-azul-marino: #003865;
+    --exani-verde: #8BC34A;
+    --exani-blanco: #FFFFFF;
+    --exani-gris-oscuro: #333333;
+    --exani-gris-claro: #E0E0E0;
+    --exani-fondo-secundario: #F5F5F5;
+    --exani-texto-secundario: #666666;
+    --exani-error: #D9534F;
+    --exani-advertencia: #FF6A14;
+    --radio-borde: 8px;
+    --sombra-suave: 0 4px 6px rgba(0, 56, 101, 0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--exani-fondo-secundario);
+    color: var(--exani-gris-oscuro);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .contenedor {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--exani-blanco);
+    min-height: 100vh;
+    box-shadow: var(--sombra-suave);
+  }
+  header {
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+    padding: 22px 28px 24px;
+    text-align: center;
+  }
+  header .institucion {
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-bottom: 8px;
+  }
+  header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  header p {
+    font-size: 0.98rem;
+    opacity: 0.95;
+  }
+  .progreso {
+    height: 6px;
+    background: var(--exani-gris-claro);
+    overflow: hidden;
+  }
+  .progreso-barra {
+    height: 100%;
+    background: var(--exani-verde);
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  main {
+    padding: 32px 28px;
+  }
+  .diapositiva {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+  .diapositiva.activa { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .titulo-diapo {
+    color: var(--exani-azul-marino);
+    font-size: 1.6rem;
+    margin-bottom: 18px;
+    border-bottom: 3px solid var(--exani-azul);
+    padding-bottom: 10px;
+  }
+  .objetivo-diapo {
+    background: var(--exani-fondo-secundario);
+    padding: 14px 18px;
+    border-radius: var(--radio-borde);
+    margin-bottom: 20px;
+    border-left: 4px solid var(--exani-azul);
+  }
+  .tabla-temario {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    background: var(--exani-blanco);
+  }
+  .tabla-temario th {
+    background: var(--exani-azul-marino);
+    color: var(--exani-blanco);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .tabla-temario td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--exani-gris-claro);
+  }
+  .tabla-temario tr:nth-child(even) td { background: var(--exani-fondo-secundario); }
+  .nota {
+    background: #F0F8FE;
+    border-left: 4px solid var(--exani-azul);
+    padding: 14px 18px;
+    border-radius: var(--radio-borde);
+    margin: 18px 0;
+    font-size: 0.95rem;
+  }
+  .contenido-teorico {
+    margin-bottom: 22px;
+  }
+  .contenido-teorico p {
+    margin-bottom: 12px;
+  }
+  .contenido-teorico ul, .contenido-teorico ol {
+    margin: 10px 0 10px 24px;
+  }
+  .contenido-teorico li { margin-bottom: 6px; }
+  .formula-destacada {
+    background: var(--exani-fondo-secundario);
+    border: 1px solid var(--exani-gris-claro);
+    border-radius: var(--radio-borde);
+    padding: 14px 18px;
+    text-align: center;
+    font-size: 1.1rem;
+    margin: 14px 0;
+  }
+  .ejemplo-resuelto {
+    background: var(--exani-fondo-secundario);
+    border-radius: var(--radio-borde);
+    padding: 18px 22px;
+    margin: 18px 0;
+    border-left: 4px solid var(--exani-verde);
+  }
+  .ejemplo-resuelto h3 {
+    color: var(--exani-azul-marino);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  .paso-ejemplo {
+    display: flex;
+    gap: 12px;
+    padding: 10px 12px;
+    background: var(--exani-blanco);
+    border-radius: 6px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+  }
+  .num-paso {
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .detalle-ejemplo {
+    flex: 1;
+    min-width: 0;
+    overflow-x: hidden;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    padding-top: 2px;
+  }
+  .resultado-ejemplo {
+    background: var(--exani-verde);
+    color: var(--exani-blanco);
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-top: 10px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .anticipa {
+    background: #F0F8FE;
+    border-left: 4px solid var(--exani-azul);
+    border-radius: var(--radio-borde);
+    padding: 14px 18px;
+    margin: 18px 0;
+  }
+  .anticipa h4 {
+    color: var(--exani-azul-marino);
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+  }
+  .anticipa p { font-size: 0.92rem; margin-bottom: 8px; }
+  .anticipa details { margin-top: 6px; font-size: 0.9rem; }
+  .anticipa summary {
+    cursor: pointer;
+    color: var(--exani-azul);
+    font-weight: 600;
+    padding: 4px 0;
+  }
+  .anticipa summary:hover { color: var(--exani-azul-marino); text-decoration: underline; }
+  .anticipa details p {
+    margin-top: 8px;
+    padding: 10px 12px;
+    background: var(--exani-blanco);
+    border-radius: 6px;
+  }
+  .caja-interactiva {
+    background: var(--exani-blanco);
+    border: 2px solid var(--exani-gris-claro);
+    border-radius: var(--radio-borde);
+    padding: 20px;
+    margin: 18px 0;
+    box-shadow: var(--sombra-suave);
+  }
+  .caja-interactiva h3 {
+    color: var(--exani-azul-marino);
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  .instruccion-caja {
+    color: var(--exani-texto-secundario);
+    font-size: 0.92rem;
+    margin-bottom: 14px;
+  }
+  .grupo-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-end;
+    margin-bottom: 14px;
+  }
+  .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 120px;
+  }
+  .input-wrapper label {
+    font-size: 0.88rem;
+    color: var(--exani-gris-oscuro);
+    font-weight: 500;
+  }
+  .input-wrapper input, .input-wrapper select {
+    padding: 8px 12px;
+    border: 1px solid var(--exani-gris-claro);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+  }
+  .input-wrapper input:focus, .input-wrapper select:focus {
+    outline: none;
+    border-color: var(--exani-azul);
+    box-shadow: 0 0 0 2px rgba(27, 127, 196, 0.15);
+  }
+  .btn-primario {
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-primario:hover { background: var(--exani-azul-marino); }
+  .btn-secundario {
+    background: var(--exani-blanco);
+    color: var(--exani-azul);
+    border: 2px solid var(--exani-azul);
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-secundario:hover { background: var(--exani-azul); color: var(--exani-blanco); }
+  .resultado {
+    margin-top: 14px;
+    padding: 14px 18px;
+    border-radius: 6px;
+    background: var(--exani-fondo-secundario);
+    border-left: 4px solid var(--exani-gris-claro);
+    min-height: 40px;
+  }
+  .resultado.exito {
+    background: #F0F8F0;
+    border-left-color: var(--exani-verde);
+  }
+  .resultado.error {
+    background: #FEF0F0;
+    border-left-color: var(--exani-error);
+    color: var(--exani-error);
+  }
+  .resultado.advertencia {
+    background: #FFF5EB;
+    border-left-color: var(--exani-advertencia);
+    color: var(--exani-advertencia);
+  }
+  .paso-resultado {
+    display: flex;
+    gap: 10px;
+    padding: 6px 0;
+    align-items: flex-start;
+  }
+  .paso-resultado .num-paso {
+    width: 22px;
+    height: 22px;
+    font-size: 0.8rem;
+  }
+  .resultado-final {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: var(--exani-verde);
+    color: var(--exani-blanco);
+    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .tabla-resumen {
+    margin: 18px 0;
+  }
+  .tabla-resumen h3 {
+    color: var(--exani-azul-marino);
+    margin-bottom: 10px;
+  }
+  .tabla-resumen table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .tabla-resumen th {
+    background: var(--exani-azul-marino);
+    color: var(--exani-blanco);
+    padding: 10px 14px;
+    text-align: left;
+  }
+  .tabla-resumen td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--exani-gris-claro);
+  }
+  .tabla-resumen tr:nth-child(even) td { background: var(--exani-fondo-secundario); }
+  .errores-comunes {
+    background: #FEF0F0;
+    border-left: 4px solid var(--exani-error);
+    padding: 16px 20px;
+    border-radius: var(--radio-borde);
+    margin: 18px 0;
+  }
+  .errores-comunes h3 {
+    color: var(--exani-error);
+    margin-bottom: 10px;
+  }
+  .errores-comunes ul { margin-left: 20px; }
+  .errores-comunes li { margin-bottom: 6px; }
+  .mensaje-cierre {
+    background: #F0F8FE;
+    border-left: 4px solid var(--exani-azul);
+    padding: 14px 18px;
+    border-radius: var(--radio-borde);
+    margin-top: 18px;
+  }
+  .navegacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 28px;
+    background: var(--exani-fondo-secundario);
+    border-top: 1px solid var(--exani-gris-claro);
+  }
+  .navegacion button {
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .navegacion button:hover:not(:disabled) { background: var(--exani-azul-marino); }
+  .navegacion button:disabled {
+    background: var(--exani-gris-claro);
+    color: var(--exani-texto-secundario);
+    cursor: not-allowed;
+  }
+  #indicador {
+    font-weight: 600;
+    color: var(--exani-azul-marino);
+  }
+  .footer-info {
+    padding: 14px 28px;
+    background: var(--exani-azul-marino);
+    color: var(--exani-blanco);
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.7rem; }
+    main { padding: 20px 16px; }
+    .titulo-diapo { font-size: 1.3rem; }
+    .grupo-inputs { flex-direction: column; }
+    .input-wrapper { min-width: 100%; }
+    .navegacion { padding: 14px 16px; }
+    .navegacion button { padding: 8px 16px; font-size: 0.9rem; }
+  }
+</style>
+</head>
+<body>
+<div class="contenedor">
+  <header>
+    <div class="institucion">Pensamiento Matemático</div>
+    <h1>EXANI-II</h1>
+    <p>Sesión s03 — Leyes de los exponentes y simplificación de expresiones algebraicas</p>
+  </header>
+  <div class="progreso" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div class="progreso-barra" id="progresoBarra"></div>
+  </div>
+  <main id="contenedorDiapositivas">
+
+    <!-- Diapositiva 1: Bienvenida -->
+    <section class="diapositiva activa" data-diapo="1">
+      <h2 class="titulo-diapo">Bienvenida</h2>
+      <p class="objetivo-diapo"><strong>Objetivo:</strong> Aplicar las leyes de los exponentes para simplificar productos, cocientes y potencias, y simplificar expresiones algebraicas mediante la combinación de términos semejantes y la reducción de fracciones algebraicas.</p>
+      <h3>Temario</h3>
+      <table class="tabla-temario">
+        <tr><th>Tema</th><th>Subárea</th></tr>
+        <tr><td>Producto de bases iguales</td><td>Comprensión de lo matemático — Estimación</td></tr>
+        <tr><td>Cociente de bases iguales</td><td>Comprensión de lo matemático — Estimación</td></tr>
+        <tr><td>Potencia de una potencia</td><td>Comprensión de lo matemático — Estimación</td></tr>
+        <tr><td>Exponente cero y exponente negativo</td><td>Comprensión de lo matemático — Estimación</td></tr>
+        <tr><td>Potencia de un producto y de un cociente</td><td>Comprensión de lo matemático — Estimación</td></tr>
+        <tr><td>Simplificación de expresiones algebraicas</td><td>Comprensión de lo matemático — Sentido numérico</td></tr>
+        <tr><td>Simplificación de fracciones algebraicas</td><td>Comprensión de lo matemático — Sentido numérico</td></tr>
+      </table>
+      <div class="nota">
+        <strong>Cómo usar esta presentación:</strong> Cada diapositiva incluye un ejemplo resuelto, un bloque de anticipación y una caja interactiva. Primero anticipa el resultado con tu intuición, luego manipula los valores para ver el procedimiento paso a paso.
+      </div>
+    </section>
+
+    <!-- Diapositiva 2: Producto de bases iguales -->
+    <section class="diapositiva" data-diapo="2">
+      <h2 class="titulo-diapo">Producto de bases iguales</h2>
+      <div class="contenido-teorico">
+        <p>Cuando multiplicamos potencias con la <strong>misma base</strong>, se conserva la base y se <strong>suman los exponentes</strong>:</p>
+        <div class="formula-destacada">$x^a \cdot x^b = x^{a+b}$</div>
+        <p><strong>¿Por qué?</strong> Porque $x^a$ significa multiplicar $x$ por sí mismo $a$ veces, y $x^b$ significa multiplicarlo $b$ veces. Al juntar ambas multiplicaciones, estamos multiplicando $x$ un total de $a + b$ veces.</p>
+        <p>Ejemplo numérico: $2^3 \cdot 2^4 = (2 \cdot 2 \cdot 2) \cdot (2 \cdot 2 \cdot 2 \cdot 2) = 2^7 = 128$.</p>
+      </div>
+      <div class="ejemplo-resuelto">
+        <h3>Ejemplo resuelto</h3>
+        <p><strong>Problema:</strong> Simplifica $x^5 \cdot x^3$.</p>
+        <div class="paso-ejemplo">
+          <span class="num-paso">1</span>
+          <span class="detalle-ejemplo">Identificamos que ambas potencias tienen la misma base: $x$.</span>
+        </div>
+        <div class="paso-ejemplo">
+          <span class="num-paso">2</span>
+          <span class="detalle-ejemplo">Aplicamos la ley del producto: conservamos la base y sumamos los exponentes.</span>
+        </div>
+        <div class="paso-ejemplo">
+          <span class="num-paso">3</span>
+          <span class="detalle-ejemplo">$x^5 \cdot x^3 = x^{5+3} = x^8$.</span>
+        </div>
+        <div class="resultado-ejemplo">
+          $x^5 \cdot x^3 = x^8$
+        </div>
+      </div>
+      <div class="anticipa">
+        <h4>Anticipa el resultado</h4>
+        <p>Si multiplicas $x^4 \cdot x^6$, ¿el exponente del resultado será mayor o menor que 6? ¿Por qué?</p>
+        <details>
+          <summary>Ver respuesta</summary>
+          <p>Será mayor que 6. Al multiplicar potencias de la misma base, los exponentes se suman: $4 + 6 = 10$. Por lo tanto, el resultado es $x^{10}$.</p>
+        </details>
+      </div>
+      <div class="caja-interactiva">
+        <h3>Calculadora — Producto de bases iguales</h3>
+        <p class="instruccion-caja">Ingresa la base y los dos exponentes para ver la simplificación.</p>
+        <div class="grupo-inputs">
+          <div class="input-wrapper">
+            <label for="prod-base">Base ($x$):</label>
+            <input type="text" id="prod-base" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="prod-a">Exponente $a$:</label>
+            <input type="text" id="prod-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="prod-b">Exponente $b$:</label>
+            <input type="text" id="prod-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <button class="btn-primario" id="btn-prod-calcular">Calcular</button>
+        </div>
+        <div class="resultado" id="res-prod" role="status" aria-live="polite">
+          El resultado aparecerá aquí...
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 3: Cociente de bases iguales -->
+    <section class="diapositiva" data-diapo="3">
+      <h2 class="titulo-diapo">Cociente de bases iguales</h2>
+      <div class="contenido-teorico">
+        <p>Cuando dividimos potencias con la <strong>misma base</strong>, se conserva la base y se <strong>restan los exponentes</strong>:</p>
+        <div class="formula-destacada">$\dfrac{x^a}{x^b} = x^{a-b}$, con $x \neq 0$</div>
+        <p><strong>¿Por qué?</strong> Porque al dividir, los factores del numerador se cancelan con los del denominador. Si $a > b$, quedan $a - b$ factores en el numerador.</p>
+        <p>Casos especiales:</p>
+        <ul>
+          <li>Si $a = b$, entonces $x^{a-b} = x^0 = 1$.</li>
+          <li>Si $a < b$, entonces $x^{a-b} = x^{-n} = \dfrac{1}{x^n}$ (exponente negativo).</li>
+        </ul>
+      </div>
+      <div class="ejemplo-resuelto">
+        <h3>Ejemplo resuelto</h3>
+        <p><strong>Problema:</strong> Simplifica $\dfrac{x^7}{x^3}$.</p>
+        <div class="paso-ejemplo">
+          <span class="num-paso">1</span>
+          <span class="detalle-ejemplo">Identificamos que ambas potencias tienen la misma base: $x$.</span>
+        </div>
+        <div class="paso-ejemplo">
+          <span class="num-paso">2</span>
+          <span class="detalle-ejemplo">Aplicamos la ley del cociente: conservamos la base y restamos los exponentes.</span>
+        </div>
+        <div class="paso-ejemplo">
+          <span class="num-paso">3</span>
+          <span class="detalle-ejemplo">$\dfrac{x^7}{x^3} = x^{7-3} = x^4$.</span>
+        </div>
+        <div class="resultado-ejemplo">
+          $\dfrac{x^7}{x^3} = x^4$
+        </div>
+      </div>
+      <div class="anticipa">
+        <h4>Anticipa el resultado</h4>
+        <p>Si divides $\dfrac{x^5}{x^9}$, ¿el exponente del resultado será positivo o negativo? ¿Qué significa eso?</p>
+        <details>
+          <summary>Ver respuesta</summary>
+          <p>Será negativo: $5 - 9 = -4$. El resultado es $x^{-4}$, que equivale a $\dfrac{1}{x^4}$. Un exponente negativo indica que la potencia pasa al denominador.</p>
+        </details>
+      </div>
+      <div class="caja-interactiva">
+        <h3>Calculadora — Cociente de bases iguales</h3>
+        <p class="instruccion-caja">Ingresa la base y los dos exponentes para ver la simplificación.</p>
+        <div class="grupo-inputs">
+          <div class="input-wrapper">
+            <label for="coc-base">Base ($x$):</label>
+            <input type="text" id="coc-base" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="coc-a">Exponente $a$ (numerador):</label>
+            <input type="text" id="coc-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="coc-b">Exponente $b$ (denominador):</label>
+            <input type="text" id="coc-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <button class="btn-primario" id="btn-coc-calcular">Calcular</button>
+        </div>
+        <div class="resultado" id="res-coc" role="status" aria-live="polite">
+          El resultado aparecerá aquí...
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 4: Potencia de una potencia -->
+    <section class="diapositiva" data-diapo="4">
+      <h2 class="titulo-diapo">Potencia de una potencia</h2>
+      <div class="contenido-teorico">
+        <p>Cuando elevamos una potencia a otro exponente, se conserva la base y se <strong>multiplican los exponentes</strong>:</p>
+        <div class="formula-destacada">$(x^a)^b = x^{a \cdot b}$</div>
+        <p><strong>¿Por qué?</strong> Porque $(x^a)^b$ significa multiplicar $x^a$ por sí mismo $b$ veces. Cada $x^a$ aporta $a$ factores, y al juntar $b$ copias, tenemos $a \cdot b$ factores en total.</p>
+        <p>Ejemplo numérico: $(2^3)^2 = (8)^2 = 64 = 2^6$. Y efectivamente, $3 \cdot 2 = 6$.</p>
+      </div>
+      <div class="ejemplo-resuelto">
+        <h3>Ejemplo resuelto</h3>
+        <p><strong>Problema:</strong> Simplifica $(x^4)^5$.</p>
+        <div class="paso-ejemplo">
+          <span class="num-paso">1</span>
+          <span class="detalle-ejemplo">Identificamos la base $x$ y los dos exponentes: $a = 4$, $b = 5$.</span>
+        </div>
+        <div class="paso-ejemplo">
+          <span class="num-paso">2</span>
+          <span class="detalle-ejemplo">Aplicamos la ley de potencia de potencia: multiplicamos los exponentes.</span>
+        </div>
+        <div class="paso-ejemplo">
+          <span class="num-paso">3</span>
+          <span class="detalle-ejemplo">$(x^4)^5 = x^{4 \cdot 5} = x^{20}$.</span>
+        </div>
+        <div class="resultado-ejemplo">
+          $(x^4)^5 = x^{20}$
+        </div>
+      </div>
+      <div class="anticipa">
+        <h4>Anticipa el resultado</h4>
+        <p>Si calculas $(x^2)^6$, ¿el exponente final será mayor o menor que 6? ¿Por qué?</p>
+        <details>
+          <summary>Ver respuesta</summary>
+          <p>Será mayor que 6. Los exponentes se multiplican: $2 \cdot 6 = 12$. El resultado es $x^{12}$, que es mucho mayor que $x^6$.</p>
+        </details>
+      </div>
+      <div class="caja-interactiva">
+        <h3>Calculadora — Potencia de una potencia</h3>
+        <p class="instruccion-caja">Ingresa la base y los dos exponentes para ver la simplificación.</p>
+        <div class="grupo-inputs">
+          <div class="input-wrapper">
+            <label for="pot-base">Base ($x$):</label>
+            <input type="text" id="pot-base" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="pot-a">Exponente interno $a$:</label>
+            <input type="text" id="pot-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="pot-b">Exponente externo $b$:</label>
+            <input type="text" id="pot-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <button class="btn-primario" id="btn-pot-calcular">Calcular</button>
+        </div>
+        <div class="resultado" id="res-pot" role="status" aria-live="polite">
+          El resultado aparecerá aquí...
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 5: Exponente cero y negativo -->
+    <section class="diapositiva" data-diapo="5">
+      <h2 class="titulo-diapo">Exponente cero y exponente negativo</h2>
+      <div class="contenido-teorico">
+        <p>Dos casos especiales muy importantes:</p>
+        <div class="formula-destacada">$x^0 = 1$, con $x \neq 0$</div>
+        <div class="formula-destacada">$x^{-n} = \dfrac{1}{x^n}$, con $x \neq 0$</div>
+        <p><strong>¿Por qué $x^0 = 1$?</strong> Porque $\dfrac{x^n}{x^n} = x^{n-n} = x^0$, y sabemos que $\dfrac{x^n}{x^n} = 1$.</p>
+        <p><strong>¿Por qué $x^{-n} = \dfrac{1}{x^n}$?</strong> Porque $\dfrac{x^0}{x^n} = x^{0-n} = x^{-n}$, y también $\dfrac{1}{x^n}$.</p>
+      </div>
+      <div class="ejemplo-resuelto">
+        <h3>Ejemplo resuelto</h3>
+        <p><strong>Problema:</strong> Simplifica $5^{-3}$ y $x^0 \cdot y^5$.</p>
+        <div class="paso-ejemplo">
+          <span class="num-paso">1</span>
+          <span class="detalle-ejemplo">Para $5^{-3}$: aplicamos la regla del exponente negativo. $5^{-3} = \dfrac{1}{5^3} = \dfrac{1}{125}$.</span>
+        </div>
+        <div class="paso-ejemplo">
+          <span class="num-paso">2</span>
+          <span class="detalle-ejemplo">Para $x^0 \cdot y^5$: sabemos que $x^0 = 1$ (cualquier base distinta de cero elevada a cero es 1).</span>
+        </div>
+        <div class="paso-ejemplo">
+          <span class="num-paso">3</span>
+          <span class="detalle-ejemplo">Entonces $x^0 \cdot y^5 = 1 \cdot y^5 = y^5$.</span>
+        </div>
+        <div class="resultado-ejemplo">
+          $5^{-3} = \dfrac{1}{125}$ y $x^0 \cdot y^5 = y^5$
+        </div>
+      </div>
+      <div class="anticipa">
+        <h4>Anticipa el resultado</h4>
+        <p>Si calculas $2^{-4}$, ¿el resultado será un número mayor o menor que 1? ¿Por qué?</p>
+        <details>
+          <summary>Ver respuesta</summary>
+          <p>Será menor que 1. Un exponente negativo indica que la potencia pasa al denominador: $2^{-4} = \dfrac{1}{2^4} = \dfrac{1}{16} = 0.0625$, que es menor que 1.</p>
+        </details>
+      </div>
+      <div class="caja-interactiva">
+        <h3>Calculadora — Exponente cero y negativo</h3>
+        <p class="instruccion-caja">Ingresa la base y el exponente para ver la simplificación.</p>
+        <div class="grupo-inputs">
+          <div class="input-wrapper">
+            <label for="cero-base">Base ($x$):</label>
+            <input type="text" id="cero-base" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="cero-exp">Exponente ($n$):</label>
+            <input type="text" id="cero-exp" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <button class="btn-primario" id="btn-cero-calcular">Calcular</button>
+        </div>
+        <div class="resultado" id="res-cero" role="status" aria-live="polite">
+          El resultado aparecerá aquí...
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 6: Potencia de un producto y de un cociente -->
+    <section class="diapositiva" data-diapo="6">
+      <h2 class="titulo-diapo">Potencia de un producto y de un cociente</h2>
+      <div class="contenido-teorico">
+        <p>Cuando elevamos un producto o un cociente a un exponente, el exponente se <strong>distribuye</strong> a cada factor:</p>
+        <div class="formula-destacada">$(x \cdot y)^n = x^n \cdot y^n$</div>
+        <div class="formula-destacada">$\left(\dfrac{x}{y}\right)^n = \dfrac{x^n}{y^n}$, con $y \neq 0$</div>
+        <p><strong>¿Por qué?</strong> Porque $(x \cdot y)^n$ significa multiplicar $(x \cdot y)$ por sí mismo $n$ veces. Al reordenar los factores, obtenemos $x^n \cdot y^n$.</p>
+      </div>
+      <div class="ejemplo-resuelto">
+        <h3>Ejemplo resuelto</h3>
+        <p><strong>Problema:</strong> Simplifica $(2x)^3$ y $\left(\dfrac{x}{3}\right)^2$.</p>
+        <div class="paso-ejemplo">
+          <span class="num-paso">1</span>
+          <span class="detalle-ejemplo">Para $(2x)^3$: distribuimos el exponente 3 a cada factor. $(2x)^3 = 2^3 \cdot x^3 = 8x^3$.</span>
+        </div>
+        <div class="paso-ejemplo">
+          <span class="num-paso">2</span>
+          <span class="detalle-ejemplo">Para $\left(\dfrac{x}{3}\right)^2$: distribuimos el exponente 2 al numerador y al denominador. $\left(\dfrac{x}{3}\right)^2 = \dfrac{x^2}{3^2} = \dfrac{x^2}{9}$.</span>
+        </div>
+        <div class="resultado-ejemplo">
+          $(2x)^3 = 8x^3$ y $\left(\dfrac{x}{3}\right)^2 = \dfrac{x^2}{9}$
+        </div>
+      </div>
+      <div class="anticipa">
+        <h4>Anticipa el resultado</h4>
+        <p>Si calculas $(3y)^4$, ¿el coeficiente numérico será $3^4 = 81$ o $3 \cdot 4 = 12$? ¿Por qué?</p>
+        <details>
+          <summary>Ver respuesta</summary>
+          <p>Será $3^4 = 81$. El exponente se aplica a cada factor: $(3y)^4 = 3^4 \cdot y^4 = 81y^4$. No se multiplica el coeficiente por el exponente, sino que se eleva a esa potencia.</p>
+        </details>
+      </div>
+      <div class="caja-interactiva">
+        <h3>Calculadora — Potencia de un producto</h3>
+        <p class="instruccion-caja">Ingresa los dos factores y el exponente para ver la simplificación.</p>
+        <div class="grupo-inputs">
+          <div class="input-wrapper">
+            <label for="pp-x">Factor $x$ (coeficiente):</label>
+            <input type="text" id="pp-x" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="pp-y">Factor $y$ (coeficiente):</label>
+            <input type="text" id="pp-y" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="pp-n">Exponente $n$:</label>
+            <input type="text" id="pp-n" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <button class="btn-primario" id="btn-pp-calcular">Calcular</button>
+        </div>
+        <div class="resultado" id="res-pp" role="status" aria-live="polite">
+          El resultado aparecerá aquí...
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 7: Simplificación de expresiones algebraicas -->
+    <section class="diapositiva" data-diapo="7">
+      <h2 class="titulo-diapo">Simplificación de expresiones algebraicas</h2>
+      <div class="contenido-teorico">
+        <p>Simplificar una expresión algebraica consiste en <strong>combinar términos semejantes</strong> (mismas variables con mismos exponentes) y aplicar las leyes de los exponentes para reducir la expresión a su forma más simple.</p>
+        <p><strong>Pasos generales:</strong></p>
+        <ol>
+          <li>Aplicar las leyes de los exponentes (producto, cociente, potencia).</li>
+          <li>Multiplicar coeficientes numéricos.</li>
+          <li>Combinar variables con la misma base sumando o restando exponentes.</li>
+          <li>Escribir el resultado en forma simplificada.</li>
+        </ol>
+      </div>
+      <div class="ejemplo-resuelto">
+        <h3>Ejemplo resuelto</h3>
+        <p><strong>Problema:</strong> Simplifica $(3x^2 y^3) \cdot (4x^5 y)$.</p>
+        <div class="paso-ejemplo">
+          <span class="num-paso">1</span>
+          <span class="detalle-ejemplo">Multiplicamos los coeficientes numéricos: $3 \cdot 4 = 12$.</span>
+        </div>
+        <div class="paso-ejemplo">
+          <span class="num-paso">2</span>
+          <span class="detalle-ejemplo">Para $x$: aplicamos producto de bases iguales. $x^2 \cdot x^5 = x^{2+5} = x^7$.</span>
+        </div>
+        <div class="paso-ejemplo">
+          <span class="num-paso">3</span>
+          <span class="detalle-ejemplo">Para $y$: aplicamos producto de bases iguales. $y^3 \cdot y^1 = y^{3+1} = y^4$.</span>
+        </div>
+        <div class="paso-ejemplo">
+          <span class="num-paso">4</span>
+          <span class="detalle-ejemplo">Juntamos todo: $12x^7 y^4$.</span>
+        </div>
+        <div class="resultado-ejemplo">
+          $(3x^2 y^3) \cdot (4x^5 y) = 12x^7 y^4$
+        </div>
+      </div>
+      <div class="anticipa">
+        <h4>Anticipa el resultado</h4>
+        <p>Si multiplicas $(2a^3 b) \cdot (5a^2 b^4)$, ¿el exponente de $a$ será 5 o 6? ¿Y el de $b$ será 4 o 5?</p>
+        <details>
+          <summary>Ver respuesta</summary>
+          <p>El exponente de $a$ será $3 + 2 = 5$. El exponente de $b$ será $1 + 4 = 5$. El resultado es $10a^5 b^5$.</p>
+        </details>
+      </div>
+      <div class="caja-interactiva">
+        <h3>Calculadora — Producto de monomios</h3>
+        <p class="instruccion-caja">Ingresa los coeficientes y exponentes de dos monomios con variables $x$ y $y$ para ver la simplificación.</p>
+        <div class="grupo-inputs">
+          <div class="input-wrapper">
+            <label for="mon-c1">Coeficiente 1:</label>
+            <input type="text" id="mon-c1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="mon-ex1">Exponente de $x$ (1):</label>
+            <input type="text" id="mon-ex1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="mon-ey1">Exponente de $y$ (1):</label>
+            <input type="text" id="mon-ey1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="mon-c2">Coeficiente 2:</label>
+            <input type="text" id="mon-c2" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="mon-ex2">Exponente de $x$ (2):</label>
+            <input type="text" id="mon-ex2" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="mon-ey2">Exponente de $y$ (2):</label>
+            <input type="text" id="mon-ey2" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <button class="btn-primario" id="btn-mon-calcular">Calcular</button>
+        </div>
+        <div class="resultado" id="res-mon" role="status" aria-live="polite">
+          El resultado aparecerá aquí...
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 8: Simplificación de fracciones algebraicas -->
+    <section class="diapositiva" data-diapo="8">
+      <h2 class="titulo-diapo">Simplificación de fracciones algebraicas</h2>
+      <div class="contenido-teorico">
+        <p>Una <strong>fracción algebraica</strong> es el cociente de dos expresiones algebraicas. Para simplificarla, aplicamos la ley del cociente de bases iguales a cada variable y reducimos los coeficientes numéricos.</p>
+        <div class="formula-destacada">$\dfrac{a \cdot x^m \cdot y^n}{b \cdot x^p \cdot y^q} = \dfrac{a}{b} \cdot x^{m-p} \cdot y^{n-q}$</div>
+        <p><strong>Regla clave:</strong> si el exponente resultante es negativo, la variable pasa al denominador con exponente positivo.</p>
+      </div>
+      <div class="ejemplo-resuelto">
+        <h3>Ejemplo resuelto</h3>
+        <p><strong>Problema:</strong> Simplifica $\dfrac{12x^5 y^2}{4x^2 y^6}$.</p>
+        <div class="paso-ejemplo">
+          <span class="num-paso">1</span>
+          <span class="detalle-ejemplo">Reducimos los coeficientes: $\dfrac{12}{4} = 3$.</span>
+        </div>
+        <div class="paso-ejemplo">
+          <span class="num-paso">2</span>
+          <span class="detalle-ejemplo">Para $x$: restamos exponentes. $\dfrac{x^5}{x^2} = x^{5-2} = x^3$.</span>
+        </div>
+        <div class="paso-ejemplo">
+          <span class="num-paso">3</span>
+          <span class="detalle-ejemplo">Para $y$: restamos exponentes. $\dfrac{y^2}{y^6} = y^{2-6} = y^{-4} = \dfrac{1}{y^4}$.</span>
+        </div>
+        <div class="paso-ejemplo">
+          <span class="num-paso">4</span>
+          <span class="detalle-ejemplo">Juntamos todo: $3 \cdot x^3 \cdot \dfrac{1}{y^4} = \dfrac{3x^3}{y^4}$.</span>
+        </div>
+        <div class="resultado-ejemplo">
+          $\dfrac{12x^5 y^2}{4x^2 y^6} = \dfrac{3x^3}{y^4}$
+        </div>
+      </div>
+      <div class="anticipa">
+        <h4>Anticipa el resultado</h4>
+        <p>Si simplificas $\dfrac{8a^3 b^5}{2a^7 b^2}$, ¿la variable $a$ quedará en el numerador o en el denominador? ¿Por qué?</p>
+        <details>
+          <summary>Ver respuesta</summary>
+          <p>Quedará en el denominador. El exponente de $a$ será $3 - 7 = -4$, que es negativo, así que $a$ pasa al denominador: $\dfrac{4b^3}{a^4}$.</p>
+        </details>
+      </div>
+      <div class="caja-interactiva">
+        <h3>Calculadora — Fracción algebraica</h3>
+        <p class="instruccion-caja">Ingresa los coeficientes y exponentes del numerador y denominador para ver la simplificación.</p>
+        <div class="grupo-inputs">
+          <div class="input-wrapper">
+            <label for="frac-cnum">Coeficiente numerador:</label>
+            <input type="text" id="frac-cnum" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="frac-xnum">Exponente de $x$ (num):</label>
+            <input type="text" id="frac-xnum" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="frac-ynum">Exponente de $y$ (num):</label>
+            <input type="text" id="frac-ynum" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="frac-cden">Coeficiente denominador:</label>
+            <input type="text" id="frac-cden" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="frac-xden">Exponente de $x$ (den):</label>
+            <input type="text" id="frac-xden" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-wrapper">
+            <label for="frac-yden">Exponente de $y$ (den):</label>
+            <input type="text" id="frac-yden" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <button class="btn-primario" id="btn-frac-calcular">Calcular</button>
+        </div>
+        <div class="resultado" id="res-frac" role="status" aria-live="polite">
+          El resultado aparecerá aquí...
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 9: Resumen -->
+    <section class="diapositiva" data-diapo="9">
+      <h2 class="titulo-diapo">Resumen</h2>
+      <div class="tabla-resumen">
+        <h3>Leyes de los exponentes</h3>
+        <table>
+          <tr><th>Concepto</th><th>Fórmula</th></tr>
+          <tr><td>Producto de bases iguales</td><td>$x^a \cdot x^b = x^{a+b}$</td></tr>
+          <tr><td>Cociente de bases iguales</td><td>$\dfrac{x^a}{x^b} = x^{a-b}$</td></tr>
+          <tr><td>Potencia de una potencia</td><td>$(x^a)^b = x^{a \cdot b}$</td></tr>
+          <tr><td>Exponente cero</td><td>$x^0 = 1$ (con $x \neq 0$)</td></tr>
+          <tr><td>Exponente negativo</td><td>$x^{-n} = \dfrac{1}{x^n}$</td></tr>
+          <tr><td>Potencia de un producto</td><td>$(x \cdot y)^n = x^n \cdot y^n$</td></tr>
+          <tr><td>Potencia de un cociente</td><td>$\left(\dfrac{x}{y}\right)^n = \dfrac{x^n}{y^n}$</td></tr>
+        </table>
+      </div>
+      <div class="errores-comunes">
+        <h3>Errores comunes</h3>
+        <ul>
+          <li>Sumar las bases en lugar de conservarlas: $x^2 \cdot x^3 \neq x^5 \cdot x^5$, sino $x^{2+3} = x^5$.</li>
+          <li>Multiplicar exponentes en lugar de sumarlos en un producto: $x^2 \cdot x^3 \neq x^6$, sino $x^5$.</li>
+          <li>Olvidar que $x^0 = 1$: muchos estudiantes creen que $x^0 = 0$ o que no está definido.</li>
+          <li>No aplicar el exponente negativo correctamente: $x^{-3} \neq -x^3$, sino $\dfrac{1}{x^3}$.</li>
+          <li>Distribuir el exponente solo al coeficiente y no a la variable: $(2x)^3 \neq 2x^3$, sino $8x^3$.</li>
+          <li>Confundir la potencia de una potencia con el producto: $(x^2)^3 \neq x^5$, sino $x^6$.</li>
+          <li>No reducir los coeficientes numéricos al simplificar fracciones algebraicas.</li>
+          <li>Olvidar que un exponente negativo en el numerador pasa al denominador con signo positivo.</li>
+          <li>Aplicar leyes de exponentes a sumas o restas: $x^2 + x^3 \neq x^5$. Las leyes solo aplican a productos y cocientes.</li>
+        </ul>
+      </div>
+      <div class="mensaje-cierre">
+        <strong>Siguiente paso:</strong> Abre <code>s03-actividades.html</code> para practicar con la calculadora, la actividad de aprendizaje de 10 casos y el examen de 10 reactivos.
+      </div>
+    </section>
+
+  </main>
+  <div class="navegacion">
+    <button id="btnAnterior" disabled aria-label="Diapositiva anterior">Anterior</button>
+    <span id="indicador">Diapositiva 1 de 9</span>
+    <button id="btnSiguiente" aria-label="Diapositiva siguiente">Siguiente</button>
+  </div>
+  <div class="footer-info">
+    <strong>Objetivo:</strong> Aplicar las leyes de los exponentes para simplificar productos, cocientes y potencias, y simplificar expresiones algebraicas.
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ===== UTILIDADES =====
+  function renderMath(element) {
+    if (!element) return;
+    function intentar() {
+      if (window.MathJax && window.MathJax.startup && window.MathJax.startup.promise) {
+        window.MathJax.startup.promise
+          .then(function () { return window.MathJax.typesetPromise([element]); })
+          .catch(function (err) { console.warn('MathJax typeset falló:', err); });
+      } else {
+        setTimeout(intentar, 100);
+      }
+    }
+    intentar();
+  }
+
+  function limpiarEntradaNumerica(texto) {
+    if (texto == null) return '';
+    return String(texto)
+      .replace(/^[^0-9\/.,+\-−]+/g, '')
+      .replace(/[^0-9\/.,+\-−]/g, '')
+      .trim();
+  }
+
+  function parsearNumero(texto) {
+    if (texto == null) return NaN;
+    texto = limpiarEntradaNumerica(texto);
+    if (texto === '') return NaN;
+    texto = texto.replace(',', '.').replace(/−/g, '-');
+    if (texto.indexOf('/') !== -1) {
+      var p = texto.split('/');
+      if (p.length !== 2) return NaN;
+      var n = parseFloat(p[0]), d = parseFloat(p[1]);
+      if (isNaN(n) || isNaN(d) || d === 0) return NaN;
+      return n / d;
+    }
+    var x = parseFloat(texto);
+    return isNaN(x) ? NaN : x;
+  }
+
+  function formatearNumero(n) {
+    if (Math.abs(n - Math.round(n)) < 1e-9) return Math.round(n).toString();
+    return parseFloat(n.toFixed(4)).toString();
+  }
+
+  function formatearResta(m, n, resultado) {
+    var mStr = formatearNumero(m);
+    var nStr = formatearNumero(n);
+    var rStr = formatearNumero(resultado);
+    if (n < 0) {
+      return '$' + mStr + ' - (' + nStr + ') = ' + rStr + '$';
+    }
+    return '$' + mStr + ' - ' + nStr + ' = ' + rStr + '$';
+  }
+
+  function mostrarResultado(elemento, html, esError) {
+    if (!elemento) return;
+    elemento.className = 'resultado ' + (esError ? 'error' : 'exito');
+    elemento.innerHTML = html;
+    renderMath(elemento);
+  }
+
+  function mostrarAdvertencia(elemento, mensaje) {
+    if (!elemento) return;
+    elemento.className = 'resultado advertencia';
+    elemento.innerHTML = mensaje;
+    renderMath(elemento);
+  }
+
+  function algunCampoVacio(ids) {
+    for (var i = 0; i < ids.length; i++) {
+      var el = document.getElementById(ids[i]);
+      if (!el) continue;
+      if (limpiarEntradaNumerica(el.value) === '') return true;
+    }
+    return false;
+  }
+
+  // ===== NAVEGACIÓN =====
+  var estado = {
+    diapoActual: 0,
+    totalDiapos: 0
+  };
+
+  function mostrarDiapo(index) {
+    var diapos = document.querySelectorAll('.diapositiva');
+    diapos.forEach(function(d, i) {
+      d.classList.toggle('activa', i === index);
+    });
+    estado.diapoActual = index;
+    var indicador = document.getElementById('indicador');
+    if (indicador) {
+      indicador.textContent = 'Diapositiva ' + (index + 1) + ' de ' + estado.totalDiapos;
+    }
+    var btnAnt = document.getElementById('btnAnterior');
+    var btnSig = document.getElementById('btnSiguiente');
+    if (btnAnt) btnAnt.disabled = (index === 0);
+    if (btnSig) btnSig.disabled = (index === estado.totalDiapos - 1);
+    var progreso = ((index + 1) / estado.totalDiapos) * 100;
+    var barra = document.getElementById('progresoBarra');
+    if (barra) barra.style.width = progreso + '%';
+    var progEl = document.querySelector('.progreso');
+    if (progEl) progEl.setAttribute('aria-valuenow', Math.round(progreso));
+    renderMath(document.getElementById('contenedorDiapositivas'));
+  }
+
+  function iniciarNavegacion() {
+    var diapos = document.querySelectorAll('.diapositiva');
+    estado.totalDiapos = diapos.length;
+    var btnAnt = document.getElementById('btnAnterior');
+    var btnSig = document.getElementById('btnSiguiente');
+    if (btnAnt) {
+      btnAnt.addEventListener('click', function() {
+        if (estado.diapoActual > 0) mostrarDiapo(estado.diapoActual - 1);
+      });
+    }
+    if (btnSig) {
+      btnSig.addEventListener('click', function() {
+        if (estado.diapoActual < estado.totalDiapos - 1) mostrarDiapo(estado.diapoActual + 1);
+      });
+    }
+    mostrarDiapo(0);
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+    if (e.key === 'ArrowLeft' && estado.diapoActual > 0) {
+      mostrarDiapo(estado.diapoActual - 1);
+    } else if (e.key === 'ArrowRight' && estado.diapoActual < estado.totalDiapos - 1) {
+      mostrarDiapo(estado.diapoActual + 1);
+    }
+  });
+
+  // ===== CALCULADORA 1: PRODUCTO DE BASES IGUALES =====
+  function calcularProducto() {
+    var res = document.getElementById('res-prod');
+    if (!res) return;
+    if (algunCampoVacio(['prod-base', 'prod-a', 'prod-b'])) {
+      mostrarAdvertencia(res, 'Completa todos los campos.');
+      return;
+    }
+    var base = document.getElementById('prod-base').value.trim() || 'x';
+    var a = parsearNumero(document.getElementById('prod-a').value);
+    var b = parsearNumero(document.getElementById('prod-b').value);
+    if (isNaN(a) || isNaN(b)) {
+      mostrarResultado(res, 'Ingresa valores numéricos válidos para los exponentes.', true);
+      return;
+    }
+    var suma = a + b;
+    var html = '';
+    html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Expresión: $' + base + '^{' + formatearNumero(a) + '} \\cdot ' + base + '^{' + formatearNumero(b) + '}$</span></div>';
+    html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Ley aplicada: $x^a \\cdot x^b = x^{a+b}$</span></div>';
+    html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Sustituimos: $' + formatearResta(a, -b, suma).replace('- (', '+ ').replace('- ', '+ ').replace(') = ', ' = ').replace('= ' + formatearNumero(suma), '= ' + formatearNumero(a) + ' + ' + formatearNumero(b) + ' = ' + formatearNumero(suma)) + '$</span></div>';
+    html += '<div class="paso-resultado"><span class="num-paso">4</span><span>Resultado: $' + base + '^{' + formatearNumero(suma) + '}$</span></div>';
+    html += '<div class="resultado-final">$' + base + '^{' + formatearNumero(a) + '} \\cdot ' + base + '^{' + formatearNumero(b) + '} = ' + base + '^{' + formatearNumero(suma) + '}$</div>';
+    mostrarResultado(res, html, false);
+  }
+
+  // ===== CALCULADORA 2: COCIENTE DE BASES IGUALES =====
+  function calcularCociente() {
+    var res = document.getElementById('res-coc');
+    if (!res) return;
+    if (algunCampoVacio(['coc-base', 'coc-a', 'coc-b'])) {
+      mostrarAdvertencia(res, 'Completa todos los campos.');
+      return;
+    }
+    var base = document.getElementById('coc-base').value.trim() || 'x';
+    var a = parsearNumero(document.getElementById('coc-a').value);
+    var b = parsearNumero(document.getElementById('coc-b').value);
+    if (isNaN(a) || isNaN(b)) {
+      mostrarResultado(res, 'Ingresa valores numéricos válidos para los exponentes.', true);
+      return;
+    }
+    var resta = a - b;
+    var html = '';
+    html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Expresión: $\\dfrac{' + base + '^{' + formatearNumero(a) + '}}{' + base + '^{' + formatearNumero(b) + '}}$</span></div>';
+    html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Ley aplicada: $\\dfrac{x^a}{x^b} = x^{a-b}$</span></div>';
+    html += '<div class="paso-resultado"><span class="num-paso">3</span><span>' + formatearResta(a, b, resta) + '</span></div>';
+    if (resta === 0) {
+      html += '<div class="paso-resultado"><span class="num-paso">4</span><span>Como el exponente es 0, el resultado es 1.</span></div>';
+      html += '<div class="resultado-final">$\\dfrac{' + base + '^{' + formatearNumero(a) + '}}{' + base + '^{' + formatearNumero(b) + '}} = 1$</div>';
+    } else if (resta < 0) {
+      html += '<div class="paso-resultado"><span class="num-paso">4</span><span>Exponente negativo: $' + base + '^{' + formatearNumero(resta) + '} = \\dfrac{1}{' + base + '^{' + formatearNumero(-resta) + '}}$</span></div>';
+      html += '<div class="resultado-final">$\\dfrac{' + base + '^{' + formatearNumero(a) + '}}{' + base + '^{' + formatearNumero(b) + '}} = \\dfrac{1}{' + base + '^{' + formatearNumero(-resta) + '}}$</div>';
+    } else {
+      html += '<div class="paso-resultado"><span class="num-paso">4</span><span>Resultado: $' + base + '^{' + formatearNumero(resta) + '}$</span></div>';
+      html += '<div class="resultado-final">$\\dfrac{' + base + '^{' + formatearNumero(a) + '}}{' + base + '^{' + formatearNumero(b) + '}} = ' + base + '^{' + formatearNumero(resta) + '}$</div>';
+    }
+    mostrarResultado(res, html, false);
+  }
+
+  // ===== CALCULADORA 3: POTENCIA DE UNA POTENCIA =====
+  function calcularPotencia() {
+    var res = document.getElementById('res-pot');
+    if (!res) return;
+    if (algunCampoVacio(['pot-base', 'pot-a', 'pot-b'])) {
+      mostrarAdvertencia(res, 'Completa todos los campos.');
+      return;
+    }
+    var base = document.getElementById('pot-base').value.trim() || 'x';
+    var a = parsearNumero(document.getElementById('pot-a').value);
+    var b = parsearNumero(document.getElementById('pot-b').value);
+    if (isNaN(a) || isNaN(b)) {
+      mostrarResultado(res, 'Ingresa valores numéricos válidos para los exponentes.', true);
+      return;
+    }
+    var producto = a * b;
+    var html = '';
+    html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Expresión: $(' + base + '^{' + formatearNumero(a) + '})^{' + formatearNumero(b) + '}$</span></div>';
+    html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Ley aplicada: $(x^a)^b = x^{a \\cdot b}$</span></div>';
+    html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Multiplicamos: $' + formatearNumero(a) + ' \\cdot ' + formatearNumero(b) + ' = ' + formatearNumero(producto) + '$</span></div>';
+    html += '<div class="resultado-final">$(' + base + '^{' + formatearNumero(a) + '})^{' + formatearNumero(b) + '} = ' + base + '^{' + formatearNumero(producto) + '}$</div>';
+    mostrarResultado(res, html, false);
+  }
+
+  // ===== CALCULADORA 4: EXPONENTE CERO Y NEGATIVO =====
+  function calcularCeroNeg() {
+    var res = document.getElementById('res-cero');
+    if (!res) return;
+    if (algunCampoVacio(['cero-base', 'cero-exp'])) {
+      mostrarAdvertencia(res, 'Completa todos los campos.');
+      return;
+    }
+    var base = document.getElementById('cero-base').value.trim() || 'x';
+    var n = parsearNumero(document.getElementById('cero-exp').value);
+    if (isNaN(n)) {
+      mostrarResultado(res, 'Ingresa un valor numérico válido para el exponente.', true);
+      return;
+    }
+    var html = '';
+    html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Expresión: $' + base + '^{' + formatearNumero(n) + '}$</span></div>';
+    if (n === 0) {
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Ley aplicada: $x^0 = 1$ (para cualquier $x \\neq 0$)</span></div>';
+      html += '<div class="resultado-final">$' + base + '^0 = 1$</div>';
+    } else if (n < 0) {
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Ley aplicada: $x^{-n} = \\dfrac{1}{x^n}$</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Sustituimos: $' + base + '^{' + formatearNumero(n) + '} = \\dfrac{1}{' + base + '^{' + formatearNumero(-n) + '}}$</span></div>';
+      var baseNum = parseFloat(base);
+      if (!isNaN(baseNum) && baseNum !== 0) {
+        var valor = Math.pow(baseNum, n);
+        html += '<div class="paso-resultado"><span class="num-paso">4</span><span>Valor numérico: $\\dfrac{1}{' + formatearNumero(Math.pow(baseNum, -n)) + '} = ' + formatearNumero(valor) + '$</span></div>';
+        html += '<div class="resultado-final">$' + base + '^{' + formatearNumero(n) + '} = ' + formatearNumero(valor) + '$</div>';
+      } else {
+        html += '<div class="resultado-final">$' + base + '^{' + formatearNumero(n) + '} = \\dfrac{1}{' + base + '^{' + formatearNumero(-n) + '}}$</div>';
+      }
+    } else {
+      var baseNum2 = parseFloat(base);
+      if (!isNaN(baseNum2)) {
+        var valor2 = Math.pow(baseNum2, n);
+        html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Calculamos: $' + formatearNumero(baseNum2) + '^{' + formatearNumero(n) + '} = ' + formatearNumero(valor2) + '$</span></div>';
+        html += '<div class="resultado-final">$' + base + '^{' + formatearNumero(n) + '} = ' + formatearNumero(valor2) + '$</div>';
+      } else {
+        html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Exponente positivo: se conserva la expresión.</span></div>';
+        html += '<div class="resultado-final">$' + base + '^{' + formatearNumero(n) + '}$</div>';
+      }
+    }
+    mostrarResultado(res, html, false);
+  }
+
+  // ===== CALCULADORA 5: POTENCIA DE UN PRODUCTO =====
+  function calcularPotProducto() {
+    var res = document.getElementById('res-pp');
+    if (!res) return;
+    if (algunCampoVacio(['pp-x', 'pp-y', 'pp-n'])) {
+      mostrarAdvertencia(res, 'Completa todos los campos.');
+      return;
+    }
+    var x = parsearNumero(document.getElementById('pp-x').value);
+    var y = parsearNumero(document.getElementById('pp-y').value);
+    var n = parsearNumero(document.getElementById('pp-n').value);
+    if (isNaN(x) || isNaN(y) || isNaN(n)) {
+      mostrarResultado(res, 'Ingresa valores numéricos válidos.', true);
+      return;
+    }
+    var xn = Math.pow(x, n);
+    var yn = Math.pow(y, n);
+    var html = '';
+    html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Expresión: $(' + formatearNumero(x) + ' \\cdot ' + formatearNumero(y) + ')^{' + formatearNumero(n) + '}$</span></div>';
+    html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Ley aplicada: $(x \\cdot y)^n = x^n \\cdot y^n$</span></div>';
+    html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Distribuimos: $' + formatearNumero(x) + '^{' + formatearNumero(n) + '} \\cdot ' + formatearNumero(y) + '^{' + formatearNumero(n) + '}$</span></div>';
+    html += '<div class="paso-resultado"><span class="num-paso">4</span><span>Calculamos: $' + formatearNumero(xn) + ' \\cdot ' + formatearNumero(yn) + ' = ' + formatearNumero(xn * yn) + '$</span></div>';
+    html += '<div class="resultado-final">$(' + formatearNumero(x) + ' \\cdot ' + formatearNumero(y) + ')^{' + formatearNumero(n) + '} = ' + formatearNumero(xn * yn) + '$</div>';
+    mostrarResultado(res, html, false);
+  }
+
+  // ===== CALCULADORA 6: PRODUCTO DE MONOMIOS =====
+  function calcularMonomio() {
+    var res = document.getElementById('res-mon');
+    if (!res) return;
+    if (algunCampoVacio(['mon-c1', 'mon-ex1', 'mon-ey1', 'mon-c2', 'mon-ex2', 'mon-ey2'])) {
+      mostrarAdvertencia(res, 'Completa todos los campos.');
+      return;
+    }
+    var c1 = parsearNumero(document.getElementById('mon-c1').value);
+    var ex1 = parsearNumero(document.getElementById('mon-ex1').value);
+    var ey1 = parsearNumero(document.getElementById('mon-ey1').value);
+    var c2 = parsearNumero(document.getElementById('mon-c2').value);
+    var ex2 = parsearNumero(document.getElementById('mon-ex2').value);
+    var ey2 = parsearNumero(document.getElementById('mon-ey2').value);
+    if (isNaN(c1) || isNaN(ex1) || isNaN(ey1) || isNaN(c2) || isNaN(ex2) || isNaN(ey2)) {
+      mostrarResultado(res, 'Ingresa valores numéricos válidos.', true);
+      return;
+    }
+    var cFinal = c1 * c2;
+    var exFinal = ex1 + ex2;
+    var eyFinal = ey1 + ey2;
+    var html = '';
+    html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Coeficientes: $' + formatearNumero(c1) + ' \\cdot ' + formatearNumero(c2) + ' = ' + formatearNumero(cFinal) + '$</span></div>';
+    html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Para $x$: $x^{' + formatearNumero(ex1) + '} \\cdot x^{' + formatearNumero(ex2) + '} = x^{' + formatearNumero(exFinal) + '}$</span></div>';
+    html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Para $y$: $y^{' + formatearNumero(ey1) + '} \\cdot y^{' + formatearNumero(ey2) + '} = y^{' + formatearNumero(eyFinal) + '}$</span></div>';
+    var resultado = '$' + formatearNumero(cFinal);
+    if (exFinal !== 0) resultado += 'x^{' + formatearNumero(exFinal) + '}';
+    if (eyFinal !== 0) resultado += 'y^{' + formatearNumero(eyFinal) + '}';
+    if (exFinal === 0 && eyFinal === 0) resultado = '$' + formatearNumero(cFinal);
+    resultado += '$';
+    html += '<div class="resultado-final">Resultado: ' + resultado + '</div>';
+    mostrarResultado(res, html, false);
+  }
+
+  // ===== CALCULADORA 7: FRACCIÓN ALGEBRAICA =====
+  function calcularFraccion() {
+    var res = document.getElementById('res-frac');
+    if (!res) return;
+    if (algunCampoVacio(['frac-cnum', 'frac-xnum', 'frac-ynum', 'frac-cden', 'frac-xden', 'frac-yden'])) {
+      mostrarAdvertencia(res, 'Completa todos los campos.');
+      return;
+    }
+    var cnum = parsearNumero(document.getElementById('frac-cnum').value);
+    var xnum = parsearNumero(document.getElementById('frac-xnum').value);
+    var ynum = parsearNumero(document.getElementById('frac-ynum').value);
+    var cden = parsearNumero(document.getElementById('frac-cden').value);
+    var xden = parsearNumero(document.getElementById('frac-xden').value);
+    var yden = parsearNumero(document.getElementById('frac-yden').value);
+    if (isNaN(cnum) || isNaN(xnum) || isNaN(ynum) || isNaN(cden) || isNaN(xden) || isNaN(yden)) {
+      mostrarResultado(res, 'Ingresa valores numéricos válidos.', true);
+      return;
+    }
+    if (cden === 0) {
+      mostrarResultado(res, 'El denominador no puede ser cero.', true);
+      return;
+    }
+    var cFinal = cnum / cden;
+    var xFinal = xnum - xden;
+    var yFinal = ynum - yden;
+    var html = '';
+    html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Coeficientes: $\\dfrac{' + formatearNumero(cnum) + '}{' + formatearNumero(cden) + '} = ' + formatearNumero(cFinal) + '$</span></div>';
+    html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Para $x$: $\\dfrac{x^{' + formatearNumero(xnum) + '}}{x^{' + formatearNumero(xden) + '}} = x^{' + formatearNumero(xFinal) + '}$</span></div>';
+    html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Para $y$: $\\dfrac{y^{' + formatearNumero(ynum) + '}}{y^{' + formatearNumero(yden) + '}} = y^{' + formatearNumero(yFinal) + '}$</span></div>';
+    // Construir numerador y denominador
+    var numStr = formatearNumero(cFinal);
+    var denStr = '';
+    if (xFinal < 0) {
+      denStr += 'x^{' + formatearNumero(-xFinal) + '}';
+    } else if (xFinal > 0) {
+      numStr += 'x^{' + formatearNumero(xFinal) + '}';
+    }
+    if (yFinal < 0) {
+      denStr += (denStr ? ' \\cdot ' : '') + 'y^{' + formatearNumero(-yFinal) + '}';
+    } else if (yFinal > 0) {
+      numStr += 'y^{' + formatearNumero(yFinal) + '}';
+    }
+    if (denStr === '') {
+      html += '<div class="resultado-final">Resultado: $' + numStr + '$</div>';
+    } else {
+      html += '<div class="resultado-final">Resultado: $\\dfrac{' + numStr + '}{' + denStr + '}$</div>';
+    }
+    mostrarResultado(res, html, false);
+  }
+
+  // ===== INICIALIZACIÓN DE CAJAS INTERACTIVAS =====
+  function iniciarCajasInteractivas() {
+    var btnProd = document.getElementById('btn-prod-calcular');
+    if (btnProd) btnProd.addEventListener('click', calcularProducto);
+
+    var btnCoc = document.getElementById('btn-coc-calcular');
+    if (btnCoc) btnCoc.addEventListener('click', calcularCociente);
+
+    var btnPot = document.getElementById('btn-pot-calcular');
+    if (btnPot) btnPot.addEventListener('click', calcularPotencia);
+
+    var btnCero = document.getElementById('btn-cero-calcular');
+    if (btnCero) btnCero.addEventListener('click', calcularCeroNeg);
+
+    var btnPP = document.getElementById('btn-pp-calcular');
+    if (btnPP) btnPP.addEventListener('click', calcularPotProducto);
+
+    var btnMon = document.getElementById('btn-mon-calcular');
+    if (btnMon) btnMon.addEventListener('click', calcularMonomio);
+
+    var btnFrac = document.getElementById('btn-frac-calcular');
+    if (btnFrac) btnFrac.addEventListener('click', calcularFraccion);
+  }
+
+  // ===== INICIALIZACIÓN GENERAL =====
+  function iniciarRecurso() {
+    iniciarNavegacion();
+    iniciarCajasInteractivas();
+    renderMath(document.body);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', iniciarRecurso);
+  } else {
+    iniciarRecurso();
+  }
+})();
+</script>
+</body>
+</html>

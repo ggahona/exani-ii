@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="tipo-recurso" content="Presentación con ejemplos">
+  <title>Sesión s04 — Inecuaciones lineales | EXANI-II</title>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root {
+      --exani-azul: #1B7FC4;
+      --exani-azul-marino: #003865;
+      --exani-verde: #8BC34A;
+      --exani-blanco: #FFFFFF;
+      --exani-gris-oscuro: #333333;
+      --exani-gris-claro: #E0E0E0;
+      --exani-fondo: #FFFFFF;
+      --exani-fondo-secundario: #F5F5F5;
+      --exani-texto: #333333;
+      --exani-texto-secundario: #666666;
+      --exani-borde: #E0E0E0;
+      --exani-acierto: #8BC34A;
+      --exani-error: #D9534F;
+      --exani-advertencia: #FF6A14;
+      --radio-borde: 8px;
+      --sombra-suave: 0 4px 6px rgba(0, 56, 101, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--exani-fondo);
+      color: var(--exani-texto);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .contenedor { max-width: 1100px; margin: 0 auto; padding-bottom: 40px; }
+    header {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      padding: 22px 28px 24px;
+      text-align: center;
+    }
+    header .institucion {
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+    header p { font-size: 0.98rem; opacity: 0.95; }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.7rem; }
+    }
+    .progreso {
+      background: var(--exani-gris-claro);
+      height: 6px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .progreso-barra {
+      background: var(--exani-verde);
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    main { padding: 24px 20px; }
+    .diapositiva { display: none; animation: fadeIn 0.4s ease; }
+    .diapositiva.activa { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .titulo-diapo {
+      color: var(--exani-azul-marino);
+      font-size: 1.6rem;
+      margin-bottom: 18px;
+      border-bottom: 3px solid var(--exani-azul);
+      padding-bottom: 10px;
+    }
+    .objetivo-diapo {
+      background: var(--exani-fondo-secundario);
+      padding: 14px 18px;
+      border-left: 4px solid var(--exani-azul);
+      border-radius: var(--radio-borde);
+      margin-bottom: 20px;
+    }
+    .contenido-teorico {
+      background: var(--exani-fondo-secundario);
+      padding: 18px 22px;
+      border-radius: var(--radio-borde);
+      margin-bottom: 20px;
+    }
+    .contenido-teorico h3 {
+      color: var(--exani-azul-marino);
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+    .contenido-teorico p { margin-bottom: 10px; }
+    .contenido-teorico ul { padding-left: 22px; margin-bottom: 10px; }
+    .contenido-teorico li { margin-bottom: 6px; }
+    .contenido-teorico .formula {
+      background: var(--exani-blanco);
+      padding: 10px 14px;
+      border-radius: 6px;
+      border-left: 3px solid var(--exani-azul);
+      margin: 10px 0;
+      text-align: center;
+      font-size: 1.05rem;
+    }
+    .tabla-temario {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+    }
+    .tabla-temario th, .tabla-temario td {
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--exani-borde);
+    }
+    .tabla-temario th {
+      background: var(--exani-azul-marino);
+      color: var(--exani-blanco);
+      font-weight: 600;
+    }
+    .tabla-temario tr:nth-child(even) td { background: var(--exani-fondo-secundario); }
+    .nota {
+      background: #FFF8E1;
+      border-left: 4px solid var(--exani-advertencia);
+      padding: 14px 18px;
+      border-radius: var(--radio-borde);
+      margin: 18px 0;
+      font-size: 0.95rem;
+    }
+    .ejemplo-resuelto {
+      background: var(--exani-fondo-secundario);
+      padding: 20px;
+      border-radius: var(--radio-borde);
+      margin: 20px 0;
+      border: 1px solid var(--exani-borde);
+    }
+    .ejemplo-resuelto h3 {
+      color: var(--exani-azul-marino);
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+    }
+    .paso-ejemplo {
+      display: flex;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--exani-blanco);
+      border-radius: 6px;
+      margin-bottom: 8px;
+      align-items: flex-start;
+    }
+    .num-paso {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .detalle-ejemplo {
+      flex: 1;
+      min-width: 0;
+      overflow-x: hidden;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      font-size: 0.98rem;
+    }
+    .resultado-ejemplo {
+      background: var(--exani-verde);
+      color: var(--exani-blanco);
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-top: 10px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .anticipa {
+      background: #F0F8FE;
+      border-left: 4px solid var(--exani-azul);
+      border-radius: var(--radio-borde);
+      padding: 14px 18px;
+      margin: 18px 0;
+    }
+    .anticipa h4 {
+      color: var(--exani-azul-marino);
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+    .anticipa p { font-size: 0.92rem; margin-bottom: 8px; }
+    .anticipa details { margin-top: 6px; font-size: 0.9rem; }
+    .anticipa summary {
+      cursor: pointer;
+      color: var(--exani-azul);
+      font-weight: 600;
+      padding: 4px 0;
+    }
+    .anticipa summary:hover { color: var(--exani-azul-marino); text-decoration: underline; }
+    .anticipa details p {
+      margin-top: 8px;
+      padding: 10px 12px;
+      background: var(--exani-blanco);
+      border-radius: 6px;
+    }
+    .caja-interactiva {
+      background: var(--exani-blanco);
+      border: 2px solid var(--exani-azul);
+      border-radius: var(--radio-borde);
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: var(--sombra-suave);
+    }
+    .caja-interactiva h3 {
+      color: var(--exani-azul-marino);
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+    .instruccion-caja {
+      color: var(--exani-texto-secundario);
+      font-size: 0.92rem;
+      margin-bottom: 14px;
+    }
+    .grupo-inputs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: flex-end;
+      margin-bottom: 14px;
+    }
+    .input-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+      min-width: 120px;
+    }
+    .input-wrapper label {
+      font-size: 0.88rem;
+      color: var(--exani-texto-secundario);
+      font-weight: 600;
+    }
+    .input-wrapper input, .input-wrapper select {
+      padding: 10px 12px;
+      border: 1px solid var(--exani-borde);
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+    .input-wrapper input:focus, .input-wrapper select:focus {
+      outline: none;
+      border-color: var(--exani-azul);
+      box-shadow: 0 0 0 2px rgba(27, 127, 196, 0.15);
+    }
+    .btn-primario {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      border: none;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-primario:hover { background: var(--exani-azul-marino); }
+    .btn-secundario {
+      background: var(--exani-blanco);
+      color: var(--exani-azul);
+      border: 1px solid var(--exani-azul);
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-secundario:hover { background: var(--exani-azul); color: var(--exani-blanco); }
+    .resultado {
+      margin-top: 14px;
+      padding: 14px 18px;
+      border-radius: 6px;
+      min-height: 40px;
+      font-size: 0.95rem;
+    }
+    .resultado.exito {
+      background: #E8F5E9;
+      border-left: 4px solid var(--exani-verde);
+    }
+    .resultado.error {
+      background: #FFEBEE;
+      border-left: 4px solid var(--exani-error);
+      color: var(--exani-error);
+    }
+    .resultado.advertencia {
+      background: #FFF3E0;
+      border-left: 4px solid var(--exani-advertencia);
+      color: var(--exani-advertencia);
+    }
+    .paso-resultado {
+      display: flex;
+      gap: 12px;
+      padding: 8px 0;
+      align-items: flex-start;
+    }
+    .paso-resultado .num-paso {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      width: 24px;
+      height: 24px;
+      font-size: 0.82rem;
+    }
+    .resultado-final {
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: var(--exani-verde);
+      color: var(--exani-blanco);
+      border-radius: 6px;
+      font-weight: 600;
+      text-align: center;
+    }
+    canvas {
+      display: block;
+      max-width: 100%;
+      margin: 14px auto;
+      background: var(--exani-blanco);
+      border: 1px solid var(--exani-borde);
+      border-radius: 6px;
+    }
+    .tabla-resumen {
+      background: var(--exani-fondo-secundario);
+      padding: 18px 22px;
+      border-radius: var(--radio-borde);
+      margin-bottom: 18px;
+    }
+    .tabla-resumen h3 {
+      color: var(--exani-azul-marino);
+      margin-bottom: 12px;
+    }
+    .tabla-resumen table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .tabla-resumen th, .tabla-resumen td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--exani-borde);
+    }
+    .tabla-resumen th { background: var(--exani-azul-marino); color: var(--exani-blanco); }
+    .errores-comunes {
+      background: #FFF3E0;
+      padding: 18px 22px;
+      border-radius: var(--radio-borde);
+      border-left: 4px solid var(--exani-advertencia);
+      margin-bottom: 18px;
+    }
+    .errores-comunes h3 {
+      color: var(--exani-advertencia);
+      margin-bottom: 10px;
+    }
+    .errores-comunes ul { padding-left: 22px; }
+    .errores-comunes li { margin-bottom: 8px; }
+    .mensaje-cierre {
+      background: var(--exani-azul-marino);
+      color: var(--exani-blanco);
+      padding: 18px 22px;
+      border-radius: var(--radio-borde);
+      text-align: center;
+    }
+    .navegacion {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      background: var(--exani-fondo-secundario);
+      border-top: 1px solid var(--exani-borde);
+      position: sticky;
+      bottom: 0;
+    }
+    .navegacion button {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .navegacion button:hover:not(:disabled) { background: var(--exani-azul-marino); }
+    .navegacion button:disabled {
+      background: var(--exani-gris-claro);
+      color: var(--exani-texto-secundario);
+      cursor: not-allowed;
+    }
+    #indicador {
+      font-weight: 600;
+      color: var(--exani-azul-marino);
+    }
+    .footer-info {
+      text-align: center;
+      padding: 16px 20px;
+      color: var(--exani-texto-secundario);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--exani-borde);
+      margin-top: 20px;
+    }
+    .ejemplos-rapidos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0;
+    }
+    .ejemplo-btn {
+      background: var(--exani-blanco);
+      border: 1px solid var(--exani-azul);
+      color: var(--exani-azul);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ejemplo-btn:hover { background: var(--exani-azul); color: var(--exani-blanco); }
+    @media (max-width: 600px) {
+      .grupo-inputs { flex-direction: column; }
+      .input-wrapper { min-width: 100%; }
+      .titulo-diapo { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <header>
+      <div class="institucion">Pensamiento Matemático</div>
+      <h1>EXANI-II</h1>
+      <p>Sesión s04 — Inecuaciones lineales</p>
+    </header>
+
+    <div class="progreso" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="progreso-barra" id="progresoBarra"></div>
+    </div>
+
+    <main id="contenedorDiapositivas">
+
+      <!-- Diapositiva 1: Bienvenida -->
+      <section class="diapositiva activa" data-diapo="1">
+        <h2 class="titulo-diapo">Bienvenida</h2>
+        <p class="objetivo-diapo"><strong>Objetivo:</strong> Resolver inecuaciones lineales de una variable, interpretar su solución como intervalos y representarla gráficamente en la recta numérica.</p>
+        <h3 style="color: var(--exani-azul-marino); margin: 18px 0 10px;">Temario de la sesión</h3>
+        <table class="tabla-temario">
+          <tr><th>#</th><th>Tema</th><th>Subárea</th></tr>
+          <tr><td>1</td><td>Concepto de inecuación lineal</td><td>Sentido numérico</td></tr>
+          <tr><td>2</td><td>Propiedades de las desigualdades</td><td>Sentido numérico</td></tr>
+          <tr><td>3</td><td>Resolución básica de inecuaciones</td><td>Sentido numérico</td></tr>
+          <tr><td>4</td><td>Inecuaciones con paréntesis y términos semejantes</td><td>Sentido numérico</td></tr>
+          <tr><td>5</td><td>Inecuaciones con fracciones</td><td>Sentido numérico</td></tr>
+          <tr><td>6</td><td>Variable en ambos miembros</td><td>Sentido numérico</td></tr>
+          <tr><td>7</td><td>Representación gráfica en la recta numérica</td><td>Conexiones</td></tr>
+          <tr><td>8</td><td>Notación de intervalos</td><td>Conexiones</td></tr>
+        </table>
+        <div class="nota">
+          <strong>Cómo usar esta presentación:</strong> Cada diapositiva incluye un ejemplo resuelto, un bloque de anticipación y una caja interactiva. Primero anticipa el resultado con tu intuición, luego manipula los valores para ver el procedimiento paso a paso.
+        </div>
+      </section>
+
+      <!-- Diapositiva 2: Concepto de inecuación lineal -->
+      <section class="diapositiva" data-diapo="2">
+        <h2 class="titulo-diapo">Concepto de inecuación lineal</h2>
+        <div class="contenido-teorico">
+          <h3>Definición</h3>
+          <p>Una <strong>inecuación lineal</strong> es una desigualdad entre dos expresiones algebraicas donde la variable aparece con exponente 1. A diferencia de una ecuación (que tiene soluciones puntuales), una inecuación tiene un <strong>conjunto infinito de soluciones</strong>.</p>
+          <h3 style="margin-top: 12px;">Forma canónica</h3>
+          <div class="formula">$ax + b \;\square\; c$</div>
+          <p>donde $\square$ puede ser $<$, $\leq$, $>$ o $\geq$, y $a \neq 0$.</p>
+          <h3 style="margin-top: 12px;">Símbolos de desigualdad</h3>
+          <ul>
+            <li>$<$ : estrictamente menor que</li>
+            <li>$\leq$ : menor o igual que</li>
+            <li>$>$ : estrictamente mayor que</li>
+            <li>$\geq$ : mayor o igual que</li>
+          </ul>
+        </div>
+
+        <div class="ejemplo-resuelto">
+          <h3>Ejemplo resuelto</h3>
+          <p><strong>Problema:</strong> Verifica si $x = 5$ es solución de la inecuación $2x - 3 > 7$.</p>
+          <div class="paso-ejemplo">
+            <span class="num-paso">1</span>
+            <span class="detalle-ejemplo">Sustituimos $x = 5$ en el lado izquierdo: $2(5) - 3$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">2</span>
+            <span class="detalle-ejemplo">Calculamos: $10 - 3 = 7$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">3</span>
+            <span class="detalle-ejemplo">Comparamos con el lado derecho: $7 > 7$ es <strong>falso</strong> (7 no es estrictamente mayor que 7).</span>
+          </div>
+          <div class="resultado-ejemplo">
+            $x = 5$ NO es solución de $2x - 3 > 7$.
+          </div>
+        </div>
+
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>Si pruebas con $x = 6$, ¿la inecuación $2x - 3 > 7$ será verdadera o falsa? ¿Por qué?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Al sustituir $x = 6$: $2(6) - 3 = 12 - 3 = 9$. Como $9 > 7$ es verdadero, $x = 6$ SÍ es solución. Los valores mayores que 5 satisfacen la inecuación.</p>
+          </details>
+        </div>
+
+        <div class="caja-interactiva">
+          <h3>Verificar — Solución de una inecuación</h3>
+          <p class="instruccion-caja">Ingresa un valor de $x$ y la inecuación para verificar si es solución.</p>
+          <div class="grupo-inputs">
+            <div class="input-wrapper">
+              <label for="v2-x">Valor de x:</label>
+              <input type="text" id="v2-x" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v2-a">Coeficiente a:</label>
+              <input type="text" id="v2-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v2-b">Término b:</label>
+              <input type="text" id="v2-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v2-simbolo">Símbolo:</label>
+              <select id="v2-simbolo">
+                <option value="<">&lt;</option>
+                <option value="≤">≤</option>
+                <option value=">">&gt;</option>
+                <option value="≥">≥</option>
+              </select>
+            </div>
+            <div class="input-wrapper">
+              <label for="v2-c">Término c:</label>
+              <input type="text" id="v2-c" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <button class="btn-primario" id="v2-btn">Verificar</button>
+          </div>
+          <div class="ejemplos-rapidos">
+            <button class="ejemplo-btn" data-ejemplo="v2-1">2x − 3 &gt; 7, x = 6</button>
+            <button class="ejemplo-btn" data-ejemplo="v2-2">3x + 1 ≤ 10, x = 3</button>
+          </div>
+          <div class="resultado" id="v2-res" role="status" aria-live="polite">
+            El resultado aparecerá aquí...
+          </div>
+        </div>
+      </section>
+
+      <!-- Diapositiva 3: Propiedades de las desigualdades -->
+      <section class="diapositiva" data-diapo="3">
+        <h2 class="titulo-diapo">Propiedades de las desigualdades</h2>
+        <div class="contenido-teorico">
+          <h3>Propiedades fundamentales</h3>
+          <p>Las inecuaciones se resuelven aplicando propiedades similares a las ecuaciones, con <strong>una diferencia crítica</strong>: al multiplicar o dividir entre un número negativo, el sentido de la desigualdad se invierte.</p>
+          <div class="formula">Si $a < b$, entonces $a + c < b + c$ (suma)</div>
+          <div class="formula">Si $a < b$ y $c > 0$, entonces $ac < bc$ (producto positivo)</div>
+          <div class="formula">Si $a < b$ y $c < 0$, entonces $ac > bc$ (producto negativo: ¡se invierte!)</div>
+        </div>
+
+        <div class="ejemplo-resuelto">
+          <h3>Ejemplo resuelto</h3>
+          <p><strong>Problema:</strong> Resuelve $-3x > 12$.</p>
+          <div class="paso-ejemplo">
+            <span class="num-paso">1</span>
+            <span class="detalle-ejemplo">Identificamos: dividimos ambos lados entre $-3$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">2</span>
+            <span class="detalle-ejemplo">Como dividimos entre un número negativo, invertimos el sentido: $>$ se convierte en $<$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">3</span>
+            <span class="detalle-ejemplo">Calculamos: $x < \frac{12}{-3} = -4$.</span>
+          </div>
+          <div class="resultado-ejemplo">
+            Solución: $x < -4$, es decir, $x \in (-\infty, -4)$.
+          </div>
+        </div>
+
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>En la inecuación $-2x \leq 10$, ¿cuál será el conjunto solución? Recuerda la regla del signo negativo.</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Dividimos entre $-2$ e invertimos el sentido: $x \geq \frac{10}{-2} = -5$. La solución es $x \geq -5$, es decir, $x \in [-5, +\infty)$.</p>
+          </details>
+        </div>
+
+        <div class="caja-interactiva">
+          <h3>Aplicar — Regla del signo negativo</h3>
+          <p class="instruccion-caja">Ingresa los coeficientes de $ax \;\square\; b$ y observa cómo cambia el sentido al dividir entre $a$.</p>
+          <div class="grupo-inputs">
+            <div class="input-wrapper">
+              <label for="v3-a">Coeficiente a:</label>
+              <input type="text" id="v3-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v3-simbolo">Símbolo:</label>
+              <select id="v3-simbolo">
+                <option value="<">&lt;</option>
+                <option value="≤">≤</option>
+                <option value=">">&gt;</option>
+                <option value="≥">≥</option>
+              </select>
+            </div>
+            <div class="input-wrapper">
+              <label for="v3-b">Término b:</label>
+              <input type="text" id="v3-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <button class="btn-primario" id="v3-btn">Resolver</button>
+          </div>
+          <div class="ejemplos-rapidos">
+            <button class="ejemplo-btn" data-ejemplo="v3-1">−3x &gt; 12</button>
+            <button class="ejemplo-btn" data-ejemplo="v3-2">−2x ≤ 10</button>
+            <button class="ejemplo-btn" data-ejemplo="v3-3">5x &lt; 20</button>
+          </div>
+          <div class="resultado" id="v3-res" role="status" aria-live="polite">
+            El resultado aparecerá aquí...
+          </div>
+        </div>
+      </section>
+
+      <!-- Diapositiva 4: Resolución básica -->
+      <section class="diapositiva" data-diapo="4">
+        <h2 class="titulo-diapo">Resolución básica de inecuaciones</h2>
+        <div class="contenido-teorico">
+          <h3>Procedimiento general</h3>
+          <p>Para resolver $ax + b \;\square\; c$:</p>
+          <ul>
+            <li><strong>Paso 1:</strong> Restar (o sumar) $b$ en ambos lados para aislar el término con $x$.</li>
+            <li><strong>Paso 2:</strong> Dividir entre $a$ (invirtiendo el sentido si $a < 0$).</li>
+            <li><strong>Paso 3:</strong> Expresar la solución como desigualdad simple y como intervalo.</li>
+          </ul>
+        </div>
+
+        <div class="ejemplo-resuelto">
+          <h3>Ejemplo resuelto</h3>
+          <p><strong>Problema:</strong> Resuelve $4x - 5 \leq 11$.</p>
+          <div class="paso-ejemplo">
+            <span class="num-paso">1</span>
+            <span class="detalle-ejemplo">Sumamos 5 en ambos lados: $4x \leq 11 + 5$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">2</span>
+            <span class="detalle-ejemplo">Simplificamos: $4x \leq 16$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">3</span>
+            <span class="detalle-ejemplo">Dividimos entre 4 (positivo, no se invierte): $x \leq \frac{16}{4} = 4$.</span>
+          </div>
+          <div class="resultado-ejemplo">
+            Solución: $x \leq 4$, es decir, $x \in (-\infty, 4]$.
+          </div>
+        </div>
+
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>Si resuelves $3x + 2 > 14$, ¿el valor crítico será positivo o negativo? ¿Por qué?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Restamos 2: $3x > 12$. Dividimos entre 3: $x > 4$. El valor crítico es positivo (4), porque al restar 2 de 14 obtenemos un número positivo, y al dividir entre un coeficiente positivo el signo se conserva.</p>
+          </details>
+        </div>
+
+        <div class="caja-interactiva">
+          <h3>Resolver — Inecuación lineal básica</h3>
+          <p class="instruccion-caja">Ingresa los coeficientes de $ax + b \;\square\; c$.</p>
+          <div class="grupo-inputs">
+            <div class="input-wrapper">
+              <label for="v4-a">Coeficiente a:</label>
+              <input type="text" id="v4-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v4-b">Término b:</label>
+              <input type="text" id="v4-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v4-simbolo">Símbolo:</label>
+              <select id="v4-simbolo">
+                <option value="<">&lt;</option>
+                <option value="≤">≤</option>
+                <option value=">">&gt;</option>
+                <option value="≥">≥</option>
+              </select>
+            </div>
+            <div class="input-wrapper">
+              <label for="v4-c">Término c:</label>
+              <input type="text" id="v4-c" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <button class="btn-primario" id="v4-btn">Resolver</button>
+          </div>
+          <div class="ejemplos-rapidos">
+            <button class="ejemplo-btn" data-ejemplo="v4-1">4x − 5 ≤ 11</button>
+            <button class="ejemplo-btn" data-ejemplo="v4-2">3x + 2 &gt; 14</button>
+            <button class="ejemplo-btn" data-ejemplo="v4-3">−2x + 7 &lt; 1</button>
+          </div>
+          <div class="resultado" id="v4-res" role="status" aria-live="polite">
+            El resultado aparecerá aquí...
+          </div>
+        </div>
+      </section>
+
+      <!-- Diapositiva 5: Paréntesis y términos semejantes -->
+      <section class="diapositiva" data-diapo="5">
+        <h2 class="titulo-diapo">Inecuaciones con paréntesis y términos semejantes</h2>
+        <div class="contenido-teorico">
+          <h3>Estrategia</h3>
+          <p>Cuando la inecuación tiene paréntesis, primero se aplica la <strong>propiedad distributiva</strong> y luego se agrupan términos semejantes antes de aislar la variable.</p>
+          <div class="formula">$a(x + b) + cx \;\square\; d \;\;\longrightarrow\;\; ax + ab + cx \;\square\; d$</div>
+        </div>
+
+        <div class="ejemplo-resuelto">
+          <h3>Ejemplo resuelto</h3>
+          <p><strong>Problema:</strong> Resuelve $3(x - 2) + 5x > 2(x + 1) + 4$.</p>
+          <div class="paso-ejemplo">
+            <span class="num-paso">1</span>
+            <span class="detalle-ejemplo">Distribuimos: $3x - 6 + 5x > 2x + 2 + 4$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">2</span>
+            <span class="detalle-ejemplo">Agrupamos términos semejantes: $8x - 6 > 2x + 6$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">3</span>
+            <span class="detalle-ejemplo">Restamos $2x$ en ambos lados: $6x - 6 > 6$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">4</span>
+            <span class="detalle-ejemplo">Sumamos 6 en ambos lados: $6x > 12$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">5</span>
+            <span class="detalle-ejemplo">Dividimos entre 6: $x > 2$.</span>
+          </div>
+          <div class="resultado-ejemplo">
+            Solución: $x > 2$, es decir, $x \in (2, +\infty)$.
+          </div>
+        </div>
+
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>En $2(x + 3) - 4x \leq 10$, después de distribuir y agrupar, ¿cuál será el coeficiente de $x$? ¿Se invertirá el sentido de la desigualdad?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Distribuimos: $2x + 6 - 4x \leq 10$. Agrupamos: $-2x + 6 \leq 10$. El coeficiente de $x$ es $-2$ (negativo), por lo que al dividir entre $-2$ el sentido se invertirá: $x \geq -2$.</p>
+          </details>
+        </div>
+
+        <div class="caja-interactiva">
+          <h3>Resolver — Inecuación con paréntesis</h3>
+          <p class="instruccion-caja">Ingresa la inecuación $a(x + b) + cx \;\square\; d(x + e) + f$.</p>
+          <div class="grupo-inputs">
+            <div class="input-wrapper">
+              <label for="v5-a">a (coef. paréntesis izq.):</label>
+              <input type="text" id="v5-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v5-b">b (término independiente paréntesis izq.):</label>
+              <input type="text" id="v5-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v5-c">c (coef. x suelto izq.):</label>
+              <input type="text" id="v5-c" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v5-simbolo">Símbolo:</label>
+              <select id="v5-simbolo">
+                <option value="<">&lt;</option>
+                <option value="≤">≤</option>
+                <option value=">">&gt;</option>
+                <option value="≥">≥</option>
+              </select>
+            </div>
+            <div class="input-wrapper">
+              <label for="v5-d">d (coef. paréntesis der.):</label>
+              <input type="text" id="v5-d" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v5-e">e (término independiente paréntesis der.):</label>
+              <input type="text" id="v5-e" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v5-f">f (término independiente der.):</label>
+              <input type="text" id="v5-f" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <button class="btn-primario" id="v5-btn">Resolver</button>
+          </div>
+          <div class="ejemplos-rapidos">
+            <button class="ejemplo-btn" data-ejemplo="v5-1">3(x − 2) + 5x &gt; 2(x + 1) + 4</button>
+            <button class="ejemplo-btn" data-ejemplo="v5-2">2(x + 3) − 4x ≤ 10</button>
+          </div>
+          <div class="resultado" id="v5-res" role="status" aria-live="polite">
+            El resultado aparecerá aquí...
+          </div>
+        </div>
+      </section>
+
+      <!-- Diapositiva 6: Inecuaciones con fracciones -->
+      <section class="diapositiva" data-diapo="6">
+        <h2 class="titulo-diapo">Inecuaciones con fracciones</h2>
+        <div class="contenido-teorico">
+          <h3>Estrategia: eliminar denominadores</h3>
+          <p>Cuando la inecuación tiene fracciones, se multiplica ambos lados por el <strong>mínimo común múltiplo (mcm)</strong> de los denominadores para trabajar con enteros.</p>
+          <div class="formula">$\frac{ax + b}{c} \;\square\; \frac{dx + e}{f} \;\;\xrightarrow{\;\times\; mcm(c,f)\;}\;\; f(ax + b) \;\square\; c(dx + e)$</div>
+          <p style="margin-top: 10px;"><strong>Precaución:</strong> si el mcm es negativo (raro pero posible), se invierte el sentido.</p>
+        </div>
+
+        <div class="ejemplo-resuelto">
+          <h3>Ejemplo resuelto</h3>
+          <p><strong>Problema:</strong> Resuelve $\frac{2x - 1}{3} \geq \frac{x + 4}{2}$.</p>
+          <div class="paso-ejemplo">
+            <span class="num-paso">1</span>
+            <span class="detalle-ejemplo">Identificamos denominadores: 3 y 2. El mcm es 6.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">2</span>
+            <span class="detalle-ejemplo">Multiplicamos ambos lados por 6: $6 \cdot \frac{2x - 1}{3} \geq 6 \cdot \frac{x + 4}{2}$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">3</span>
+            <span class="detalle-ejemplo">Simplificamos: $2(2x - 1) \geq 3(x + 4)$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">4</span>
+            <span class="detalle-ejemplo">Distribuimos: $4x - 2 \geq 3x + 12$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">5</span>
+            <span class="detalle-ejemplo">Restamos $3x$ y sumamos 2: $x \geq 14$.</span>
+          </div>
+          <div class="resultado-ejemplo">
+            Solución: $x \geq 14$, es decir, $x \in [14, +\infty)$.
+          </div>
+        </div>
+
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>En la inecuación $\frac{x}{2} + 1 < \frac{x}{3}$, ¿cuál será el mcm de los denominadores? ¿El valor crítico será positivo o negativo?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>El mcm de 2 y 3 es 6. Multiplicando por 6: $3x + 6 < 2x$, luego $x < -6$. El valor crítico es negativo porque al restar $2x$ queda $x$ sola, y al restar 6 pasa negativo.</p>
+          </details>
+        </div>
+
+        <div class="caja-interactiva">
+          <h3>Resolver — Inecuación con fracciones</h3>
+          <p class="instruccion-caja">Ingresa la inecuación $\frac{ax + b}{c} \;\square\; \frac{dx + e}{f}$.</p>
+          <div class="grupo-inputs">
+            <div class="input-wrapper">
+              <label for="v6-a">a (numerador izq.):</label>
+              <input type="text" id="v6-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v6-b">b (independiente num. izq.):</label>
+              <input type="text" id="v6-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v6-c">c (denominador izq.):</label>
+              <input type="text" id="v6-c" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v6-simbolo">Símbolo:</label>
+              <select id="v6-simbolo">
+                <option value="<">&lt;</option>
+                <option value="≤">≤</option>
+                <option value=">">&gt;</option>
+                <option value="≥">≥</option>
+              </select>
+            </div>
+            <div class="input-wrapper">
+              <label for="v6-d">d (numerador der.):</label>
+              <input type="text" id="v6-d" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v6-e">e (independiente num. der.):</label>
+              <input type="text" id="v6-e" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v6-f">f (denominador der.):</label>
+              <input type="text" id="v6-f" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <button class="btn-primario" id="v6-btn">Resolver</button>
+          </div>
+          <div class="ejemplos-rapidos">
+            <button class="ejemplo-btn" data-ejemplo="v6-1">(2x − 1)/3 ≥ (x + 4)/2</button>
+            <button class="ejemplo-btn" data-ejemplo="v6-2">x/2 + 1 &lt; x/3</button>
+          </div>
+          <div class="resultado" id="v6-res" role="status" aria-live="polite">
+            El resultado aparecerá aquí...
+          </div>
+        </div>
+      </section>
+
+      <!-- Diapositiva 7: Variable en ambos miembros -->
+      <section class="diapositiva" data-diapo="7">
+        <h2 class="titulo-diapo">Variable en ambos miembros</h2>
+        <div class="contenido-teorico">
+          <h3>Estrategia</h3>
+          <p>Cuando la variable aparece en ambos lados, se trasladan todos los términos con $x$ a un lado y los términos independientes al otro, aplicando las propiedades de las desigualdades.</p>
+          <div class="formula">$ax + b \;\square\; cx + d \;\;\longrightarrow\;\; (a - c)x \;\square\; d - b$</div>
+          <p style="margin-top: 10px;"><strong>Caso especial:</strong> si $a = c$, la variable se cancela. La inecuación puede ser:</p>
+          <ul>
+            <li><strong>Verdadera para todo $x$</strong> (solución: $\mathbb{R}$).</li>
+            <li><strong>Falsa para todo $x$</strong> (solución: $\emptyset$).</li>
+          </ul>
+        </div>
+
+        <div class="ejemplo-resuelto">
+          <h3>Ejemplo resuelto</h3>
+          <p><strong>Problema:</strong> Resuelve $5x - 3 < 2x + 9$.</p>
+          <div class="paso-ejemplo">
+            <span class="num-paso">1</span>
+            <span class="detalle-ejemplo">Restamos $2x$ en ambos lados: $5x - 2x - 3 < 9$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">2</span>
+            <span class="detalle-ejemplo">Simplificamos: $3x - 3 < 9$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">3</span>
+            <span class="detalle-ejemplo">Sumamos 3 en ambos lados: $3x < 12$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">4</span>
+            <span class="detalle-ejemplo">Dividimos entre 3: $x < 4$.</span>
+          </div>
+          <div class="resultado-ejemplo">
+            Solución: $x < 4$, es decir, $x \in (-\infty, 4)$.
+          </div>
+        </div>
+
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>¿Qué pasa si resuelves $3x + 5 > 3x - 2$? ¿Tendrá solución?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Al restar $3x$ en ambos lados, la variable desaparece: $5 > -2$. Como esta desigualdad es siempre verdadera, la solución es todo $\mathbb{R}$ (todos los números reales).</p>
+          </details>
+        </div>
+
+        <div class="caja-interactiva">
+          <h3>Resolver — Variable en ambos miembros</h3>
+          <p class="instruccion-caja">Ingresa $ax + b \;\square\; cx + d$.</p>
+          <div class="grupo-inputs">
+            <div class="input-wrapper">
+              <label for="v7-a">Coeficiente a:</label>
+              <input type="text" id="v7-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v7-b">Término b:</label>
+              <input type="text" id="v7-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v7-simbolo">Símbolo:</label>
+              <select id="v7-simbolo">
+                <option value="<">&lt;</option>
+                <option value="≤">≤</option>
+                <option value=">">&gt;</option>
+                <option value="≥">≥</option>
+              </select>
+            </div>
+            <div class="input-wrapper">
+              <label for="v7-c">Coeficiente c:</label>
+              <input type="text" id="v7-c" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-wrapper">
+              <label for="v7-d">Término d:</label>
+              <input type="text" id="v7-d" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <button class="btn-primario" id="v7-btn">Resolver</button>
+          </div>
+          <div class="ejemplos-rapidos">
+            <button class="ejemplo-btn" data-ejemplo="v7-1">5x − 3 &lt; 2x + 9</button>
+            <button class="ejemplo-btn" data-ejemplo="v7-2">3x + 5 &gt; 3x − 2</button>
+            <button class="ejemplo-btn" data-ejemplo="v7-3">4x + 1 ≥ 4x + 5</button>
+          </div>
+          <div class="resultado" id="v7-res" role="status" aria-live="polite">
+            El resultado aparecerá aquí...
+          </div>
+        </div>
+      </section>
+
+      <!-- Diapositiva 8: Representación gráfica e intervalos -->
+      <section class="diapositiva" data-diapo="8">
+        <h2 class="titulo-diapo">Representación gráfica e intervalos</h2>
+        <div class="contenido-teorico">
+          <h3>Intervalos</h3>
+          <p>Un <strong>intervalo</strong> es un conjunto de números reales entre dos valores. Se clasifican según incluyan o no los extremos:</p>
+          <ul>
+            <li><strong>Abierto $(a, b)$:</strong> $a < x < b$ (extremos no incluidos, círculo vacío).</li>
+            <li><strong>Cerrado $[a, b]$: </strong> $a \leq x \leq b$ (extremos incluidos, círculo lleno).</li>
+            <li><strong>Semiabierto $[a, b)$ o $(a, b]$: </strong> un extremo incluido y otro no.</li>
+            <li><strong>Infinitos:</strong> $(-\infty, a)$, $(-\infty, a]$, $(a, +\infty)$, $[a, +\infty)$, $(-\infty, +\infty) = \mathbb{R}$.</li>
+          </ul>
+          <h3 style="margin-top: 12px;">Regla de conversión</h3>
+          <div class="formula">$x < a \;\Leftrightarrow\; (-\infty, a) \qquad x \leq a \;\Leftrightarrow\; (-\infty, a]$</div>
+          <div class="formula">$x > a \;\Leftrightarrow\; (a, +\infty) \qquad x \geq a \;\Leftrightarrow\; [a, +\infty)$</div>
+        </div>
+
+        <div class="ejemplo-resuelto">
+          <h3>Ejemplo resuelto</h3>
+          <p><strong>Problema:</strong> Representa gráficamente la solución de $x \geq -2$.</p>
+          <div class="paso-ejemplo">
+            <span class="num-paso">1</span>
+            <span class="detalle-ejemplo">Identificamos el valor crítico: $x = -2$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">2</span>
+            <span class="detalle-ejemplo">Como es $\geq$ (incluye el extremo), usamos círculo <strong>lleno</strong> en $-2$.</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">3</span>
+            <span class="detalle-ejemplo">Como es "mayor que", sombreamos hacia la derecha (hacia $+\infty$).</span>
+          </div>
+          <div class="paso-ejemplo">
+            <span class="num-paso">4</span>
+            <span class="detalle-ejemplo">Notación de intervalo: $[-2, +\infty)$.</span>
+          </div>
+          <div class="resultado-ejemplo">
+            Solución: $x \in [-2, +\infty)$.
+          </div>
+        </div>
+
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>Si la solución es $x < 3$, ¿el círculo en 3 será lleno o vacío? ¿Hacia dónde se sombrea?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Como es $<$ (estrictamente menor), el 3 NO está incluido, entonces el círculo es vacío. Se sombrea hacia la izquierda (hacia $-\infty$). Intervalo: $(-\infty, 3)$.</p>
+          </details>
+        </div>
+
+        <div class="caja-interactiva">
+          <h3>Graficar — Solución en la recta numérica</h3>
+          <p class="instruccion-caja">Ingresa la solución $x \;\square\; a$ y observa su representación gráfica.</p>
+          <div class="grupo-inputs">
+            <div class="input-wrapper">
+              <label for="v8-simbolo">Símbolo:</label>
+              <select id="v8-simbolo">
+                <option value="<">&lt;</option>
+                <option value="≤">≤</option>
+                <option value=">">&gt;</option>
+                <option value="≥">≥</option>
+              </select>
+            </div>
+            <div class="input-wrapper">
+              <label for="v8-a">Valor crítico a:</label>
+              <input type="text" id="v8-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <button class="btn-primario" id="v8-btn">Graficar</button>
+          </div>
+          <div class="ejemplos-rapidos">
+            <button class="ejemplo-btn" data-ejemplo="v8-1">x ≥ −2</button>
+            <button class="ejemplo-btn" data-ejemplo="v8-2">x &lt; 3</button>
+            <button class="ejemplo-btn" data-ejemplo="v8-3">x ≤ 0</button>
+            <button class="ejemplo-btn" data-ejemplo="v8-4">x &gt; 5</button>
+          </div>
+          <canvas id="v8-canvas" width="800" height="200" aria-label="Recta numérica con la solución"></canvas>
+          <div class="resultado" id="v8-res" role="status" aria-live="polite">
+            El resultado aparecerá aquí...
+          </div>
+        </div>
+      </section>
+
+      <!-- Diapositiva 9: Resumen -->
+      <section class="diapositiva" data-diapo="9">
+        <h2 class="titulo-diapo">Resumen</h2>
+        <div class="tabla-resumen">
+          <h3>Fórmulas clave</h3>
+          <table>
+            <tr><th>Concepto</th><th>Fórmula / Regla</th></tr>
+            <tr><td>Forma canónica</td><td>$ax + b \;\square\; c$</td></tr>
+            <tr><td>Suma / resta</td><td>Si $a < b$, entonces $a \pm c < b \pm c$</td></tr>
+            <tr><td>Producto positivo</td><td>Si $a < b$ y $c > 0$, entonces $ac < bc$</td></tr>
+            <tr><td>Producto negativo</td><td>Si $a < b$ y $c < 0$, entonces $ac > bc$ (¡se invierte!)</td></tr>
+            <tr><td>Intervalo abierto</td><td>$x < a \;\Leftrightarrow\; (-\infty, a)$</td></tr>
+            <tr><td>Intervalo cerrado</td><td>$x \leq a \;\Leftrightarrow\; (-\infty, a]$</td></tr>
+            <tr><td>Solución universal</td><td>$0 < 0$ falso → $\emptyset$; $0 < 0$ verdadero → $\mathbb{R}$</td></tr>
+          </table>
+        </div>
+
+        <div class="errores-comunes">
+          <h3>Errores comunes</h3>
+          <ul>
+            <li><strong>Olvidar invertir el sentido</strong> al dividir entre un número negativo.</li>
+            <li><strong>Confundir círculo lleno y vacío:</strong> $\leq$ y $\geq$ usan lleno; $<$ y $>$ usan vacío.</li>
+            <li><strong>No aplicar la propiedad distributiva</strong> correctamente cuando hay paréntesis.</li>
+            <li><strong>Tratar la inecuación como ecuación</strong> y dar una sola solución en vez de un intervalo.</li>
+            <li><strong>Olvidar el mcm</strong> al trabajar con fracciones y multiplicar solo un lado.</li>
+          </ul>
+        </div>
+
+        <div class="mensaje-cierre">
+          <strong>Siguiente paso:</strong> Abre <code>s04-actividades.html</code> para practicar con la calculadora, la actividad de aprendizaje y el examen de 10 reactivos.
+        </div>
+      </section>
+
+    </main>
+
+    <div class="navegacion">
+      <button id="btnAnterior" disabled aria-label="Diapositiva anterior">Anterior</button>
+      <span id="indicador">Diapositiva 1 de 9</span>
+      <button id="btnSiguiente" aria-label="Diapositiva siguiente">Siguiente</button>
+    </div>
+
+    <div class="footer-info">
+      <strong>Objetivo:</strong> Resolver inecuaciones lineales de una variable, interpretar su solución como intervalos y representarla gráficamente en la recta numérica.
+    </div>
+  </div>
+
+  <script>
+    // ===== UTILIDADES =====
+    function renderMath(element) {
+      if (!element) return;
+      function intentar() {
+        if (window.MathJax && window.MathJax.startup && window.MathJax.startup.promise) {
+          window.MathJax.startup.promise
+            .then(function () { return window.MathJax.typesetPromise([element]); })
+            .catch(function (err) { console.warn('MathJax typeset falló:', err); });
+        } else {
+          setTimeout(intentar, 100);
+        }
+      }
+      intentar();
+    }
+
+    function limpiarEntradaNumerica(texto) {
+      if (texto == null) return '';
+      return String(texto)
+        .replace(/^[^0-9\/.,+\-−]+/g, '')
+        .replace(/[^0-9\/.,+\-−]/g, '')
+        .trim();
+    }
+
+    function parsearNumero(texto) {
+      if (texto == null) return NaN;
+      texto = limpiarEntradaNumerica(texto);
+      if (texto === '') return NaN;
+      texto = texto.replace(',', '.').replace(/−/g, '-');
+      if (texto.indexOf('/') !== -1) {
+        var p = texto.split('/');
+        if (p.length !== 2) return NaN;
+        var n = parseFloat(p[0]), d = parseFloat(p[1]);
+        if (isNaN(n) || isNaN(d) || d === 0) return NaN;
+        return n / d;
+      }
+      var x = parseFloat(texto);
+      return isNaN(x) ? NaN : x;
+    }
+
+    function formatearNumero(n) {
+      if (Math.abs(n - Math.round(n)) < 1e-9) return Math.round(n).toString();
+      return parseFloat(n.toFixed(4)).toString();
+    }
+
+    function formatearResta(m, n, resultado) {
+      var mStr = formatearNumero(m);
+      var nStr = formatearNumero(n);
+      var rStr = formatearNumero(resultado);
+      if (n < 0) return '$' + mStr + ' - (' + nStr + ') = ' + rStr + '$';
+      return '$' + mStr + ' - ' + nStr + ' = ' + rStr + '$';
+    }
+
+    function simboloLatex(s) {
+      var mapa = { '<': '<', '≤': '\\leq', '>': '>', '≥': '\\geq' };
+      return mapa[s] || s;
+    }
+
+    function simboloInvertido(s) {
+      var mapa = { '<': '>', '≤': '≥', '>': '<', '≥': '≤' };
+      return mapa[s] || s;
+    }
+
+    function simboloTexto(s) {
+      var mapa = { '<': '<', '≤': '≤', '>': '>', '≥': '≥' };
+      return mapa[s] || s;
+    }
+
+    function mostrarResultado(elemento, html, esError, esAdvertencia) {
+      if (!elemento) return;
+      if (esAdvertencia) elemento.className = 'resultado advertencia';
+      else if (esError) elemento.className = 'resultado error';
+      else elemento.className = 'resultado exito';
+      elemento.innerHTML = html;
+      renderMath(elemento);
+    }
+
+    function algunCampoVacio(ids) {
+      for (var i = 0; i < ids.length; i++) {
+        var el = document.getElementById(ids[i]);
+        if (!el) continue;
+        if (limpiarEntradaNumerica(el.value) === '') return true;
+      }
+      return false;
+    }
+
+    function obtenerValor(id) {
+      var el = document.getElementById(id);
+      if (!el) return NaN;
+      return parsearNumero(el.value);
+    }
+
+    function obtenerTexto(id) {
+      var el = document.getElementById(id);
+      if (!el) return '';
+      return el.value;
+    }
+
+    // ===== NAVEGACIÓN =====
+    var estado = { diapoActual: 0, totalDiapos: 0 };
+
+    function mostrarDiapo(index) {
+      var diapos = document.querySelectorAll('.diapositiva');
+      diapos.forEach(function(d, i) {
+        d.classList.toggle('activa', i === index);
+      });
+      estado.diapoActual = index;
+      var indicador = document.getElementById('indicador');
+      if (indicador) indicador.textContent = 'Diapositiva ' + (index + 1) + ' de ' + estado.totalDiapos;
+      var btnAnt = document.getElementById('btnAnterior');
+      var btnSig = document.getElementById('btnSiguiente');
+      if (btnAnt) btnAnt.disabled = (index === 0);
+      if (btnSig) btnSig.disabled = (index === estado.totalDiapos - 1);
+      var progreso = ((index + 1) / estado.totalDiapos) * 100;
+      var barra = document.getElementById('progresoBarra');
+      if (barra) barra.style.width = progreso + '%';
+      var progEl = document.querySelector('.progreso');
+      if (progEl) progEl.setAttribute('aria-valuenow', Math.round(progreso));
+      renderMath(document.getElementById('contenedorDiapositivas'));
+    }
+
+    function iniciarNavegacion() {
+      var diapos = document.querySelectorAll('.diapositiva');
+      estado.totalDiapos = diapos.length;
+      var btnAnt = document.getElementById('btnAnterior');
+      var btnSig = document.getElementById('btnSiguiente');
+      if (btnAnt) {
+        btnAnt.addEventListener('click', function() {
+          if (estado.diapoActual > 0) mostrarDiapo(estado.diapoActual - 1);
+        });
+      }
+      if (btnSig) {
+        btnSig.addEventListener('click', function() {
+          if (estado.diapoActual < estado.totalDiapos - 1) mostrarDiapo(estado.diapoActual + 1);
+        });
+      }
+      mostrarDiapo(0);
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+      if (e.key === 'ArrowLeft' && estado.diapoActual > 0) {
+        mostrarDiapo(estado.diapoActual - 1);
+      } else if (e.key === 'ArrowRight' && estado.diapoActual < estado.totalDiapos - 1) {
+        mostrarDiapo(estado.diapoActual + 1);
+      }
+    });
+
+    // ===== VERIFICADOR (Diapositiva 2) =====
+    function verificarInecuacion() {
+      var res = document.getElementById('v2-res');
+      if (!res) return;
+      var ids = ['v2-x', 'v2-a', 'v2-b', 'v2-c'];
+      if (algunCampoVacio(ids)) {
+        mostrarResultado(res, 'Completa todos los campos.', false, true);
+        return;
+      }
+      var x = obtenerValor('v2-x');
+      var a = obtenerValor('v2-a');
+      var b = obtenerValor('v2-b');
+      var c = obtenerValor('v2-c');
+      var simbolo = obtenerTexto('v2-simbolo');
+      if (isNaN(x) || isNaN(a) || isNaN(b) || isNaN(c)) {
+        mostrarResultado(res, 'Ingresa valores numéricos válidos.', true);
+        return;
+      }
+      if (a === 0) {
+        mostrarResultado(res, 'El coeficiente a no puede ser cero.', true);
+        return;
+      }
+      var ladoIzq = a * x + b;
+      var ladoDer = c;
+      var comparacion;
+      var esVerdadera;
+      if (simbolo === '<') { comparacion = '<'; esVerdadera = ladoIzq < ladoDer; }
+      else if (simbolo === '≤') { comparacion = '\\leq'; esVerdadera = ladoIzq <= ladoDer; }
+      else if (simbolo === '>') { comparacion = '>'; esVerdadera = ladoIzq > ladoDer; }
+      else { comparacion = '\\geq'; esVerdadera = ladoIzq >= ladoDer; }
+
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Sustituimos $x = ' + formatearNumero(x) + '$:</span></div>';
+      var aStr = formatearNumero(a);
+      var bAbs = Math.abs(b);
+      var bSigno = b >= 0 ? ' + ' : ' - ';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Lado izquierdo: $(' + aStr + ')(' + formatearNumero(x) + ')' + bSigno + formatearNumero(bAbs) + '$</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Lado izquierdo: $' + formatearNumero(ladoIzq) + '$</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">4</span><span>Comparamos: $' + formatearNumero(ladoIzq) + ' ' + comparacion + ' ' + formatearNumero(ladoDer) + '$</span></div>';
+      if (esVerdadera) {
+        html += '<div class="resultado-final">Verdadero: $x = ' + formatearNumero(x) + '$ SÍ es solución.</div>';
+      } else {
+        html += '<div class="resultado-final" style="background: var(--exani-error);">Falso: $x = ' + formatearNumero(x) + '$ NO es solución.</div>';
+      }
+      mostrarResultado(res, html, false);
+    }
+
+    function iniciarVerificador() {
+      var btn = document.getElementById('v2-btn');
+      if (!btn) return;
+      btn.addEventListener('click', verificarInecuacion);
+      var ejemplos = {
+        'v2-1': { x: 6, a: 2, b: -3, simbolo: '>', c: 7 },
+        'v2-2': { x: 3, a: 3, b: 1, simbolo: '≤', c: 10 }
+      };
+      document.querySelectorAll('.ejemplo-btn[data-ejemplo^="v2-"]').forEach(function(b) {
+        b.addEventListener('click', function() {
+          var e = ejemplos[this.getAttribute('data-ejemplo')];
+          if (!e) return;
+          document.getElementById('v2-x').value = e.x;
+          document.getElementById('v2-a').value = e.a;
+          document.getElementById('v2-b').value = e.b;
+          document.getElementById('v2-simbolo').value = e.simbolo;
+          document.getElementById('v2-c').value = e.c;
+          verificarInecuacion();
+        });
+      });
+    }
+
+    // ===== REGLA DEL SIGNO (Diapositiva 3) =====
+    function resolverReglaSigno() {
+      var res = document.getElementById('v3-res');
+      if (!res) return;
+      var ids = ['v3-a', 'v3-b'];
+      if (algunCampoVacio(ids)) {
+        mostrarResultado(res, 'Completa todos los campos.', false, true);
+        return;
+      }
+      var a = obtenerValor('v3-a');
+      var b = obtenerValor('v3-b');
+      var simbolo = obtenerTexto('v3-simbolo');
+      if (isNaN(a) || isNaN(b)) {
+        mostrarResultado(res, 'Ingresa valores numéricos válidos.', true);
+        return;
+      }
+      if (a === 0) {
+        mostrarResultado(res, 'El coeficiente a no puede ser cero.', true);
+        return;
+      }
+      var simboloNuevo = a < 0 ? simboloInvertido(simbolo) : simbolo;
+      var resultado = b / a;
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Inecuación: $' + formatearNumero(a) + 'x ' + simboloTexto(simbolo) + ' ' + formatearNumero(b) + '$</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Dividimos ambos lados entre $' + formatearNumero(a) + '$.</span></div>';
+      if (a < 0) {
+        html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Como $' + formatearNumero(a) + ' < 0$, <strong>invertimos el sentido</strong>: ' + simboloTexto(simbolo) + ' se convierte en ' + simboloTexto(simboloNuevo) + '.</span></div>';
+      } else {
+        html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Como $' + formatearNumero(a) + ' > 0$, el sentido se conserva.</span></div>';
+      }
+      html += '<div class="paso-resultado"><span class="num-paso">4</span><span>$x ' + simboloTexto(simboloNuevo) + ' \\frac{' + formatearNumero(b) + '}{' + formatearNumero(a) + '} = ' + formatearNumero(resultado) + '$</span></div>';
+      html += '<div class="resultado-final">Solución: $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</div>';
+      mostrarResultado(res, html, false);
+    }
+
+    function iniciarReglaSigno() {
+      var btn = document.getElementById('v3-btn');
+      if (!btn) return;
+      btn.addEventListener('click', resolverReglaSigno);
+      var ejemplos = {
+        'v3-1': { a: -3, simbolo: '>', b: 12 },
+        'v3-2': { a: -2, simbolo: '≤', b: 10 },
+        'v3-3': { a: 5, simbolo: '<', b: 20 }
+      };
+      document.querySelectorAll('.ejemplo-btn[data-ejemplo^="v3-"]').forEach(function(b) {
+        b.addEventListener('click', function() {
+          var e = ejemplos[this.getAttribute('data-ejemplo')];
+          if (!e) return;
+          document.getElementById('v3-a').value = e.a;
+          document.getElementById('v3-simbolo').value = e.simbolo;
+          document.getElementById('v3-b').value = e.b;
+          resolverReglaSigno();
+        });
+      });
+    }
+
+    // ===== RESOLUCIÓN BÁSICA (Diapositiva 4) =====
+    function resolverBasica() {
+      var res = document.getElementById('v4-res');
+      if (!res) return;
+      var ids = ['v4-a', 'v4-b', 'v4-c'];
+      if (algunCampoVacio(ids)) {
+        mostrarResultado(res, 'Completa todos los campos.', false, true);
+        return;
+      }
+      var a = obtenerValor('v4-a');
+      var b = obtenerValor('v4-b');
+      var c = obtenerValor('v4-c');
+      var simbolo = obtenerTexto('v4-simbolo');
+      if (isNaN(a) || isNaN(b) || isNaN(c)) {
+        mostrarResultado(res, 'Ingresa valores numéricos válidos.', true);
+        return;
+      }
+      if (a === 0) {
+        mostrarResultado(res, 'El coeficiente a no puede ser cero.', true);
+        return;
+      }
+      var nuevoB = c - b;
+      var simboloNuevo = a < 0 ? simboloInvertido(simbolo) : simbolo;
+      var resultado = nuevoB / a;
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Inecuación: $' + formatearNumero(a) + 'x ' + (b >= 0 ? '+ ' + formatearNumero(b) : '- ' + formatearNumero(Math.abs(b))) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(c) + '$</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span>' + (b >= 0 ? 'Restamos' : 'Sumamos') + ' $' + formatearNumero(Math.abs(b)) + '$ en ambos lados: $' + formatearNumero(a) + 'x ' + simboloTexto(simbolo) + ' ' + formatearNumero(c) + (b >= 0 ? ' - ' + formatearNumero(b) : ' + ' + formatearNumero(Math.abs(b))) + '$</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Simplificamos: $' + formatearNumero(a) + 'x ' + simboloTexto(simbolo) + ' ' + formatearNumero(nuevoB) + '$</span></div>';
+      if (a < 0) {
+        html += '<div class="paso-resultado"><span class="num-paso">4</span><span>Dividimos entre $' + formatearNumero(a) + '$ (negativo) e invertimos el sentido: $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</span></div>';
+      } else {
+        html += '<div class="paso-resultado"><span class="num-paso">4</span><span>Dividimos entre $' + formatearNumero(a) + '$: $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</span></div>';
+      }
+      html += '<div class="resultado-final">Solución: $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</div>';
+      mostrarResultado(res, html, false);
+    }
+
+    function iniciarBasica() {
+      var btn = document.getElementById('v4-btn');
+      if (!btn) return;
+      btn.addEventListener('click', resolverBasica);
+      var ejemplos = {
+        'v4-1': { a: 4, b: -5, simbolo: '≤', c: 11 },
+        'v4-2': { a: 3, b: 2, simbolo: '>', c: 14 },
+        'v4-3': { a: -2, b: 7, simbolo: '<', c: 1 }
+      };
+      document.querySelectorAll('.ejemplo-btn[data-ejemplo^="v4-"]').forEach(function(b) {
+        b.addEventListener('click', function() {
+          var e = ejemplos[this.getAttribute('data-ejemplo')];
+          if (!e) return;
+          document.getElementById('v4-a').value = e.a;
+          document.getElementById('v4-b').value = e.b;
+          document.getElementById('v4-simbolo').value = e.simbolo;
+          document.getElementById('v4-c').value = e.c;
+          resolverBasica();
+        });
+      });
+    }
+
+    // ===== PARÉNTESIS (Diapositiva 5) =====
+    // Resuelve a(x + b) + cx □ d(x + e) + f
+    function resolverParentesis() {
+      var res = document.getElementById('v5-res');
+      if (!res) return;
+      var ids = ['v5-a', 'v5-b', 'v5-c', 'v5-d', 'v5-e', 'v5-f'];
+      if (algunCampoVacio(ids)) {
+        mostrarResultado(res, 'Completa todos los campos.', false, true);
+        return;
+      }
+      var a = obtenerValor('v5-a');
+      var b = obtenerValor('v5-b');
+      var c = obtenerValor('v5-c');
+      var d = obtenerValor('v5-d');
+      var e = obtenerValor('v5-e');
+      var f = obtenerValor('v5-f');
+      var simbolo = obtenerTexto('v5-simbolo');
+      if ([a,b,c,d,e,f].some(isNaN)) {
+        mostrarResultado(res, 'Ingresa valores numéricos válidos.', true);
+        return;
+      }
+      // Lado izquierdo después de distribuir: ax + ab + cx = (a+c)x + ab
+      // Lado derecho después de distribuir: dx + de + f
+      var coefX_izq = a + c;
+      var indep_izq = a * b;
+      var coefX_der = d;
+      var indep_der = d * e + f;
+
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Distribuimos: $' + formatearNumero(a) + 'x ' + (a*b >= 0 ? '+ ' + formatearNumero(a*b) : '- ' + formatearNumero(Math.abs(a*b))) + ' ' + (c >= 0 ? '+ ' + formatearNumero(c) + 'x' : '- ' + formatearNumero(Math.abs(c)) + 'x') + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(d) + 'x ' + (d*e >= 0 ? '+ ' + formatearNumero(d*e) : '- ' + formatearNumero(Math.abs(d*e))) + ' ' + (f >= 0 ? '+ ' + formatearNumero(f) : '- ' + formatearNumero(Math.abs(f))) + '$</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Agrupamos términos semejantes: $' + formatearNumero(coefX_izq) + 'x ' + (indep_izq >= 0 ? '+ ' + formatearNumero(indep_izq) : '- ' + formatearNumero(Math.abs(indep_izq))) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(coefX_der) + 'x ' + (indep_der >= 0 ? '+ ' + formatearNumero(indep_der) : '- ' + formatearNumero(Math.abs(indep_der))) + '$</span></div>';
+
+      // Pasamos todo a un lado: (coefX_izq - coefX_der)x □ (indep_der - indep_izq)
+      var coefFinal = coefX_izq - coefX_der;
+      var indepFinal = indep_der - indep_izq;
+
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Restamos $' + formatearNumero(coefX_der) + 'x$ y ' + (indep_izq >= 0 ? 'restamos' : 'sumamos') + ' $' + formatearNumero(Math.abs(indep_izq)) + '$: $' + formatearNumero(coefFinal) + 'x ' + simboloTexto(simbolo) + ' ' + formatearNumero(indepFinal) + '$</span></div>';
+
+      if (coefFinal === 0) {
+        var comparacion;
+        if (simbolo === '<') comparacion = indep_izq < indep_der;
+        else if (simbolo === '≤') comparacion = indep_izq <= indep_der;
+        else if (simbolo === '>') comparacion = indep_izq > indep_der;
+        else comparacion = indep_izq >= indep_der;
+        if (comparacion) {
+          html += '<div class="resultado-final">La desigualdad $' + formatearNumero(indep_izq) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(indep_der) + '$ siempre es verdadera. Solución: $\\mathbb{R}$.</div>';
+        } else {
+          html += '<div class="resultado-final" style="background: var(--exani-error);">La desigualdad $' + formatearNumero(indep_izq) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(indep_der) + '$ es falsa. Solución: $\\emptyset$.</div>';
+        }
+        mostrarResultado(res, html, false);
+        return;
+      }
+
+      var simboloNuevo = coefFinal < 0 ? simboloInvertido(simbolo) : simbolo;
+      var resultado = indepFinal / coefFinal;
+
+      html += '<div class="paso-resultado"><span class="num-paso">4</span><span>Dividimos entre $' + formatearNumero(coefFinal) + '$' + (coefFinal < 0 ? ' (negativo, se invierte el sentido)' : '') + ': $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</span></div>';
+      html += '<div class="resultado-final">Solución: $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</div>';
+      mostrarResultado(res, html, false);
+    }
+
+    function iniciarParentesis() {
+      var btn = document.getElementById('v5-btn');
+      if (!btn) return;
+      btn.addEventListener('click', resolverParentesis);
+      var ejemplos = {
+        'v5-1': { a: 3, b: -2, c: 5, simbolo: '>', d: 2, e: 1, f: 4 },
+        'v5-2': { a: 2, b: 3, c: -4, simbolo: '≤', d: 0, e: 0, f: 10 }
+      };
+      document.querySelectorAll('.ejemplo-btn[data-ejemplo^="v5-"]').forEach(function(b) {
+        b.addEventListener('click', function() {
+          var e = ejemplos[this.getAttribute('data-ejemplo')];
+          if (!e) return;
+          document.getElementById('v5-a').value = e.a;
+          document.getElementById('v5-b').value = e.b;
+          document.getElementById('v5-c').value = e.c;
+          document.getElementById('v5-simbolo').value = e.simbolo;
+          document.getElementById('v5-d').value = e.d;
+          document.getElementById('v5-e').value = e.e;
+          document.getElementById('v5-f').value = e.f;
+          resolverParentesis();
+        });
+      });
+    }
+
+    // ===== FRACCIONES (Diapositiva 6) =====
+    // Resuelve (ax + b)/c □ (dx + e)/f
+    function resolverFracciones() {
+      var res = document.getElementById('v6-res');
+      if (!res) return;
+      var ids = ['v6-a', 'v6-b', 'v6-c', 'v6-d', 'v6-e', 'v6-f'];
+      if (algunCampoVacio(ids)) {
+        mostrarResultado(res, 'Completa todos los campos.', false, true);
+        return;
+      }
+      var a = obtenerValor('v6-a');
+      var b = obtenerValor('v6-b');
+      var c = obtenerValor('v6-c');
+      var d = obtenerValor('v6-d');
+      var e = obtenerValor('v6-e');
+      var f = obtenerValor('v6-f');
+      var simbolo = obtenerTexto('v6-simbolo');
+      if ([a,b,c,d,e,f].some(isNaN)) {
+        mostrarResultado(res, 'Ingresa valores numéricos válidos.', true);
+        return;
+      }
+      if (c === 0 || f === 0) {
+        mostrarResultado(res, 'Los denominadores no pueden ser cero.', true);
+        return;
+      }
+      // mcm de |c| y |f|
+      function mcd(x, y) { x = Math.abs(x); y = Math.abs(y); while (y) { var t = y; y = x % y; x = t; } return x; }
+      function mcm(x, y) { return Math.abs(x * y) / mcd(x, y); }
+      var M = mcm(c, f);
+      // Multiplicamos por M: (M/c)(ax + b) □ (M/f)(dx + e)
+      var multIzq = M / c;
+      var multDer = M / f;
+      // Lado izq: multIzq*a*x + multIzq*b
+      // Lado der: multDer*d*x + multDer*e
+      var coefX_izq = multIzq * a;
+      var indep_izq = multIzq * b;
+      var coefX_der = multDer * d;
+      var indep_der = multDer * e;
+
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Denominadores: $' + formatearNumero(c) + '$ y $' + formatearNumero(f) + '$. mcm = $' + formatearNumero(M) + '$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Multiplicamos ambos lados por $' + formatearNumero(M) + '$: $' + formatearNumero(multIzq) + '(' + formatearNumero(a) + 'x ' + (b >= 0 ? '+ ' + formatearNumero(b) : '- ' + formatearNumero(Math.abs(b))) + ') ' + simboloTexto(simbolo) + ' ' + formatearNumero(multDer) + '(' + formatearNumero(d) + 'x ' + (e >= 0 ? '+ ' + formatearNumero(e) : '- ' + formatearNumero(Math.abs(e))) + ')$</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Distribuimos: $' + formatearNumero(coefX_izq) + 'x ' + (indep_izq >= 0 ? '+ ' + formatearNumero(indep_izq) : '- ' + formatearNumero(Math.abs(indep_izq))) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(coefX_der) + 'x ' + (indep_der >= 0 ? '+ ' + formatearNumero(indep_der) : '- ' + formatearNumero(Math.abs(indep_der))) + '$</span></div>';
+
+      var coefFinal = coefX_izq - coefX_der;
+      var indepFinal = indep_der - indep_izq;
+
+      html += '<div class="paso-resultado"><span class="num-paso">4</span><span>Agrupamos: $' + formatearNumero(coefFinal) + 'x ' + simboloTexto(simbolo) + ' ' + formatearNumero(indepFinal) + '$</span></div>';
+
+      if (coefFinal === 0) {
+        var comparacion;
+        if (simbolo === '<') comparacion = indep_izq < indep_der;
+        else if (simbolo === '≤') comparacion = indep_izq <= indep_der;
+        else if (simbolo === '>') comparacion = indep_izq > indep_der;
+        else comparacion = indep_izq >= indep_der;
+        if (comparacion) {
+          html += '<div class="resultado-final">Solución: $\\mathbb{R}$ (todos los reales).</div>';
+        } else {
+          html += '<div class="resultado-final" style="background: var(--exani-error);">Solución: $\\emptyset$ (sin solución).</div>';
+        }
+        mostrarResultado(res, html, false);
+        return;
+      }
+
+      var simboloNuevo = coefFinal < 0 ? simboloInvertido(simbolo) : simbolo;
+      var resultado = indepFinal / coefFinal;
+
+      html += '<div class="paso-resultado"><span class="num-paso">5</span><span>Dividimos entre $' + formatearNumero(coefFinal) + '$' + (coefFinal < 0 ? ' (negativo, se invierte)' : '') + ': $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</span></div>';
+      html += '<div class="resultado-final">Solución: $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</div>';
+      mostrarResultado(res, html, false);
+    }
+
+    function iniciarFracciones() {
+      var btn = document.getElementById('v6-btn');
+      if (!btn) return;
+      btn.addEventListener('click', resolverFracciones);
+      var ejemplos = {
+        'v6-1': { a: 2, b: -1, c: 3, simbolo: '≥', d: 1, e: 4, f: 2 },
+        'v6-2': { a: 1, b: 0, c: 2, simbolo: '<', d: 1, e: 0, f: 3 }
+      };
+      document.querySelectorAll('.ejemplo-btn[data-ejemplo^="v6-"]').forEach(function(b) {
+        b.addEventListener('click', function() {
+          var e = ejemplos[this.getAttribute('data-ejemplo')];
+          if (!e) return;
+          document.getElementById('v6-a').value = e.a;
+          document.getElementById('v6-b').value = e.b;
+          document.getElementById('v6-c').value = e.c;
+          document.getElementById('v6-simbolo').value = e.simbolo;
+          document.getElementById('v6-d').value = e.d;
+          document.getElementById('v6-e').value = e.e;
+          document.getElementById('v6-f').value = e.f;
+          resolverFracciones();
+        });
+      });
+    }
+
+    // ===== VARIABLE EN AMBOS MIEMBROS (Diapositiva 7) =====
+    // Resuelve ax + b □ cx + d
+    function resolverAmbosMiembros() {
+      var res = document.getElementById('v7-res');
+      if (!res) return;
+      var ids = ['v7-a', 'v7-b', 'v7-c', 'v7-d'];
+      if (algunCampoVacio(ids)) {
+        mostrarResultado(res, 'Completa todos los campos.', false, true);
+        return;
+      }
+      var a = obtenerValor('v7-a');
+      var b = obtenerValor('v7-b');
+      var c = obtenerValor('v7-c');
+      var d = obtenerValor('v7-d');
+      var simbolo = obtenerTexto('v7-simbolo');
+      if ([a,b,c,d].some(isNaN)) {
+        mostrarResultado(res, 'Ingresa valores numéricos válidos.', true);
+        return;
+      }
+      var coefFinal = a - c;
+      var indepFinal = d - b;
+
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Inecuación: $' + formatearNumero(a) + 'x ' + (b >= 0 ? '+ ' + formatearNumero(b) : '- ' + formatearNumero(Math.abs(b))) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(c) + 'x ' + (d >= 0 ? '+ ' + formatearNumero(d) : '- ' + formatearNumero(Math.abs(d))) + '$</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Restamos $' + formatearNumero(c) + 'x$ en ambos lados: $' + formatearNumero(a - c) + 'x ' + (b >= 0 ? '+ ' + formatearNumero(b) : '- ' + formatearNumero(Math.abs(b))) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(d) + '$</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span>' + (b >= 0 ? 'Restamos' : 'Sumamos') + ' $' + formatearNumero(Math.abs(b)) + '$ en ambos lados: $' + formatearNumero(coefFinal) + 'x ' + simboloTexto(simbolo) + ' ' + formatearNumero(indepFinal) + '$</span></div>';
+
+      if (coefFinal === 0) {
+        var comparacion;
+        if (simbolo === '<') comparacion = b < d;
+        else if (simbolo === '≤') comparacion = b <= d;
+        else if (simbolo === '>') comparacion = b > d;
+        else comparacion = b >= d;
+        if (comparacion) {
+          html += '<div class="resultado-final">La desigualdad $' + formatearNumero(b) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(d) + '$ es siempre verdadera. Solución: $\\mathbb{R}$.</div>';
+        } else {
+          html += '<div class="resultado-final" style="background: var(--exani-error);">La desigualdad $' + formatearNumero(b) + ' ' + simboloTexto(simbolo) + ' ' + formatearNumero(d) + '$ es falsa. Solución: $\\emptyset$.</div>';
+        }
+        mostrarResultado(res, html, false);
+        return;
+      }
+
+      var simboloNuevo = coefFinal < 0 ? simboloInvertido(simbolo) : simbolo;
+      var resultado = indepFinal / coefFinal;
+
+      html += '<div class="paso-resultado"><span class="num-paso">4</span><span>Dividimos entre $' + formatearNumero(coefFinal) + '$' + (coefFinal < 0 ? ' (negativo, se invierte)' : '') + ': $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</span></div>';
+      html += '<div class="resultado-final">Solución: $x ' + simboloTexto(simboloNuevo) + ' ' + formatearNumero(resultado) + '$</div>';
+      mostrarResultado(res, html, false);
+    }
+
+    function iniciarAmbosMiembros() {
+      var btn = document.getElementById('v7-btn');
+      if (!btn) return;
+      btn.addEventListener('click', resolverAmbosMiembros);
+      var ejemplos = {
+        'v7-1': { a: 5, b: -3, simbolo: '<', c: 2, d: 9 },
+        'v7-2': { a: 3, b: 5, simbolo: '>', c: 3, d: -2 },
+        'v7-3': { a: 4, b: 1, simbolo: '≥', c: 4, d: 5 }
+      };
+      document.querySelectorAll('.ejemplo-btn[data-ejemplo^="v7-"]').forEach(function(b) {
+        b.addEventListener('click', function() {
+          var e = ejemplos[this.getAttribute('data-ejemplo')];
+          if (!e) return;
+          document.getElementById('v7-a').value = e.a;
+          document.getElementById('v7-b').value = e.b;
+          document.getElementById('v7-simbolo').value = e.simbolo;
+          document.getElementById('v7-c').value = e.c;
+          document.getElementById('v7-d').value = e.d;
+          resolverAmbosMiembros();
+        });
+      });
+    }
+
+    // ===== GRAFICADOR (Diapositiva 8) =====
+    function configurarCanvasHiDPI(canvas) {
+      var dpr = window.devicePixelRatio || 1;
+      var rect = canvas.getBoundingClientRect();
+      var w = rect.width || 800;
+      var h = rect.height || 200;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      var ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+      return { ctx: ctx, w: w, h: h };
+    }
+
+    function graficarIntervalo() {
+      var res = document.getElementById('v8-res');
+      var canvas = document.getElementById('v8-canvas');
+      if (!res || !canvas) return;
+      if (algunCampoVacio(['v8-a'])) {
+        mostrarResultado(res, 'Ingresa el valor crítico.', false, true);
+        return;
+      }
+      var a = obtenerValor('v8-a');
+      var simbolo = obtenerTexto('v8-simbolo');
+      if (isNaN(a)) {
+        mostrarResultado(res, 'Ingresa un valor numérico válido.', true);
+        return;
+      }
+
+      var config = configurarCanvasHiDPI(canvas);
+      var ctx = config.ctx;
+      var W = config.w;
+      var H = config.h;
+
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.restore();
+
+      // Fondo
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, W, H);
+
+      // Rango visible
+      var margen = Math.max(3, Math.abs(a) + 3);
+      var xMin = a - margen;
+      var xMax = a + margen;
+      var yLinea = H / 2;
+
+      function toPixel(x) {
+        return ((x - xMin) / (xMax - xMin)) * W;
+      }
+
+      // Recta numérica
+      ctx.strokeStyle = '#003865';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(0, yLinea);
+      ctx.lineTo(W, yLinea);
+      ctx.stroke();
+
+      // Flechas en los extremos
+      ctx.fillStyle = '#003865';
+      ctx.beginPath();
+      ctx.moveTo(W, yLinea);
+      ctx.lineTo(W - 10, yLinea - 5);
+      ctx.lineTo(W - 10, yLinea + 5);
+      ctx.closePath();
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(0, yLinea);
+      ctx.lineTo(10, yLinea - 5);
+      ctx.lineTo(10, yLinea + 5);
+      ctx.closePath();
+      ctx.fill();
+
+      // Marcas y números cada unidad
+      ctx.fillStyle = '#333333';
+      ctx.font = '12px sans-serif';
+      ctx.textAlign = 'center';
+      var inicio = Math.ceil(xMin);
+      var fin = Math.floor(xMax);
+      for (var i = inicio; i <= fin; i++) {
+        var px = toPixel(i);
+        ctx.strokeStyle = '#E0E0E0';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(px, yLinea - 5);
+        ctx.lineTo(px, yLinea + 5);
+        ctx.stroke();
+        ctx.fillStyle = '#333333';
+        ctx.fillText(i.toString(), px, yLinea + 20);
+      }
+
+      // Sombreado de la solución
+      var px_a = toPixel(a);
+      ctx.fillStyle = 'rgba(139, 195, 74, 0.35)';
+      ctx.strokeStyle = '#8BC34A';
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      if (simbolo === '<' || simbolo === '≤') {
+        ctx.moveTo(0, yLinea);
+        ctx.lineTo(px_a, yLinea);
+      } else {
+        ctx.moveTo(px_a, yLinea);
+        ctx.lineTo(W, yLinea);
+      }
+      ctx.stroke();
+
+      // Círculo en el valor crítico
+      ctx.beginPath();
+      ctx.arc(px_a, yLinea, 7, 0, 2 * Math.PI);
+      if (simbolo === '≤' || simbolo === '≥') {
+        ctx.fillStyle = '#1B7FC4';
+        ctx.fill();
+      } else {
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fill();
+        ctx.strokeStyle = '#1B7FC4';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+      }
+
+      // Etiqueta del valor crítico
+      ctx.fillStyle = '#003865';
+      ctx.font = 'bold 14px sans-serif';
+      ctx.fillText(formatearNumero(a), px_a, yLinea - 15);
+
+      // Resultado textual
+      var intervalo;
+      var circuloIzq, circuloDer;
+      if (simbolo === '<') { intervalo = '(-\\infty, ' + formatearNumero(a) + ')'; }
+      else if (simbolo === '≤') { intervalo = '(-\\infty, ' + formatearNumero(a) + ']'; }
+      else if (simbolo === '>') { intervalo = '(' + formatearNumero(a) + ', +\\infty)'; }
+      else { intervalo = '[' + formatearNumero(a) + ', +\\infty)'; }
+
+      var descripcion;
+      if (simbolo === '<') descripcion = 'Círculo vacío en ' + formatearNumero(a) + ', sombreado hacia la izquierda.';
+      else if (simbolo === '≤') descripcion = 'Círculo lleno en ' + formatearNumero(a) + ', sombreado hacia la izquierda.';
+      else if (simbolo === '>') descripcion = 'Círculo vacío en ' + formatearNumero(a) + ', sombreado hacia la derecha.';
+      else descripcion = 'Círculo lleno en ' + formatearNumero(a) + ', sombreado hacia la derecha.';
+
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Valor crítico: $x = ' + formatearNumero(a) + '$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span>' + descripcion + '</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Notación de intervalo: $' + intervalo + '$.</span></div>';
+      html += '<div class="resultado-final">Solución: $x ' + simboloTexto(simbolo) + ' ' + formatearNumero(a) + '$, es decir, $' + intervalo + '$.</div>';
+      mostrarResultado(res, html, false);
+    }
+
+    function iniciarGraficador() {
+      var btn = document.getElementById('v8-btn');
+      if (!btn) return;
+      btn.addEventListener('click', graficarIntervalo);
+      var ejemplos = {
+        'v8-1': { a: -2, simbolo: '≥' },
+        'v8-2': { a: 3, simbolo: '<' },
+        'v8-3': { a: 0, simbolo: '≤' },
+        'v8-4': { a: 5, simbolo: '>' }
+      };
+      document.querySelectorAll('.ejemplo-btn[data-ejemplo^="v8-"]').forEach(function(b) {
+        b.addEventListener('click', function() {
+          var e = ejemplos[this.getAttribute('data-ejemplo')];
+          if (!e) return;
+          document.getElementById('v8-a').value = e.a;
+          document.getElementById('v8-simbolo').value = e.simbolo;
+          graficarIntervalo();
+        });
+      });
+    }
+
+    // ===== INICIALIZACIÓN =====
+    function iniciarRecurso() {
+      iniciarNavegacion();
+      iniciarVerificador();
+      iniciarReglaSigno();
+      iniciarBasica();
+      iniciarParentesis();
+      iniciarFracciones();
+      iniciarAmbosMiembros();
+      iniciarGraficador();
+      renderMath(document.body);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', iniciarRecurso);
+    } else {
+      iniciarRecurso();
+    }
+  </script>
+</body>
+</html>

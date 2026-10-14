@@ -1,0 +1,2377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="tipo-recurso" content="Actividades interactivas">
+<title>Actividades: Leyes de los exponentes y simplificación algebraica | EXANI-II</title>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    svg: { fontCache: 'global' },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  :root {
+    --exani-azul: #1B7FC4;
+    --exani-azul-marino: #003865;
+    --exani-verde: #8BC34A;
+    --exani-blanco: #FFFFFF;
+    --exani-gris-oscuro: #333333;
+    --exani-gris-claro: #E0E0E0;
+    --exani-fondo-secundario: #F5F5F5;
+    --exani-texto-secundario: #666666;
+    --exani-error: #D9534F;
+    --exani-advertencia: #FF6A14;
+    --radio-borde: 12px;
+    --sombra-suave: 0 4px 6px rgba(0, 56, 101, 0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--exani-fondo-secundario);
+    color: var(--exani-gris-oscuro);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--exani-blanco);
+    min-height: 100vh;
+    box-shadow: var(--sombra-suave);
+  }
+  header {
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+    padding: 22px 28px 24px;
+    text-align: center;
+  }
+  header .institucion {
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-bottom: 8px;
+  }
+  header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  header p {
+    font-size: 0.98rem;
+    opacity: 0.95;
+  }
+  .tabs {
+    display: flex;
+    background: var(--exani-fondo-secundario);
+    border-bottom: 2px solid var(--exani-gris-claro);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .tab {
+    flex: 1;
+    padding: 14px 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--exani-texto-secundario);
+    transition: all 0.2s;
+    border-bottom: 3px solid transparent;
+  }
+  .tab:hover { background: var(--exani-blanco); color: var(--exani-azul-marino); }
+  .tab.activo {
+    color: var(--exani-azul);
+    background: var(--exani-blanco);
+    border-bottom-color: var(--exani-azul);
+  }
+  .seccion { display: none; padding: 28px; }
+  .seccion.activa { display: block; }
+  .layout-calculadora {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px;
+  }
+  .panel-control, .panel-desarrollo {
+    background: var(--exani-fondo-secundario);
+    border-radius: var(--radio-borde);
+    padding: 22px;
+    border: 1px solid var(--exani-gris-claro);
+  }
+  .panel-control h2, .panel-desarrollo h2 {
+    color: var(--exani-azul-marino);
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--exani-azul);
+    padding-bottom: 8px;
+  }
+  .input-group {
+    margin-bottom: 14px;
+  }
+  .input-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--exani-gris-oscuro);
+    font-size: 0.95rem;
+  }
+  .input-group input, .input-group select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--exani-gris-claro);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: var(--exani-blanco);
+  }
+  .input-group input:focus, .input-group select:focus {
+    outline: none;
+    border-color: var(--exani-azul);
+    box-shadow: 0 0 0 2px rgba(27, 127, 196, 0.15);
+  }
+  .campos { display: none; }
+  .campos.activos { display: block; }
+  .btn-primario {
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+    border: none;
+    padding: 11px 22px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-right: 8px;
+    margin-top: 8px;
+  }
+  .btn-primario:hover { background: var(--exani-azul-marino); }
+  .btn-secundario {
+    background: var(--exani-blanco);
+    color: var(--exani-azul);
+    border: 2px solid var(--exani-azul);
+    padding: 9px 20px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+  .btn-secundario:hover { background: var(--exani-azul); color: var(--exani-blanco); }
+  .panel-control h3 {
+    color: var(--exani-azul-marino);
+    margin: 18px 0 10px;
+    font-size: 1.05rem;
+  }
+  .ejemplo-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--exani-blanco);
+    border: 1px solid var(--exani-gris-claro);
+    padding: 9px 12px;
+    margin-bottom: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+  .ejemplo-btn:hover {
+    border-color: var(--exani-azul);
+    background: #F0F8FE;
+  }
+  .placeholder-inicial {
+    background: var(--exani-blanco);
+    padding: 22px;
+    border-radius: 6px;
+    color: var(--exani-texto-secundario);
+    text-align: center;
+    font-style: italic;
+  }
+  .paso {
+    display: flex;
+    gap: 12px;
+    padding: 10px 12px;
+    background: var(--exani-blanco);
+    border-radius: 6px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+  }
+  .num-paso {
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .cuerpo-paso {
+    flex: 1;
+    min-width: 0;
+  }
+  .detalle-paso {
+    overflow-x: hidden;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  .resultado-final {
+    background: var(--exani-verde);
+    color: var(--exani-blanco);
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-top: 12px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .barra-progreso-general {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    background: var(--exani-fondo-secundario);
+    padding: 12px 18px;
+    border-radius: var(--radio-borde);
+  }
+  .texto-progreso {
+    font-weight: 600;
+    color: var(--exani-azul-marino);
+    white-space: nowrap;
+  }
+  .progreso-track {
+    flex: 1;
+    height: 10px;
+    background: var(--exani-gris-claro);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .progreso-fill {
+    height: 100%;
+    background: var(--exani-verde);
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  .tarjeta-caso {
+    background: var(--exani-blanco);
+    border: 1px solid var(--exani-gris-claro);
+    border-radius: var(--radio-borde);
+    padding: 24px;
+    box-shadow: var(--sombra-suave);
+  }
+  .meta-caso {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .numero-caso {
+    font-weight: 700;
+    color: var(--exani-azul-marino);
+    font-size: 1.05rem;
+  }
+  .nivel-caso {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--exani-blanco);
+  }
+  .nivel-caso.basico { background: var(--exani-verde); }
+  .nivel-caso.medio { background: var(--exani-azul); }
+  .nivel-caso.alto { background: var(--exani-advertencia); }
+  .enunciado {
+    background: var(--exani-fondo-secundario);
+    padding: 16px 18px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+    border-left: 4px solid var(--exani-azul);
+  }
+  .etiqueta-caso {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--exani-texto-secundario);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  #textoEnunciado {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .expresion-caso {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: var(--exani-blanco);
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1.05rem;
+  }
+  .expresion-caso:empty { display: none; }
+  .fase {
+    display: none;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--exani-gris-claro);
+  }
+  .fase.activa { display: block; }
+  .fase h3 {
+    color: var(--exani-azul-marino);
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+  .anticipa {
+    background: #F0F8FE;
+    border-left: 4px solid var(--exani-azul);
+    border-radius: var(--radio-borde);
+    padding: 14px 18px;
+    margin: 16px 0;
+  }
+  .anticipa h4 {
+    color: var(--exani-azul-marino);
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+  }
+  .anticipa p { font-size: 0.92rem; margin-bottom: 6px; }
+  .anticipa details { margin-top: 6px; font-size: 0.9rem; }
+  .anticipa summary {
+    cursor: pointer;
+    color: var(--exani-azul);
+    font-weight: 600;
+    padding: 4px 0;
+  }
+  .anticipa summary:hover { color: var(--exani-azul-marino); text-decoration: underline; }
+  .anticipa details p {
+    margin-top: 8px;
+    padding: 10px 12px;
+    background: var(--exani-blanco);
+    border-radius: 6px;
+  }
+  .opciones-fase {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .opcion-btn {
+    background: var(--exani-blanco);
+    border: 2px solid var(--exani-gris-claro);
+    padding: 11px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+  }
+  .opcion-btn:hover:not(:disabled) {
+    border-color: var(--exani-azul);
+    background: #F0F8FE;
+  }
+  .opcion-btn.correcta {
+    border-color: var(--exani-verde);
+    background: #F0F8F0;
+    color: var(--exani-azul-marino);
+    font-weight: 600;
+  }
+  .opcion-btn.incorrecta {
+    border-color: var(--exani-error);
+    background: #FEF0F0;
+    color: var(--exani-error);
+  }
+  .opcion-btn:disabled { cursor: not-allowed; }
+  .feedback {
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    min-height: 20px;
+    font-size: 0.95rem;
+  }
+  .feedback.correcto {
+    background: #F0F8F0;
+    border-left: 4px solid var(--exani-verde);
+    color: var(--exani-azul-marino);
+  }
+  .feedback.incorrecto {
+    background: #FEF0F0;
+    border-left: 4px solid var(--exani-error);
+    color: var(--exani-error);
+  }
+  .feedback.advertencia {
+    background: #FFF5EB;
+    border-left: 4px solid var(--exani-advertencia);
+    color: var(--exani-advertencia);
+  }
+  .intentos {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: var(--exani-texto-secundario);
+    font-style: italic;
+  }
+  .btn-pista, .btn-verificar {
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 8px;
+    margin-top: 10px;
+    border: none;
+  }
+  .btn-pista {
+    background: var(--exani-blanco);
+    color: var(--exani-advertencia);
+    border: 2px solid var(--exani-advertencia);
+  }
+  .btn-pista:hover { background: var(--exani-advertencia); color: var(--exani-blanco); }
+  .btn-verificar {
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+  }
+  .btn-verificar:hover { background: var(--exani-azul-marino); }
+  .btn-verificar:disabled {
+    background: var(--exani-gris-claro);
+    cursor: not-allowed;
+  }
+  .navegacion-casos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--exani-gris-claro);
+  }
+  .btn-navegacion {
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .btn-navegacion:hover:not(:disabled) { background: var(--exani-azul-marino); }
+  .btn-navegacion:disabled {
+    background: var(--exani-gris-claro);
+    cursor: not-allowed;
+  }
+  .btn-navegacion.secundario {
+    background: var(--exani-blanco);
+    color: var(--exani-azul);
+    border: 2px solid var(--exani-azul);
+  }
+  .btn-navegacion.secundario:hover:not(:disabled) { background: var(--exani-azul); color: var(--exani-blanco); }
+  .indicador-caso {
+    font-weight: 600;
+    color: var(--exani-azul-marino);
+  }
+  .pantalla-final {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--exani-fondo-secundario);
+    border-radius: var(--radio-borde);
+  }
+  .pantalla-final.activa { display: block; }
+  .medalla {
+    font-size: 4rem;
+    margin-bottom: 14px;
+  }
+  .pantalla-final h2 {
+    color: var(--exani-azul-marino);
+    margin-bottom: 12px;
+  }
+  .puntaje-final {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--exani-azul);
+    margin-bottom: 14px;
+  }
+  .progress-container {
+    height: 8px;
+    background: var(--exani-gris-claro);
+    border-radius: 4px;
+    margin-bottom: 22px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--exani-verde);
+    width: 0%;
+    transition: width 0.3s;
+  }
+  .quiz-view, .results-view { display: none; }
+  .quiz-view.activa, .results-view.activa { display: block; }
+  .question-meta {
+    font-size: 0.9rem;
+    color: var(--exani-texto-secundario);
+    margin-bottom: 6px;
+  }
+  .question-tipo {
+    display: inline-block;
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .question-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    background: var(--exani-fondo-secundario);
+    padding: 16px 18px;
+    border-radius: 8px;
+    border-left: 4px solid var(--exani-azul);
+  }
+  .options-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .option-item {
+    background: var(--exani-blanco);
+    border: 2px solid var(--exani-gris-claro);
+    padding: 13px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.98rem;
+  }
+  .option-item:hover:not(.disabled) {
+    border-color: var(--exani-azul);
+    background: #F0F8FE;
+  }
+  .option-item.seleccionada {
+    border-color: var(--exani-azul);
+    background: #F0F8FE;
+    font-weight: 600;
+  }
+  .option-item.correcta {
+    border-color: var(--exani-verde);
+    background: #F0F8F0;
+    color: var(--exani-azul-marino);
+  }
+  .option-item.incorrecta {
+    border-color: var(--exani-error);
+    background: #FEF0F0;
+    color: var(--exani-error);
+  }
+  .option-item.disabled { cursor: not-allowed; }
+  .feedback-box {
+    margin-top: 14px;
+    padding: 14px 18px;
+    border-radius: 6px;
+    min-height: 20px;
+  }
+  .feedback-box.correcto {
+    background: #F0F8F0;
+    border-left: 4px solid var(--exani-verde);
+  }
+  .feedback-box.incorrecto {
+    background: #FEF0F0;
+    border-left: 4px solid var(--exani-error);
+  }
+  .btn-next, .btn-restart {
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+    border: none;
+    padding: 11px 22px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 14px;
+  }
+  .btn-next:hover, .btn-restart:hover { background: var(--exani-azul-marino); }
+  .results-view {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .results-view h2 {
+    color: var(--exani-azul-marino);
+    margin-bottom: 14px;
+  }
+  .score-display {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--exani-azul);
+    margin-bottom: 14px;
+  }
+  .results-message {
+    font-size: 1.05rem;
+    color: var(--exani-gris-oscuro);
+    margin-bottom: 18px;
+  }
+  .footer-info {
+    padding: 14px 28px;
+    background: var(--exani-azul-marino);
+    color: var(--exani-blanco);
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 900px) {
+    .layout-calculadora { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.7rem; }
+    .seccion { padding: 18px; }
+    .tab { font-size: 0.9rem; padding: 12px 6px; }
+    .meta-caso { flex-direction: column; align-items: flex-start; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="contenedor">
+  <header>
+    <div class="institucion">Pensamiento Matemático</div>
+    <h1>EXANI-II</h1>
+    <p>Actividades: Leyes de los exponentes y simplificación algebraica</p>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab activo" data-tab="calculadora" role="tab" aria-selected="true" aria-controls="seccion-calculadora">Calculadora</button>
+    <button class="tab" data-tab="actividad" role="tab" aria-selected="false" aria-controls="seccion-actividad">Actividad</button>
+    <button class="tab" data-tab="examen" role="tab" aria-selected="false" aria-controls="seccion-examen">Examen</button>
+  </nav>
+
+  <!-- ============ SECCIÓN 1: CALCULADORA ============ -->
+  <section id="seccion-calculadora" class="seccion activa" role="tabpanel">
+    <div class="layout-calculadora">
+      <div class="panel-control">
+        <h2>Calculadora</h2>
+        <div class="input-group">
+          <label for="tipo-operacion">Tipo de operación:</label>
+          <select id="tipo-operacion">
+            <option value="producto">Producto de bases iguales</option>
+            <option value="cociente">Cociente de bases iguales</option>
+            <option value="potencia">Potencia de una potencia</option>
+            <option value="cero-neg">Exponente cero y negativo</option>
+            <option value="pot-producto">Potencia de un producto</option>
+            <option value="monomio">Producto de monomios</option>
+            <option value="fraccion">Fracción algebraica</option>
+          </select>
+        </div>
+
+        <!-- Campos: Producto -->
+        <div id="campos-producto" class="campos activos">
+          <div class="input-group">
+            <label for="pr-base">Base ($x$):</label>
+            <input type="text" id="pr-base" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="pr-a">Exponente $a$:</label>
+            <input type="text" id="pr-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="pr-b">Exponente $b$:</label>
+            <input type="text" id="pr-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+        </div>
+
+        <!-- Campos: Cociente -->
+        <div id="campos-cociente" class="campos">
+          <div class="input-group">
+            <label for="co-base">Base ($x$):</label>
+            <input type="text" id="co-base" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="co-a">Exponente $a$ (numerador):</label>
+            <input type="text" id="co-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="co-b">Exponente $b$ (denominador):</label>
+            <input type="text" id="co-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+        </div>
+
+        <!-- Campos: Potencia -->
+        <div id="campos-potencia" class="campos">
+          <div class="input-group">
+            <label for="po-base">Base ($x$):</label>
+            <input type="text" id="po-base" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="po-a">Exponente interno $a$:</label>
+            <input type="text" id="po-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="po-b">Exponente externo $b$:</label>
+            <input type="text" id="po-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+        </div>
+
+        <!-- Campos: Cero/Negativo -->
+        <div id="campos-cero-neg" class="campos">
+          <div class="input-group">
+            <label for="cn-base">Base ($x$):</label>
+            <input type="text" id="cn-base" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="cn-exp">Exponente ($n$):</label>
+            <input type="text" id="cn-exp" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+        </div>
+
+        <!-- Campos: Potencia de producto -->
+        <div id="campos-pot-producto" class="campos">
+          <div class="input-group">
+            <label for="pp-x">Factor $x$ (coeficiente):</label>
+            <input type="text" id="pp-x" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="pp-y">Factor $y$ (coeficiente):</label>
+            <input type="text" id="pp-y" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="pp-n">Exponente $n$:</label>
+            <input type="text" id="pp-n" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+        </div>
+
+        <!-- Campos: Monomio -->
+        <div id="campos-monomio" class="campos">
+          <div class="input-group">
+            <label for="mo-c1">Coeficiente 1:</label>
+            <input type="text" id="mo-c1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="mo-ex1">Exponente de $x$ (1):</label>
+            <input type="text" id="mo-ex1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="mo-ey1">Exponente de $y$ (1):</label>
+            <input type="text" id="mo-ey1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="mo-c2">Coeficiente 2:</label>
+            <input type="text" id="mo-c2" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="mo-ex2">Exponente de $x$ (2):</label>
+            <input type="text" id="mo-ex2" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="mo-ey2">Exponente de $y$ (2):</label>
+            <input type="text" id="mo-ey2" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+        </div>
+
+        <!-- Campos: Fracción -->
+        <div id="campos-fraccion" class="campos">
+          <div class="input-group">
+            <label for="fr-cnum">Coeficiente numerador:</label>
+            <input type="text" id="fr-cnum" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="fr-xnum">Exponente de $x$ (num):</label>
+            <input type="text" id="fr-xnum" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="fr-ynum">Exponente de $y$ (num):</label>
+            <input type="text" id="fr-ynum" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="fr-cden">Coeficiente denominador:</label>
+            <input type="text" id="fr-cden" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="fr-xden">Exponente de $x$ (den):</label>
+            <input type="text" id="fr-xden" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="fr-yden">Exponente de $y$ (den):</label>
+            <input type="text" id="fr-yden" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+        </div>
+
+        <button class="btn-primario" id="btn-calcular">Calcular</button>
+        <button class="btn-secundario" id="btn-reiniciar-calc">Reiniciar</button>
+
+        <h3>Ejemplos</h3>
+        <button class="ejemplo-btn" data-ejemplo="producto">Producto: x⁵ · x³</button>
+        <button class="ejemplo-btn" data-ejemplo="cociente">Cociente: x⁷ / x³</button>
+        <button class="ejemplo-btn" data-ejemplo="potencia">Potencia: (x⁴)⁵</button>
+        <button class="ejemplo-btn" data-ejemplo="cero-neg">Exponente: 5⁻³</button>
+        <button class="ejemplo-btn" data-ejemplo="pot-producto">Potencia producto: (2 · 3)⁴</button>
+        <button class="ejemplo-btn" data-ejemplo="monomio">Monomio: (3x²y³)(4x⁵y)</button>
+        <button class="ejemplo-btn" data-ejemplo="fraccion">Fracción: 12x⁵y² / 4x²y⁶</button>
+      </div>
+
+      <div class="panel-desarrollo">
+        <h2>Desarrollo paso a paso</h2>
+        <div id="desarrollo-calc">
+          <div class="placeholder-inicial">Selecciona el tipo de operación, ingresa los datos y presiona "Calcular".</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECCIÓN 2: ACTIVIDAD ============ -->
+  <section id="seccion-actividad" class="seccion" role="tabpanel">
+    <div class="barra-progreso-general">
+      <span class="texto-progreso" id="progresoTexto">Caso 1 de 10</span>
+      <div class="progreso-track">
+        <div class="progreso-fill" id="progresoFill" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+      </div>
+      <span class="texto-progreso" id="progresoPuntaje">0 / 10</span>
+    </div>
+
+    <div class="tarjeta-caso" id="tarjetaCaso">
+      <div class="meta-caso">
+        <div class="numero-caso" id="numeroCaso">Caso 1 de 10</div>
+        <div class="nivel-caso basico" id="nivelCaso">Básico</div>
+      </div>
+      <div class="enunciado">
+        <div class="etiqueta-caso" id="etiquetaCaso">Caso</div>
+        <div id="textoEnunciado">Cargando caso...</div>
+        <div class="expresion-caso" id="expresionCaso"></div>
+      </div>
+
+      <!-- Fase 1 -->
+      <div class="fase activa" id="fase1">
+        <h3>Fase 1 — Diagnóstico</h3>
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>Antes de analizar, ¿qué ley de los exponentes crees que se aplica en este caso?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Lee con atención el enunciado: identifica si se trata de producto, cociente, potencia de potencia, exponente negativo o simplificación algebraica.</p>
+          </details>
+        </div>
+        <p id="preguntaFase1"></p>
+        <div class="opciones-fase" id="opcionesFase1"></div>
+        <div class="feedback" id="feedbackFase1"></div>
+        <div class="intentos" id="intentosFase1">Intento 1 de 3</div>
+      </div>
+
+      <!-- Fase 2 -->
+      <div class="fase" id="fase2">
+        <h3>Fase 2 — Estrategia</h3>
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>¿Qué valor intermedio necesitas calcular primero para resolver este caso?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Identifica las variables conocidas y la ley que las relaciona. El valor intermedio suele ser la suma, resta o producto de exponentes.</p>
+          </details>
+        </div>
+        <div id="inputsFase2"></div>
+        <button class="btn-pista" id="btnPistaFase2">Pista</button>
+        <button class="btn-verificar" id="btnVerificarFase2">Verificar</button>
+        <div class="feedback" id="feedbackFase2"></div>
+        <div class="intentos" id="intentosFase2">Intento 1 de 3</div>
+      </div>
+
+      <!-- Fase 3 -->
+      <div class="fase" id="fase3">
+        <h3>Fase 3 — Ejecución</h3>
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>¿El exponente final será mayor o menor que los exponentes originales? ¿Por qué?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Revisa la ley aplicada: si es producto, los exponentes se suman (mayor); si es cociente, se restan (puede ser menor); si es potencia de potencia, se multiplican (mucho mayor).</p>
+          </details>
+        </div>
+        <div id="inputsFase3"></div>
+        <button class="btn-pista" id="btnPistaFase3">Pista</button>
+        <button class="btn-verificar" id="btnVerificarFase3">Verificar</button>
+        <div class="feedback" id="feedbackFase3"></div>
+        <div class="intentos" id="intentosFase3">Intento 1 de 3</div>
+      </div>
+
+      <!-- Fase 4 -->
+      <div class="fase" id="fase4">
+        <h3>Error frecuente</h3>
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>¿Cuál crees que es el error más común que cometen los estudiantes al resolver este tipo de problema?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Los errores frecuentes suelen ser: sumar bases en lugar de conservarlas, multiplicar exponentes en lugar de sumarlos, o olvidar que $x^0 = 1$.</p>
+          </details>
+        </div>
+        <p id="preguntaFase4"></p>
+        <div class="opciones-fase" id="opcionesFase4"></div>
+        <div class="feedback" id="feedbackFase4"></div>
+        <div class="intentos" id="intentosFase4">Intento 1 de 3</div>
+      </div>
+
+      <div class="navegacion-casos">
+        <button class="btn-navegacion secundario" id="btnAnterior">Caso anterior</button>
+        <span class="indicador-caso" id="indicadorCaso">Caso 1 de 10</span>
+        <button class="btn-navegacion" id="btnSiguiente" disabled>Siguiente caso</button>
+      </div>
+    </div>
+
+    <div class="pantalla-final" id="pantallaFinal">
+      <div class="medalla" id="medallaFinal">🏆</div>
+      <h2>Práctica completada</h2>
+      <div class="puntaje-final" id="puntajeFinal">0 / 10</div>
+      <p id="mensajeFinal"></p>
+      <button class="btn-primario" id="btnReiniciarActividad">Reiniciar práctica</button>
+    </div>
+  </section>
+
+  <!-- ============ SECCIÓN 3: EXAMEN ============ -->
+  <section id="seccion-examen" class="seccion" role="tabpanel">
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+    </div>
+
+    <div id="quizView" class="quiz-view activa">
+      <div class="question-meta" id="questionMeta">Reactivo 1 de 10</div>
+      <div class="question-tipo" id="questionTipo">Concepto</div>
+      <div class="question-text" id="questionText">Cargando pregunta...</div>
+      <ul class="options-list" id="optionsList" role="list"></ul>
+      <div class="feedback-box" id="feedbackBox" role="status" aria-live="polite"></div>
+      <button class="btn-next" id="btnNext" aria-label="Avanzar al siguiente reactivo">Siguiente Reactivo</button>
+    </div>
+
+    <div id="resultsView" class="results-view">
+      <h2>Evaluación Finalizada</h2>
+      <div class="score-display" id="finalScore">0/10</div>
+      <div class="results-message" id="resultsMessage"></div>
+      <button class="btn-restart" id="btnRestart" aria-label="Reiniciar la evaluación">Intentar de nuevo</button>
+    </div>
+  </section>
+
+  <div class="footer-info">
+    <strong>Objetivo:</strong> Aplicar las leyes de los exponentes para simplificar productos, cocientes y potencias, y simplificar expresiones algebraicas.
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ===== UTILIDADES =====
+  function renderMath(element) {
+    if (!element) return;
+    function intentar() {
+      if (window.MathJax && window.MathJax.startup && window.MathJax.startup.promise) {
+        window.MathJax.startup.promise
+          .then(function () { return window.MathJax.typesetPromise([element]); })
+          .catch(function (err) { console.warn('MathJax typeset falló:', err); });
+      } else {
+        setTimeout(intentar, 100);
+      }
+    }
+    intentar();
+  }
+
+  function limpiarEntradaNumerica(texto) {
+    if (texto == null) return '';
+    return String(texto)
+      .replace(/^[^0-9\/.,+\-−]+/g, '')
+      .replace(/[^0-9\/.,+\-−]/g, '')
+      .trim();
+  }
+
+  function parsearNumero(texto) {
+    if (texto == null) return NaN;
+    texto = limpiarEntradaNumerica(texto);
+    if (texto === '') return NaN;
+    texto = texto.replace(',', '.').replace(/−/g, '-');
+    if (texto.indexOf('/') !== -1) {
+      var p = texto.split('/');
+      if (p.length !== 2) return NaN;
+      var n = parseFloat(p[0]), d = parseFloat(p[1]);
+      if (isNaN(n) || isNaN(d) || d === 0) return NaN;
+      return n / d;
+    }
+    var x = parseFloat(texto);
+    return isNaN(x) ? NaN : x;
+  }
+
+  function formatearNumero(n) {
+    if (Math.abs(n - Math.round(n)) < 1e-9) return Math.round(n).toString();
+    return parseFloat(n.toFixed(4)).toString();
+  }
+
+  function formatearResta(m, n, resultado) {
+    var mStr = formatearNumero(m);
+    var nStr = formatearNumero(n);
+    var rStr = formatearNumero(resultado);
+    if (n < 0) return '$' + mStr + ' - (' + nStr + ') = ' + rStr + '$';
+    return '$' + mStr + ' - ' + nStr + ' = ' + rStr + '$';
+  }
+
+  function mostrarResultado(elemento, html, esError) {
+    if (!elemento) return;
+    elemento.className = 'resultado ' + (esError ? 'error' : 'exito');
+    elemento.innerHTML = html;
+    renderMath(elemento);
+  }
+
+  function mostrarAdvertencia(elemento, mensaje) {
+    if (!elemento) return;
+    elemento.className = 'resultado advertencia';
+    elemento.innerHTML = mensaje;
+    renderMath(elemento);
+  }
+
+  function algunCampoVacio(ids) {
+    for (var i = 0; i < ids.length; i++) {
+      var el = document.getElementById(ids[i]);
+      if (!el) continue;
+      if (limpiarEntradaNumerica(el.value) === '') return true;
+    }
+    return false;
+  }
+
+  function shuffleArray(array) {
+    var arr = array.slice();
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = temp;
+    }
+    return arr;
+  }
+
+  // ===== NAVEGACIÓN POR PESTAÑAS =====
+  function iniciarTabs() {
+    var tabs = document.querySelectorAll('.tab');
+    var secciones = document.querySelectorAll('.seccion');
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        var target = this.getAttribute('data-tab');
+        tabs.forEach(function(t) {
+          t.classList.remove('activo');
+          t.setAttribute('aria-selected', 'false');
+        });
+        this.classList.add('activo');
+        this.setAttribute('aria-selected', 'true');
+        secciones.forEach(function(s) { s.classList.remove('activa'); });
+        var seccionActiva = document.getElementById('seccion-' + target);
+        if (seccionActiva) seccionActiva.classList.add('activa');
+        renderMath(document.getElementById('seccion-' + target));
+      });
+    });
+  }
+
+  // ===== CALCULADORA =====
+  var ejemplosCalc = {
+    producto: { 'pr-base': 'x', 'pr-a': '5', 'pr-b': '3' },
+    cociente: { 'co-base': 'x', 'co-a': '7', 'co-b': '3' },
+    potencia: { 'po-base': 'x', 'po-a': '4', 'po-b': '5' },
+    'cero-neg': { 'cn-base': '5', 'cn-exp': '-3' },
+    'pot-producto': { 'pp-x': '2', 'pp-y': '3', 'pp-n': '4' },
+    monomio: { 'mo-c1': '3', 'mo-ex1': '2', 'mo-ey1': '3', 'mo-c2': '4', 'mo-ex2': '5', 'mo-ey2': '1' },
+    fraccion: { 'fr-cnum': '12', 'fr-xnum': '5', 'fr-ynum': '2', 'fr-cden': '4', 'fr-xden': '2', 'fr-yden': '6' }
+  };
+
+  function cambiarCampos(tipo) {
+    var campos = document.querySelectorAll('.campos');
+    campos.forEach(function(c) { c.classList.remove('activos'); });
+    var target = document.getElementById('campos-' + tipo);
+    if (target) target.classList.add('activos');
+  }
+
+  function cargarEjemplo(tipo) {
+    var ej = ejemplosCalc[tipo];
+    if (!ej) return;
+    var sel = document.getElementById('tipo-operacion');
+    if (sel) sel.value = tipo;
+    cambiarCampos(tipo);
+    Object.keys(ej).forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.value = ej[id];
+    });
+  }
+
+  function calcularProducto() {
+    var res = document.getElementById('desarrollo-calc');
+    if (!res) return;
+    if (algunCampoVacio(['pr-base', 'pr-a', 'pr-b'])) {
+      res.innerHTML = '<div class="placeholder-inicial">Completa todos los campos.</div>';
+      return;
+    }
+    var base = document.getElementById('pr-base').value.trim() || 'x';
+    var a = parsearNumero(document.getElementById('pr-a').value);
+    var b = parsearNumero(document.getElementById('pr-b').value);
+    if (isNaN(a) || isNaN(b)) {
+      res.innerHTML = '<div class="placeholder-inicial">Ingresa valores numéricos válidos para los exponentes.</div>';
+      return;
+    }
+    var suma = a + b;
+    var html = '';
+    html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Expresión: $' + base + '^{' + formatearNumero(a) + '} \\cdot ' + base + '^{' + formatearNumero(b) + '}$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Ley aplicada: $x^a \\cdot x^b = x^{a+b}$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">Sumamos exponentes: $' + formatearNumero(a) + ' + ' + formatearNumero(b) + ' = ' + formatearNumero(suma) + '$</div></div></div>';
+    html += '<div class="resultado-final">$' + base + '^{' + formatearNumero(a) + '} \\cdot ' + base + '^{' + formatearNumero(b) + '} = ' + base + '^{' + formatearNumero(suma) + '}$</div>';
+    res.innerHTML = html;
+    renderMath(res);
+  }
+
+  function calcularCociente() {
+    var res = document.getElementById('desarrollo-calc');
+    if (!res) return;
+    if (algunCampoVacio(['co-base', 'co-a', 'co-b'])) {
+      res.innerHTML = '<div class="placeholder-inicial">Completa todos los campos.</div>';
+      return;
+    }
+    var base = document.getElementById('co-base').value.trim() || 'x';
+    var a = parsearNumero(document.getElementById('co-a').value);
+    var b = parsearNumero(document.getElementById('co-b').value);
+    if (isNaN(a) || isNaN(b)) {
+      res.innerHTML = '<div class="placeholder-inicial">Ingresa valores numéricos válidos para los exponentes.</div>';
+      return;
+    }
+    var resta = a - b;
+    var html = '';
+    html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Expresión: $\\dfrac{' + base + '^{' + formatearNumero(a) + '}}{' + base + '^{' + formatearNumero(b) + '}}$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Ley aplicada: $\\dfrac{x^a}{x^b} = x^{a-b}$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">' + formatearResta(a, b, resta) + '</div></div></div>';
+    if (resta === 0) {
+      html += '<div class="paso"><span class="num-paso">4</span><div class="cuerpo-paso"><div class="detalle-paso">Como el exponente es 0, el resultado es 1.</div></div></div>';
+      html += '<div class="resultado-final">$\\dfrac{' + base + '^{' + formatearNumero(a) + '}}{' + base + '^{' + formatearNumero(b) + '}} = 1$</div>';
+    } else if (resta < 0) {
+      html += '<div class="paso"><span class="num-paso">4</span><div class="cuerpo-paso"><div class="detalle-paso">Exponente negativo: $' + base + '^{' + formatearNumero(resta) + '} = \\dfrac{1}{' + base + '^{' + formatearNumero(-resta) + '}}$</div></div></div>';
+      html += '<div class="resultado-final">$\\dfrac{' + base + '^{' + formatearNumero(a) + '}}{' + base + '^{' + formatearNumero(b) + '}} = \\dfrac{1}{' + base + '^{' + formatearNumero(-resta) + '}}$</div>';
+    } else {
+      html += '<div class="resultado-final">$\\dfrac{' + base + '^{' + formatearNumero(a) + '}}{' + base + '^{' + formatearNumero(b) + '}} = ' + base + '^{' + formatearNumero(resta) + '}$</div>';
+    }
+    res.innerHTML = html;
+    renderMath(res);
+  }
+
+  function calcularPotencia() {
+    var res = document.getElementById('desarrollo-calc');
+    if (!res) return;
+    if (algunCampoVacio(['po-base', 'po-a', 'po-b'])) {
+      res.innerHTML = '<div class="placeholder-inicial">Completa todos los campos.</div>';
+      return;
+    }
+    var base = document.getElementById('po-base').value.trim() || 'x';
+    var a = parsearNumero(document.getElementById('po-a').value);
+    var b = parsearNumero(document.getElementById('po-b').value);
+    if (isNaN(a) || isNaN(b)) {
+      res.innerHTML = '<div class="placeholder-inicial">Ingresa valores numéricos válidos para los exponentes.</div>';
+      return;
+    }
+    var producto = a * b;
+    var html = '';
+    html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Expresión: $(' + base + '^{' + formatearNumero(a) + '})^{' + formatearNumero(b) + '}$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Ley aplicada: $(x^a)^b = x^{a \\cdot b}$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">Multiplicamos: $' + formatearNumero(a) + ' \\cdot ' + formatearNumero(b) + ' = ' + formatearNumero(producto) + '$</div></div></div>';
+    html += '<div class="resultado-final">$(' + base + '^{' + formatearNumero(a) + '})^{' + formatearNumero(b) + '} = ' + base + '^{' + formatearNumero(producto) + '}$</div>';
+    res.innerHTML = html;
+    renderMath(res);
+  }
+
+  function calcularCeroNeg() {
+    var res = document.getElementById('desarrollo-calc');
+    if (!res) return;
+    if (algunCampoVacio(['cn-base', 'cn-exp'])) {
+      res.innerHTML = '<div class="placeholder-inicial">Completa todos los campos.</div>';
+      return;
+    }
+    var base = document.getElementById('cn-base').value.trim() || 'x';
+    var n = parsearNumero(document.getElementById('cn-exp').value);
+    if (isNaN(n)) {
+      res.innerHTML = '<div class="placeholder-inicial">Ingresa un valor numérico válido para el exponente.</div>';
+      return;
+    }
+    var html = '';
+    html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Expresión: $' + base + '^{' + formatearNumero(n) + '}$</div></div></div>';
+    if (n === 0) {
+      html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Ley aplicada: $x^0 = 1$ (para cualquier $x \\neq 0$)</div></div></div>';
+      html += '<div class="resultado-final">$' + base + '^0 = 1$</div>';
+    } else if (n < 0) {
+      html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Ley aplicada: $x^{-n} = \\dfrac{1}{x^n}$</div></div></div>';
+      html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">Sustituimos: $' + base + '^{' + formatearNumero(n) + '} = \\dfrac{1}{' + base + '^{' + formatearNumero(-n) + '}}$</div></div></div>';
+      var baseNum = parseFloat(base);
+      if (!isNaN(baseNum) && baseNum !== 0) {
+        var valor = Math.pow(baseNum, n);
+        html += '<div class="paso"><span class="num-paso">4</span><div class="cuerpo-paso"><div class="detalle-paso">Valor numérico: $\\dfrac{1}{' + formatearNumero(Math.pow(baseNum, -n)) + '} = ' + formatearNumero(valor) + '$</div></div></div>';
+        html += '<div class="resultado-final">$' + base + '^{' + formatearNumero(n) + '} = ' + formatearNumero(valor) + '$</div>';
+      } else {
+        html += '<div class="resultado-final">$' + base + '^{' + formatearNumero(n) + '} = \\dfrac{1}{' + base + '^{' + formatearNumero(-n) + '}}$</div>';
+      }
+    } else {
+      var baseNum2 = parseFloat(base);
+      if (!isNaN(baseNum2)) {
+        var valor2 = Math.pow(baseNum2, n);
+        html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Calculamos: $' + formatearNumero(baseNum2) + '^{' + formatearNumero(n) + '} = ' + formatearNumero(valor2) + '$</div></div></div>';
+        html += '<div class="resultado-final">$' + base + '^{' + formatearNumero(n) + '} = ' + formatearNumero(valor2) + '$</div>';
+      } else {
+        html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Exponente positivo: se conserva la expresión.</div></div></div>';
+        html += '<div class="resultado-final">$' + base + '^{' + formatearNumero(n) + '}$</div>';
+      }
+    }
+    res.innerHTML = html;
+    renderMath(res);
+  }
+
+  function calcularPotProducto() {
+    var res = document.getElementById('desarrollo-calc');
+    if (!res) return;
+    if (algunCampoVacio(['pp-x', 'pp-y', 'pp-n'])) {
+      res.innerHTML = '<div class="placeholder-inicial">Completa todos los campos.</div>';
+      return;
+    }
+    var x = parsearNumero(document.getElementById('pp-x').value);
+    var y = parsearNumero(document.getElementById('pp-y').value);
+    var n = parsearNumero(document.getElementById('pp-n').value);
+    if (isNaN(x) || isNaN(y) || isNaN(n)) {
+      res.innerHTML = '<div class="placeholder-inicial">Ingresa valores numéricos válidos.</div>';
+      return;
+    }
+    var xn = Math.pow(x, n);
+    var yn = Math.pow(y, n);
+    var html = '';
+    html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Expresión: $(' + formatearNumero(x) + ' \\cdot ' + formatearNumero(y) + ')^{' + formatearNumero(n) + '}$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Ley aplicada: $(x \\cdot y)^n = x^n \\cdot y^n$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">Distribuimos: $' + formatearNumero(x) + '^{' + formatearNumero(n) + '} \\cdot ' + formatearNumero(y) + '^{' + formatearNumero(n) + '}$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">4</span><div class="cuerpo-paso"><div class="detalle-paso">Calculamos: $' + formatearNumero(xn) + ' \\cdot ' + formatearNumero(yn) + ' = ' + formatearNumero(xn * yn) + '$</div></div></div>';
+    html += '<div class="resultado-final">$(' + formatearNumero(x) + ' \\cdot ' + formatearNumero(y) + ')^{' + formatearNumero(n) + '} = ' + formatearNumero(xn * yn) + '$</div>';
+    res.innerHTML = html;
+    renderMath(res);
+  }
+
+  function calcularMonomio() {
+    var res = document.getElementById('desarrollo-calc');
+    if (!res) return;
+    if (algunCampoVacio(['mo-c1', 'mo-ex1', 'mo-ey1', 'mo-c2', 'mo-ex2', 'mo-ey2'])) {
+      res.innerHTML = '<div class="placeholder-inicial">Completa todos los campos.</div>';
+      return;
+    }
+    var c1 = parsearNumero(document.getElementById('mo-c1').value);
+    var ex1 = parsearNumero(document.getElementById('mo-ex1').value);
+    var ey1 = parsearNumero(document.getElementById('mo-ey1').value);
+    var c2 = parsearNumero(document.getElementById('mo-c2').value);
+    var ex2 = parsearNumero(document.getElementById('mo-ex2').value);
+    var ey2 = parsearNumero(document.getElementById('mo-ey2').value);
+    if (isNaN(c1) || isNaN(ex1) || isNaN(ey1) || isNaN(c2) || isNaN(ex2) || isNaN(ey2)) {
+      res.innerHTML = '<div class="placeholder-inicial">Ingresa valores numéricos válidos.</div>';
+      return;
+    }
+    var cFinal = c1 * c2;
+    var exFinal = ex1 + ex2;
+    var eyFinal = ey1 + ey2;
+    var html = '';
+    html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Coeficientes: $' + formatearNumero(c1) + ' \\cdot ' + formatearNumero(c2) + ' = ' + formatearNumero(cFinal) + '$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Para $x$: $x^{' + formatearNumero(ex1) + '} \\cdot x^{' + formatearNumero(ex2) + '} = x^{' + formatearNumero(exFinal) + '}$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">Para $y$: $y^{' + formatearNumero(ey1) + '} \\cdot y^{' + formatearNumero(ey2) + '} = y^{' + formatearNumero(eyFinal) + '}$</div></div></div>';
+    var resultado = '$' + formatearNumero(cFinal);
+    if (exFinal !== 0) resultado += 'x^{' + formatearNumero(exFinal) + '}';
+    if (eyFinal !== 0) resultado += 'y^{' + formatearNumero(eyFinal) + '}';
+    if (exFinal === 0 && eyFinal === 0) resultado = '$' + formatearNumero(cFinal);
+    resultado += '$';
+    html += '<div class="resultado-final">Resultado: ' + resultado + '</div>';
+    res.innerHTML = html;
+    renderMath(res);
+  }
+
+  function calcularFraccion() {
+    var res = document.getElementById('desarrollo-calc');
+    if (!res) return;
+    if (algunCampoVacio(['fr-cnum', 'fr-xnum', 'fr-ynum', 'fr-cden', 'fr-xden', 'fr-yden'])) {
+      res.innerHTML = '<div class="placeholder-inicial">Completa todos los campos.</div>';
+      return;
+    }
+    var cnum = parsearNumero(document.getElementById('fr-cnum').value);
+    var xnum = parsearNumero(document.getElementById('fr-xnum').value);
+    var ynum = parsearNumero(document.getElementById('fr-ynum').value);
+    var cden = parsearNumero(document.getElementById('fr-cden').value);
+    var xden = parsearNumero(document.getElementById('fr-xden').value);
+    var yden = parsearNumero(document.getElementById('fr-yden').value);
+    if (isNaN(cnum) || isNaN(xnum) || isNaN(ynum) || isNaN(cden) || isNaN(xden) || isNaN(yden)) {
+      res.innerHTML = '<div class="placeholder-inicial">Ingresa valores numéricos válidos.</div>';
+      return;
+    }
+    if (cden === 0) {
+      res.innerHTML = '<div class="placeholder-inicial">El denominador no puede ser cero.</div>';
+      return;
+    }
+    var cFinal = cnum / cden;
+    var xFinal = xnum - xden;
+    var yFinal = ynum - yden;
+    var html = '';
+    html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Coeficientes: $\\dfrac{' + formatearNumero(cnum) + '}{' + formatearNumero(cden) + '} = ' + formatearNumero(cFinal) + '$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Para $x$: $\\dfrac{x^{' + formatearNumero(xnum) + '}}{x^{' + formatearNumero(xden) + '}} = x^{' + formatearNumero(xFinal) + '}$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">Para $y$: $\\dfrac{y^{' + formatearNumero(ynum) + '}}{y^{' + formatearNumero(yden) + '}} = y^{' + formatearNumero(yFinal) + '}$</div></div></div>';
+    var numStr = formatearNumero(cFinal);
+    var denStr = '';
+    if (xFinal < 0) {
+      denStr += 'x^{' + formatearNumero(-xFinal) + '}';
+    } else if (xFinal > 0) {
+      numStr += 'x^{' + formatearNumero(xFinal) + '}';
+    }
+    if (yFinal < 0) {
+      denStr += (denStr ? ' \\cdot ' : '') + 'y^{' + formatearNumero(-yFinal) + '}';
+    } else if (yFinal > 0) {
+      numStr += 'y^{' + formatearNumero(yFinal) + '}';
+    }
+    if (denStr === '') {
+      html += '<div class="resultado-final">Resultado: $' + numStr + '$</div>';
+    } else {
+      html += '<div class="resultado-final">Resultado: $\\dfrac{' + numStr + '}{' + denStr + '}$</div>';
+    }
+    res.innerHTML = html;
+    renderMath(res);
+  }
+
+  function calcular() {
+    var sel = document.getElementById('tipo-operacion');
+    if (!sel) return;
+    var tipo = sel.value;
+    if (tipo === 'producto') calcularProducto();
+    else if (tipo === 'cociente') calcularCociente();
+    else if (tipo === 'potencia') calcularPotencia();
+    else if (tipo === 'cero-neg') calcularCeroNeg();
+    else if (tipo === 'pot-producto') calcularPotProducto();
+    else if (tipo === 'monomio') calcularMonomio();
+    else if (tipo === 'fraccion') calcularFraccion();
+  }
+
+  function reiniciarCalc() {
+    var inputs = document.querySelectorAll('.campos input');
+    inputs.forEach(function(inp) { inp.value = ''; });
+    var res = document.getElementById('desarrollo-calc');
+    if (res) res.innerHTML = '<div class="placeholder-inicial">Selecciona el tipo de operación, ingresa los datos y presiona "Calcular".</div>';
+  }
+
+  function iniciarCalculadora() {
+    var sel = document.getElementById('tipo-operacion');
+    if (sel) {
+      sel.addEventListener('change', function() { cambiarCampos(this.value); });
+    }
+    var btnCalc = document.getElementById('btn-calcular');
+    if (btnCalc) btnCalc.addEventListener('click', calcular);
+    var btnRein = document.getElementById('btn-reiniciar-calc');
+    if (btnRein) btnRein.addEventListener('click', reiniciarCalc);
+    var ejemploBtns = document.querySelectorAll('.ejemplo-btn');
+    ejemploBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var tipo = this.getAttribute('data-ejemplo');
+        cargarEjemplo(tipo);
+      });
+    });
+  }
+
+  // ===== ACTIVIDAD =====
+  // ===== DISTRIBUCIÓN DE DIFICULTAD (interna, NO visible) =====
+  // Sesión: s03 — Leyes de los exponentes, simplificación de expresiones algebraicas
+  // Perfil: Estándar
+  // Básicos: 3 | Medios: 4 | Altos: 3
+  // Referencia: docs/clasificacion-dificultad-pm.md
+  var casos = [
+    {
+      nivel: 'basico',
+      enunciado: 'Simplifica la expresión $x^5 \\cdot x^3$ aplicando las leyes de los exponentes.',
+      expresion: 'x^5 \\cdot x^3',
+      fase1: {
+        pregunta: '¿Qué ley de los exponentes se aplica cuando multiplicamos potencias con la misma base?',
+        opciones: [
+          { texto: 'Producto de bases iguales: se suman los exponentes', correcta: true, feedback: 'Correcto: $x^a \\cdot x^b = x^{a+b}$.' },
+          { texto: 'Cociente de bases iguales: se restan los exponentes', correcta: false, feedback: 'Incorrecto: esa ley aplica a divisiones, no a multiplicaciones.' },
+          { texto: 'Potencia de una potencia: se multiplican los exponentes', correcta: false, feedback: 'Incorrecto: esa ley aplica cuando elevamos una potencia a otro exponente.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-suma', label: 'Calcula la suma de los exponentes: $5 + 3$', valor: 8 }
+        ],
+        pista: 'Suma los dos exponentes: 5 + 3.',
+        feedbackOk: 'Correcto: $5 + 3 = 8$.',
+        feedbackErr: 'Revisa: $5 + 3 = 8$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona el resultado simplificado:',
+        opciones: [
+          { texto: 'x⁸', correcta: true, feedback: 'Correcto: $x^5 \\cdot x^3 = x^{5+3} = x^8$.' },
+          { texto: 'x¹⁵', correcta: false, feedback: 'Incorrecto: multiplicaste los exponentes en lugar de sumarlos.' },
+          { texto: 'x²', correcta: false, feedback: 'Incorrecto: restaste los exponentes en lugar de sumarlos.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al multiplicar potencias de la misma base?',
+        opciones: [
+          { texto: 'Multiplicar los exponentes en lugar de sumarlos', correcta: true, feedback: 'Correcto: muchos estudiantes calculan $x^5 \\cdot x^3 = x^{15}$ en lugar de $x^8$.' },
+          { texto: 'Sumar las bases', correcta: false, feedback: 'Incorrecto: las bases no se suman, se conservan.' },
+          { texto: 'Restar los exponentes', correcta: false, feedback: 'Incorrecto: eso aplica a divisiones, no a multiplicaciones.' }
+        ]
+      }
+    },
+    {
+      nivel: 'basico',
+      enunciado: 'Simplifica la expresión $\\dfrac{x^7}{x^3}$ aplicando las leyes de los exponentes.',
+      expresion: '\\dfrac{x^7}{x^3}',
+      fase1: {
+        pregunta: '¿Qué ley de los exponentes se aplica cuando dividimos potencias con la misma base?',
+        opciones: [
+          { texto: 'Cociente de bases iguales: se restan los exponentes', correcta: true, feedback: 'Correcto: $\\dfrac{x^a}{x^b} = x^{a-b}$.' },
+          { texto: 'Producto de bases iguales: se suman los exponentes', correcta: false, feedback: 'Incorrecto: esa ley aplica a multiplicaciones, no a divisiones.' },
+          { texto: 'Potencia de una potencia: se multiplican los exponentes', correcta: false, feedback: 'Incorrecto: esa ley aplica cuando elevamos una potencia a otro exponente.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-resta', label: 'Calcula la resta de los exponentes: $7 - 3$', valor: 4 }
+        ],
+        pista: 'Resta el exponente del denominador al del numerador: 7 - 3.',
+        feedbackOk: 'Correcto: $7 - 3 = 4$.',
+        feedbackErr: 'Revisa: $7 - 3 = 4$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona el resultado simplificado:',
+        opciones: [
+          { texto: 'x⁴', correcta: true, feedback: 'Correcto: $\\dfrac{x^7}{x^3} = x^{7-3} = x^4$.' },
+          { texto: 'x¹⁰', correcta: false, feedback: 'Incorrecto: sumaste los exponentes en lugar de restarlos.' },
+          { texto: 'x²¹', correcta: false, feedback: 'Incorrecto: multiplicaste los exponentes en lugar de restarlos.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al dividir potencias de la misma base?',
+        opciones: [
+          { texto: 'Sumar los exponentes en lugar de restarlos', correcta: true, feedback: 'Correcto: muchos estudiantes calculan $\\dfrac{x^7}{x^3} = x^{10}$ en lugar de $x^4$.' },
+          { texto: 'Restar las bases', correcta: false, feedback: 'Incorrecto: las bases no se restan, se conservan.' },
+          { texto: 'Dividir los exponentes', correcta: false, feedback: 'Incorrecto: los exponentes no se dividen, se restan.' }
+        ]
+      }
+    },
+    {
+      nivel: 'basico',
+      enunciado: 'Simplifica la expresión $x^0 \\cdot y^5$.',
+      expresion: 'x^0 \\cdot y^5',
+      fase1: {
+        pregunta: '¿Cuánto vale cualquier base distinta de cero elevada al exponente 0?',
+        opciones: [
+          { texto: '1', correcta: true, feedback: 'Correcto: $x^0 = 1$ para cualquier $x \\neq 0$.' },
+          { texto: '0', correcta: false, feedback: 'Incorrecto: $x^0 = 1$, no 0.' },
+          { texto: 'No está definido', correcta: false, feedback: 'Incorrecto: $x^0 = 1$ está definido para $x \\neq 0$.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-x0', label: '¿Cuánto vale $x^0$?', valor: 1 }
+        ],
+        pista: 'Recuerda la regla del exponente cero.',
+        feedbackOk: 'Correcto: $x^0 = 1$.',
+        feedbackErr: 'Revisa: $x^0 = 1$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona el resultado simplificado:',
+        opciones: [
+          { texto: 'y⁵', correcta: true, feedback: 'Correcto: $x^0 \\cdot y^5 = 1 \\cdot y^5 = y^5$.' },
+          { texto: 'x⁰y⁵', correcta: false, feedback: 'Incorrecto: no simplificaste $x^0 = 1$.' },
+          { texto: '0', correcta: false, feedback: 'Incorrecto: $x^0 = 1$, no 0.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al trabajar con exponente cero?',
+        opciones: [
+          { texto: 'Creer que $x^0 = 0$', correcta: true, feedback: 'Correcto: muchos estudiantes confunden $x^0 = 1$ con $x^0 = 0$.' },
+          { texto: 'Creer que $x^0$ no está definido', correcta: false, feedback: 'Incorrecto: $x^0 = 1$ está definido para $x \\neq 0$.' },
+          { texto: 'Multiplicar por 0', correcta: false, feedback: 'Incorrecto: $x^0 = 1$, así que no se multiplica por 0.' }
+        ]
+      }
+    },
+    {
+      nivel: 'medio',
+      enunciado: 'Simplifica la expresión $(x^4)^5$ aplicando las leyes de los exponentes.',
+      expresion: '(x^4)^5',
+      fase1: {
+        pregunta: '¿Qué ley de los exponentes se aplica cuando elevamos una potencia a otro exponente?',
+        opciones: [
+          { texto: 'Potencia de una potencia: se multiplican los exponentes', correcta: true, feedback: 'Correcto: $(x^a)^b = x^{a \\cdot b}$.' },
+          { texto: 'Producto de bases iguales: se suman los exponentes', correcta: false, feedback: 'Incorrecto: esa ley aplica a multiplicaciones de potencias, no a potencia de potencia.' },
+          { texto: 'Cociente de bases iguales: se restan los exponentes', correcta: false, feedback: 'Incorrecto: esa ley aplica a divisiones.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-prod', label: 'Calcula el producto de los exponentes: $4 \\cdot 5$', valor: 20 }
+        ],
+        pista: 'Multiplica los dos exponentes: 4 × 5.',
+        feedbackOk: 'Correcto: $4 \\cdot 5 = 20$.',
+        feedbackErr: 'Revisa: $4 \\cdot 5 = 20$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona el resultado simplificado:',
+        opciones: [
+          { texto: 'x²⁰', correcta: true, feedback: 'Correcto: $(x^4)^5 = x^{4 \\cdot 5} = x^{20}$.' },
+          { texto: 'x⁹', correcta: false, feedback: 'Incorrecto: sumaste los exponentes en lugar de multiplicarlos.' },
+          { texto: 'x⁴⁵', correcta: false, feedback: 'Incorrecto: concatenaste los exponentes en lugar de multiplicarlos.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al calcular potencia de una potencia?',
+        opciones: [
+          { texto: 'Sumar los exponentes en lugar de multiplicarlos', correcta: true, feedback: 'Correcto: muchos estudiantes calculan $(x^4)^5 = x^9$ en lugar de $x^{20}$.' },
+          { texto: 'Restar los exponentes', correcta: false, feedback: 'Incorrecto: eso aplica a divisiones.' },
+          { texto: 'Elevar la base al exponente externo', correcta: false, feedback: 'Incorrecto: la base se conserva, solo se multiplican los exponentes.' }
+        ]
+      }
+    },
+    {
+      nivel: 'medio',
+      enunciado: 'Simplifica la expresión $5^{-3}$ aplicando las leyes de los exponentes.',
+      expresion: '5^{-3}',
+      fase1: {
+        pregunta: '¿Qué significa un exponente negativo?',
+        opciones: [
+          { texto: 'La potencia pasa al denominador: $x^{-n} = \\dfrac{1}{x^n}$', correcta: true, feedback: 'Correcto: un exponente negativo indica que la potencia pasa al denominador.' },
+          { texto: 'El resultado es negativo: $x^{-n} = -x^n$', correcta: false, feedback: 'Incorrecto: el exponente negativo no hace negativo el resultado, lo pasa al denominador.' },
+          { texto: 'No está definido', correcta: false, feedback: 'Incorrecto: $x^{-n} = \\dfrac{1}{x^n}$ está definido para $x \\neq 0$.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-pos', label: '¿A cuánto equivale $5^3$?', valor: 125 }
+        ],
+        pista: 'Calcula $5^3 = 5 \\cdot 5 \\cdot 5$.',
+        feedbackOk: 'Correcto: $5^3 = 125$.',
+        feedbackErr: 'Revisa: $5^3 = 5 \\cdot 5 \\cdot 5 = 125$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona el resultado simplificado:',
+        opciones: [
+          { texto: '1/125', correcta: true, feedback: 'Correcto: $5^{-3} = \\dfrac{1}{5^3} = \\dfrac{1}{125}$.' },
+          { texto: '-125', correcta: false, feedback: 'Incorrecto: el exponente negativo no hace negativo el resultado.' },
+          { texto: '1/5', correcta: false, feedback: 'Incorrecto: $5^{-3} = \\dfrac{1}{5^3} = \\dfrac{1}{125}$, no $\\dfrac{1}{5}$.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al trabajar con exponentes negativos?',
+        opciones: [
+          { texto: 'Creer que $x^{-n} = -x^n$', correcta: true, feedback: 'Correcto: muchos estudiantes confunden el exponente negativo con un resultado negativo.' },
+          { texto: 'Olvidar elevar la base al exponente', correcta: false, feedback: 'Incorrecto: aunque ocurre, no es el error más común.' },
+          { texto: 'Sumar el exponente negativo', correcta: false, feedback: 'Incorrecto: no se suma, se pasa al denominador.' }
+        ]
+      }
+    },
+    {
+      nivel: 'medio',
+      enunciado: 'Simplifica la expresión $(2x)^3$ aplicando las leyes de los exponentes.',
+      expresion: '(2x)^3',
+      fase1: {
+        pregunta: '¿Qué ley de los exponentes se aplica cuando elevamos un producto a un exponente?',
+        opciones: [
+          { texto: 'Potencia de un producto: el exponente se distribuye a cada factor', correcta: true, feedback: 'Correcto: $(x \\cdot y)^n = x^n \\cdot y^n$.' },
+          { texto: 'Producto de bases iguales: se suman los exponentes', correcta: false, feedback: 'Incorrecto: esa ley aplica a multiplicaciones de potencias con la misma base.' },
+          { texto: 'Potencia de una potencia: se multiplican los exponentes', correcta: false, feedback: 'Incorrecto: esa ley aplica cuando elevamos una potencia a otro exponente.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-2cub', label: '¿Cuánto vale $2^3$?', valor: 8 }
+        ],
+        pista: 'Calcula $2^3 = 2 \\cdot 2 \\cdot 2$.',
+        feedbackOk: 'Correcto: $2^3 = 8$.',
+        feedbackErr: 'Revisa: $2^3 = 2 \\cdot 2 \\cdot 2 = 8$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona el resultado simplificado:',
+        opciones: [
+          { texto: '8x³', correcta: true, feedback: 'Correcto: $(2x)^3 = 2^3 \\cdot x^3 = 8x^3$.' },
+          { texto: '2x³', correcta: false, feedback: 'Incorrecto: no elevaste el coeficiente 2 al cubo.' },
+          { texto: '6x³', correcta: false, feedback: 'Incorrecto: multiplicaste $2 \\cdot 3$ en lugar de calcular $2^3$.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al calcular la potencia de un producto?',
+        opciones: [
+          { texto: 'Aplicar el exponente solo a la variable y no al coeficiente', correcta: true, feedback: 'Correcto: muchos estudiantes calculan $(2x)^3 = 2x^3$ en lugar de $8x^3$.' },
+          { texto: 'Multiplicar el coeficiente por el exponente', correcta: false, feedback: 'Incorrecto: aunque ocurre, no es el error más común.' },
+          { texto: 'Sumar el coeficiente al exponente', correcta: false, feedback: 'Incorrecto: no se suman, se eleva el coeficiente al exponente.' }
+        ]
+      }
+    },
+    {
+      nivel: 'medio',
+      enunciado: 'Simplifica la expresión $(3x^2 y^3) \\cdot (4x^5 y)$ aplicando las leyes de los exponentes.',
+      expresion: '(3x^2 y^3) \\cdot (4x^5 y)',
+      fase1: {
+        pregunta: '¿Qué debes hacer primero al multiplicar dos monomios?',
+        opciones: [
+          { texto: 'Multiplicar los coeficientes numéricos', correcta: true, feedback: 'Correcto: primero se multiplican los coeficientes: $3 \\cdot 4 = 12$.' },
+          { texto: 'Sumar todos los exponentes', correcta: false, feedback: 'Incorrecto: solo se suman los exponentes de la misma variable.' },
+          { texto: 'Restar los exponentes', correcta: false, feedback: 'Incorrecto: eso aplica a divisiones, no a multiplicaciones.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-coef', label: 'Multiplica los coeficientes: $3 \\cdot 4$', valor: 12 },
+          { id: 'f2-ex', label: 'Suma los exponentes de $x$: $2 + 5$', valor: 7 }
+        ],
+        pista: 'Primero multiplica los coeficientes, luego suma los exponentes de cada variable.',
+        feedbackOk: 'Correcto: $3 \\cdot 4 = 12$ y $2 + 5 = 7$.',
+        feedbackErr: 'Revisa: $3 \\cdot 4 = 12$ y $2 + 5 = 7$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona el resultado simplificado:',
+        opciones: [
+          { texto: '12x⁷y⁴', correcta: true, feedback: 'Correcto: $12x^{2+5} y^{3+1} = 12x^7 y^4$.' },
+          { texto: '12x⁷y³', correcta: false, feedback: 'Incorrecto: olvidaste sumar el exponente de $y$: $3 + 1 = 4$.' },
+          { texto: '7x¹²y⁴', correcta: false, feedback: 'Incorrecto: invertiste el coeficiente con el exponente de $x$.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al multiplicar monomios?',
+        opciones: [
+          { texto: 'Olvidar sumar el exponente de una variable (como $y^3 \\cdot y = y^3$ en lugar de $y^4$)', correcta: true, feedback: 'Correcto: muchos estudiantes olvidan que $y = y^1$, así que $y^3 \\cdot y = y^{3+1} = y^4$.' },
+          { texto: 'Multiplicar los coeficientes en lugar de sumarlos', correcta: false, feedback: 'Incorrecto: los coeficientes sí se multiplican.' },
+          { texto: 'Sumar los coeficientes', correcta: false, feedback: 'Incorrecto: los coeficientes se multiplican, no se suman.' }
+        ]
+      }
+    },
+    {
+      nivel: 'alto',
+      enunciado: 'Simplifica la fracción algebraica $\\dfrac{12x^5 y^2}{4x^2 y^6}$ aplicando las leyes de los exponentes.',
+      expresion: '\\dfrac{12x^5 y^2}{4x^2 y^6}',
+      fase1: {
+        pregunta: '¿Qué debes hacer primero al simplificar una fracción algebraica?',
+        opciones: [
+          { texto: 'Reducir los coeficientes numéricos', correcta: true, feedback: 'Correcto: primero se reduce $\\dfrac{12}{4} = 3$.' },
+          { texto: 'Sumar los exponentes', correcta: false, feedback: 'Incorrecto: en una fracción se restan los exponentes, no se suman.' },
+          { texto: 'Multiplicar los exponentes', correcta: false, feedback: 'Incorrecto: eso aplica a potencia de potencia, no a fracciones.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-coef', label: 'Reduce los coeficientes: $\\dfrac{12}{4}$', valor: 3 },
+          { id: 'f2-exy', label: 'Resta los exponentes de $y$: $2 - 6$', valor: -4 }
+        ],
+        pista: 'Primero reduce los coeficientes, luego resta los exponentes de cada variable.',
+        feedbackOk: 'Correcto: $\\dfrac{12}{4} = 3$ y $2 - 6 = -4$.',
+        feedbackErr: 'Revisa: $\\dfrac{12}{4} = 3$ y $2 - 6 = -4$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona el resultado simplificado:',
+        opciones: [
+          { texto: '3x³/y⁴', correcta: true, feedback: 'Correcto: $3x^{5-2} y^{2-6} = 3x^3 y^{-4} = \\dfrac{3x^3}{y^4}$.' },
+          { texto: '3x³y⁴', correcta: false, feedback: 'Incorrecto: el exponente de $y$ es negativo, así que $y$ pasa al denominador.' },
+          { texto: '3x⁷y⁻⁴', correcta: false, feedback: 'Incorrecto: sumaste los exponentes de $x$ en lugar de restarlos.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al simplificar fracciones algebraicas?',
+        opciones: [
+          { texto: 'Olvidar que un exponente negativo pasa al denominador', correcta: true, feedback: 'Correcto: muchos estudiantes dejan $y^{-4}$ en el numerador en lugar de pasarla al denominador como $y^4$.' },
+          { texto: 'Sumar los exponentes en lugar de restarlos', correcta: false, feedback: 'Incorrecto: aunque ocurre, no es el error más común.' },
+          { texto: 'No reducir los coeficientes', correcta: false, feedback: 'Incorrecto: aunque ocurre, no es el error más común.' }
+        ]
+      }
+    },
+    {
+      nivel: 'alto',
+      enunciado: 'Simplifica la expresión $\\dfrac{x^3 \\cdot x^5}{x^2}$ aplicando las leyes de los exponentes.',
+      expresion: '\\dfrac{x^3 \\cdot x^5}{x^2}',
+      fase1: {
+        pregunta: '¿En qué orden debes aplicar las leyes de los exponentes en esta expresión?',
+        opciones: [
+          { texto: 'Primero el producto en el numerador, luego el cociente', correcta: true, feedback: 'Correcto: primero sumas los exponentes del numerador, luego restas el del denominador.' },
+          { texto: 'Primero el cociente, luego el producto', correcta: false, feedback: 'Incorrecto: el producto está en el numerador, debes resolverlo primero.' },
+          { texto: 'Aplicar ambas leyes simultáneamente', correcta: false, feedback: 'Incorrecto: debes resolver paso a paso: primero el numerador, luego dividir.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-num', label: 'Suma los exponentes del numerador: $3 + 5$', valor: 8 },
+          { id: 'f2-final', label: 'Resta el exponente del denominador: $8 - 2$', valor: 6 }
+        ],
+        pista: 'Primero suma los exponentes del numerador, luego resta el exponente del denominador.',
+        feedbackOk: 'Correcto: $3 + 5 = 8$ y $8 - 2 = 6$.',
+        feedbackErr: 'Revisa: $3 + 5 = 8$ y $8 - 2 = 6$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona el resultado simplificado:',
+        opciones: [
+          { texto: 'x⁶', correcta: true, feedback: 'Correcto: $\\dfrac{x^3 \\cdot x^5}{x^2} = \\dfrac{x^8}{x^2} = x^{8-2} = x^6$.' },
+          { texto: 'x¹⁰', correcta: false, feedback: 'Incorrecto: sumaste todos los exponentes en lugar de restar el del denominador.' },
+          { texto: 'x⁵', correcta: false, feedback: 'Incorrecto: restaste mal: $8 - 2 = 6$, no 5.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al combinar varias leyes de exponentes?',
+        opciones: [
+          { texto: 'Sumar todos los exponentes sin distinguir entre producto y cociente', correcta: true, feedback: 'Correcto: muchos estudiantes calculan $x^{3+5+2} = x^{10}$ en lugar de $x^{3+5-2} = x^6$.' },
+          { texto: 'Multiplicar todos los exponentes', correcta: false, feedback: 'Incorrecto: no se multiplican, se suman o restan según la operación.' },
+          { texto: 'Aplicar las leyes en orden incorrecto', correcta: false, feedback: 'Incorrecto: aunque ocurre, no es el error más común.' }
+        ]
+      }
+    },
+    {
+      nivel: 'alto',
+      enunciado: 'Simplifica la expresión $\\left(\\dfrac{x^3}{y^2}\\right)^4$ aplicando las leyes de los exponentes.',
+      expresion: '\\left(\\dfrac{x^3}{y^2}\\right)^4',
+      fase1: {
+        pregunta: '¿Qué leyes de los exponentes debes aplicar en esta expresión?',
+        opciones: [
+          { texto: 'Potencia de un cociente y potencia de una potencia', correcta: true, feedback: 'Correcto: primero distribuyes el exponente al numerador y denominador, luego multiplicas los exponentes.' },
+          { texto: 'Producto de bases iguales y cociente de bases iguales', correcta: false, feedback: 'Incorrecto: no hay producto ni cociente de potencias con la misma base.' },
+          { texto: 'Solo potencia de una potencia', correcta: false, feedback: 'Incorrecto: también debes aplicar la potencia de un cociente.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-ex', label: 'Multiplica los exponentes de $x$: $3 \\cdot 4$', valor: 12 },
+          { id: 'f2-ey', label: 'Multiplica los exponentes de $y$: $2 \\cdot 4$', valor: 8 }
+        ],
+        pista: 'Distribuye el exponente 4 al numerador y al denominador, luego multiplica.',
+        feedbackOk: 'Correcto: $3 \\cdot 4 = 12$ y $2 \\cdot 4 = 8$.',
+        feedbackErr: 'Revisa: $3 \\cdot 4 = 12$ y $2 \\cdot 4 = 8$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona el resultado simplificado:',
+        opciones: [
+          { texto: 'x¹²/y⁸', correcta: true, feedback: 'Correcto: $\\left(\\dfrac{x^3}{y^2}\\right)^4 = \\dfrac{x^{3 \\cdot 4}}{y^{2 \\cdot 4}} = \\dfrac{x^{12}}{y^8}$.' },
+          { texto: 'x⁷/y⁶', correcta: false, feedback: 'Incorrecto: sumaste los exponentes en lugar de multiplicarlos.' },
+          { texto: 'x¹²y⁸', correcta: false, feedback: 'Incorrecto: el exponente de $y$ debe estar en el denominador, no en el numerador.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al calcular la potencia de un cociente?',
+        opciones: [
+          { texto: 'Sumar el exponente externo a los internos en lugar de multiplicar', correcta: true, feedback: 'Correcto: muchos estudiantes calculan $\\dfrac{x^{3+4}}{y^{2+4}} = \\dfrac{x^7}{y^6}$ en lugar de $\\dfrac{x^{12}}{y^8}$.' },
+          { texto: 'Aplicar el exponente solo al numerador', correcta: false, feedback: 'Incorrecto: aunque ocurre, no es el error más común.' },
+          { texto: 'Restar los exponentes', correcta: false, feedback: 'Incorrecto: no se restan, se multiplican.' }
+        ]
+      }
+    }
+  ];
+
+  var estadoActividad = {
+    casoActual: 0,
+    faseActual: 1,
+    intentosFase: 1,
+    casosCompletados: [],
+    puntaje: 0
+  };
+
+  var STORAGE_KEY = 'lab_exani_s03_resueltos';
+
+  function cargarProgreso() {
+    try {
+      var datos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      estadoActividad.casosCompletados = datos;
+      estadoActividad.puntaje = datos.length;
+    } catch (e) {
+      estadoActividad.casosCompletados = [];
+      estadoActividad.puntaje = 0;
+    }
+  }
+
+  function guardarProgreso() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(estadoActividad.casosCompletados));
+    } catch (e) {
+      console.warn('localStorage no disponible:', e);
+    }
+  }
+
+  function actualizarBarraProgreso() {
+    var txtProg = document.getElementById('progresoTexto');
+    var txtPunt = document.getElementById('progresoPuntaje');
+    var fill = document.getElementById('progresoFill');
+    var indicador = document.getElementById('indicadorCaso');
+    var numCaso = document.getElementById('numeroCaso');
+    var nivel = document.getElementById('nivelCaso');
+    if (txtProg) txtProg.textContent = 'Caso ' + (estadoActividad.casoActual + 1) + ' de ' + casos.length;
+    if (txtPunt) txtPunt.textContent = estadoActividad.puntaje + ' / ' + casos.length;
+    if (fill) {
+      var pct = ((estadoActividad.casoActual + 1) / casos.length) * 100;
+      fill.style.width = pct + '%';
+      fill.setAttribute('aria-valuenow', Math.round(pct));
+    }
+    if (indicador) indicador.textContent = 'Caso ' + (estadoActividad.casoActual + 1) + ' de ' + casos.length;
+    if (numCaso) numCaso.textContent = 'Caso ' + (estadoActividad.casoActual + 1) + ' de ' + casos.length;
+    if (nivel) {
+      var c = casos[estadoActividad.casoActual];
+      nivel.className = 'nivel-caso ' + c.nivel;
+      nivel.textContent = c.nivel === 'basico' ? 'Básico' : (c.nivel === 'medio' ? 'Medio' : 'Alto');
+    }
+  }
+
+  function cargarCaso() {
+    var c = casos[estadoActividad.casoActual];
+    var txtEnun = document.getElementById('textoEnunciado');
+    var exprCaso = document.getElementById('expresionCaso');
+    var etiqueta = document.getElementById('etiquetaCaso');
+    if (txtEnun) txtEnun.innerHTML = c.enunciado;
+    if (exprCaso) exprCaso.innerHTML = c.expresion || '';
+    if (etiqueta) etiqueta.textContent = 'Caso';
+    estadoActividad.faseActual = 1;
+    estadoActividad.intentosFase = 1;
+    mostrarFase(1);
+    actualizarBarraProgreso();
+    actualizarBotonesActividad();
+    renderMath(document.getElementById('tarjetaCaso'));
+  }
+
+  function mostrarFase(num) {
+    for (var i = 1; i <= 4; i++) {
+      var f = document.getElementById('fase' + i);
+      if (f) f.classList.toggle('activa', i === num);
+    }
+    estadoActividad.faseActual = num;
+    estadoActividad.intentosFase = 1;
+    if (num === 1) prepararFase1();
+    else if (num === 2) prepararFase2();
+    else if (num === 3) prepararFase3();
+    else if (num === 4) prepararFase4();
+    var fb = document.getElementById('feedbackFase' + num);
+    if (fb) { fb.className = 'feedback'; fb.innerHTML = ''; }
+    var intentos = document.getElementById('intentosFase' + num);
+    if (intentos) intentos.textContent = 'Intento 1 de 3';
+  }
+
+  function prepararFase1() {
+    var c = casos[estadoActividad.casoActual];
+    var preg = document.getElementById('preguntaFase1');
+    var cont = document.getElementById('opcionesFase1');
+    if (preg) preg.innerHTML = c.fase1.pregunta;
+    if (!cont) return;
+    cont.innerHTML = '';
+    c.fase1.opciones.forEach(function(op, i) {
+      var btn = document.createElement('button');
+      btn.className = 'opcion-btn';
+      btn.innerHTML = op.texto;
+      btn.setAttribute('data-index', i);
+      btn.addEventListener('click', function() {
+        responderFase1(i);
+      });
+      cont.appendChild(btn);
+    });
+    renderMath(cont);
+  }
+
+  function responderFase1(index) {
+    var c = casos[estadoActividad.casoActual];
+    var op = c.fase1.opciones[index];
+    var botones = document.querySelectorAll('#opcionesFase1 .opcion-btn');
+    var fb = document.getElementById('feedbackFase1');
+    botones.forEach(function(b) { b.disabled = true; });
+    if (op.correcta) {
+      botones[index].classList.add('correcta');
+      if (fb) { fb.className = 'feedback correcto'; fb.innerHTML = op.feedback; }
+      setTimeout(function() { mostrarFase(2); }, 1500);
+    } else {
+      botones[index].classList.add('incorrecta');
+      if (fb) { fb.className = 'feedback incorrecto'; fb.innerHTML = op.feedback; }
+      estadoActividad.intentosFase++;
+      if (estadoActividad.intentosFase > 3) {
+        setTimeout(function() {
+          botones.forEach(function(b, i) {
+            if (c.fase1.opciones[i].correcta) b.classList.add('correcta');
+          });
+          setTimeout(function() { mostrarFase(2); }, 2000);
+        }, 1500);
+      } else {
+        setTimeout(function() {
+          botones.forEach(function(b) { b.disabled = false; b.classList.remove('incorrecta'); });
+          var intentos = document.getElementById('intentosFase1');
+          if (intentos) intentos.textContent = 'Intento ' + estadoActividad.intentosFase + ' de 3';
+        }, 1500);
+      }
+    }
+    renderMath(fb);
+  }
+
+  function prepararFase2() {
+    var c = casos[estadoActividad.casoActual];
+    var cont = document.getElementById('inputsFase2');
+    if (!cont) return;
+    cont.innerHTML = '';
+    c.fase2.inputs.forEach(function(inp) {
+      var div = document.createElement('div');
+      div.className = 'input-group';
+      div.innerHTML = '<label for="' + inp.id + '">' + inp.label + ':</label>' +
+        '<input type="text" id="' + inp.id + '" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">';
+      cont.appendChild(div);
+    });
+    renderMath(cont);
+  }
+
+  function verificarFase2() {
+    var c = casos[estadoActividad.casoActual];
+    var fb = document.getElementById('feedbackFase2');
+    var todosOk = true;
+    c.fase2.inputs.forEach(function(inp) {
+      var el = document.getElementById(inp.id);
+      if (!el) return;
+      var val = parsearNumero(el.value);
+      if (isNaN(val) || Math.abs(val - inp.valor) > 0.01) todosOk = false;
+    });
+    if (algunCampoVacio(c.fase2.inputs.map(function(i) { return i.id; }))) {
+      if (fb) { fb.className = 'feedback advertencia'; fb.innerHTML = 'Completa todos los campos.'; }
+      return;
+    }
+    if (todosOk) {
+      if (fb) { fb.className = 'feedback correcto'; fb.innerHTML = c.fase2.feedbackOk; }
+      setTimeout(function() { mostrarFase(3); }, 1500);
+    } else {
+      if (fb) { fb.className = 'feedback incorrecto'; fb.innerHTML = c.fase2.feedbackErr; }
+      estadoActividad.intentosFase++;
+      if (estadoActividad.intentosFase > 3) {
+        setTimeout(function() { mostrarFase(3); }, 2000);
+      } else {
+        var intentos = document.getElementById('intentosFase2');
+        if (intentos) intentos.textContent = 'Intento ' + estadoActividad.intentosFase + ' de 3';
+      }
+    }
+    renderMath(fb);
+  }
+
+  function pistaFase2() {
+    var c = casos[estadoActividad.casoActual];
+    var fb = document.getElementById('feedbackFase2');
+    if (fb) { fb.className = 'feedback advertencia'; fb.innerHTML = 'Pista: ' + c.fase2.pista; }
+    renderMath(fb);
+  }
+
+  function prepararFase3() {
+    var c = casos[estadoActividad.casoActual];
+    var cont = document.getElementById('inputsFase3');
+    if (!cont) return;
+    cont.innerHTML = '';
+    var w = document.createElement('div');
+    w.className = 'input-group';
+    var html = '<label for="fase3-select">' + c.fase3.etiqueta + '</label>';
+    html += '<select id="fase3-select">';
+    html += '<option value="">-- Selecciona --</option>';
+    c.fase3.opciones.forEach(function(op, i) {
+      html += '<option value="' + i + '">' + op.texto + '</option>';
+    });
+    html += '</select>';
+    w.innerHTML = html;
+    cont.appendChild(w);
+    renderMath(cont);
+  }
+
+  function verificarFase3() {
+    var c = casos[estadoActividad.casoActual];
+    var sel = document.getElementById('fase3-select');
+    var fb = document.getElementById('feedbackFase3');
+    if (!sel) return;
+    if (sel.value === '') {
+      if (fb) { fb.className = 'feedback advertencia'; fb.innerHTML = 'Selecciona una opción.'; }
+      return;
+    }
+    var idx = parseInt(sel.value, 10);
+    var op = c.fase3.opciones[idx];
+    if (op.correcta) {
+      if (fb) { fb.className = 'feedback correcto'; fb.innerHTML = op.feedback; }
+      setTimeout(function() { mostrarFase(4); }, 1500);
+    } else {
+      if (fb) { fb.className = 'feedback incorrecto'; fb.innerHTML = op.feedback; }
+      estadoActividad.intentosFase++;
+      if (estadoActividad.intentosFase > 3) {
+        setTimeout(function() { mostrarFase(4); }, 2000);
+      } else {
+        var intentos = document.getElementById('intentosFase3');
+        if (intentos) intentos.textContent = 'Intento ' + estadoActividad.intentosFase + ' de 3';
+      }
+    }
+    renderMath(fb);
+  }
+
+  function pistaFase3() {
+    var c = casos[estadoActividad.casoActual];
+    var fb = document.getElementById('feedbackFase3');
+    var correcta = c.fase3.opciones.filter(function(o) { return o.correcta; })[0];
+    if (fb && correcta) {
+      fb.className = 'feedback advertencia';
+      fb.innerHTML = 'Pista: la respuesta correcta empieza con "' + correcta.texto.substring(0, 10) + '..."';
+    }
+    renderMath(fb);
+  }
+
+  function prepararFase4() {
+    var c = casos[estadoActividad.casoActual];
+    var preg = document.getElementById('preguntaFase4');
+    var cont = document.getElementById('opcionesFase4');
+    if (preg) preg.innerHTML = c.fase4.pregunta;
+    if (!cont) return;
+    cont.innerHTML = '';
+    c.fase4.opciones.forEach(function(op, i) {
+      var btn = document.createElement('button');
+      btn.className = 'opcion-btn';
+      btn.innerHTML = op.texto;
+      btn.setAttribute('data-index', i);
+      btn.addEventListener('click', function() {
+        responderFase4(i);
+      });
+      cont.appendChild(btn);
+    });
+    renderMath(cont);
+  }
+
+  function responderFase4(index) {
+    var c = casos[estadoActividad.casoActual];
+    var op = c.fase4.opciones[index];
+    var botones = document.querySelectorAll('#opcionesFase4 .opcion-btn');
+    var fb = document.getElementById('feedbackFase4');
+    botones.forEach(function(b) { b.disabled = true; });
+    if (op.correcta) {
+      botones[index].classList.add('correcta');
+      if (fb) { fb.className = 'feedback correcto'; fb.innerHTML = op.feedback; }
+      if (estadoActividad.casosCompletados.indexOf(estadoActividad.casoActual) === -1) {
+        estadoActividad.casosCompletados.push(estadoActividad.casoActual);
+        estadoActividad.puntaje++;
+        guardarProgreso();
+      }
+      actualizarBarraProgreso();
+      actualizarBotonesActividad();
+    } else {
+      botones[index].classList.add('incorrecta');
+      if (fb) { fb.className = 'feedback incorrecto'; fb.innerHTML = op.feedback; }
+      estadoActividad.intentosFase++;
+      if (estadoActividad.intentosFase > 3) {
+        setTimeout(function() {
+          botones.forEach(function(b, i) {
+            if (c.fase4.opciones[i].correcta) b.classList.add('correcta');
+          });
+        }, 1500);
+      } else {
+        setTimeout(function() {
+          botones.forEach(function(b) { b.disabled = false; b.classList.remove('incorrecta'); });
+          var intentos = document.getElementById('intentosFase4');
+          if (intentos) intentos.textContent = 'Intento ' + estadoActividad.intentosFase + ' de 3';
+        }, 1500);
+      }
+    }
+    renderMath(fb);
+  }
+
+  function actualizarBotonesActividad() {
+    var btnAnt = document.getElementById('btnAnterior');
+    var btnSig = document.getElementById('btnSiguiente');
+    if (!btnAnt || !btnSig) return;
+    btnAnt.disabled = estadoActividad.casoActual === 0;
+    var completado = estadoActividad.casosCompletados.indexOf(estadoActividad.casoActual) !== -1;
+    btnSig.disabled = !completado;
+    if (estadoActividad.casoActual === casos.length - 1) {
+      btnSig.textContent = completado ? 'Finalizar' : 'Siguiente caso (sin completar)';
+    } else {
+      btnSig.textContent = completado ? 'Siguiente caso' : 'Siguiente caso (sin completar)';
+    }
+  }
+
+  function mostrarPantallaFinal() {
+    var tarjeta = document.getElementById('tarjetaCaso');
+    var pantalla = document.getElementById('pantallaFinal');
+    var puntaje = document.getElementById('puntajeFinal');
+    var medalla = document.getElementById('medallaFinal');
+    var mensaje = document.getElementById('mensajeFinal');
+    if (tarjeta) tarjeta.style.display = 'none';
+    if (pantalla) pantalla.classList.add('activa');
+    if (puntaje) puntaje.textContent = estadoActividad.puntaje + ' / ' + casos.length;
+    var pct = (estadoActividad.puntaje / casos.length) * 100;
+    if (medalla) {
+      if (pct === 100) medalla.textContent = '🏆';
+      else if (pct >= 70) medalla.textContent = '🥈';
+      else medalla.textContent = '🥉';
+    }
+    if (mensaje) {
+      if (pct === 100) mensaje.textContent = 'Excelente: dominas todos los temas de la sesión.';
+      else if (pct >= 70) mensaje.textContent = 'Muy bien: tienes un buen dominio, repasa los casos fallados.';
+      else mensaje.textContent = 'Sigue practicando: revisa la presentación y vuelve a intentarlo.';
+    }
+  }
+
+  function reiniciarActividad() {
+    estadoActividad.casoActual = 0;
+    estadoActividad.faseActual = 1;
+    estadoActividad.intentosFase = 1;
+    estadoActividad.casosCompletados = [];
+    estadoActividad.puntaje = 0;
+    guardarProgreso();
+    var tarjeta = document.getElementById('tarjetaCaso');
+    var pantalla = document.getElementById('pantallaFinal');
+    if (tarjeta) tarjeta.style.display = 'block';
+    if (pantalla) pantalla.classList.remove('activa');
+    cargarCaso();
+  }
+
+  function iniciarActividad() {
+    cargarProgreso();
+    cargarCaso();
+    var btnVer2 = document.getElementById('btnVerificarFase2');
+    if (btnVer2) btnVer2.addEventListener('click', verificarFase2);
+    var btnPis2 = document.getElementById('btnPistaFase2');
+    if (btnPis2) btnPis2.addEventListener('click', pistaFase2);
+    var btnVer3 = document.getElementById('btnVerificarFase3');
+    if (btnVer3) btnVer3.addEventListener('click', verificarFase3);
+    var btnPis3 = document.getElementById('btnPistaFase3');
+    if (btnPis3) btnPis3.addEventListener('click', pistaFase3);
+    var btnAnt = document.getElementById('btnAnterior');
+    if (btnAnt) btnAnt.addEventListener('click', function() {
+      if (estadoActividad.casoActual > 0) {
+        estadoActividad.casoActual--;
+        cargarCaso();
+      }
+    });
+    var btnSig = document.getElementById('btnSiguiente');
+    if (btnSig) btnSig.addEventListener('click', function() {
+      if (estadoActividad.casoActual === casos.length - 1) {
+        mostrarPantallaFinal();
+      } else {
+        estadoActividad.casoActual++;
+        cargarCaso();
+      }
+    });
+    var btnRein = document.getElementById('btnReiniciarActividad');
+    if (btnRein) btnRein.addEventListener('click', reiniciarActividad);
+  }
+
+  // ===== EXAMEN =====
+  // ===== DISTRIBUCIÓN DE DIFICULTAD (interna, NO visible) =====
+  // Sesión: s03 — Leyes de los exponentes, simplificación de expresiones algebraicas
+  // Perfil: Estándar
+  // Fáciles:  3 | Medios: 4 | Difíciles: 3
+  // Tipos: 2 concepto + 2 cálculo + 1 interpretación + 1 modelación + 2 resolución + 1 error + 1 evaluación
+  // Referencia: docs/clasificacion-dificultad-pm.md
+  var rawQuestions = [
+    {
+      tipo: 'Concepto',
+      texto: 'En la expresión $x^a \\cdot x^b$, ¿qué ley de los exponentes se aplica?',
+      opciones: [
+        { texto: 'Producto de bases iguales: se suman los exponentes', correcta: true, feedback: 'Correcto: $x^a \\cdot x^b = x^{a+b}$.' },
+        { texto: 'Cociente de bases iguales: se restan los exponentes', correcta: false, feedback: 'Incorrecto: esa ley aplica a divisiones, no a multiplicaciones.' },
+        { texto: 'Potencia de una potencia: se multiplican los exponentes', correcta: false, feedback: 'Incorrecto: esa ley aplica cuando elevamos una potencia a otro exponente.' }
+      ]
+    },
+    {
+      tipo: 'Concepto',
+      texto: '¿Cuánto vale $x^0$ para cualquier $x \\neq 0$?',
+      opciones: [
+        { texto: '1', correcta: true, feedback: 'Correcto: cualquier base distinta de cero elevada a cero es igual a 1.' },
+        { texto: '0', correcta: false, feedback: 'Incorrecto: $x^0 = 1$, no 0.' },
+        { texto: 'No está definido', correcta: false, feedback: 'Incorrecto: $x^0 = 1$ está definido para $x \\neq 0$.' }
+      ]
+    },
+    {
+      tipo: 'Cálculo',
+      texto: 'Simplifica $x^5 \\cdot x^3$.',
+      opciones: [
+        { texto: 'x⁸', correcta: true, feedback: 'Correcto: $x^5 \\cdot x^3 = x^{5+3} = x^8$.' },
+        { texto: 'x¹⁵', correcta: false, feedback: 'Incorrecto: multiplicaste los exponentes en lugar de sumarlos.' },
+        { texto: 'x²', correcta: false, feedback: 'Incorrecto: restaste los exponentes en lugar de sumarlos.' }
+      ]
+    },
+    {
+      tipo: 'Cálculo',
+      texto: 'Simplifica $(x^3)^4$.',
+      opciones: [
+        { texto: 'x¹²', correcta: true, feedback: 'Correcto: $(x^3)^4 = x^{3 \\cdot 4} = x^{12}$.' },
+        { texto: 'x⁷', correcta: false, feedback: 'Incorrecto: sumaste los exponentes en lugar de multiplicarlos.' },
+        { texto: 'x³⁴', correcta: false, feedback: 'Incorrecto: concatenaste los exponentes en lugar de multiplicarlos.' }
+      ]
+    },
+    {
+      tipo: 'Interpretación',
+      texto: 'Si $5^{-2} = \\dfrac{1}{a}$, ¿cuánto vale $a$?',
+      opciones: [
+        { texto: '25', correcta: true, feedback: 'Correcto: $5^{-2} = \\dfrac{1}{5^2} = \\dfrac{1}{25}$, entonces $a = 25$.' },
+        { texto: '-25', correcta: false, feedback: 'Incorrecto: el exponente negativo no hace negativo el resultado.' },
+        { texto: '10', correcta: false, feedback: 'Incorrecto: $5^{-2} = \\dfrac{1}{5^2} = \\dfrac{1}{25}$, no $\\dfrac{1}{10}$.' }
+      ]
+    },
+    {
+      tipo: 'Modelación',
+      texto: 'Un bacterial se duplica cada hora. Si inicialmente hay $2^3$ bacterias, ¿cuántas habrá después de 4 horas?',
+      opciones: [
+        { texto: '$2^7$ bacterias', correcta: true, feedback: 'Correcto: después de 4 horas se multiplican por $2^4$, entonces $2^3 \\cdot 2^4 = 2^{3+4} = 2^7$.' },
+        { texto: '$2^{12}$ bacterias', correcta: false, feedback: 'Incorrecto: multiplicaste los exponentes en lugar de sumarlos.' },
+        { texto: '$2^4$ bacterias', correcta: false, feedback: 'Incorrecto: solo consideraste las 4 horas, no las 3 iniciales.' }
+      ]
+    },
+    {
+      tipo: 'Resolución',
+      texto: 'Simplifica $\\dfrac{x^8}{x^3}$.',
+      opciones: [
+        { texto: 'x⁵', correcta: true, feedback: 'Correcto: $\\dfrac{x^8}{x^3} = x^{8-3} = x^5$.' },
+        { texto: 'x¹¹', correcta: false, feedback: 'Incorrecto: sumaste los exponentes en lugar de restarlos.' },
+        { texto: 'x²⁴', correcta: false, feedback: 'Incorrecto: multiplicaste los exponentes en lugar de restarlos.' }
+      ]
+    },
+    {
+      tipo: 'Resolución',
+      texto: 'Simplifica $(3x^2)^3$.',
+      opciones: [
+        { texto: '27x⁶', correcta: true, feedback: 'Correcto: $(3x^2)^3 = 3^3 \\cdot x^{2 \\cdot 3} = 27x^6$.' },
+        { texto: '9x⁶', correcta: false, feedback: 'Incorrecto: calculaste $3^2$ en lugar de $3^3$.' },
+        { texto: '3x⁶', correcta: false, feedback: 'Incorrecto: no elevaste el coeficiente 3 al cubo.' }
+      ]
+    },
+    {
+      tipo: 'Error',
+      texto: 'Un estudiante simplifica $x^2 \\cdot x^3$ como $x^6$. ¿Cuál fue su error?',
+      opciones: [
+        { texto: 'Multiplicó los exponentes en lugar de sumarlos', correcta: true, feedback: 'Correcto: calculó $2 \\cdot 3 = 6$ en lugar de $2 + 3 = 5$. El resultado correcto es $x^5$.' },
+        { texto: 'Sumó las bases', correcta: false, feedback: 'Incorrecto: las bases no se suman, se conservan.' },
+        { texto: 'Restó los exponentes', correcta: false, feedback: 'Incorrecto: si hubiera restado, habría obtenido $x^{-1}$, no $x^6$.' }
+      ]
+    },
+    {
+      tipo: 'Evaluación',
+      texto: '¿Cuál de las siguientes expresiones es equivalente a $\\dfrac{x^5}{x^2} \\cdot x^3$?',
+      opciones: [
+        { texto: 'x⁶', correcta: true, feedback: 'Correcto: $\\dfrac{x^5}{x^2} \\cdot x^3 = x^{5-2} \\cdot x^3 = x^3 \\cdot x^3 = x^{3+3} = x^6$.' },
+        { texto: 'x¹⁰', correcta: false, feedback: 'Incorrecto: sumaste todos los exponentes sin restar el del denominador.' },
+        { texto: 'x⁵', correcta: false, feedback: 'Incorrecto: no aplicaste correctamente las leyes en orden.' }
+      ]
+    }
+  ];
+
+  var estadoExamen = {
+    preguntas: [],
+    actual: 0,
+    respondidas: 0,
+    correctas: 0,
+    answered: false
+  };
+
+  function iniciarExamen() {
+    estadoExamen.preguntas = shuffleArray(rawQuestions);
+    estadoExamen.actual = 0;
+    estadoExamen.respondidas = 0;
+    estadoExamen.correctas = 0;
+    cargarPregunta();
+  }
+
+  function cargarPregunta() {
+    var q = estadoExamen.preguntas[estadoExamen.actual];
+    var meta = document.getElementById('questionMeta');
+    var tipo = document.getElementById('questionTipo');
+    var txt = document.getElementById('questionText');
+    var lista = document.getElementById('optionsList');
+    var fb = document.getElementById('feedbackBox');
+    var bar = document.getElementById('progressBar');
+    if (meta) meta.textContent = 'Reactivo ' + (estadoExamen.actual + 1) + ' de ' + estadoExamen.preguntas.length;
+    if (tipo) tipo.textContent = q.tipo;
+    if (txt) txt.innerHTML = q.texto;
+    if (lista) {
+      lista.innerHTML = '';
+      q.opciones.forEach(function(op, i) {
+        var li = document.createElement('li');
+        li.className = 'option-item';
+        li.innerHTML = op.texto;
+        li.setAttribute('data-index', i);
+        li.setAttribute('role', 'button');
+        li.setAttribute('tabindex', '0');
+        li.addEventListener('click', function() { seleccionarOpcion(i); });
+        li.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            seleccionarOpcion(i);
+          }
+        });
+        lista.appendChild(li);
+      });
+    }
+    if (fb) { fb.className = 'feedback-box'; fb.innerHTML = ''; }
+    if (bar) {
+      var pct = ((estadoExamen.actual) / estadoExamen.preguntas.length) * 100;
+      bar.style.width = pct + '%';
+      bar.setAttribute('aria-valuenow', Math.round(pct));
+    }
+    estadoExamen.answered = false;
+    renderMath(document.getElementById('quizView'));
+  }
+
+  function seleccionarOpcion(idx) {
+    if (estadoExamen.answered) return;
+    estadoExamen.answered = true;
+    var q = estadoExamen.preguntas[estadoExamen.actual];
+    var opciones = document.querySelectorAll('#optionsList .option-item');
+    var fb = document.getElementById('feedbackBox');
+    opciones.forEach(function(op, i) {
+      op.classList.add('disabled');
+      if (q.opciones[i].correcta) op.classList.add('correcta');
+      if (i === idx && !q.opciones[i].correcta) op.classList.add('incorrecta');
+    });
+    estadoExamen.respondidas++;
+    if (q.opciones[idx].correcta) {
+      estadoExamen.correctas++;
+      if (fb) { fb.className = 'feedback-box correcto'; fb.innerHTML = 'Correcto: ' + q.opciones[idx].feedback; }
+    } else {
+      if (fb) { fb.className = 'feedback-box incorrecto'; fb.innerHTML = 'Incorrecto: ' + q.opciones[idx].feedback; }
+    }
+    renderMath(fb);
+  }
+
+  function siguienteReactivo() {
+    if (!estadoExamen.answered) return;
+    if (estadoExamen.actual < estadoExamen.preguntas.length - 1) {
+      estadoExamen.actual++;
+      cargarPregunta();
+    } else {
+      mostrarResultados();
+    }
+  }
+
+  function mostrarResultados() {
+    var quiz = document.getElementById('quizView');
+    var res = document.getElementById('resultsView');
+    var score = document.getElementById('finalScore');
+    var msg = document.getElementById('resultsMessage');
+    if (quiz) quiz.classList.remove('activa');
+    if (res) res.classList.add('activa');
+    if (score) score.textContent = estadoExamen.correctas + '/10';
+    if (msg) {
+      if (estadoExamen.correctas === 10) msg.textContent = 'Excelente: dominas todos los temas de la sesión.';
+      else if (estadoExamen.correctas >= 7) msg.textContent = 'Muy bien: tienes un buen dominio. Repasa los reactivos fallados.';
+      else msg.textContent = 'Sigue practicando: revisa la presentación y vuelve a intentarlo.';
+    }
+  }
+
+  function reiniciarExamen() {
+    var quiz = document.getElementById('quizView');
+    var res = document.getElementById('resultsView');
+    if (res) res.classList.remove('activa');
+    if (quiz) quiz.classList.add('activa');
+    iniciarExamen();
+  }
+
+  function iniciarExamenListeners() {
+    var btnNext = document.getElementById('btnNext');
+    if (btnNext) btnNext.addEventListener('click', siguienteReactivo);
+    var btnRestart = document.getElementById('btnRestart');
+    if (btnRestart) btnRestart.addEventListener('click', reiniciarExamen);
+  }
+
+  // ===== INICIALIZACIÓN =====
+  function iniciarRecurso() {
+    iniciarTabs();
+    iniciarCalculadora();
+    iniciarActividad();
+    iniciarExamen();
+    iniciarExamenListeners();
+    renderMath(document.body);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', iniciarRecurso);
+  } else {
+    iniciarRecurso();
+  }
+})();
+</script>
+</body>
+</html>

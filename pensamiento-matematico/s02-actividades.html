@@ -1,0 +1,2340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="tipo-recurso" content="Actividades interactivas">
+<title>Actividades: Interpretación gráfica, simetría, variación tabular y trayectorias | EXANI-II</title>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    svg: { fontCache: 'global' },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  :root {
+    --exani-azul: #1B7FC4;
+    --exani-azul-marino: #003865;
+    --exani-verde: #8BC34A;
+    --exani-blanco: #FFFFFF;
+    --exani-gris-oscuro: #333333;
+    --exani-gris-claro: #E0E0E0;
+    --exani-fondo-secundario: #F5F5F5;
+    --exani-texto-secundario: #666666;
+    --exani-error: #D9534F;
+    --exani-advertencia: #FF6A14;
+    --radio-borde: 12px;
+    --sombra-suave: 0 4px 6px rgba(0, 56, 101, 0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--exani-fondo-secundario);
+    color: var(--exani-gris-oscuro);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--exani-blanco);
+    min-height: 100vh;
+    box-shadow: var(--sombra-suave);
+  }
+  header {
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+    padding: 22px 28px 24px;
+    text-align: center;
+  }
+  header .institucion {
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-bottom: 8px;
+  }
+  header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  header p {
+    font-size: 0.98rem;
+    opacity: 0.95;
+  }
+  .tabs {
+    display: flex;
+    background: var(--exani-fondo-secundario);
+    border-bottom: 2px solid var(--exani-gris-claro);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .tab {
+    flex: 1;
+    padding: 14px 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--exani-texto-secundario);
+    transition: all 0.2s;
+    border-bottom: 3px solid transparent;
+  }
+  .tab:hover { background: var(--exani-blanco); color: var(--exani-azul-marino); }
+  .tab.activo {
+    color: var(--exani-azul);
+    background: var(--exani-blanco);
+    border-bottom-color: var(--exani-azul);
+  }
+  .seccion { display: none; padding: 28px; }
+  .seccion.activa { display: block; }
+  .layout-calculadora {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px;
+  }
+  .panel-control, .panel-desarrollo {
+    background: var(--exani-fondo-secundario);
+    border-radius: var(--radio-borde);
+    padding: 22px;
+    border: 1px solid var(--exani-gris-claro);
+  }
+  .panel-control h2, .panel-desarrollo h2 {
+    color: var(--exani-azul-marino);
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--exani-azul);
+    padding-bottom: 8px;
+  }
+  .input-group {
+    margin-bottom: 14px;
+  }
+  .input-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--exani-gris-oscuro);
+    font-size: 0.95rem;
+  }
+  .input-group input, .input-group select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--exani-gris-claro);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: var(--exani-blanco);
+  }
+  .input-group input:focus, .input-group select:focus {
+    outline: none;
+    border-color: var(--exani-azul);
+    box-shadow: 0 0 0 2px rgba(27, 127, 196, 0.15);
+  }
+  .campos { display: none; }
+  .campos.activos { display: block; }
+  .btn-primario {
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+    border: none;
+    padding: 11px 22px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-right: 8px;
+    margin-top: 8px;
+  }
+  .btn-primario:hover { background: var(--exani-azul-marino); }
+  .btn-secundario {
+    background: var(--exani-blanco);
+    color: var(--exani-azul);
+    border: 2px solid var(--exani-azul);
+    padding: 9px 20px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+  .btn-secundario:hover { background: var(--exani-azul); color: var(--exani-blanco); }
+  .panel-control h3 {
+    color: var(--exani-azul-marino);
+    margin: 18px 0 10px;
+    font-size: 1.05rem;
+  }
+  .ejemplo-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--exani-blanco);
+    border: 1px solid var(--exani-gris-claro);
+    padding: 9px 12px;
+    margin-bottom: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+  .ejemplo-btn:hover {
+    border-color: var(--exani-azul);
+    background: #F0F8FE;
+  }
+  .placeholder-inicial {
+    background: var(--exani-blanco);
+    padding: 22px;
+    border-radius: 6px;
+    color: var(--exani-texto-secundario);
+    text-align: center;
+    font-style: italic;
+  }
+  .paso {
+    display: flex;
+    gap: 12px;
+    padding: 10px 12px;
+    background: var(--exani-blanco);
+    border-radius: 6px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+  }
+  .num-paso {
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .cuerpo-paso {
+    flex: 1;
+    min-width: 0;
+  }
+  .detalle-paso {
+    overflow-x: hidden;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  .resultado-final {
+    background: var(--exani-verde);
+    color: var(--exani-blanco);
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-top: 12px;
+    font-weight: 600;
+    text-align: center;
+  }
+  /* ===== ACTIVIDAD ===== */
+  .barra-progreso-general {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    background: var(--exani-fondo-secundario);
+    padding: 12px 18px;
+    border-radius: var(--radio-borde);
+  }
+  .texto-progreso {
+    font-weight: 600;
+    color: var(--exani-azul-marino);
+    white-space: nowrap;
+  }
+  .progreso-track {
+    flex: 1;
+    height: 10px;
+    background: var(--exani-gris-claro);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .progreso-fill {
+    height: 100%;
+    background: var(--exani-verde);
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  .tarjeta-caso {
+    background: var(--exani-blanco);
+    border: 1px solid var(--exani-gris-claro);
+    border-radius: var(--radio-borde);
+    padding: 24px;
+    box-shadow: var(--sombra-suave);
+  }
+  .meta-caso {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .numero-caso {
+    font-weight: 700;
+    color: var(--exani-azul-marino);
+    font-size: 1.05rem;
+  }
+  .nivel-caso {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--exani-blanco);
+  }
+  .nivel-caso.basico { background: var(--exani-verde); }
+  .nivel-caso.medio { background: var(--exani-azul); }
+  .nivel-caso.alto { background: var(--exani-advertencia); }
+  .enunciado {
+    background: var(--exani-fondo-secundario);
+    padding: 16px 18px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+    border-left: 4px solid var(--exani-azul);
+  }
+  .etiqueta-caso {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--exani-texto-secundario);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  #textoEnunciado {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .expresion-caso {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: var(--exani-blanco);
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1.05rem;
+  }
+  .expresion-caso:empty { display: none; }
+  .fase {
+    display: none;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--exani-gris-claro);
+  }
+  .fase.activa { display: block; }
+  .fase h3 {
+    color: var(--exani-azul-marino);
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+  /* ===== BLOQUE ANTICIPA ===== */
+  .anticipa {
+    background: #F0F8FE;
+    border-left: 4px solid var(--exani-azul);
+    border-radius: var(--radio-borde);
+    padding: 14px 18px;
+    margin: 16px 0;
+  }
+  .anticipa h4 {
+    color: var(--exani-azul-marino);
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+  }
+  .anticipa p { font-size: 0.92rem; margin-bottom: 6px; }
+  .anticipa details { margin-top: 6px; font-size: 0.9rem; }
+  .anticipa summary {
+    cursor: pointer;
+    color: var(--exani-azul);
+    font-weight: 600;
+    padding: 4px 0;
+  }
+  .anticipa summary:hover { color: var(--exani-azul-marino); text-decoration: underline; }
+  .anticipa details p {
+    margin-top: 8px;
+    padding: 10px 12px;
+    background: var(--exani-blanco);
+    border-radius: 6px;
+  }
+  .opciones-fase {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .opcion-btn {
+    background: var(--exani-blanco);
+    border: 2px solid var(--exani-gris-claro);
+    padding: 11px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+  }
+  .opcion-btn:hover:not(:disabled) {
+    border-color: var(--exani-azul);
+    background: #F0F8FE;
+  }
+  .opcion-btn.correcta {
+    border-color: var(--exani-verde);
+    background: #F0F8F0;
+    color: var(--exani-azul-marino);
+    font-weight: 600;
+  }
+  .opcion-btn.incorrecta {
+    border-color: var(--exani-error);
+    background: #FEF0F0;
+    color: var(--exani-error);
+  }
+  .opcion-btn:disabled { cursor: not-allowed; }
+  .feedback {
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    min-height: 20px;
+    font-size: 0.95rem;
+  }
+  .feedback.correcto {
+    background: #F0F8F0;
+    border-left: 4px solid var(--exani-verde);
+    color: var(--exani-azul-marino);
+  }
+  .feedback.incorrecto {
+    background: #FEF0F0;
+    border-left: 4px solid var(--exani-error);
+    color: var(--exani-error);
+  }
+  .feedback.advertencia {
+    background: #FFF5EB;
+    border-left: 4px solid var(--exani-advertencia);
+    color: var(--exani-advertencia);
+  }
+  .intentos {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: var(--exani-texto-secundario);
+    font-style: italic;
+  }
+  .btn-pista, .btn-verificar {
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 8px;
+    margin-top: 10px;
+    border: none;
+  }
+  .btn-pista {
+    background: var(--exani-blanco);
+    color: var(--exani-advertencia);
+    border: 2px solid var(--exani-advertencia);
+  }
+  .btn-pista:hover { background: var(--exani-advertencia); color: var(--exani-blanco); }
+  .btn-verificar {
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+  }
+  .btn-verificar:hover { background: var(--exani-azul-marino); }
+  .btn-verificar:disabled {
+    background: var(--exani-gris-claro);
+    cursor: not-allowed;
+  }
+  .navegacion-casos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--exani-gris-claro);
+  }
+  .btn-navegacion {
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .btn-navegacion:hover:not(:disabled) { background: var(--exani-azul-marino); }
+  .btn-navegacion:disabled {
+    background: var(--exani-gris-claro);
+    cursor: not-allowed;
+  }
+  .btn-navegacion.secundario {
+    background: var(--exani-blanco);
+    color: var(--exani-azul);
+    border: 2px solid var(--exani-azul);
+  }
+  .btn-navegacion.secundario:hover:not(:disabled) { background: var(--exani-azul); color: var(--exani-blanco); }
+  .indicador-caso {
+    font-weight: 600;
+    color: var(--exani-azul-marino);
+  }
+  .pantalla-final {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--exani-fondo-secundario);
+    border-radius: var(--radio-borde);
+  }
+  .pantalla-final.activa { display: block; }
+  .medalla {
+    font-size: 4rem;
+    margin-bottom: 14px;
+  }
+  .pantalla-final h2 {
+    color: var(--exani-azul-marino);
+    margin-bottom: 12px;
+  }
+  .puntaje-final {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--exani-azul);
+    margin-bottom: 14px;
+  }
+  /* ===== EXAMEN ===== */
+  .progress-container {
+    height: 8px;
+    background: var(--exani-gris-claro);
+    border-radius: 4px;
+    margin-bottom: 22px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--exani-verde);
+    width: 0%;
+    transition: width 0.3s;
+  }
+  .quiz-view, .results-view { display: none; }
+  .quiz-view.activa, .results-view.activa { display: block; }
+  .question-meta {
+    font-size: 0.9rem;
+    color: var(--exani-texto-secundario);
+    margin-bottom: 6px;
+  }
+  .question-tipo {
+    display: inline-block;
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .question-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    background: var(--exani-fondo-secundario);
+    padding: 16px 18px;
+    border-radius: 8px;
+    border-left: 4px solid var(--exani-azul);
+  }
+  .options-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .option-item {
+    background: var(--exani-blanco);
+    border: 2px solid var(--exani-gris-claro);
+    padding: 13px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.98rem;
+  }
+  .option-item:hover:not(.disabled) {
+    border-color: var(--exani-azul);
+    background: #F0F8FE;
+  }
+  .option-item.seleccionada {
+    border-color: var(--exani-azul);
+    background: #F0F8FE;
+    font-weight: 600;
+  }
+  .option-item.correcta {
+    border-color: var(--exani-verde);
+    background: #F0F8F0;
+    color: var(--exani-azul-marino);
+  }
+  .option-item.incorrecta {
+    border-color: var(--exani-error);
+    background: #FEF0F0;
+    color: var(--exani-error);
+  }
+  .option-item.disabled { cursor: not-allowed; }
+  .feedback-box {
+    margin-top: 14px;
+    padding: 14px 18px;
+    border-radius: 6px;
+    min-height: 20px;
+  }
+  .feedback-box.correcto {
+    background: #F0F8F0;
+    border-left: 4px solid var(--exani-verde);
+  }
+  .feedback-box.incorrecto {
+    background: #FEF0F0;
+    border-left: 4px solid var(--exani-error);
+  }
+  .btn-next, .btn-restart {
+    background: var(--exani-azul);
+    color: var(--exani-blanco);
+    border: none;
+    padding: 11px 22px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 14px;
+  }
+  .btn-next:hover, .btn-restart:hover { background: var(--exani-azul-marino); }
+  .results-view {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .results-view h2 {
+    color: var(--exani-azul-marino);
+    margin-bottom: 14px;
+  }
+  .score-display {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--exani-azul);
+    margin-bottom: 14px;
+  }
+  .results-message {
+    font-size: 1.05rem;
+    color: var(--exani-gris-oscuro);
+    margin-bottom: 18px;
+  }
+  .footer-info {
+    padding: 14px 28px;
+    background: var(--exani-azul-marino);
+    color: var(--exani-blanco);
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 900px) {
+    .layout-calculadora { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.7rem; }
+    .seccion { padding: 18px; }
+    .tab { font-size: 0.9rem; padding: 12px 6px; }
+    .meta-caso { flex-direction: column; align-items: flex-start; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="contenedor">
+  <header>
+    <div class="institucion">Pensamiento Matemático</div>
+    <h1>EXANI-II</h1>
+    <p>Actividades: Interpretación gráfica, simetría, variación tabular y trayectorias</p>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab activo" data-tab="calculadora" role="tab" aria-selected="true" aria-controls="seccion-calculadora">Calculadora</button>
+    <button class="tab" data-tab="actividad" role="tab" aria-selected="false" aria-controls="seccion-actividad">Actividad</button>
+    <button class="tab" data-tab="examen" role="tab" aria-selected="false" aria-controls="seccion-examen">Examen</button>
+  </nav>
+
+  <!-- ============ SECCIÓN 1: CALCULADORA ============ -->
+  <section id="seccion-calculadora" class="seccion activa" role="tabpanel">
+    <div class="layout-calculadora">
+      <div class="panel-control">
+        <h2>Calculadora</h2>
+        <div class="input-group">
+          <label for="tipo-operacion">Tipo de operación:</label>
+          <select id="tipo-operacion">
+            <option value="pendiente">Pendiente (dos puntos)</option>
+            <option value="recta">Ecuación de la recta (y = mx + b)</option>
+            <option value="simetria-parabola">Eje de simetría de parábola</option>
+            <option value="reflejo">Reflejo de un punto</option>
+            <option value="distancia">Distancia entre dos puntos</option>
+            <option value="variacion">Variación lineal tabular</option>
+          </select>
+        </div>
+
+        <!-- Campos: Pendiente -->
+        <div id="campos-pendiente" class="campos activos">
+          <div class="input-group">
+            <label for="p-x1">x₁:</label>
+            <input type="text" id="p-x1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="p-y1">y₁:</label>
+            <input type="text" id="p-y1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="p-x2">x₂:</label>
+            <input type="text" id="p-x2" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="p-y2">y₂:</label>
+            <input type="text" id="p-y2" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+        </div>
+
+        <!-- Campos: Recta -->
+        <div id="campos-recta" class="campos">
+          <div class="input-group">
+            <label for="r-m">Pendiente (m):</label>
+            <input type="text" id="r-m" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="r-b">Ordenada al origen (b):</label>
+            <input type="text" id="r-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="r-x">Valor de x a evaluar:</label>
+            <input type="text" id="r-x" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+        </div>
+
+        <!-- Campos: Simetría parábola -->
+        <div id="campos-simetria-parabola" class="campos">
+          <div class="input-group">
+            <label for="sp-a">Coeficiente a:</label>
+            <input type="text" id="sp-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="sp-b">Coeficiente b:</label>
+            <input type="text" id="sp-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="sp-c">Coeficiente c:</label>
+            <input type="text" id="sp-c" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+        </div>
+
+        <!-- Campos: Reflejo -->
+        <div id="campos-reflejo" class="campos">
+          <div class="input-group">
+            <label for="rf-x">Coordenada x:</label>
+            <input type="text" id="rf-x" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="rf-y">Coordenada y:</label>
+            <input type="text" id="rf-y" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="rf-tipo">Tipo de simetría:</label>
+            <select id="rf-tipo">
+              <option value="ejeY">Respecto al eje Y</option>
+              <option value="ejeX">Respecto al eje X</option>
+              <option value="origen">Respecto al origen</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Campos: Distancia -->
+        <div id="campos-distancia" class="campos">
+          <div class="input-group">
+            <label for="d-x1">x₁:</label>
+            <input type="text" id="d-x1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="d-y1">y₁:</label>
+            <input type="text" id="d-y1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="d-x2">x₂:</label>
+            <input type="text" id="d-x2" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="d-y2">y₂:</label>
+            <input type="text" id="d-y2" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+        </div>
+
+        <!-- Campos: Variación tabular -->
+        <div id="campos-variacion" class="campos">
+          <div class="input-group">
+            <label for="v-x1">x₁:</label>
+            <input type="text" id="v-x1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="v-y1">y₁:</label>
+            <input type="text" id="v-y1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="v-x2">x₂:</label>
+            <input type="text" id="v-x2" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+          <div class="input-group">
+            <label for="v-y2">y₂:</label>
+            <input type="text" id="v-y2" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+          </div>
+        </div>
+
+        <button class="btn-primario" id="btn-calcular">Calcular</button>
+        <button class="btn-secundario" id="btn-reiniciar-calc">Reiniciar</button>
+
+        <h3>Ejemplos</h3>
+        <button class="ejemplo-btn" data-ejemplo="pendiente">Pendiente: (1, 2) y (5, 8)</button>
+        <button class="ejemplo-btn" data-ejemplo="recta">Recta: m = 2, b = 1, x = 4</button>
+        <button class="ejemplo-btn" data-ejemplo="simetria-parabola">Parábola: a = 1, b = −4, c = 3</button>
+        <button class="ejemplo-btn" data-ejemplo="reflejo">Reflejo: (3, 5) respecto al eje Y</button>
+        <button class="ejemplo-btn" data-ejemplo="distancia">Distancia: (1, 2) y (5, 8)</button>
+        <button class="ejemplo-btn" data-ejemplo="variacion">Variación: (0, 3) y (4, 11)</button>
+      </div>
+
+      <div class="panel-desarrollo">
+        <h2>Desarrollo paso a paso</h2>
+        <div id="desarrollo-calc">
+          <div class="placeholder-inicial">Selecciona el tipo de operación, ingresa los datos y presiona "Calcular".</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECCIÓN 2: ACTIVIDAD ============ -->
+  <section id="seccion-actividad" class="seccion" role="tabpanel">
+    <div class="barra-progreso-general">
+      <span class="texto-progreso" id="progresoTexto">Caso 1 de 10</span>
+      <div class="progreso-track">
+        <div class="progreso-fill" id="progresoFill" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+      </div>
+      <span class="texto-progreso" id="progresoPuntaje">0 / 10</span>
+    </div>
+
+    <div class="tarjeta-caso" id="tarjetaCaso">
+      <div class="meta-caso">
+        <div class="numero-caso" id="numeroCaso">Caso 1 de 10</div>
+        <div class="nivel-caso basico" id="nivelCaso">Básico</div>
+      </div>
+      <div class="enunciado">
+        <div class="etiqueta-caso" id="etiquetaCaso">Caso</div>
+        <div id="textoEnunciado">Cargando caso...</div>
+        <div class="expresion-caso" id="expresionCaso"></div>
+      </div>
+
+      <!-- Fase 1 -->
+      <div class="fase activa" id="fase1">
+        <h3>Fase 1 — Diagnóstico</h3>
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>Antes de analizar, ¿qué tipo de concepto matemático crees que se aplica en este caso?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Lee con atención el enunciado: identifica si se trata de pendientes, simetría, variación tabular o trayectorias.</p>
+          </details>
+        </div>
+        <p id="preguntaFase1"></p>
+        <div class="opciones-fase" id="opcionesFase1"></div>
+        <div class="feedback" id="feedbackFase1"></div>
+        <div class="intentos" id="intentosFase1">Intento 1 de 3</div>
+      </div>
+
+      <!-- Fase 2 -->
+      <div class="fase" id="fase2">
+        <h3>Fase 2 — Estrategia</h3>
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>¿Qué valor intermedio necesitas calcular primero para resolver este caso?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Identifica las variables conocidas y la fórmula que las relaciona. El valor intermedio suele ser un paso clave antes del resultado final.</p>
+          </details>
+        </div>
+        <div id="inputsFase2"></div>
+        <button class="btn-pista" id="btnPistaFase2">Pista</button>
+        <button class="btn-verificar" id="btnVerificarFase2">Verificar</button>
+        <div class="feedback" id="feedbackFase2"></div>
+        <div class="intentos" id="intentosFase2">Intento 1 de 3</div>
+      </div>
+
+      <!-- Fase 3 -->
+      <div class="fase" id="fase3">
+        <h3>Fase 3 — Ejecución</h3>
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>¿El resultado final será mayor o menor que el valor intermedio? ¿Por qué?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Revisa la operación que aplicarás: si es una división entre un número mayor que 1, el resultado será menor; si es una multiplicación, será mayor.</p>
+          </details>
+        </div>
+        <div id="inputsFase3"></div>
+        <button class="btn-pista" id="btnPistaFase3">Pista</button>
+        <button class="btn-verificar" id="btnVerificarFase3">Verificar</button>
+        <div class="feedback" id="feedbackFase3"></div>
+        <div class="intentos" id="intentosFase3">Intento 1 de 3</div>
+      </div>
+
+      <!-- Fase 4 -->
+      <div class="fase" id="fase4">
+        <h3>Error frecuente</h3>
+        <div class="anticipa">
+          <h4>Anticipa el resultado</h4>
+          <p>¿Cuál crees que es el error más común que cometen los estudiantes al resolver este tipo de problema?</p>
+          <details>
+            <summary>Ver respuesta</summary>
+            <p>Los errores frecuentes suelen ser: invertir el orden de la resta, olvidar signos, o aplicar la fórmula incorrecta.</p>
+          </details>
+        </div>
+        <p id="preguntaFase4"></p>
+        <div class="opciones-fase" id="opcionesFase4"></div>
+        <div class="feedback" id="feedbackFase4"></div>
+        <div class="intentos" id="intentosFase4">Intento 1 de 3</div>
+      </div>
+
+      <div class="navegacion-casos">
+        <button class="btn-navegacion secundario" id="btnAnterior">Caso anterior</button>
+        <span class="indicador-caso" id="indicadorCaso">Caso 1 de 10</span>
+        <button class="btn-navegacion" id="btnSiguiente" disabled>Siguiente caso</button>
+      </div>
+    </div>
+
+    <div class="pantalla-final" id="pantallaFinal">
+      <div class="medalla" id="medallaFinal">🏆</div>
+      <h2>Práctica completada</h2>
+      <div class="puntaje-final" id="puntajeFinal">0 / 10</div>
+      <p id="mensajeFinal"></p>
+      <button class="btn-primario" id="btnReiniciarActividad">Reiniciar práctica</button>
+    </div>
+  </section>
+
+  <!-- ============ SECCIÓN 3: EXAMEN ============ -->
+  <section id="seccion-examen" class="seccion" role="tabpanel">
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+    </div>
+
+    <div id="quizView" class="quiz-view activa">
+      <div class="question-meta" id="questionMeta">Reactivo 1 de 10</div>
+      <div class="question-tipo" id="questionTipo">Concepto</div>
+      <div class="question-text" id="questionText">Cargando pregunta...</div>
+      <ul class="options-list" id="optionsList" role="list"></ul>
+      <div class="feedback-box" id="feedbackBox" role="status" aria-live="polite"></div>
+      <button class="btn-next" id="btnNext" aria-label="Avanzar al siguiente reactivo">Siguiente Reactivo</button>
+    </div>
+
+    <div id="resultsView" class="results-view">
+      <h2>Evaluación Finalizada</h2>
+      <div class="score-display" id="finalScore">0/10</div>
+      <div class="results-message" id="resultsMessage"></div>
+      <button class="btn-restart" id="btnRestart" aria-label="Reiniciar la evaluación">Intentar de nuevo</button>
+    </div>
+  </section>
+
+  <div class="footer-info">
+    <strong>Objetivo:</strong> Interpretar gráficamente ecuaciones lineales, identificar ejes de simetría, analizar variación lineal tabular y estimar trayectorias en el plano cartesiano.
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ===== UTILIDADES =====
+  function renderMath(element) {
+    if (!element) return;
+    function intentar() {
+      if (window.MathJax && window.MathJax.startup && window.MathJax.startup.promise) {
+        window.MathJax.startup.promise
+          .then(function () { return window.MathJax.typesetPromise([element]); })
+          .catch(function (err) { console.warn('MathJax typeset falló:', err); });
+      } else {
+        setTimeout(intentar, 100);
+      }
+    }
+    intentar();
+  }
+
+  function limpiarEntradaNumerica(texto) {
+    if (texto == null) return '';
+    return String(texto)
+      .replace(/^[^0-9\/.,+\-−]+/g, '')
+      .replace(/[^0-9\/.,+\-−]/g, '')
+      .trim();
+  }
+
+  function parsearNumero(texto) {
+    if (texto == null) return NaN;
+    texto = limpiarEntradaNumerica(texto);
+    if (texto === '') return NaN;
+    texto = texto.replace(',', '.').replace(/−/g, '-');
+    if (texto.indexOf('/') !== -1) {
+      var p = texto.split('/');
+      if (p.length !== 2) return NaN;
+      var n = parseFloat(p[0]), d = parseFloat(p[1]);
+      if (isNaN(n) || isNaN(d) || d === 0) return NaN;
+      return n / d;
+    }
+    var x = parseFloat(texto);
+    return isNaN(x) ? NaN : x;
+  }
+
+  function formatearNumero(n) {
+    if (Math.abs(n - Math.round(n)) < 1e-9) return Math.round(n).toString();
+    return parseFloat(n.toFixed(4)).toString();
+  }
+
+  function formatearResta(m, n, resultado) {
+    var mStr = formatearNumero(m);
+    var nStr = formatearNumero(n);
+    var rStr = formatearNumero(resultado);
+    if (n < 0) return '$' + mStr + ' - (' + nStr + ') = ' + rStr + '$';
+    return '$' + mStr + ' - ' + nStr + ' = ' + rStr + '$';
+  }
+
+  function mostrarResultado(elemento, html, esError) {
+    if (!elemento) return;
+    elemento.className = 'resultado ' + (esError ? 'error' : 'exito');
+    elemento.innerHTML = html;
+    renderMath(elemento);
+  }
+
+  function mostrarAdvertencia(elemento, mensaje) {
+    if (!elemento) return;
+    elemento.className = 'resultado advertencia';
+    elemento.innerHTML = mensaje;
+    renderMath(elemento);
+  }
+
+  function algunCampoVacio(ids) {
+    for (var i = 0; i < ids.length; i++) {
+      var el = document.getElementById(ids[i]);
+      if (!el) continue;
+      if (limpiarEntradaNumerica(el.value) === '') return true;
+    }
+    return false;
+  }
+
+  function shuffleArray(array) {
+    var arr = array.slice();
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = temp;
+    }
+    return arr;
+  }
+
+  // ===== NAVEGACIÓN POR PESTAÑAS =====
+  function iniciarTabs() {
+    var tabs = document.querySelectorAll('.tab');
+    var secciones = document.querySelectorAll('.seccion');
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        var target = this.getAttribute('data-tab');
+        tabs.forEach(function(t) {
+          t.classList.remove('activo');
+          t.setAttribute('aria-selected', 'false');
+        });
+        this.classList.add('activo');
+        this.setAttribute('aria-selected', 'true');
+        secciones.forEach(function(s) { s.classList.remove('activa'); });
+        var seccionActiva = document.getElementById('seccion-' + target);
+        if (seccionActiva) seccionActiva.classList.add('activa');
+        renderMath(document.getElementById('seccion-' + target));
+      });
+    });
+  }
+
+  // ===== CALCULADORA =====
+  var ejemplosCalc = {
+    pendiente: { 'p-x1': '1', 'p-y1': '2', 'p-x2': '5', 'p-y2': '8' },
+    recta: { 'r-m': '2', 'r-b': '1', 'r-x': '4' },
+    'simetria-parabola': { 'sp-a': '1', 'sp-b': '-4', 'sp-c': '3' },
+    reflejo: { 'rf-x': '3', 'rf-y': '5' },
+    distancia: { 'd-x1': '1', 'd-y1': '2', 'd-x2': '5', 'd-y2': '8' },
+    variacion: { 'v-x1': '0', 'v-y1': '3', 'v-x2': '4', 'v-y2': '11' }
+  };
+
+  function cambiarCampos(tipo) {
+    var campos = document.querySelectorAll('.campos');
+    campos.forEach(function(c) { c.classList.remove('activos'); });
+    var target = document.getElementById('campos-' + tipo);
+    if (target) target.classList.add('activos');
+  }
+
+  function cargarEjemplo(tipo) {
+    var ej = ejemplosCalc[tipo];
+    if (!ej) return;
+    var sel = document.getElementById('tipo-operacion');
+    if (sel) sel.value = tipo;
+    cambiarCampos(tipo);
+    Object.keys(ej).forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.value = ej[id];
+    });
+    // Para reflejo, resetear el select a ejeY
+    if (tipo === 'reflejo') {
+      var rfTipo = document.getElementById('rf-tipo');
+      if (rfTipo) rfTipo.value = 'ejeY';
+    }
+  }
+
+  function calcularPendiente() {
+    var res = document.getElementById('desarrollo-calc');
+    if (!res) return;
+    if (algunCampoVacio(['p-x1', 'p-y1', 'p-x2', 'p-y2'])) {
+      res.innerHTML = '<div class="placeholder-inicial">Completa todos los campos.</div>';
+      return;
+    }
+    var x1 = parsearNumero(document.getElementById('p-x1').value);
+    var y1 = parsearNumero(document.getElementById('p-y1').value);
+    var x2 = parsearNumero(document.getElementById('p-x2').value);
+    var y2 = parsearNumero(document.getElementById('p-y2').value);
+    if (isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2)) {
+      res.innerHTML = '<div class="placeholder-inicial">Ingresa valores numéricos válidos.</div>';
+      return;
+    }
+    var dx = x2 - x1;
+    var dy = y2 - y1;
+    if (dx === 0) {
+      var html = '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">$\\Delta x = ' + formatearNumero(x2) + ' - ' + formatearNumero(x1) + ' = 0$</div></div></div>';
+      html += '<div class="resultado-final">La recta es vertical: pendiente indefinida.</div>';
+      res.innerHTML = html;
+      renderMath(res);
+      return;
+    }
+    var m = dy / dx;
+    var html = '';
+    html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Fórmula: $m = \\dfrac{y_2 - y_1}{x_2 - x_1}$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Sustituimos: $m = \\dfrac{' + formatearNumero(y2) + ' - ' + formatearNumero(y1) + '}{' + formatearNumero(x2) + ' - ' + formatearNumero(x1) + '}$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">Calculamos: $m = \\dfrac{' + formatearNumero(dy) + '}{' + formatearNumero(dx) + '} = ' + formatearNumero(m) + '$</div></div></div>';
+    var tipo = m > 0 ? 'creciente (sube)' : (m < 0 ? 'decreciente (baja)' : 'horizontal');
+    html += '<div class="resultado-final">Pendiente $m = ' + formatearNumero(m) + '$: recta ' + tipo + '.</div>';
+    res.innerHTML = html;
+    renderMath(res);
+  }
+
+  function calcularRecta() {
+    var res = document.getElementById('desarrollo-calc');
+    if (!res) return;
+    if (algunCampoVacio(['r-m', 'r-b', 'r-x'])) {
+      res.innerHTML = '<div class="placeholder-inicial">Completa todos los campos.</div>';
+      return;
+    }
+    var m = parsearNumero(document.getElementById('r-m').value);
+    var b = parsearNumero(document.getElementById('r-b').value);
+    var x = parsearNumero(document.getElementById('r-x').value);
+    if (isNaN(m) || isNaN(b) || isNaN(x)) {
+      res.innerHTML = '<div class="placeholder-inicial">Ingresa valores numéricos válidos.</div>';
+      return;
+    }
+    var y = m * x + b;
+    var html = '';
+    html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Ecuación: $y = mx + b$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Sustituimos: $y = (' + formatearNumero(m) + ')(' + formatearNumero(x) + ') + ' + formatearNumero(b) + '$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">Calculamos: $y = ' + formatearNumero(m * x) + ' + ' + formatearNumero(b) + ' = ' + formatearNumero(y) + '$</div></div></div>';
+    var tipo = m > 0 ? 'creciente' : (m < 0 ? 'decreciente' : 'horizontal');
+    html += '<div class="resultado-final">Cuando $x = ' + formatearNumero(x) + '$, $y = ' + formatearNumero(y) + '$. Recta ' + tipo + ', corta al eje $y$ en $(0, ' + formatearNumero(b) + ')$.</div>';
+    res.innerHTML = html;
+    renderMath(res);
+  }
+
+  function calcularSimetriaParabola() {
+    var res = document.getElementById('desarrollo-calc');
+    if (!res) return;
+    if (algunCampoVacio(['sp-a', 'sp-b', 'sp-c'])) {
+      res.innerHTML = '<div class="placeholder-inicial">Completa todos los campos.</div>';
+      return;
+    }
+    var a = parsearNumero(document.getElementById('sp-a').value);
+    var b = parsearNumero(document.getElementById('sp-b').value);
+    var c = parsearNumero(document.getElementById('sp-c').value);
+    if (isNaN(a) || isNaN(b) || isNaN(c)) {
+      res.innerHTML = '<div class="placeholder-inicial">Ingresa valores numéricos válidos.</div>';
+      return;
+    }
+    if (a === 0) {
+      res.innerHTML = '<div class="placeholder-inicial">El coeficiente $a$ no puede ser cero (no sería una parábola).</div>';
+      renderMath(res);
+      return;
+    }
+    var xv = -b / (2 * a);
+    var yv = a * xv * xv + b * xv + c;
+    var html = '';
+    html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Parábola: $y = ' + formatearNumero(a) + 'x^2 ' + (b >= 0 ? '+ ' + formatearNumero(b) : '- ' + formatearNumero(-b)) + 'x ' + (c >= 0 ? '+ ' + formatearNumero(c) : '- ' + formatearNumero(-c)) + '$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Fórmula del eje de simetría: $x = -\\dfrac{b}{2a}$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">Sustituimos: $x = -\\dfrac{' + formatearNumero(b) + '}{2(' + formatearNumero(a) + ')} = ' + formatearNumero(xv) + '$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">4</span><div class="cuerpo-paso"><div class="detalle-paso">Vértice: $y = ' + formatearNumero(a) + '(' + formatearNumero(xv) + ')^2 ' + (b >= 0 ? '+ ' + formatearNumero(b) : '- ' + formatearNumero(-b)) + '(' + formatearNumero(xv) + ') ' + (c >= 0 ? '+ ' + formatearNumero(c) : '- ' + formatearNumero(-c)) + ' = ' + formatearNumero(yv) + '$</div></div></div>';
+    var abertura = a > 0 ? 'abre hacia arriba' : 'abre hacia abajo';
+    html += '<div class="resultado-final">Eje de simetría: $x = ' + formatearNumero(xv) + '$. Vértice: $(' + formatearNumero(xv) + ', ' + formatearNumero(yv) + ')$. La parábola ' + abertura + '.</div>';
+    res.innerHTML = html;
+    renderMath(res);
+  }
+
+  function calcularReflejo() {
+    var res = document.getElementById('desarrollo-calc');
+    if (!res) return;
+    if (algunCampoVacio(['rf-x', 'rf-y'])) {
+      res.innerHTML = '<div class="placeholder-inicial">Completa las coordenadas del punto.</div>';
+      return;
+    }
+    var x = parsearNumero(document.getElementById('rf-x').value);
+    var y = parsearNumero(document.getElementById('rf-y').value);
+    var tipoEl = document.getElementById('rf-tipo');
+    var tipo = tipoEl ? tipoEl.value : 'ejeY';
+    if (isNaN(x) || isNaN(y)) {
+      res.innerHTML = '<div class="placeholder-inicial">Ingresa valores numéricos válidos.</div>';
+      return;
+    }
+    var xr, yr, descripcion;
+    if (tipo === 'ejeY') {
+      xr = -x; yr = y;
+      descripcion = 'Simetría respecto al eje $y$: cambia el signo de $x$.';
+    } else if (tipo === 'ejeX') {
+      xr = x; yr = -y;
+      descripcion = 'Simetría respecto al eje $x$: cambia el signo de $y$.';
+    } else {
+      xr = -x; yr = -y;
+      descripcion = 'Simetría respecto al origen: cambian ambos signos.';
+    }
+    var html = '';
+    html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">' + descripcion + '</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Punto original: $(' + formatearNumero(x) + ', ' + formatearNumero(y) + ')$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">Punto reflejado: $(' + formatearNumero(xr) + ', ' + formatearNumero(yr) + ')$</div></div></div>';
+    html += '<div class="resultado-final">El reflejo de $(' + formatearNumero(x) + ', ' + formatearNumero(y) + ')$ es $(' + formatearNumero(xr) + ', ' + formatearNumero(yr) + ')$.</div>';
+    res.innerHTML = html;
+    renderMath(res);
+  }
+
+  function calcularDistancia() {
+    var res = document.getElementById('desarrollo-calc');
+    if (!res) return;
+    if (algunCampoVacio(['d-x1', 'd-y1', 'd-x2', 'd-y2'])) {
+      res.innerHTML = '<div class="placeholder-inicial">Completa todos los campos.</div>';
+      return;
+    }
+    var x1 = parsearNumero(document.getElementById('d-x1').value);
+    var y1 = parsearNumero(document.getElementById('d-y1').value);
+    var x2 = parsearNumero(document.getElementById('d-x2').value);
+    var y2 = parsearNumero(document.getElementById('d-y2').value);
+    if (isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2)) {
+      res.innerHTML = '<div class="placeholder-inicial">Ingresa valores numéricos válidos.</div>';
+      return;
+    }
+    var dx = x2 - x1;
+    var dy = y2 - y1;
+    var d2 = dx * dx + dy * dy;
+    var d = Math.sqrt(d2);
+    var m;
+    var direccion;
+    if (dx === 0) {
+      m = Infinity;
+      direccion = 'vertical';
+    } else {
+      m = dy / dx;
+      direccion = m > 0 ? 'creciente' : (m < 0 ? 'decreciente' : 'horizontal');
+    }
+    var html = '';
+    html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Fórmula: $d = \\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Diferencias: $\\Delta x = ' + formatearNumero(dx) + '$, $\\Delta y = ' + formatearNumero(dy) + '$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">Cuadrados: $(' + formatearNumero(dx) + ')^2 + (' + formatearNumero(dy) + ')^2 = ' + formatearNumero(d2) + '$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">4</span><div class="cuerpo-paso"><div class="detalle-paso">Raíz: $d = \\sqrt{' + formatearNumero(d2) + '} = ' + formatearNumero(d) + '$</div></div></div>';
+    if (dx !== 0) {
+      html += '<div class="paso"><span class="num-paso">5</span><div class="cuerpo-paso"><div class="detalle-paso">Pendiente de la trayectoria: $m = \\dfrac{' + formatearNumero(dy) + '}{' + formatearNumero(dx) + '} = ' + formatearNumero(m) + '$ (' + direccion + ')</div></div></div>';
+    } else {
+      html += '<div class="paso"><span class="num-paso">5</span><div class="cuerpo-paso"><div class="detalle-paso">Trayectoria: ' + direccion + ' (pendiente indefinida)</div></div></div>';
+    }
+    html += '<div class="resultado-final">Distancia = ' + formatearNumero(d) + ' unidades. Trayectoria ' + direccion + '.</div>';
+    res.innerHTML = html;
+    renderMath(res);
+  }
+
+  function calcularVariacion() {
+    var res = document.getElementById('desarrollo-calc');
+    if (!res) return;
+    if (algunCampoVacio(['v-x1', 'v-y1', 'v-x2', 'v-y2'])) {
+      res.innerHTML = '<div class="placeholder-inicial">Completa todos los campos.</div>';
+      return;
+    }
+    var x1 = parsearNumero(document.getElementById('v-x1').value);
+    var y1 = parsearNumero(document.getElementById('v-y1').value);
+    var x2 = parsearNumero(document.getElementById('v-x2').value);
+    var y2 = parsearNumero(document.getElementById('v-y2').value);
+    if (isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2)) {
+      res.innerHTML = '<div class="placeholder-inicial">Ingresa valores numéricos válidos.</div>';
+      return;
+    }
+    var dx = x2 - x1;
+    var dy = y2 - y1;
+    if (dx === 0) {
+      res.innerHTML = '<div class="placeholder-inicial">$\\Delta x = 0$: la relación no es una función (recta vertical).</div>';
+      renderMath(res);
+      return;
+    }
+    var m = dy / dx;
+    var b = y1 - m * x1;
+    var html = '';
+    html += '<div class="paso"><span class="num-paso">1</span><div class="cuerpo-paso"><div class="detalle-paso">Variación de $x$: $\\Delta x = ' + formatearNumero(x2) + ' - ' + formatearNumero(x1) + ' = ' + formatearNumero(dx) + '$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">2</span><div class="cuerpo-paso"><div class="detalle-paso">Variación de $y$: $\\Delta y = ' + formatearNumero(y2) + ' - ' + formatearNumero(y1) + ' = ' + formatearNumero(dy) + '$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">3</span><div class="cuerpo-paso"><div class="detalle-paso">Pendiente: $m = \\dfrac{\\Delta y}{\\Delta x} = \\dfrac{' + formatearNumero(dy) + '}{' + formatearNumero(dx) + '} = ' + formatearNumero(m) + '$</div></div></div>';
+    html += '<div class="paso"><span class="num-paso">4</span><div class="cuerpo-paso"><div class="detalle-paso">Ordenada al origen: $b = y_1 - m \\cdot x_1 = ' + formatearNumero(y1) + ' - ' + formatearNumero(m) + ' \\cdot ' + formatearNumero(x1) + ' = ' + formatearNumero(b) + '$</div></div></div>';
+    var tipo = m > 0 ? 'creciente' : (m < 0 ? 'decreciente' : 'horizontal');
+    html += '<div class="resultado-final">La relación es lineal con ecuación $y = ' + formatearNumero(m) + 'x ' + (b >= 0 ? '+ ' + formatearNumero(b) : '- ' + formatearNumero(-b)) + '$ (recta ' + tipo + ').</div>';
+    res.innerHTML = html;
+    renderMath(res);
+  }
+
+  function calcular() {
+    var sel = document.getElementById('tipo-operacion');
+    if (!sel) return;
+    var tipo = sel.value;
+    if (tipo === 'pendiente') calcularPendiente();
+    else if (tipo === 'recta') calcularRecta();
+    else if (tipo === 'simetria-parabola') calcularSimetriaParabola();
+    else if (tipo === 'reflejo') calcularReflejo();
+    else if (tipo === 'distancia') calcularDistancia();
+    else if (tipo === 'variacion') calcularVariacion();
+  }
+
+  function reiniciarCalc() {
+    var inputs = document.querySelectorAll('.campos input');
+    inputs.forEach(function(inp) { inp.value = ''; });
+    var res = document.getElementById('desarrollo-calc');
+    if (res) res.innerHTML = '<div class="placeholder-inicial">Selecciona el tipo de operación, ingresa los datos y presiona "Calcular".</div>';
+  }
+
+  function iniciarCalculadora() {
+    var sel = document.getElementById('tipo-operacion');
+    if (sel) {
+      sel.addEventListener('change', function() { cambiarCampos(this.value); });
+    }
+    var btnCalc = document.getElementById('btn-calcular');
+    if (btnCalc) btnCalc.addEventListener('click', calcular);
+    var btnRein = document.getElementById('btn-reiniciar-calc');
+    if (btnRein) btnRein.addEventListener('click', reiniciarCalc);
+    var ejemploBtns = document.querySelectorAll('.ejemplo-btn');
+    ejemploBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var tipo = this.getAttribute('data-ejemplo');
+        cargarEjemplo(tipo);
+      });
+    });
+  }
+
+  // ===== ACTIVIDAD =====
+  // ===== DISTRIBUCIÓN DE DIFICULTAD (interna, NO visible) =====
+  // Sesión: s02 — Interpretación gráfica, simetría, variación tabular, trayectorias
+  // Perfil: Estándar
+  // Básicos: 3 | Medios: 4 | Altos: 3
+  // Referencia: docs/clasificacion-dificultad-pm.md
+  var casos = [
+    {
+      nivel: 'basico',
+      enunciado: 'Una recta pasa por los puntos $(2, 3)$ y $(6, 11)$. Determina la pendiente de la recta.',
+      expresion: '',
+      fase1: {
+        pregunta: '¿Qué concepto se aplica para encontrar la inclinación de una recta dados dos puntos?',
+        opciones: [
+          { texto: 'Pendiente ($m = \\frac{\\Delta y}{\\Delta x}$)', correcta: true, feedback: 'Correcto: la pendiente mide la inclinación y se calcula con dos puntos.' },
+          { texto: 'Eje de simetría', correcta: false, feedback: 'Incorrecto: el eje de simetría aplica a parábolas, no a rectas.' },
+          { texto: 'Distancia entre puntos', correcta: false, feedback: 'Incorrecto: la distancia mide la longitud del segmento, no la inclinación.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-dy', label: 'Calcula $\\Delta y = y_2 - y_1$', valor: 8 },
+          { id: 'f2-dx', label: 'Calcula $\\Delta x = x_2 - x_1$', valor: 4 }
+        ],
+        pista: 'Resta las coordenadas $y$ y las coordenadas $x$ por separado.',
+        feedbackOk: 'Correcto: $\\Delta y = 11 - 3 = 8$ y $\\Delta x = 6 - 2 = 4$.',
+        feedbackErr: 'Revisa: $\\Delta y = 11 - 3 = 8$ y $\\Delta x = 6 - 2 = 4$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona la pendiente:',
+        opciones: [
+          { texto: 'm = 2', correcta: true, feedback: 'Correcto: $m = \\frac{8}{4} = 2$.' },
+          { texto: 'm = 4', correcta: false, feedback: 'Incorrecto: invertiste la división. Es $\\frac{8}{4}$, no $\\frac{4}{8}$.' },
+          { texto: 'm = 8', correcta: false, feedback: 'Incorrecto: olvidaste dividir entre $\\Delta x$.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al calcular la pendiente?',
+        opciones: [
+          { texto: 'Invertir el orden: calcular $\\frac{\\Delta x}{\\Delta y}$ en lugar de $\\frac{\\Delta y}{\\Delta x}$', correcta: true, feedback: 'Correcto: es el error más frecuente. La pendiente es $\\frac{\\Delta y}{\\Delta x}$, no al revés.' },
+          { texto: 'Sumar las coordenadas en lugar de restar', correcta: false, feedback: 'Incorrecto: aunque ocurre, no es el error más común.' },
+          { texto: 'Olvidar el signo negativo', correcta: false, feedback: 'Incorrecto: esto pasa cuando la pendiente es negativa, pero no es el error más frecuente.' }
+        ]
+      }
+    },
+    {
+      nivel: 'basico',
+      enunciado: 'Refleja el punto $(5, -3)$ respecto al eje $y$. ¿Cuáles son las coordenadas del punto reflejado?',
+      expresion: '',
+      fase1: {
+        pregunta: '¿Qué coordenada cambia al reflejar un punto respecto al eje $y$?',
+        opciones: [
+          { texto: 'La coordenada $x$ (cambia de signo)', correcta: true, feedback: 'Correcto: al reflejar respecto al eje $y$, $x$ cambia de signo.' },
+          { texto: 'La coordenada $y$ (cambia de signo)', correcta: false, feedback: 'Incorrecto: eso ocurre al reflejar respecto al eje $x$.' },
+          { texto: 'Ambas coordenadas cambian de signo', correcta: false, feedback: 'Incorrecto: eso ocurre al reflejar respecto al origen.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-xr', label: 'Nueva coordenada $x$', valor: -5 },
+          { id: 'f2-yr', label: 'Nueva coordenada $y$', valor: -3 }
+        ],
+        pista: 'La coordenada $x$ cambia de signo; la $y$ se conserva.',
+        feedbackOk: 'Correcto: $x$ pasa de $5$ a $-5$, y $y$ se conserva en $-3$.',
+        feedbackErr: 'Revisa: la $x$ cambia de signo ($5 \\to -5$), la $y$ se conserva ($-3$).'
+      },
+      fase3: {
+        etiqueta: 'Selecciona el punto reflejado:',
+        opciones: [
+          { texto: '(-5, -3)', correcta: true, feedback: 'Correcto: el reflejo de $(5, -3)$ respecto al eje $y$ es $(-5, -3)$.' },
+          { texto: '(5, 3)', correcta: false, feedback: 'Incorrecto: cambiaste ambas coordenadas (eso sería respecto al origen).' },
+          { texto: '(-5, 3)', correcta: false, feedback: 'Incorrecto: cambiaste también la $y$, lo cual no corresponde al eje $y$.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al reflejar puntos?',
+        opciones: [
+          { texto: 'Cambiar ambas coordenadas cuando solo debería cambiar una', correcta: true, feedback: 'Correcto: confundir los tipos de simetría es el error más frecuente.' },
+          { texto: 'No cambiar ninguna coordenada', correcta: false, feedback: 'Incorrecto: esto no es un error común.' },
+          { texto: 'Multiplicar las coordenadas por 2', correcta: false, feedback: 'Incorrecto: la simetría no implica multiplicar.' }
+        ]
+      }
+    },
+    {
+      nivel: 'basico',
+      enunciado: 'En una tabla, $x$ toma los valores $0, 2, 4, 6$ y $y$ toma los valores $5, 9, 13, 17$. Determina si la relación es lineal y encuentra la ecuación.',
+      expresion: '',
+      fase1: {
+        pregunta: '¿Qué característica debe cumplir una tabla para que la relación sea lineal?',
+        opciones: [
+          { texto: 'Que $\\Delta y$ sea constante cuando $\\Delta x$ es constante', correcta: true, feedback: 'Correcto: la variación constante es la característica de la linealidad.' },
+          { texto: 'Que $y$ siempre sea el doble de $x$', correcta: false, feedback: 'Incorrecto: eso solo ocurre en casos particulares, no es la condición general.' },
+          { texto: 'Que todos los valores sean positivos', correcta: false, feedback: 'Incorrecto: la linealidad no depende del signo de los valores.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-dy', label: 'Calcula $\\Delta y$ entre valores consecutivos', valor: 4 },
+          { id: 'f2-dx', label: 'Calcula $\\Delta x$ entre valores consecutivos', valor: 2 }
+        ],
+        pista: 'Resta dos valores consecutivos de $y$ y dos de $x$.',
+        feedbackOk: 'Correcto: $\\Delta y = 9 - 5 = 4$ y $\\Delta x = 2 - 0 = 2$.',
+        feedbackErr: 'Revisa: $\\Delta y = 9 - 5 = 4$ y $\\Delta x = 2 - 0 = 2$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona la ecuación de la recta:',
+        opciones: [
+          { texto: 'y = 2x + 5', correcta: true, feedback: 'Correcto: $m = \\frac{4}{2} = 2$ y $b = 5$ (valor de $y$ cuando $x = 0$).' },
+          { texto: 'y = 4x + 2', correcta: false, feedback: 'Incorrecto: invertiste $m$ y $b$. La pendiente es $\\frac{4}{2} = 2$, no 4.' },
+          { texto: 'y = 2x + 9', correcta: false, feedback: 'Incorrecto: la ordenada al origen es $5$ (cuando $x = 0$), no $9$.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al encontrar la ecuación desde una tabla?',
+        opciones: [
+          { texto: 'Confundir la pendiente con la ordenada al origen', correcta: true, feedback: 'Correcto: muchos estudiantes toman el primer valor de $y$ como pendiente.' },
+          { texto: 'Olvidar verificar que $\\Delta y$ sea constante', correcta: false, feedback: 'Incorrecto: aunque importante, no es el error más frecuente.' },
+          { texto: 'Usar valores no consecutivos de la tabla', correcta: false, feedback: 'Incorrecto: esto puede funcionar si se calcula bien, no es el error más común.' }
+        ]
+      }
+    },
+    {
+      nivel: 'medio',
+      enunciado: 'Un móvil se desplaza del punto $A(-2, 1)$ al punto $B(4, 9)$. Calcula la distancia recorrida y la pendiente de la trayectoria.',
+      expresion: '',
+      fase1: {
+        pregunta: '¿Qué fórmula se usa para calcular la distancia entre dos puntos?',
+        opciones: [
+          { texto: '$d = \\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$', correcta: true, feedback: 'Correcto: es el teorema de Pitágoras aplicado al plano cartesiano.' },
+          { texto: '$d = |x_2 - x_1| + |y_2 - y_1|$', correcta: false, feedback: 'Incorrecto: esa es la distancia Manhattan, no la distancia euclidiana.' },
+          { texto: '$d = (x_2 - x_1) + (y_2 - y_1)$', correcta: false, feedback: 'Incorrecto: eso no corresponde a ninguna fórmula de distancia válida.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-dx', label: 'Calcula $\\Delta x = x_2 - x_1$', valor: 6 },
+          { id: 'f2-dy', label: 'Calcula $\\Delta y = y_2 - y_1$', valor: 8 }
+        ],
+        pista: 'Recuerda que $x_1 = -2$, así que $4 - (-2) = 4 + 2$.',
+        feedbackOk: 'Correcto: $\\Delta x = 4 - (-2) = 6$ y $\\Delta y = 9 - 1 = 8$.',
+        feedbackErr: 'Revisa: $\\Delta x = 4 - (-2) = 6$ y $\\Delta y = 9 - 1 = 8$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona la distancia:',
+        opciones: [
+          { texto: 'd = 10 unidades', correcta: true, feedback: 'Correcto: $d = \\sqrt{6^2 + 8^2} = \\sqrt{36 + 64} = \\sqrt{100} = 10$.' },
+          { texto: 'd = 14 unidades', correcta: false, feedback: 'Incorrecto: sumaste $6 + 8$, pero debes aplicar Pitágoras.' },
+          { texto: 'd = 100 unidades', correcta: false, feedback: 'Incorrecto: $100$ es el valor dentro de la raíz, no la distancia final.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al calcular la distancia?',
+        opciones: [
+          { texto: 'Olvidar el signo negativo al restar: $4 - (-2) \\neq 4 - 2$', correcta: true, feedback: 'Correcto: restar un negativo es el error más frecuente.' },
+          { texto: 'No elevar al cuadrado las diferencias', correcta: false, feedback: 'Incorrecto: aunque ocurre, no es el error más común.' },
+          { texto: 'Confundir distancia con pendiente', correcta: false, feedback: 'Incorrecto: son conceptos distintos, pero no se confunden fácilmente.' }
+        ]
+      }
+    },
+    {
+      nivel: 'medio',
+      enunciado: 'Encuentra el eje de simetría y el vértice de la parábola $y = 2x^2 - 8x + 5$.',
+      expresion: 'y = 2x^2 - 8x + 5',
+      fase1: {
+        pregunta: '¿Qué fórmula se usa para encontrar el eje de simetría de una parábola $y = ax^2 + bx + c$?',
+        opciones: [
+          { texto: '$x = -\\frac{b}{2a}$', correcta: true, feedback: 'Correcto: esa es la fórmula del eje de simetría.' },
+          { texto: '$x = \\frac{b}{2a}$', correcta: false, feedback: 'Incorrecto: falta el signo negativo.' },
+          { texto: '$x = -\\frac{a}{2b}$', correcta: false, feedback: 'Incorrecto: invertiste los coeficientes.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-a', label: 'Identifica el valor de $a$', valor: 2 },
+          { id: 'f2-b', label: 'Identifica el valor de $b$', valor: -8 }
+        ],
+        pista: 'En $y = ax^2 + bx + c$, $a$ acompaña a $x^2$ y $b$ acompaña a $x$.',
+        feedbackOk: 'Correcto: $a = 2$ y $b = -8$.',
+        feedbackErr: 'Revisa: en $2x^2 - 8x + 5$, $a = 2$ y $b = -8$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona el eje de simetría:',
+        opciones: [
+          { texto: 'x = 2', correcta: true, feedback: 'Correcto: $x = -\\frac{-8}{2(2)} = \\frac{8}{4} = 2$.' },
+          { texto: 'x = -2', correcta: false, feedback: 'Incorrecto: olvidaste que $b = -8$, así que $-b = 8$.' },
+          { texto: 'x = 4', correcta: false, feedback: 'Incorrecto: dividiste entre $a$ en lugar de $2a$.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al encontrar el eje de simetría?',
+        opciones: [
+          { texto: 'Olvidar el signo negativo de $b$ al sustituir en la fórmula', correcta: true, feedback: 'Correcto: cuando $b$ es negativo, $-b$ se vuelve positivo, y eso suele confundir.' },
+          { texto: 'Confundir $a$ con $c$', correcta: false, feedback: 'Incorrecto: no es el error más frecuente.' },
+          { texto: 'No elevar $a$ al cuadrado', correcta: false, feedback: 'Incorrecto: $a$ no se eleva al cuadrado en esta fórmula.' }
+        ]
+      }
+    },
+    {
+      nivel: 'medio',
+      enunciado: 'La ecuación de una recta es $y = -3x + 7$. ¿En qué punto corta al eje $y$ y cómo es su inclinación?',
+      expresion: 'y = -3x + 7',
+      fase1: {
+        pregunta: 'En la ecuación $y = mx + b$, ¿qué representa $b$?',
+        opciones: [
+          { texto: 'La ordenada al origen (corte con el eje $y$)', correcta: true, feedback: 'Correcto: $b$ es el punto donde la recta corta al eje $y$.' },
+          { texto: 'La pendiente de la recta', correcta: false, feedback: 'Incorrecto: la pendiente es $m$, no $b$.' },
+          { texto: 'El corte con el eje $x$', correcta: false, feedback: 'Incorrecto: el corte con el eje $x$ se obtiene igualando $y = 0$.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-m', label: 'Identifica la pendiente $m$', valor: -3 },
+          { id: 'f2-b', label: 'Identifica la ordenada al origen $b$', valor: 7 }
+        ],
+        pista: 'Compara $y = -3x + 7$ con $y = mx + b$.',
+        feedbackOk: 'Correcto: $m = -3$ y $b = 7$.',
+        feedbackErr: 'Revisa: en $y = -3x + 7$, $m = -3$ y $b = 7$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona la descripción correcta:',
+        opciones: [
+          { texto: 'Corta al eje $y$ en (0, 7) y es decreciente', correcta: true, feedback: 'Correcto: $b = 7$ y $m = -3 < 0$, así que la recta baja.' },
+          { texto: 'Corta al eje $y$ en (7, 0) y es creciente', correcta: false, feedback: 'Incorrecto: el corte con el eje $y$ es $(0, b)$, no $(b, 0)$.' },
+          { texto: 'Corta al eje $y$ en (0, -3) y es decreciente', correcta: false, feedback: 'Incorrecto: confundiste $m$ con $b$. La ordenada al origen es $7$, no $-3$.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al interpretar $y = mx + b$?',
+        opciones: [
+          { texto: 'Confundir la pendiente $m$ con la ordenada al origen $b$', correcta: true, feedback: 'Correcto: es el error más frecuente. $m$ es la inclinación, $b$ es el corte con el eje $y$.' },
+          { texto: 'Olvidar el signo negativo de la pendiente', correcta: false, feedback: 'Incorrecto: aunque ocurre, no es el error más común.' },
+          { texto: 'Invertir los ejes al graficar', correcta: false, feedback: 'Incorrecto: esto pasa, pero no es el error más frecuente.' }
+        ]
+      }
+    },
+    {
+      nivel: 'medio',
+      enunciado: 'Una tabla muestra que cuando $x = 1$, $y = 5$; cuando $x = 3$, $y = 11$. ¿Cuál es la ecuación de la recta que representa esta relación lineal?',
+      expresion: '',
+      fase1: {
+        pregunta: '¿Cuántos puntos necesitas para determinar una recta?',
+        opciones: [
+          { texto: 'Dos puntos', correcta: true, feedback: 'Correcto: con dos puntos se determina una única recta.' },
+          { texto: 'Tres puntos', correcta: false, feedback: 'Incorrecto: con tres puntos se verifica, pero con dos basta.' },
+          { texto: 'Un punto y la pendiente', correcta: false, feedback: 'Incorrecto: también funciona, pero la pregunta es sobre los puntos mínimos.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-m', label: 'Calcula la pendiente $m$', valor: 3 },
+          { id: 'f2-b', label: 'Calcula la ordenada al origen $b$', valor: 2 }
+        ],
+        pista: 'Primero calcula $m = \\frac{\\Delta y}{\\Delta x}$, luego usa $b = y_1 - m \\cdot x_1$.',
+        feedbackOk: 'Correcto: $m = \\frac{11 - 5}{3 - 1} = \\frac{6}{2} = 3$ y $b = 5 - 3(1) = 2$.',
+        feedbackErr: 'Revisa: $m = \\frac{6}{2} = 3$ y $b = 5 - 3(1) = 2$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona la ecuación de la recta:',
+        opciones: [
+          { texto: 'y = 3x + 2', correcta: true, feedback: 'Correcto: $m = 3$ y $b = 2$, entonces $y = 3x + 2$.' },
+          { texto: 'y = 2x + 3', correcta: false, feedback: 'Incorrecto: invertiste $m$ y $b$.' },
+          { texto: 'y = 6x - 1', correcta: false, feedback: 'Incorrecto: usaste $\\Delta y$ como pendiente sin dividir entre $\\Delta x$.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al encontrar la ecuación desde dos puntos?',
+        opciones: [
+          { texto: 'Usar $\\Delta y$ como pendiente sin dividir entre $\\Delta x$', correcta: true, feedback: 'Correcto: olvidar dividir entre $\\Delta x$ es el error más frecuente.' },
+          { texto: 'No verificar que los puntos pertenezcan a la recta', correcta: false, feedback: 'Incorrecto: si los usaste para calcular, ya pertenecen.' },
+          { texto: 'Confundir la pendiente con el intercepto', correcta: false, feedback: 'Incorrecto: aunque ocurre, no es el error más común.' }
+        ]
+      }
+    },
+    {
+      nivel: 'alto',
+      enunciado: 'Una recta pasa por el punto $(3, 4)$ y tiene pendiente $m = -2$. Encuentra la ecuación de la recta en la forma $y = mx + b$.',
+      expresion: '',
+      fase1: {
+        pregunta: 'Si conoces un punto $(x_1, y_1)$ y la pendiente $m$, ¿qué fórmula usas?',
+        opciones: [
+          { texto: 'Forma punto-pendiente: $y - y_1 = m(x - x_1)$', correcta: true, feedback: 'Correcto: esa es la forma punto-pendiente.' },
+          { texto: 'Forma general: $Ax + By = C$', correcta: false, feedback: 'Incorrecto: esa forma requiere más pasos.' },
+          { texto: 'Fórmula de distancia', correcta: false, feedback: 'Incorrecto: la distancia no te da la ecuación.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-sust', label: 'Sustituye en $y - y_1 = m(x - x_1)$: ¿cuánto vale $y - 4$?', valor: -2 },
+          { id: 'f2-b', label: 'Despeja $b$ en $y = mx + b$', valor: 10 }
+        ],
+        pista: 'Sustituye $m = -2$, $x_1 = 3$, $y_1 = 4$. Luego $b = y_1 - m \\cdot x_1$.',
+        feedbackOk: 'Correcto: $y - 4 = -2(x - 3)$ y $b = 4 - (-2)(3) = 4 + 6 = 10$.',
+        feedbackErr: 'Revisa: $b = 4 - (-2)(3) = 4 + 6 = 10$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona la ecuación de la recta:',
+        opciones: [
+          { texto: 'y = -2x + 10', correcta: true, feedback: 'Correcto: $m = -2$ y $b = 10$.' },
+          { texto: 'y = -2x - 2', correcta: false, feedback: 'Incorrecto: olvidaste que $-(-2)(3) = +6$, no $-6$.' },
+          { texto: 'y = 2x + 10', correcta: false, feedback: 'Incorrecto: cambiaste el signo de la pendiente.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al usar la forma punto-pendiente?',
+        opciones: [
+          { texto: 'No aplicar correctamente la ley de signos al multiplicar $m \\cdot x_1$', correcta: true, feedback: 'Correcto: cuando $m$ es negativo y $x_1$ positivo, el producto es negativo, y al restar se vuelve positivo.' },
+          { texto: 'Confundir $x_1$ con $y_1$', correcta: false, feedback: 'Incorrecto: aunque ocurre, no es el error más común.' },
+          { texto: 'Olvidar despejar $y$', correcta: false, feedback: 'Incorrecto: la forma punto-pendiente ya tiene $y$ despejada.' }
+        ]
+      }
+    },
+    {
+      nivel: 'alto',
+      enunciado: 'Un objeto se mueve del punto $A(0, 0)$ al punto $B(8, 6)$ en línea recta. Si se refleja el punto $B$ respecto al eje $x$, ¿cuál es la distancia entre $A$ y el nuevo punto $B\'$?',
+      expresion: '',
+      fase1: {
+        pregunta: '¿Qué coordenada cambia al reflejar un punto respecto al eje $x$?',
+        opciones: [
+          { texto: 'La coordenada $y$ (cambia de signo)', correcta: true, feedback: 'Correcto: al reflejar respecto al eje $x$, $y$ cambia de signo.' },
+          { texto: 'La coordenada $x$ (cambia de signo)', correcta: false, feedback: 'Incorrecto: eso ocurre al reflejar respecto al eje $y$.' },
+          { texto: 'Ambas coordenadas cambian de signo', correcta: false, feedback: 'Incorrecto: eso ocurre al reflejar respecto al origen.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-xp', label: 'Coordenada $x$ del punto reflejado $B\'$', valor: 8 },
+          { id: 'f2-yp', label: 'Coordenada $y$ del punto reflejado $B\'$', valor: -6 }
+        ],
+        pista: 'Refleja $(8, 6)$ respecto al eje $x$: la $x$ se conserva, la $y$ cambia de signo.',
+        feedbackOk: 'Correcto: $B\' = (8, -6)$.',
+        feedbackErr: 'Revisa: al reflejar $(8, 6)$ respecto al eje $x$, $B\' = (8, -6)$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona la distancia entre $A(0, 0)$ y $B\'(8, -6)$:',
+        opciones: [
+          { texto: 'd = 10 unidades', correcta: true, feedback: 'Correcto: $d = \\sqrt{8^2 + (-6)^2} = \\sqrt{64 + 36} = \\sqrt{100} = 10$.' },
+          { texto: 'd = 14 unidades', correcta: false, feedback: 'Incorrecto: sumaste $8 + 6$, pero debes aplicar Pitágoras.' },
+          { texto: 'd = 2 unidades', correcta: false, feedback: 'Incorrecto: restaste $8 - 6$, pero eso no es la distancia.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común en este tipo de problemas combinados?',
+        opciones: [
+          { texto: 'Olvidar aplicar el reflejo antes de calcular la distancia', correcta: true, feedback: 'Correcto: muchos calculan la distancia al punto original en lugar del reflejado.' },
+          { texto: 'Confundir la distancia con la pendiente', correcta: false, feedback: 'Incorrecto: son conceptos distintos, pero no se confunden fácilmente.' },
+          { texto: 'No elevar al cuadrado las diferencias', correcta: false, feedback: 'Incorrecto: aunque ocurre, no es el error más común en este caso.' }
+        ]
+      }
+    },
+    {
+      nivel: 'alto',
+      enunciado: 'La parábola $y = x^2 - 6x + k$ tiene su vértice sobre el eje $x$. ¿Cuál es el valor de $k$?',
+      expresion: 'y = x^2 - 6x + k',
+      fase1: {
+        pregunta: 'Si el vértice de una parábola está sobre el eje $x$, ¿cuál es su coordenada $y$?',
+        opciones: [
+          { texto: '$y = 0$', correcta: true, feedback: 'Correcto: si el vértice está sobre el eje $x$, su coordenada $y$ es $0$.' },
+          { texto: '$y = 1$', correcta: false, feedback: 'Incorrecto: el eje $x$ es la recta $y = 0$.' },
+          { texto: '$y = k$', correcta: false, feedback: 'Incorrecto: $k$ es un parámetro, no la coordenada del vértice.' }
+        ]
+      },
+      fase2: {
+        inputs: [
+          { id: 'f2-xv', label: 'Calcula la coordenada $x$ del vértice', valor: 3 },
+          { id: 'f2-yv', label: 'Sustituye $x = 3$ en $y = x^2 - 6x + k$ e iguala a 0. ¿Cuánto vale $k$?', valor: 9 }
+        ],
+        pista: 'Primero $x_v = -\\frac{b}{2a}$. Luego sustituye en la ecuación e iguala $y = 0$.',
+        feedbackOk: 'Correcto: $x_v = -\\frac{-6}{2(1)} = 3$. Sustituyendo: $0 = 9 - 18 + k$, entonces $k = 9$.',
+        feedbackErr: 'Revisa: $0 = 3^2 - 6(3) + k = 9 - 18 + k$, entonces $k = 9$.'
+      },
+      fase3: {
+        etiqueta: 'Selecciona el valor de $k$:',
+        opciones: [
+          { texto: 'k = 9', correcta: true, feedback: 'Correcto: $k = 9$ hace que el vértice esté en $(3, 0)$.' },
+          { texto: 'k = -9', correcta: false, feedback: 'Incorrecto: el signo está mal. $k = 9$, no $-9$.' },
+          { texto: 'k = 6', correcta: false, feedback: 'Incorrecto: confundiste $k$ con el coeficiente $b$.' }
+        ]
+      },
+      fase4: {
+        pregunta: '¿Cuál es el error más común al resolver este tipo de problemas?',
+        opciones: [
+          { texto: 'No igualar la coordenada $y$ del vértice a cero', correcta: true, feedback: 'Correcto: la condición "vértice sobre el eje $x$" implica $y_v = 0$, y eso suele olvidarse.' },
+          { texto: 'Calcular mal el eje de simetría', correcta: false, feedback: 'Incorrecto: aunque ocurre, no es el error más común en este caso.' },
+          { texto: 'Confundir $k$ con $a$', correcta: false, feedback: 'Incorrecto: $a = 1$ es fijo, $k$ es el parámetro desconocido.' }
+        ]
+      }
+    }
+  ];
+
+  var estadoActividad = {
+    casoActual: 0,
+    faseActual: 1,
+    intentosFase: 1,
+    casosCompletados: [],
+    puntaje: 0
+  };
+
+  var STORAGE_KEY = 'lab_exani_s02_resueltos';
+
+  function cargarProgreso() {
+    try {
+      var datos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      estadoActividad.casosCompletados = datos;
+      estadoActividad.puntaje = datos.length;
+    } catch (e) {
+      estadoActividad.casosCompletados = [];
+      estadoActividad.puntaje = 0;
+    }
+  }
+
+  function guardarProgreso() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(estadoActividad.casosCompletados));
+    } catch (e) {
+      console.warn('localStorage no disponible:', e);
+    }
+  }
+
+  function actualizarBarraProgreso() {
+    var txtProg = document.getElementById('progresoTexto');
+    var txtPunt = document.getElementById('progresoPuntaje');
+    var fill = document.getElementById('progresoFill');
+    var indicador = document.getElementById('indicadorCaso');
+    var numCaso = document.getElementById('numeroCaso');
+    var nivel = document.getElementById('nivelCaso');
+    if (txtProg) txtProg.textContent = 'Caso ' + (estadoActividad.casoActual + 1) + ' de ' + casos.length;
+    if (txtPunt) txtPunt.textContent = estadoActividad.puntaje + ' / ' + casos.length;
+    if (fill) {
+      var pct = ((estadoActividad.casoActual + 1) / casos.length) * 100;
+      fill.style.width = pct + '%';
+      fill.setAttribute('aria-valuenow', Math.round(pct));
+    }
+    if (indicador) indicador.textContent = 'Caso ' + (estadoActividad.casoActual + 1) + ' de ' + casos.length;
+    if (numCaso) numCaso.textContent = 'Caso ' + (estadoActividad.casoActual + 1) + ' de ' + casos.length;
+    if (nivel) {
+      var c = casos[estadoActividad.casoActual];
+      nivel.className = 'nivel-caso ' + c.nivel;
+      nivel.textContent = c.nivel === 'basico' ? 'Básico' : (c.nivel === 'medio' ? 'Medio' : 'Alto');
+    }
+  }
+
+  function cargarCaso() {
+    var c = casos[estadoActividad.casoActual];
+    var txtEnun = document.getElementById('textoEnunciado');
+    var exprCaso = document.getElementById('expresionCaso');
+    var etiqueta = document.getElementById('etiquetaCaso');
+    if (txtEnun) txtEnun.innerHTML = c.enunciado;
+    if (exprCaso) exprCaso.innerHTML = c.expresion || '';
+    if (etiqueta) etiqueta.textContent = 'Caso';
+    estadoActividad.faseActual = 1;
+    estadoActividad.intentosFase = 1;
+    mostrarFase(1);
+    actualizarBarraProgreso();
+    actualizarBotonesActividad();
+    renderMath(document.getElementById('tarjetaCaso'));
+  }
+
+  function mostrarFase(num) {
+    for (var i = 1; i <= 4; i++) {
+      var f = document.getElementById('fase' + i);
+      if (f) f.classList.toggle('activa', i === num);
+    }
+    estadoActividad.faseActual = num;
+    estadoActividad.intentosFase = 1;
+    if (num === 1) prepararFase1();
+    else if (num === 2) prepararFase2();
+    else if (num === 3) prepararFase3();
+    else if (num === 4) prepararFase4();
+    var fb = document.getElementById('feedbackFase' + num);
+    if (fb) { fb.className = 'feedback'; fb.innerHTML = ''; }
+    var intentos = document.getElementById('intentosFase' + num);
+    if (intentos) intentos.textContent = 'Intento 1 de 3';
+  }
+
+  function prepararFase1() {
+    var c = casos[estadoActividad.casoActual];
+    var preg = document.getElementById('preguntaFase1');
+    var cont = document.getElementById('opcionesFase1');
+    if (preg) preg.innerHTML = c.fase1.pregunta;
+    if (!cont) return;
+    cont.innerHTML = '';
+    c.fase1.opciones.forEach(function(op, i) {
+      var btn = document.createElement('button');
+      btn.className = 'opcion-btn';
+      btn.innerHTML = op.texto;
+      btn.setAttribute('data-index', i);
+      btn.addEventListener('click', function() {
+        responderFase1(i);
+      });
+      cont.appendChild(btn);
+    });
+    renderMath(cont);
+  }
+
+  function responderFase1(index) {
+    var c = casos[estadoActividad.casoActual];
+    var op = c.fase1.opciones[index];
+    var botones = document.querySelectorAll('#opcionesFase1 .opcion-btn');
+    var fb = document.getElementById('feedbackFase1');
+    botones.forEach(function(b) { b.disabled = true; });
+    if (op.correcta) {
+      botones[index].classList.add('correcta');
+      if (fb) { fb.className = 'feedback correcto'; fb.innerHTML = op.feedback; }
+      setTimeout(function() { mostrarFase(2); }, 1500);
+    } else {
+      botones[index].classList.add('incorrecta');
+      if (fb) { fb.className = 'feedback incorrecto'; fb.innerHTML = op.feedback; }
+      estadoActividad.intentosFase++;
+      if (estadoActividad.intentosFase > 3) {
+        setTimeout(function() {
+          botones.forEach(function(b, i) {
+            if (c.fase1.opciones[i].correcta) b.classList.add('correcta');
+          });
+          setTimeout(function() { mostrarFase(2); }, 2000);
+        }, 1500);
+      } else {
+        setTimeout(function() {
+          botones.forEach(function(b) { b.disabled = false; b.classList.remove('incorrecta'); });
+          var intentos = document.getElementById('intentosFase1');
+          if (intentos) intentos.textContent = 'Intento ' + estadoActividad.intentosFase + ' de 3';
+        }, 1500);
+      }
+    }
+    renderMath(fb);
+  }
+
+  function prepararFase2() {
+    var c = casos[estadoActividad.casoActual];
+    var cont = document.getElementById('inputsFase2');
+    if (!cont) return;
+    cont.innerHTML = '';
+    c.fase2.inputs.forEach(function(inp) {
+      var div = document.createElement('div');
+      div.className = 'input-group';
+      div.innerHTML = '<label for="' + inp.id + '">' + inp.label + ':</label>' +
+        '<input type="text" id="' + inp.id + '" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">';
+      cont.appendChild(div);
+    });
+    renderMath(cont);
+  }
+
+  function verificarFase2() {
+    var c = casos[estadoActividad.casoActual];
+    var fb = document.getElementById('feedbackFase2');
+    var todosOk = true;
+    c.fase2.inputs.forEach(function(inp) {
+      var el = document.getElementById(inp.id);
+      if (!el) return;
+      var val = parsearNumero(el.value);
+      if (isNaN(val) || Math.abs(val - inp.valor) > 0.01) todosOk = false;
+    });
+    if (algunCampoVacio(c.fase2.inputs.map(function(i) { return i.id; }))) {
+      if (fb) { fb.className = 'feedback advertencia'; fb.innerHTML = 'Completa todos los campos.'; }
+      return;
+    }
+    if (todosOk) {
+      if (fb) { fb.className = 'feedback correcto'; fb.innerHTML = c.fase2.feedbackOk; }
+      setTimeout(function() { mostrarFase(3); }, 1500);
+    } else {
+      if (fb) { fb.className = 'feedback incorrecto'; fb.innerHTML = c.fase2.feedbackErr; }
+      estadoActividad.intentosFase++;
+      if (estadoActividad.intentosFase > 3) {
+        setTimeout(function() { mostrarFase(3); }, 2000);
+      } else {
+        var intentos = document.getElementById('intentosFase2');
+        if (intentos) intentos.textContent = 'Intento ' + estadoActividad.intentosFase + ' de 3';
+      }
+    }
+    renderMath(fb);
+  }
+
+  function pistaFase2() {
+    var c = casos[estadoActividad.casoActual];
+    var fb = document.getElementById('feedbackFase2');
+    if (fb) { fb.className = 'feedback advertencia'; fb.innerHTML = 'Pista: ' + c.fase2.pista; }
+    renderMath(fb);
+  }
+
+  function prepararFase3() {
+    var c = casos[estadoActividad.casoActual];
+    var cont = document.getElementById('inputsFase3');
+    if (!cont) return;
+    cont.innerHTML = '';
+    var w = document.createElement('div');
+    w.className = 'input-group';
+    var html = '<label for="fase3-select">' + c.fase3.etiqueta + '</label>';
+    html += '<select id="fase3-select">';
+    html += '<option value="">-- Selecciona --</option>';
+    c.fase3.opciones.forEach(function(op, i) {
+      html += '<option value="' + i + '">' + op.texto + '</option>';
+    });
+    html += '</select>';
+    w.innerHTML = html;
+    cont.appendChild(w);
+    renderMath(cont);
+  }
+
+  function verificarFase3() {
+    var c = casos[estadoActividad.casoActual];
+    var sel = document.getElementById('fase3-select');
+    var fb = document.getElementById('feedbackFase3');
+    if (!sel) return;
+    if (sel.value === '') {
+      if (fb) { fb.className = 'feedback advertencia'; fb.innerHTML = 'Selecciona una opción.'; }
+      return;
+    }
+    var idx = parseInt(sel.value, 10);
+    var op = c.fase3.opciones[idx];
+    if (op.correcta) {
+      if (fb) { fb.className = 'feedback correcto'; fb.innerHTML = op.feedback; }
+      setTimeout(function() { mostrarFase(4); }, 1500);
+    } else {
+      if (fb) { fb.className = 'feedback incorrecto'; fb.innerHTML = op.feedback; }
+      estadoActividad.intentosFase++;
+      if (estadoActividad.intentosFase > 3) {
+        setTimeout(function() { mostrarFase(4); }, 2000);
+      } else {
+        var intentos = document.getElementById('intentosFase3');
+        if (intentos) intentos.textContent = 'Intento ' + estadoActividad.intentosFase + ' de 3';
+      }
+    }
+    renderMath(fb);
+  }
+
+  function pistaFase3() {
+    var c = casos[estadoActividad.casoActual];
+    var fb = document.getElementById('feedbackFase3');
+    var correcta = c.fase3.opciones.filter(function(o) { return o.correcta; })[0];
+    if (fb && correcta) {
+      fb.className = 'feedback advertencia';
+      fb.innerHTML = 'Pista: la respuesta correcta empieza con "' + correcta.texto.substring(0, 10) + '..."';
+    }
+    renderMath(fb);
+  }
+
+  function prepararFase4() {
+    var c = casos[estadoActividad.casoActual];
+    var preg = document.getElementById('preguntaFase4');
+    var cont = document.getElementById('opcionesFase4');
+    if (preg) preg.innerHTML = c.fase4.pregunta;
+    if (!cont) return;
+    cont.innerHTML = '';
+    c.fase4.opciones.forEach(function(op, i) {
+      var btn = document.createElement('button');
+      btn.className = 'opcion-btn';
+      btn.innerHTML = op.texto;
+      btn.setAttribute('data-index', i);
+      btn.addEventListener('click', function() {
+        responderFase4(i);
+      });
+      cont.appendChild(btn);
+    });
+    renderMath(cont);
+  }
+
+  function responderFase4(index) {
+    var c = casos[estadoActividad.casoActual];
+    var op = c.fase4.opciones[index];
+    var botones = document.querySelectorAll('#opcionesFase4 .opcion-btn');
+    var fb = document.getElementById('feedbackFase4');
+    botones.forEach(function(b) { b.disabled = true; });
+    if (op.correcta) {
+      botones[index].classList.add('correcta');
+      if (fb) { fb.className = 'feedback correcto'; fb.innerHTML = op.feedback; }
+      // Completar caso
+      if (estadoActividad.casosCompletados.indexOf(estadoActividad.casoActual) === -1) {
+        estadoActividad.casosCompletados.push(estadoActividad.casoActual);
+        estadoActividad.puntaje++;
+        guardarProgreso();
+      }
+      actualizarBarraProgreso();
+      actualizarBotonesActividad();
+    } else {
+      botones[index].classList.add('incorrecta');
+      if (fb) { fb.className = 'feedback incorrecto'; fb.innerHTML = op.feedback; }
+      estadoActividad.intentosFase++;
+      if (estadoActividad.intentosFase > 3) {
+        setTimeout(function() {
+          botones.forEach(function(b, i) {
+            if (c.fase4.opciones[i].correcta) b.classList.add('correcta');
+          });
+        }, 1500);
+      } else {
+        setTimeout(function() {
+          botones.forEach(function(b) { b.disabled = false; b.classList.remove('incorrecta'); });
+          var intentos = document.getElementById('intentosFase4');
+          if (intentos) intentos.textContent = 'Intento ' + estadoActividad.intentosFase + ' de 3';
+        }, 1500);
+      }
+    }
+    renderMath(fb);
+  }
+
+  function actualizarBotonesActividad() {
+    var btnAnt = document.getElementById('btnAnterior');
+    var btnSig = document.getElementById('btnSiguiente');
+    if (!btnAnt || !btnSig) return;
+    btnAnt.disabled = estadoActividad.casoActual === 0;
+    var completado = estadoActividad.casosCompletados.indexOf(estadoActividad.casoActual) !== -1;
+    btnSig.disabled = !completado;
+    if (estadoActividad.casoActual === casos.length - 1) {
+      btnSig.textContent = completado ? 'Finalizar' : 'Siguiente caso (sin completar)';
+    } else {
+      btnSig.textContent = completado ? 'Siguiente caso' : 'Siguiente caso (sin completar)';
+    }
+  }
+
+  function mostrarPantallaFinal() {
+    var tarjeta = document.getElementById('tarjetaCaso');
+    var pantalla = document.getElementById('pantallaFinal');
+    var puntaje = document.getElementById('puntajeFinal');
+    var medalla = document.getElementById('medallaFinal');
+    var mensaje = document.getElementById('mensajeFinal');
+    if (tarjeta) tarjeta.style.display = 'none';
+    if (pantalla) pantalla.classList.add('activa');
+    if (puntaje) puntaje.textContent = estadoActividad.puntaje + ' / ' + casos.length;
+    var pct = (estadoActividad.puntaje / casos.length) * 100;
+    if (medalla) {
+      if (pct === 100) medalla.textContent = '🏆';
+      else if (pct >= 70) medalla.textContent = '🥈';
+      else medalla.textContent = '🥉';
+    }
+    if (mensaje) {
+      if (pct === 100) mensaje.textContent = 'Excelente: dominas todos los temas de la sesión.';
+      else if (pct >= 70) mensaje.textContent = 'Muy bien: tienes un buen dominio, repasa los casos fallados.';
+      else mensaje.textContent = 'Sigue practicando: revisa la presentación y vuelve a intentarlo.';
+    }
+  }
+
+  function reiniciarActividad() {
+    estadoActividad.casoActual = 0;
+    estadoActividad.faseActual = 1;
+    estadoActividad.intentosFase = 1;
+    estadoActividad.casosCompletados = [];
+    estadoActividad.puntaje = 0;
+    guardarProgreso();
+    var tarjeta = document.getElementById('tarjetaCaso');
+    var pantalla = document.getElementById('pantallaFinal');
+    if (tarjeta) tarjeta.style.display = 'block';
+    if (pantalla) pantalla.classList.remove('activa');
+    cargarCaso();
+  }
+
+  function iniciarActividad() {
+    cargarProgreso();
+    cargarCaso();
+    var btnVer2 = document.getElementById('btnVerificarFase2');
+    if (btnVer2) btnVer2.addEventListener('click', verificarFase2);
+    var btnPis2 = document.getElementById('btnPistaFase2');
+    if (btnPis2) btnPis2.addEventListener('click', pistaFase2);
+    var btnVer3 = document.getElementById('btnVerificarFase3');
+    if (btnVer3) btnVer3.addEventListener('click', verificarFase3);
+    var btnPis3 = document.getElementById('btnPistaFase3');
+    if (btnPis3) btnPis3.addEventListener('click', pistaFase3);
+    var btnAnt = document.getElementById('btnAnterior');
+    if (btnAnt) btnAnt.addEventListener('click', function() {
+      if (estadoActividad.casoActual > 0) {
+        estadoActividad.casoActual--;
+        cargarCaso();
+      }
+    });
+    var btnSig = document.getElementById('btnSiguiente');
+    if (btnSig) btnSig.addEventListener('click', function() {
+      if (estadoActividad.casoActual === casos.length - 1) {
+        mostrarPantallaFinal();
+      } else {
+        estadoActividad.casoActual++;
+        cargarCaso();
+      }
+    });
+    var btnRein = document.getElementById('btnReiniciarActividad');
+    if (btnRein) btnRein.addEventListener('click', reiniciarActividad);
+  }
+
+  // ===== EXAMEN =====
+  // ===== DISTRIBUCIÓN DE DIFICULTAD (interna, NO visible) =====
+  // Sesión: s02 — Interpretación gráfica, simetría, variación tabular, trayectorias
+  // Perfil: Estándar
+  // Fáciles:  3 | Medios: 4 | Difíciles: 3
+  // Tipos: 2 concepto + 2 cálculo + 1 interpretación + 1 modelación + 2 resolución + 1 error + 1 evaluación
+  // Referencia: docs/clasificacion-dificultad-pm.md
+  var rawQuestions = [
+    {
+      tipo: 'Concepto',
+      texto: 'En la ecuación de la recta $y = mx + b$, ¿qué representa el parámetro $m$?',
+      opciones: [
+        { texto: 'La pendiente (inclinación de la recta)', correcta: true, feedback: 'Correcto: $m$ es la pendiente, que indica cuánto sube o baja la recta por cada unidad en $x$.' },
+        { texto: 'La ordenada al origen', correcta: false, feedback: 'Incorrecto: la ordenada al origen es $b$, no $m$.' },
+        { texto: 'El corte con el eje $x$', correcta: false, feedback: 'Incorrecto: el corte con el eje $x$ se obtiene igualando $y = 0$.' }
+      ]
+    },
+    {
+      tipo: 'Concepto',
+      texto: '¿Qué tipo de simetría transforma el punto $(x, y)$ en $(-x, -y)$?',
+      opciones: [
+        { texto: 'Simetría respecto al origen', correcta: true, feedback: 'Correcto: al reflejar respecto al origen, ambas coordenadas cambian de signo.' },
+        { texto: 'Simetría respecto al eje $y$', correcta: false, feedback: 'Incorrecto: respecto al eje $y$ solo cambia $x$: $(x, y) \\to (-x, y)$.' },
+        { texto: 'Simetría respecto al eje $x$', correcta: false, feedback: 'Incorrecto: respecto al eje $x$ solo cambia $y$: $(x, y) \\to (x, -y)$.' }
+      ]
+    },
+    {
+      tipo: 'Cálculo',
+      texto: '¿Cuál es la pendiente de la recta que pasa por los puntos $(1, 4)$ y $(5, 16)$?',
+      opciones: [
+        { texto: 'm = 3', correcta: true, feedback: 'Correcto: $m = \\frac{16 - 4}{5 - 1} = \\frac{12}{4} = 3$.' },
+        { texto: 'm = 4', correcta: false, feedback: 'Incorrecto: $m = \\frac{12}{4} = 3$, no 4.' },
+        { texto: 'm = 12', correcta: false, feedback: 'Incorrecto: 12 es $\\Delta y$, no la pendiente. Falta dividir entre $\\Delta x$.' }
+      ]
+    },
+    {
+      tipo: 'Cálculo',
+      texto: '¿Cuál es el eje de simetría de la parábola $y = x^2 + 6x + 5$?',
+      opciones: [
+        { texto: 'x = -3', correcta: true, feedback: 'Correcto: $x = -\\frac{6}{2(1)} = -3$.' },
+        { texto: 'x = 3', correcta: false, feedback: 'Incorrecto: olvidaste el signo negativo. $x = -\\frac{6}{2} = -3$.' },
+        { texto: 'x = 6', correcta: false, feedback: 'Incorrecto: no dividiste entre $2a$.' }
+      ]
+    },
+    {
+      tipo: 'Interpretación',
+      texto: 'Una tabla muestra que cuando $x$ aumenta 2 unidades, $y$ aumenta 6 unidades de forma constante. ¿Qué puedes afirmar sobre la relación?',
+      opciones: [
+        { texto: 'Es lineal con pendiente $m = 3$', correcta: true, feedback: 'Correcto: $m = \\frac{\\Delta y}{\\Delta x} = \\frac{6}{2} = 3$. La variación constante indica linealidad.' },
+        { texto: 'Es lineal con pendiente $m = 6$', correcta: false, feedback: 'Incorrecto: la pendiente es $\\frac{6}{2} = 3$, no 6.' },
+        { texto: 'No es lineal porque los valores no son proporcionales', correcta: false, feedback: 'Incorrecto: la variación constante es precisamente la característica de la linealidad.' }
+      ]
+    },
+    {
+      tipo: 'Modelación',
+      texto: 'Un taxi cobra $20 por viaje más $5 por kilómetro recorrido. ¿Cuál es la ecuación que modela el costo $C$ en función de los kilómetros $k$?',
+      opciones: [
+        { texto: '$C = 5k + 20$', correcta: true, feedback: 'Correcto: la pendiente es $5$ (costo por km) y la ordenada al origen es $20$ (costo fijo).' },
+        { texto: '$C = 20k + 5$', correcta: false, feedback: 'Incorrecto: invertiste la pendiente y la ordenada al origen.' },
+        { texto: '$C = 25k$', correcta: false, feedback: 'Incorrecto: sumaste los valores en lugar de distinguir entre costo fijo y variable.' }
+      ]
+    },
+    {
+      tipo: 'Resolución',
+      texto: '¿Cuál es la distancia entre los puntos $(0, 0)$ y $(3, 4)$?',
+      opciones: [
+        { texto: '5 unidades', correcta: true, feedback: 'Correcto: $d = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$.' },
+        { texto: '7 unidades', correcta: false, feedback: 'Incorrecto: sumaste $3 + 4$, pero debes aplicar Pitágoras.' },
+        { texto: '25 unidades', correcta: false, feedback: 'Incorrecto: 25 es el valor dentro de la raíz, no la distancia.' }
+      ]
+    },
+    {
+      tipo: 'Resolución',
+      texto: 'Si reflejas el punto $(-4, 7)$ respecto al eje $x$, ¿cuál es el punto resultante?',
+      opciones: [
+        { texto: '(-4, -7)', correcta: true, feedback: 'Correcto: al reflejar respecto al eje $x$, $y$ cambia de signo: $(-4, 7) \\to (-4, -7)$.' },
+        { texto: '(4, 7)', correcta: false, feedback: 'Incorrecto: eso sería reflejar respecto al eje $y$.' },
+        { texto: '(4, -7)', correcta: false, feedback: 'Incorrecto: eso sería reflejar respecto al origen.' }
+      ]
+    },
+    {
+      tipo: 'Error',
+      texto: 'Un estudiante calcula la pendiente entre $(2, 3)$ y $(6, 11)$ como $m = \\frac{6 - 2}{11 - 3} = \\frac{4}{8} = 0.5$. ¿Cuál fue su error?',
+      opciones: [
+        { texto: 'Invirtió la fórmula: calculó $\\frac{\\Delta x}{\\Delta y}$ en lugar de $\\frac{\\Delta y}{\\Delta x}$', correcta: true, feedback: 'Correcto: la pendiente es $\\frac{\\Delta y}{\\Delta x} = \\frac{8}{4} = 2$, no al revés.' },
+        { texto: 'Restó mal las coordenadas', correcta: false, feedback: 'Incorrecto: las restas están bien hechas, el error está en la fórmula.' },
+        { texto: 'Usó los puntos equivocados', correcta: false, feedback: 'Incorrecto: usó los puntos correctos, solo invirtió la fórmula.' }
+      ]
+    },
+    {
+      tipo: 'Evaluación',
+      texto: '¿Cuál de las siguientes afirmaciones es correcta sobre la recta $y = -2x + 5$?',
+      opciones: [
+        { texto: 'Es decreciente y corta al eje $y$ en $(0, 5)$', correcta: true, feedback: 'Correcto: $m = -2 < 0$ (decreciente) y $b = 5$ (corte en $(0, 5)$).' },
+        { texto: 'Es creciente y corta al eje $y$ en $(5, 0)$', correcta: false, feedback: 'Incorrecto: $m = -2 < 0$ es decreciente, y el corte con el eje $y$ es $(0, 5)$, no $(5, 0)$.' },
+        { texto: 'Es decreciente y corta al eje $y$ en $(0, -2)$', correcta: false, feedback: 'Incorrecto: confundiste $m$ con $b$. La ordenada al origen es $5$, no $-2$.' }
+      ]
+    }
+  ];
+
+  var estadoExamen = {
+    preguntas: [],
+    actual: 0,
+    respondidas: 0,
+    correctas: 0,
+    answered: false
+  };
+
+  function iniciarExamen() {
+    estadoExamen.preguntas = shuffleArray(rawQuestions);
+    estadoExamen.actual = 0;
+    estadoExamen.respondidas = 0;
+    estadoExamen.correctas = 0;
+    cargarPregunta();
+  }
+
+  function cargarPregunta() {
+    var q = estadoExamen.preguntas[estadoExamen.actual];
+    var meta = document.getElementById('questionMeta');
+    var tipo = document.getElementById('questionTipo');
+    var txt = document.getElementById('questionText');
+    var lista = document.getElementById('optionsList');
+    var fb = document.getElementById('feedbackBox');
+    var bar = document.getElementById('progressBar');
+    if (meta) meta.textContent = 'Reactivo ' + (estadoExamen.actual + 1) + ' de ' + estadoExamen.preguntas.length;
+    if (tipo) tipo.textContent = q.tipo;
+    if (txt) txt.innerHTML = q.texto;
+    if (lista) {
+      lista.innerHTML = '';
+      q.opciones.forEach(function(op, i) {
+        var li = document.createElement('li');
+        li.className = 'option-item';
+        li.innerHTML = op.texto;
+        li.setAttribute('data-index', i);
+        li.setAttribute('role', 'button');
+        li.setAttribute('tabindex', '0');
+        li.addEventListener('click', function() { seleccionarOpcion(i); });
+        li.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            seleccionarOpcion(i);
+          }
+        });
+        lista.appendChild(li);
+      });
+    }
+    if (fb) { fb.className = 'feedback-box'; fb.innerHTML = ''; }
+    if (bar) {
+      var pct = ((estadoExamen.actual) / estadoExamen.preguntas.length) * 100;
+      bar.style.width = pct + '%';
+      bar.setAttribute('aria-valuenow', Math.round(pct));
+    }
+    estadoExamen.answered = false;
+    renderMath(document.getElementById('quizView'));
+  }
+
+  function seleccionarOpcion(idx) {
+    if (estadoExamen.answered) return;
+    estadoExamen.answered = true;
+    var q = estadoExamen.preguntas[estadoExamen.actual];
+    var opciones = document.querySelectorAll('#optionsList .option-item');
+    var fb = document.getElementById('feedbackBox');
+    opciones.forEach(function(op, i) {
+      op.classList.add('disabled');
+      if (q.opciones[i].correcta) op.classList.add('correcta');
+      if (i === idx && !q.opciones[i].correcta) op.classList.add('incorrecta');
+    });
+    estadoExamen.respondidas++;
+    if (q.opciones[idx].correcta) {
+      estadoExamen.correctas++;
+      if (fb) { fb.className = 'feedback-box correcto'; fb.innerHTML = 'Correcto: ' + q.opciones[idx].feedback; }
+    } else {
+      if (fb) { fb.className = 'feedback-box incorrecto'; fb.innerHTML = 'Incorrecto: ' + q.opciones[idx].feedback; }
+    }
+    renderMath(fb);
+  }
+
+  function siguienteReactivo() {
+    if (!estadoExamen.answered) return;
+    if (estadoExamen.actual < estadoExamen.preguntas.length - 1) {
+      estadoExamen.actual++;
+      cargarPregunta();
+    } else {
+      mostrarResultados();
+    }
+  }
+
+  function mostrarResultados() {
+    var quiz = document.getElementById('quizView');
+    var res = document.getElementById('resultsView');
+    var score = document.getElementById('finalScore');
+    var msg = document.getElementById('resultsMessage');
+    if (quiz) quiz.classList.remove('activa');
+    if (res) res.classList.add('activa');
+    if (score) score.textContent = estadoExamen.correctas + '/10';
+    if (msg) {
+      if (estadoExamen.correctas === 10) msg.textContent = 'Excelente: dominas todos los temas de la sesión.';
+      else if (estadoExamen.correctas >= 7) msg.textContent = 'Muy bien: tienes un buen dominio. Repasa los reactivos fallados.';
+      else msg.textContent = 'Sigue practicando: revisa la presentación y vuelve a intentarlo.';
+    }
+  }
+
+  function reiniciarExamen() {
+    var quiz = document.getElementById('quizView');
+    var res = document.getElementById('resultsView');
+    if (res) res.classList.remove('activa');
+    if (quiz) quiz.classList.add('activa');
+    iniciarExamen();
+  }
+
+  function iniciarExamenListeners() {
+    var btnNext = document.getElementById('btnNext');
+    if (btnNext) btnNext.addEventListener('click', siguienteReactivo);
+    var btnRestart = document.getElementById('btnRestart');
+    if (btnRestart) btnRestart.addEventListener('click', reiniciarExamen);
+  }
+
+  // ===== INICIALIZACIÓN =====
+  function iniciarRecurso() {
+    iniciarTabs();
+    iniciarCalculadora();
+    iniciarActividad();
+    iniciarExamen();
+    iniciarExamenListeners();
+    renderMath(document.body);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', iniciarRecurso);
+  } else {
+    iniciarRecurso();
+  }
+})();
+</script>
+</body>
+</html>

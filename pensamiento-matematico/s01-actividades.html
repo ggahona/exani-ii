@@ -1,0 +1,2740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="tipo-recurso" content="Actividades interactivas">
+  <title>Actividades: Razones, proporciones y porcentaje | EXANI-II</title>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    :root {
+      --exani-azul: #1B7FC4;
+      --exani-azul-marino: #003865;
+      --exani-verde: #8BC34A;
+      --exani-blanco: #FFFFFF;
+      --exani-gris-oscuro: #333333;
+      --exani-gris-claro: #E0E0E0;
+      --exani-fondo-secundario: #F5F5F5;
+      --exani-texto-secundario: #666666;
+      --exani-error: #D9534F;
+      --exani-advertencia: #FF6A14;
+      --radio-borde: 12px;
+      --sombra-suave: 0 4px 6px rgba(0, 56, 101, 0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Segoe UI", Roboto, -apple-system, sans-serif;
+      background: var(--exani-fondo-secundario);
+      color: var(--exani-gris-oscuro);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .contenedor {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--exani-blanco);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--sombra-suave);
+    }
+
+    header {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      padding: 22px 28px 24px;
+      text-align: center;
+    }
+
+    header .institucion {
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    header p { font-size: 0.98rem; opacity: 0.95; }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.7rem; }
+      header { padding: 18px 16px; }
+    }
+
+    .tabs {
+      display: flex;
+      background: var(--exani-fondo-secundario);
+      border-bottom: 2px solid var(--exani-gris-claro);
+    }
+
+    .tab {
+      flex: 1;
+      padding: 14px 10px;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--exani-texto-secundario);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab:hover { background: rgba(27, 127, 196, 0.06); color: var(--exani-azul); }
+    .tab.activo { color: var(--exani-azul); border-bottom-color: var(--exani-azul); background: var(--exani-blanco); }
+    .tab:focus { outline: 3px solid rgba(27, 127, 196, 0.3); outline-offset: -3px; }
+
+    .seccion { display: none; padding: 28px 32px; flex: 1; }
+    .seccion.activa { display: block; animation: fadeIn 0.3s ease; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 700px) {
+      .seccion { padding: 20px 16px; }
+      .tab { font-size: 0.82rem; padding: 12px 6px; }
+    }
+
+    .anticipa {
+      background: #F0F8FE;
+      border-left: 4px solid var(--exani-azul);
+      border-radius: var(--radio-borde);
+      padding: 14px 18px;
+      margin: 16px 0;
+    }
+
+    .anticipa h4 {
+      color: var(--exani-azul-marino);
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .anticipa p { font-size: 0.92rem; margin-bottom: 6px; }
+    .anticipa details { margin-top: 6px; font-size: 0.9rem; }
+
+    .anticipa summary {
+      cursor: pointer;
+      color: var(--exani-azul);
+      font-weight: 600;
+      padding: 4px 0;
+    }
+
+    .anticipa summary:hover { color: var(--exani-azul-marino); text-decoration: underline; }
+
+    .anticipa details p {
+      margin-top: 8px;
+      padding: 10px 12px;
+      background: var(--exani-blanco);
+      border-radius: 6px;
+    }
+
+    .layout-calculadora {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .layout-calculadora { grid-template-columns: 1fr; }
+    }
+
+    .panel-control {
+      background: var(--exani-fondo-secundario);
+      border-radius: var(--radio-borde);
+      padding: 20px;
+    }
+
+    .panel-control h2 {
+      font-size: 1.15rem;
+      color: var(--exani-azul-marino);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--exani-azul);
+    }
+
+    .input-group { margin-bottom: 12px; }
+
+    .input-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--exani-azul-marino);
+      margin-bottom: 4px;
+    }
+
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--exani-gris-claro);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: var(--exani-blanco);
+    }
+
+    .input-group input:focus,
+    .input-group select:focus {
+      outline: 3px solid rgba(27, 127, 196, 0.25);
+      border-color: var(--exani-azul);
+    }
+
+    .campos { display: none; }
+    .campos.activo { display: block; }
+
+    .btn-primario {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+      width: 100%;
+      margin-top: 6px;
+    }
+
+    .btn-primario:hover { background: var(--exani-azul-marino); }
+    .btn-primario:focus { outline: 3px solid rgba(27, 127, 196, 0.4); outline-offset: 2px; }
+
+    .btn-secundario {
+      background: var(--exani-blanco);
+      color: var(--exani-azul);
+      border: 1px solid var(--exani-azul);
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .btn-secundario:hover { background: var(--exani-azul); color: var(--exani-blanco); }
+
+    .ejemplos-lista {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .ejemplos-lista h3 {
+      font-size: 0.85rem;
+      color: var(--exani-azul-marino);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .ejemplo-btn {
+      background: var(--exani-blanco);
+      border: 1px solid var(--exani-gris-claro);
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 0.83rem;
+      cursor: pointer;
+      font-family: inherit;
+      color: var(--exani-azul-marino);
+      text-align: left;
+      transition: all 0.2s;
+    }
+
+    .ejemplo-btn:hover { background: var(--exani-fondo-secundario); border-color: var(--exani-azul); }
+    .ejemplo-btn:focus { outline: 3px solid rgba(27, 127, 196, 0.3); outline-offset: 1px; }
+
+    .panel-desarrollo {
+      background: var(--exani-blanco);
+      border: 1px solid var(--exani-gris-claro);
+      border-radius: var(--radio-borde);
+      padding: 20px;
+      min-height: 300px;
+    }
+
+    .panel-desarrollo h2 {
+      font-size: 1.15rem;
+      color: var(--exani-azul-marino);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--exani-verde);
+    }
+
+    .placeholder-inicial {
+      color: var(--exani-texto-secundario);
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.95rem;
+    }
+
+    .paso-resultado {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 10px 0;
+      font-size: 0.94rem;
+      border-bottom: 1px dashed var(--exani-gris-claro);
+    }
+
+    .paso-resultado:last-child { border-bottom: none; }
+
+    .num-paso {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+
+    .resultado-final {
+      margin-top: 14px;
+      padding: 14px 18px;
+      background: var(--exani-verde);
+      color: var(--exani-blanco);
+      border-radius: var(--radio-borde);
+      font-weight: 600;
+      text-align: center;
+      font-size: 0.98rem;
+    }
+
+    .resultado-final.error-final { background: var(--exani-error); }
+
+    .mensaje-advertencia,
+    .mensaje-error {
+      padding: 14px 18px;
+      border-radius: var(--radio-borde);
+      font-size: 0.94rem;
+    }
+
+    .mensaje-advertencia {
+      background: #FFF8EE;
+      color: #A05200;
+      border-left: 4px solid var(--exani-advertencia);
+    }
+
+    .mensaje-error {
+      background: #FDF3F2;
+      color: var(--exani-error);
+      border-left: 4px solid var(--exani-error);
+    }
+
+    .barra-progreso-general {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      font-size: 0.85rem;
+      color: var(--exani-texto-secundario);
+    }
+
+    .progreso-track {
+      flex: 1;
+      height: 8px;
+      background: var(--exani-gris-claro);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progreso-fill {
+      height: 100%;
+      background: var(--exani-verde);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .tarjeta-caso {
+      background: var(--exani-blanco);
+      border: 1px solid var(--exani-gris-claro);
+      border-radius: var(--radio-borde);
+      padding: 24px;
+      box-shadow: var(--sombra-suave);
+    }
+
+    .meta-caso {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .numero-caso {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--exani-texto-secundario);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .nivel-caso {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nivel-caso.basico { background: #E8F5E0; color: #4A7A2A; }
+    .nivel-caso.medio { background: #E1EFF9; color: var(--exani-azul-marino); }
+    .nivel-caso.alto { background: #FFF0E0; color: #A05200; }
+
+    .enunciado {
+      background: var(--exani-fondo-secundario);
+      border-left: 4px solid var(--exani-azul);
+      border-radius: var(--radio-borde);
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      font-size: 0.98rem;
+    }
+
+    .etiqueta-caso {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--exani-azul);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .expresion-caso {
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: var(--exani-blanco);
+      border-radius: 6px;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .expresion-caso:empty { display: none; }
+
+    .fase {
+      margin-bottom: 20px;
+      padding: 18px 20px;
+      background: var(--exani-blanco);
+      border: 1px solid var(--exani-gris-claro);
+      border-radius: var(--radio-borde);
+    }
+
+    .fase h3 {
+      font-size: 1.02rem;
+      color: var(--exani-azul-marino);
+      margin-bottom: 10px;
+    }
+
+    .fase p { font-size: 0.95rem; margin-bottom: 12px; }
+
+    .opciones-fase {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .opcion-fase {
+      padding: 12px 16px;
+      background: var(--exani-blanco);
+      border: 2px solid var(--exani-gris-claro);
+      border-radius: var(--radio-borde);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.94rem;
+      text-align: left;
+      color: var(--exani-gris-oscuro);
+      transition: all 0.2s;
+    }
+
+    .opcion-fase:hover:not(.disabled) { border-color: var(--exani-azul); background: #F0F8FE; }
+    .opcion-fase:focus { outline: 3px solid rgba(27, 127, 196, 0.3); outline-offset: 2px; }
+    .opcion-fase.disabled { cursor: not-allowed; opacity: 0.75; }
+    .opcion-fase.es-correcta { background: #E8F5E0; border-color: var(--exani-verde); }
+    .opcion-fase.es-incorrecta { background: #FDF3F2; border-color: var(--exani-error); }
+
+    .input-wrapper { margin-bottom: 10px; }
+
+    .input-wrapper label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--exani-azul-marino);
+      margin-bottom: 4px;
+    }
+
+    .input-wrapper input,
+    .input-wrapper select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--exani-gris-claro);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: var(--exani-blanco);
+    }
+
+    .input-wrapper input:focus,
+    .input-wrapper select:focus {
+      outline: 3px solid rgba(27, 127, 196, 0.25);
+      border-color: var(--exani-azul);
+    }
+
+    .btn-pista {
+      background: transparent;
+      color: var(--exani-azul);
+      border: 1px solid var(--exani-azul);
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      margin-right: 8px;
+    }
+
+    .btn-pista:hover { background: #F0F8FE; }
+
+    .btn-verificar {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .btn-verificar:hover { background: var(--exani-azul-marino); }
+    .btn-verificar:disabled { background: var(--exani-gris-claro); cursor: not-allowed; }
+
+    .feedback {
+      margin-top: 12px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.93rem;
+      display: none;
+    }
+
+    .feedback.visible { display: block; }
+    .feedback.exito { background: #E8F5E0; color: #2E5C1A; border-left: 4px solid var(--exani-verde); }
+    .feedback.error { background: #FDF3F2; color: var(--exani-error); border-left: 4px solid var(--exani-error); }
+    .feedback.pista { background: #FFF8EE; color: #A05200; border-left: 4px solid var(--exani-advertencia); }
+
+    .intentos {
+      font-size: 0.8rem;
+      color: var(--exani-texto-secundario);
+      margin-top: 8px;
+      text-align: right;
+    }
+
+    .navegacion-casos {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 24px;
+      gap: 12px;
+    }
+
+    .btn-navegacion {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .btn-navegacion:hover:not(:disabled) { background: var(--exani-azul-marino); }
+    .btn-navegacion:disabled { background: var(--exani-gris-claro); color: var(--exani-texto-secundario); cursor: not-allowed; }
+
+    .btn-navegacion.secundario {
+      background: var(--exani-blanco);
+      color: var(--exani-azul);
+      border: 1px solid var(--exani-azul);
+    }
+
+    .btn-navegacion.secundario:hover:not(:disabled) { background: var(--exani-azul); color: var(--exani-blanco); }
+
+    .indicador-caso {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--exani-azul-marino);
+    }
+
+    .pantalla-final {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+      background: var(--exani-fondo-secundario);
+      border-radius: var(--radio-borde);
+    }
+
+    .pantalla-final.visible { display: block; }
+
+    .medalla { font-size: 4rem; margin-bottom: 12px; }
+
+    .pantalla-final h2 { color: var(--exani-azul-marino); margin-bottom: 12px; }
+
+    .puntaje-final {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--exani-azul);
+      margin: 16px 0;
+    }
+
+    #mensajeFinal {
+      font-size: 1rem;
+      color: var(--exani-texto-secundario);
+      margin-bottom: 24px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .progress-container {
+      height: 8px;
+      background: var(--exani-gris-claro);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--exani-verde);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .quiz-view, .results-view { display: none; }
+    .quiz-view.visible, .results-view.visible { display: block; }
+
+    .question-meta {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--exani-texto-secundario);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .question-tipo {
+      display: inline-block;
+      background: var(--exani-fondo-secundario);
+      color: var(--exani-azul);
+      border: 1px solid var(--exani-gris-claro);
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+    }
+
+    .question-text {
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .options-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 18px;
+      background: var(--exani-blanco);
+      border: 2px solid var(--exani-gris-claro);
+      border-radius: var(--radio-borde);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.96rem;
+    }
+
+    .option-item:hover:not(.disabled) { border-color: var(--exani-azul); background: #F0F8FE; }
+    .option-item:focus { outline: 3px solid rgba(27, 127, 196, 0.3); outline-offset: 2px; }
+    .option-item.disabled { cursor: not-allowed; opacity: 0.85; }
+    .option-item.es-correcta { background: #E8F5E0; border-color: var(--exani-verde); }
+    .option-item.es-incorrecta { background: #FDF3F2; border-color: var(--exani-error); }
+
+    .option-letter {
+      font-weight: 700;
+      color: var(--exani-azul);
+      flex-shrink: 0;
+    }
+
+    .option-item.es-correcta .option-letter { color: var(--exani-verde); }
+    .option-item.es-incorrecta .option-letter { color: var(--exani-error); }
+
+    .feedback-box {
+      display: none;
+      margin-bottom: 18px;
+      padding: 14px 18px;
+      border-radius: var(--radio-borde);
+      font-size: 0.95rem;
+    }
+
+    .feedback-box.visible { display: block; }
+    .feedback-box.exito { background: #E8F5E0; color: #2E5C1A; border-left: 4px solid var(--exani-verde); }
+    .feedback-box.error { background: #FDF3F2; color: var(--exani-error); border-left: 4px solid var(--exani-error); }
+
+    .btn-next {
+      display: none;
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .btn-next.visible { display: block; }
+    .btn-next:hover { background: var(--exani-azul-marino); }
+
+    .results-view {
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .results-view h2 { color: var(--exani-azul-marino); margin-bottom: 20px; }
+
+    .score-display {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--exani-azul);
+      margin: 16px 0;
+    }
+
+    .results-message {
+      font-size: 1rem;
+      color: var(--exani-texto-secundario);
+      margin-bottom: 24px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-restart {
+      background: var(--exani-azul);
+      color: var(--exani-blanco);
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .btn-restart:hover { background: var(--exani-azul-marino); }
+
+    .footer-info {
+      background: var(--exani-azul-marino);
+      color: var(--exani-blanco);
+      padding: 14px 28px;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <header>
+      <div class="institucion">Pensamiento Matemático</div>
+      <h1>EXANI-II</h1>
+      <p>Actividades: Razones, proporciones y porcentaje</p>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab activo" data-tab="calculadora" role="tab" aria-selected="true" aria-controls="seccion-calculadora" id="tab-calculadora">
+        Calculadora
+      </button>
+      <button class="tab" data-tab="actividad" role="tab" aria-selected="false" aria-controls="seccion-actividad" id="tab-actividad">
+        Actividad
+      </button>
+      <button class="tab" data-tab="examen" role="tab" aria-selected="false" aria-controls="seccion-examen" id="tab-examen">
+        Examen
+      </button>
+    </nav>
+
+    <section id="seccion-calculadora" class="seccion activa" role="tabpanel" aria-labelledby="tab-calculadora">
+      <div class="layout-calculadora">
+        <div class="panel-control">
+          <h2>Calculadora</h2>
+
+          <div class="input-group">
+            <label for="tipo-operacion">Tipo de operación:</label>
+            <select id="tipo-operacion" autocomplete="off">
+              <option value="razon">Razón</option>
+              <option value="proporcion">Proporción</option>
+              <option value="regla-tres">Regla de tres</option>
+              <option value="porcentaje">Porcentaje</option>
+              <option value="incremento">Incremento porcentual</option>
+              <option value="decremento">Decremento porcentual</option>
+              <option value="descuento">Descuento</option>
+              <option value="cascada">Descuento en cascada</option>
+              <option value="aumento">Aumento</option>
+            </select>
+          </div>
+
+          <div id="campos-razon" class="campos activo">
+            <div class="input-group">
+              <label for="razon-tipo">Tipo de razón:</label>
+              <select id="razon-tipo" autocomplete="off">
+                <option value="geometrica">Geométrica (cociente)</option>
+                <option value="aritmetica">Aritmética (diferencia)</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="razon-a">Antecedente:</label>
+              <input type="text" id="razon-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+            <div class="input-group">
+              <label for="razon-b">Consecuente:</label>
+              <input type="text" id="razon-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">
+            </div>
+          </div>
+
+          <div id="campos-proporcion" class="campos">
+            <div class="input-group"><label for="prop-a">a:</label><input type="text" id="prop-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+            <div class="input-group"><label for="prop-b">b:</label><input type="text" id="prop-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+            <div class="input-group"><label for="prop-c">c:</label><input type="text" id="prop-c" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+            <div class="input-group"><label for="prop-d">d:</label><input type="text" id="prop-d" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+          </div>
+
+          <div id="campos-regla-tres" class="campos">
+            <div class="input-group">
+              <label for="rdt-tipo">Tipo:</label>
+              <select id="rdt-tipo" autocomplete="off">
+                <option value="directa">Directa</option>
+                <option value="inversa">Inversa</option>
+              </select>
+            </div>
+            <div class="input-group"><label for="rdt-a">a:</label><input type="text" id="rdt-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+            <div class="input-group"><label for="rdt-b">b:</label><input type="text" id="rdt-b" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+            <div class="input-group"><label for="rdt-c">c:</label><input type="text" id="rdt-c" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+          </div>
+
+          <div id="campos-porcentaje" class="campos">
+            <div class="input-group"><label for="pct-p">Porcentaje (%):</label><input type="text" id="pct-p" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+            <div class="input-group"><label for="pct-n">Cantidad:</label><input type="text" id="pct-n" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+          </div>
+
+          <div id="campos-incremento" class="campos">
+            <div class="input-group"><label for="inc-vi">Valor inicial:</label><input type="text" id="inc-vi" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+            <div class="input-group"><label for="inc-vf">Valor final:</label><input type="text" id="inc-vf" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+          </div>
+
+          <div id="campos-decremento" class="campos">
+            <div class="input-group"><label for="dec-vi">Valor inicial:</label><input type="text" id="dec-vi" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+            <div class="input-group"><label for="dec-vf">Valor final:</label><input type="text" id="dec-vf" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+          </div>
+
+          <div id="campos-descuento" class="campos">
+            <div class="input-group"><label for="desc-po">Precio original:</label><input type="text" id="desc-po" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+            <div class="input-group"><label for="desc-d">Descuento (%):</label><input type="text" id="desc-d" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+          </div>
+
+          <div id="campos-cascada" class="campos">
+            <div class="input-group"><label for="calc-dc-po">Precio original:</label><input type="text" id="calc-dc-po" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+            <div class="input-group"><label for="calc-dc-d1">Primer descuento (%):</label><input type="text" id="calc-dc-d1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+            <div class="input-group"><label for="calc-dc-d2">Segundo descuento (%):</label><input type="text" id="calc-dc-d2" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+          </div>
+
+          <div id="campos-aumento" class="campos">
+            <div class="input-group"><label for="aum-po">Precio original:</label><input type="text" id="aum-po" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+            <div class="input-group"><label for="aum-a">Aumento (%):</label><input type="text" id="aum-a" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value=""></div>
+          </div>
+
+          <button class="btn-primario" id="btn-calcular">Calcular</button>
+          <button class="btn-secundario" id="btn-reiniciar-calc">Reiniciar</button>
+
+          <div class="ejemplos-lista">
+            <h3>Ejemplos</h3>
+            <button class="ejemplo-btn" data-ejemplo="razon">Razón: 12 y 4</button>
+            <button class="ejemplo-btn" data-ejemplo="proporcion">Proporción: 4/6 = 8/12</button>
+            <button class="ejemplo-btn" data-ejemplo="regla-tres">Regla de tres: 4, 60, 10</button>
+            <button class="ejemplo-btn" data-ejemplo="porcentaje">Porcentaje: 25% de 80</button>
+            <button class="ejemplo-btn" data-ejemplo="incremento">Incremento: de 200 a 250</button>
+            <button class="ejemplo-btn" data-ejemplo="decremento">Decremento: de 500 a 400</button>
+            <button class="ejemplo-btn" data-ejemplo="descuento">Descuento: 500 al 20%</button>
+            <button class="ejemplo-btn" data-ejemplo="cascada">Cascada: 500 al 10% + 20%</button>
+            <button class="ejemplo-btn" data-ejemplo="aumento">Aumento: 200 al 15%</button>
+          </div>
+        </div>
+
+        <div class="panel-desarrollo">
+          <h2>Desarrollo paso a paso</h2>
+
+          <div class="anticipa">
+            <h4>Anticipa el resultado</h4>
+            <p>Antes de calcular, ¿qué tipo de operación crees que es más útil para resolver problemas de comparación entre dos cantidades?</p>
+            <details>
+              <summary>Ver respuesta</summary>
+              <p>Depende del contexto: la razón geométrica (cociente) es útil para comparar cuántas veces cabe una cantidad en otra; la razón aritmética (diferencia) sirve para saber cuánto le falta o le sobra a una cantidad respecto de otra.</p>
+            </details>
+          </div>
+
+          <div id="desarrollo-calc">
+            <div class="placeholder-inicial">
+              Selecciona el tipo de operación, ingresa los datos y presiona "Calcular".
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="seccion-actividad" class="seccion" role="tabpanel" aria-labelledby="tab-actividad">
+      <div class="barra-progreso-general">
+        <span id="progresoTexto">Caso 1 de 10</span>
+        <div class="progreso-track">
+          <div class="progreso-fill" id="progresoFill" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+        </div>
+        <span id="progresoPuntaje">0 / 10</span>
+      </div>
+
+      <div class="tarjeta-caso" id="tarjetaCaso">
+        <div class="meta-caso">
+          <div class="numero-caso" id="numeroCaso">Caso 1 de 10</div>
+          <div class="nivel-caso basico" id="nivelCaso">Básico</div>
+        </div>
+
+        <div class="enunciado">
+          <div class="etiqueta-caso" id="etiquetaCaso">Caso</div>
+          <div id="textoEnunciado">Cargando caso...</div>
+          <div class="expresion-caso" id="expresionCaso"></div>
+        </div>
+
+        <div class="fase" id="fase1">
+          <h3>Fase 1 — Diagnóstico</h3>
+          <div class="anticipa">
+            <h4>Anticipa el resultado</h4>
+            <p id="anticipaFase1"></p>
+            <details>
+              <summary>Ver respuesta</summary>
+              <p id="anticipaRespFase1"></p>
+            </details>
+          </div>
+          <p id="preguntaFase1"></p>
+          <div class="opciones-fase" id="opcionesFase1"></div>
+          <div class="feedback" id="feedbackFase1"></div>
+          <div class="intentos" id="intentosFase1">Intento 1 de 3</div>
+        </div>
+
+        <div class="fase" id="fase2" style="display:none;">
+          <h3>Fase 2 — Estrategia</h3>
+          <div class="anticipa">
+            <h4>Anticipa el resultado</h4>
+            <p id="anticipaFase2"></p>
+            <details>
+              <summary>Ver respuesta</summary>
+              <p id="anticipaRespFase2"></p>
+            </details>
+          </div>
+          <div id="inputsFase2"></div>
+          <div style="margin-top:12px;">
+            <button class="btn-pista" id="btnPistaFase2">Pista</button>
+            <button class="btn-verificar" id="btnVerificarFase2">Verificar</button>
+          </div>
+          <div class="feedback" id="feedbackFase2"></div>
+          <div class="intentos" id="intentosFase2">Intento 1 de 3</div>
+        </div>
+
+        <div class="fase" id="fase3" style="display:none;">
+          <h3>Fase 3 — Ejecución</h3>
+          <div class="anticipa">
+            <h4>Anticipa el resultado</h4>
+            <p id="anticipaFase3"></p>
+            <details>
+              <summary>Ver respuesta</summary>
+              <p id="anticipaRespFase3"></p>
+            </details>
+          </div>
+          <div id="inputsFase3"></div>
+          <div style="margin-top:12px;">
+            <button class="btn-pista" id="btnPistaFase3">Pista</button>
+            <button class="btn-verificar" id="btnVerificarFase3">Verificar</button>
+          </div>
+          <div class="feedback" id="feedbackFase3"></div>
+          <div class="intentos" id="intentosFase3">Intento 1 de 3</div>
+        </div>
+
+        <div class="fase" id="fase4" style="display:none;">
+          <h3>Error frecuente</h3>
+          <div class="anticipa">
+            <h4>Anticipa el resultado</h4>
+            <p id="anticipaFase4"></p>
+            <details>
+              <summary>Ver respuesta</summary>
+              <p id="anticipaRespFase4"></p>
+            </details>
+          </div>
+          <p id="preguntaFase4"></p>
+          <div class="opciones-fase" id="opcionesFase4"></div>
+          <div class="feedback" id="feedbackFase4"></div>
+          <div class="intentos" id="intentosFase4">Intento 1 de 3</div>
+        </div>
+
+        <div class="navegacion-casos">
+          <button class="btn-navegacion secundario" id="btnAnterior">Caso anterior</button>
+          <span class="indicador-caso" id="indicadorCaso">Caso 1 de 10</span>
+          <button class="btn-navegacion" id="btnSiguiente" disabled>Siguiente caso</button>
+        </div>
+      </div>
+
+      <div class="pantalla-final" id="pantallaFinal">
+        <div class="medalla" id="medallaFinal">🏅</div>
+        <h2>Práctica completada</h2>
+        <div class="puntaje-final" id="puntajeFinal">0 / 10</div>
+        <p id="mensajeFinal"></p>
+        <button class="btn-primario" id="btnReiniciarActividad" style="max-width:200px;margin:0 auto;">Reiniciar práctica</button>
+      </div>
+    </section>
+
+    <section id="seccion-examen" class="seccion" role="tabpanel" aria-labelledby="tab-examen">
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+      </div>
+
+      <div class="quiz-view visible" id="quizView">
+        <div class="question-meta" id="questionMeta">Reactivo 1 de 10</div>
+        <div class="question-tipo" id="questionTipo">Concepto</div>
+        <div class="question-text" id="questionText">Cargando pregunta...</div>
+        <ul class="options-list" id="optionsList" role="list"></ul>
+        <div class="feedback-box" id="feedbackBox" role="status" aria-live="polite"></div>
+        <button class="btn-next" id="btnNext">Siguiente Reactivo</button>
+      </div>
+
+      <div class="results-view" id="resultsView">
+        <h2>Evaluación Finalizada</h2>
+        <div class="score-display" id="finalScore">0/10</div>
+        <div class="results-message" id="resultsMessage"></div>
+        <button class="btn-restart" id="btnRestart">Intentar de nuevo</button>
+      </div>
+    </section>
+
+    <div class="footer-info">
+      <strong>Objetivo:</strong> Practicar razones, proporciones, regla de tres, porcentaje, incremento y decremento porcentual, descuento, descuento en cascada y aumento mediante calculadora, actividad guiada y examen de autoevaluación.
+    </div>
+  </div>
+
+  <script>
+    var estado = {
+      tipoOperacion: 'razon',
+      casoActual: 0,
+      faseActual: 1,
+      intentosFase: 1,
+      casosCompletados: [],
+      preguntas: [],
+      indiceActual: 0,
+      puntaje: 0,
+      respondido: false
+    };
+
+    var STORAGE_KEY = 'lab_exani_s01_resueltos';
+
+    function renderMath(element) {
+      if (!element) return;
+      function intentar() {
+        if (window.MathJax && window.MathJax.startup && window.MathJax.startup.promise) {
+          window.MathJax.startup.promise
+            .then(function () { return window.MathJax.typesetPromise([element]); })
+            .catch(function (err) { console.warn('MathJax typeset falló:', err); });
+        } else {
+          setTimeout(intentar, 100);
+        }
+      }
+      intentar();
+    }
+
+    function limpiarEntradaNumerica(texto) {
+      if (texto == null) return '';
+      return String(texto)
+        .replace(/^[^0-9\/.,+\-−]+/g, '')
+        .replace(/[^0-9\/.,+\-−]/g, '')
+        .trim();
+    }
+
+    function parsearNumero(texto) {
+      if (texto == null) return NaN;
+      texto = limpiarEntradaNumerica(texto);
+      if (texto === '') return NaN;
+      texto = texto.replace(',', '.').replace(/−/g, '-');
+      if (texto.indexOf('/') !== -1) {
+        var p = texto.split('/');
+        if (p.length !== 2) return NaN;
+        var n = parseFloat(p[0]), d = parseFloat(p[1]);
+        if (isNaN(n) || isNaN(d) || d === 0) return NaN;
+        return n / d;
+      }
+      var x = parseFloat(texto);
+      return isNaN(x) ? NaN : x;
+    }
+
+    function formatearNumero(n) {
+      if (Math.abs(n - Math.round(n)) < 1e-9) return Math.round(n).toString();
+      return parseFloat(n.toFixed(4)).toString();
+    }
+
+    function formatearResta(m, n, resultado) {
+      var mStr = formatearNumero(m);
+      var nStr = formatearNumero(n);
+      var rStr = formatearNumero(resultado);
+      if (n < 0) return '$' + mStr + ' - (' + nStr + ') = ' + rStr + '$';
+      return '$' + mStr + ' - ' + nStr + ' = ' + rStr + '$';
+    }
+
+    function algunCampoVacio(ids) {
+      for (var i = 0; i < ids.length; i++) {
+        var el = document.getElementById(ids[i]);
+        if (!el) continue;
+        if (limpiarEntradaNumerica(el.value) === '') return true;
+      }
+      return false;
+    }
+
+    function limpiarLatex(texto) {
+      return String(texto)
+        .replace(/\$[^$]*\$/g, '')
+        .replace(/\\[a-zA-Z]+/g, '')
+        .replace(/[{}]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function iniciarTabs() {
+      var tabs = document.querySelectorAll('.tab');
+      var secciones = document.querySelectorAll('.seccion');
+      if (!tabs.length) return;
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var target = this.getAttribute('data-tab');
+          tabs.forEach(function (t) {
+            t.classList.remove('activo');
+            t.setAttribute('aria-selected', 'false');
+          });
+          this.classList.add('activo');
+          this.setAttribute('aria-selected', 'true');
+
+          secciones.forEach(function (s) { s.classList.remove('activa'); });
+          var seccionActiva = document.getElementById('seccion-' + target);
+          if (seccionActiva) {
+            seccionActiva.classList.add('activa');
+            renderMath(seccionActiva);
+          }
+        });
+      });
+    }
+
+    function actualizarCamposCalculadora() {
+      var tipoEl = document.getElementById('tipo-operacion');
+      if (!tipoEl) return;
+      var tipo = tipoEl.value;
+      estado.tipoOperacion = tipo;
+
+      var campos = document.querySelectorAll('.campos');
+      campos.forEach(function (c) { c.classList.remove('activo'); });
+      var campoActivo = document.getElementById('campos-' + tipo);
+      if (campoActivo) campoActivo.classList.add('activo');
+    }
+
+    function mostrarDesarrollo(html) {
+      var el = document.getElementById('desarrollo-calc');
+      if (!el) return;
+      el.innerHTML = html;
+      renderMath(el);
+    }
+
+    function mostrarAdvertenciaCalc(mensaje) {
+      mostrarDesarrollo('<div class="mensaje-advertencia">' + mensaje + '</div>');
+    }
+
+    function mostrarErrorCalc(mensaje) {
+      mostrarDesarrollo('<div class="mensaje-error">' + mensaje + '</div>');
+    }
+
+    function calcularSegunTipo() {
+      var tipo = estado.tipoOperacion;
+      if (tipo === 'razon') return calcularRazon();
+      if (tipo === 'proporcion') return calcularProporcion();
+      if (tipo === 'regla-tres') return calcularReglaTres();
+      if (tipo === 'porcentaje') return calcularPorcentaje();
+      if (tipo === 'incremento') return calcularIncremento();
+      if (tipo === 'decremento') return calcularDecremento();
+      if (tipo === 'descuento') return calcularDescuento();
+      if (tipo === 'cascada') return calcularCascada();
+      if (tipo === 'aumento') return calcularAumento();
+    }
+
+    function calcularRazon() {
+      if (algunCampoVacio(['razon-a', 'razon-b'])) return mostrarAdvertenciaCalc('Completa todos los campos.');
+      var tipoEl = document.getElementById('razon-tipo');
+      var tipo = tipoEl ? tipoEl.value : 'geometrica';
+      var a = parsearNumero(document.getElementById('razon-a').value);
+      var b = parsearNumero(document.getElementById('razon-b').value);
+      if (isNaN(a) || isNaN(b)) return mostrarErrorCalc('Ingresa valores numéricos válidos.');
+
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Datos: antecedente $= ' + formatearNumero(a) + '$, consecuente $= ' + formatearNumero(b) + '$.</span></div>';
+
+      if (tipo === 'geometrica') {
+        if (b === 0) return mostrarErrorCalc('El consecuente no puede ser cero.');
+        var r = a / b;
+        html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Razón geométrica: $\\frac{' + formatearNumero(a) + '}{' + formatearNumero(b) + '}$.</span></div>';
+        html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Resultado: $\\frac{' + formatearNumero(a) + '}{' + formatearNumero(b) + '} = ' + formatearNumero(r) + '$.</span></div>';
+        html += '<div class="resultado-final">Razón = ' + formatearNumero(r) + '</div>';
+      } else {
+        var d = a - b;
+        html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Razón aritmética: ' + formatearResta(a, b, d) + '.</span></div>';
+        html += '<div class="resultado-final">Razón = ' + formatearNumero(d) + '</div>';
+      }
+      mostrarDesarrollo(html);
+    }
+
+    function calcularProporcion() {
+      if (algunCampoVacio(['prop-a', 'prop-b', 'prop-c', 'prop-d'])) return mostrarAdvertenciaCalc('Completa los cuatro campos.');
+      var a = parsearNumero(document.getElementById('prop-a').value);
+      var b = parsearNumero(document.getElementById('prop-b').value);
+      var c = parsearNumero(document.getElementById('prop-c').value);
+      var d = parsearNumero(document.getElementById('prop-d').value);
+      if (isNaN(a) || isNaN(b) || isNaN(c) || isNaN(d)) return mostrarErrorCalc('Ingresa valores numéricos válidos.');
+      if (b === 0 || d === 0) return mostrarErrorCalc('Los denominadores no pueden ser cero.');
+
+      var pE = a * d, pM = b * c;
+      var prop = Math.abs(pE - pM) < 1e-9;
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>$\\frac{' + formatearNumero(a) + '}{' + formatearNumero(b) + '} = \\frac{' + formatearNumero(c) + '}{' + formatearNumero(d) + '}$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Producto de extremos: $' + formatearNumero(a) + ' \\cdot ' + formatearNumero(d) + ' = ' + formatearNumero(pE) + '$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span>Producto de medios: $' + formatearNumero(b) + ' \\cdot ' + formatearNumero(c) + ' = ' + formatearNumero(pM) + '$.</span></div>';
+      if (prop) {
+        html += '<div class="resultado-final">Son proporcionales: ' + formatearNumero(pE) + ' = ' + formatearNumero(pM) + '</div>';
+      } else {
+        html += '<div class="resultado-final error-final">No son proporcionales: ' + formatearNumero(pE) + ' ≠ ' + formatearNumero(pM) + '</div>';
+      }
+      mostrarDesarrollo(html);
+    }
+
+    function calcularReglaTres() {
+      if (algunCampoVacio(['rdt-a', 'rdt-b', 'rdt-c'])) return mostrarAdvertenciaCalc('Completa los tres campos.');
+      var tipoEl = document.getElementById('rdt-tipo');
+      var tipo = tipoEl ? tipoEl.value : 'directa';
+      var a = parsearNumero(document.getElementById('rdt-a').value);
+      var b = parsearNumero(document.getElementById('rdt-b').value);
+      var c = parsearNumero(document.getElementById('rdt-c').value);
+      if (isNaN(a) || isNaN(b) || isNaN(c)) return mostrarErrorCalc('Ingresa valores numéricos válidos.');
+
+      var html = '';
+      if (tipo === 'directa') {
+        if (a === 0) return mostrarErrorCalc('El valor de a no puede ser cero.');
+        var x = (b * c) / a;
+        html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Regla de tres directa: $\\frac{' + formatearNumero(a) + '}{' + formatearNumero(b) + '} = \\frac{' + formatearNumero(c) + '}{x}$.</span></div>';
+        html += '<div class="paso-resultado"><span class="num-paso">2</span><span>Producto cruzado: $' + formatearNumero(a) + ' \\cdot x = ' + formatearNumero(b * c) + '$.</span></div>';
+        html += '<div class="paso-resultado"><span class="num-paso">3</span><span>$x = \\frac{' + formatearNumero(b * c) + '}{' + formatearNumero(a) + '} = ' + formatearNumero(x) + '$.</span></div>';
+        html += '<div class="resultado-final">$x = ' + formatearNumero(x) + '$</div>';
+      } else {
+        if (c === 0) return mostrarErrorCalc('El valor de c no puede ser cero.');
+        var x2 = (a * b) / c;
+        html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Regla de tres inversa: $' + formatearNumero(a) + ' \\cdot ' + formatearNumero(b) + ' = ' + formatearNumero(c) + ' \\cdot x$.</span></div>';
+        html += '<div class="paso-resultado"><span class="num-paso">2</span><span>$' + formatearNumero(a * b) + ' = ' + formatearNumero(c) + ' \\cdot x$.</span></div>';
+        html += '<div class="paso-resultado"><span class="num-paso">3</span><span>$x = \\frac{' + formatearNumero(a * b) + '}{' + formatearNumero(c) + '} = ' + formatearNumero(x2) + '$.</span></div>';
+        html += '<div class="resultado-final">$x = ' + formatearNumero(x2) + '$</div>';
+      }
+      mostrarDesarrollo(html);
+    }
+
+    function calcularPorcentaje() {
+      if (algunCampoVacio(['pct-p', 'pct-n'])) return mostrarAdvertenciaCalc('Completa ambos campos.');
+      var p = parsearNumero(document.getElementById('pct-p').value);
+      var n = parsearNumero(document.getElementById('pct-n').value);
+      if (isNaN(p) || isNaN(n)) return mostrarErrorCalc('Ingresa valores numéricos válidos.');
+      var r = (p * n) / 100;
+      var pDecimal = p / 100;
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span><strong>Método 1:</strong> $\\frac{p \\cdot n}{100} = \\frac{' + formatearNumero(p) + ' \\cdot ' + formatearNumero(n) + '}{100} = ' + formatearNumero(r) + '$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span><strong>Método 2 (alternativo):</strong> $' + formatearNumero(pDecimal) + ' \\times ' + formatearNumero(n) + ' = ' + formatearNumero(r) + '$.</span></div>';
+      html += '<div class="resultado-final">' + formatearNumero(p) + '% de ' + formatearNumero(n) + ' = ' + formatearNumero(r) + '</div>';
+      mostrarDesarrollo(html);
+    }
+
+    function calcularIncremento() {
+      if (algunCampoVacio(['inc-vi', 'inc-vf'])) return mostrarAdvertenciaCalc('Completa ambos campos.');
+      var vi = parsearNumero(document.getElementById('inc-vi').value);
+      var vf = parsearNumero(document.getElementById('inc-vf').value);
+      if (isNaN(vi) || isNaN(vf)) return mostrarErrorCalc('Ingresa valores numéricos válidos.');
+      if (vi === 0) return mostrarErrorCalc('El valor inicial no puede ser cero.');
+      if (vf <= vi) return mostrarErrorCalc('El valor final debe ser mayor que el inicial para un incremento.');
+
+      var dif = vf - vi;
+      var inc = (dif / vi) * 100;
+      var factor = vf / vi;
+
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Datos: $V_i = ' + formatearNumero(vi) + '$, $V_f = ' + formatearNumero(vf) + '$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span><strong>Método 1:</strong> $\\frac{V_f - V_i}{V_i} \\times 100 = \\frac{' + formatearNumero(dif) + '}{' + formatearNumero(vi) + '} \\times 100 = ' + formatearNumero(inc) + '\\%$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span><strong>Método 2 (alternativo):</strong> $(' + formatearNumero(factor) + ' - 1) \\times 100 = ' + formatearNumero(inc) + '\\%$.</span></div>';
+      html += '<div class="resultado-final">Incremento = ' + formatearNumero(inc) + '%</div>';
+      mostrarDesarrollo(html);
+    }
+
+    function calcularDecremento() {
+      if (algunCampoVacio(['dec-vi', 'dec-vf'])) return mostrarAdvertenciaCalc('Completa ambos campos.');
+      var vi = parsearNumero(document.getElementById('dec-vi').value);
+      var vf = parsearNumero(document.getElementById('dec-vf').value);
+      if (isNaN(vi) || isNaN(vf)) return mostrarErrorCalc('Ingresa valores numéricos válidos.');
+      if (vi === 0) return mostrarErrorCalc('El valor inicial no puede ser cero.');
+      if (vf >= vi) return mostrarErrorCalc('El valor final debe ser menor que el inicial para un decremento.');
+
+      var dif = vi - vf;
+      var dec = (dif / vi) * 100;
+      var factor = vf / vi;
+
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Datos: $V_i = ' + formatearNumero(vi) + '$, $V_f = ' + formatearNumero(vf) + '$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span><strong>Método 1:</strong> $\\frac{V_i - V_f}{V_i} \\times 100 = \\frac{' + formatearNumero(dif) + '}{' + formatearNumero(vi) + '} \\times 100 = ' + formatearNumero(dec) + '\\%$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span><strong>Método 2 (alternativo):</strong> $(1 - ' + formatearNumero(factor) + ') \\times 100 = ' + formatearNumero(dec) + '\\%$.</span></div>';
+      html += '<div class="resultado-final">Decremento = ' + formatearNumero(dec) + '%</div>';
+      mostrarDesarrollo(html);
+    }
+
+    function calcularDescuento() {
+      if (algunCampoVacio(['desc-po', 'desc-d'])) return mostrarAdvertenciaCalc('Completa ambos campos.');
+      var po = parsearNumero(document.getElementById('desc-po').value);
+      var d = parsearNumero(document.getElementById('desc-d').value);
+      if (isNaN(po) || isNaN(d)) return mostrarErrorCalc('Ingresa valores numéricos válidos.');
+      if (d < 0 || d > 100) return mostrarErrorCalc('El descuento debe estar entre 0 y 100.');
+      var monto = po * (d / 100);
+      var pf = po - monto;
+      var factor = (100 - d) / 100;
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Precio original: ' + formatearNumero(po) + ' pesos, descuento: ' + formatearNumero(d) + '%.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span><strong>Método 1:</strong> monto del descuento: $' + formatearNumero(po) + ' \\cdot \\frac{' + formatearNumero(d) + '}{100} = ' + formatearNumero(monto) + '$. Precio final: ' + formatearResta(po, monto, pf) + '.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span><strong>Método 2 (alternativo):</strong> $' + formatearNumero(po) + ' \\times ' + formatearNumero(factor) + ' = ' + formatearNumero(pf) + '$.</span></div>';
+      html += '<div class="resultado-final">Precio final: ' + formatearNumero(pf) + ' pesos (ahorro: ' + formatearNumero(monto) + ' pesos)</div>';
+      mostrarDesarrollo(html);
+    }
+
+    function calcularCascada() {
+      if (algunCampoVacio(['calc-dc-po', 'calc-dc-d1', 'calc-dc-d2'])) return mostrarAdvertenciaCalc('Completa los tres campos.');
+      var po = parsearNumero(document.getElementById('calc-dc-po').value);
+      var d1 = parsearNumero(document.getElementById('calc-dc-d1').value);
+      var d2 = parsearNumero(document.getElementById('calc-dc-d2').value);
+      if (isNaN(po) || isNaN(d1) || isNaN(d2)) return mostrarErrorCalc('Ingresa valores numéricos válidos.');
+      if (d1 < 0 || d1 > 100 || d2 < 0 || d2 > 100) return mostrarErrorCalc('Cada descuento debe estar entre 0 y 100.');
+
+      var factor1 = (100 - d1) / 100;
+      var factor2 = (100 - d2) / 100;
+      var p1 = po * factor1;
+      var pf = p1 * factor2;
+      var descTotal = po - pf;
+      var pctEfectivo = (descTotal / po) * 100;
+
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Precio original: ' + formatearNumero(po) + ' pesos.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span><strong>Primer descuento (' + formatearNumero(d1) + '%):</strong> $' + formatearNumero(po) + ' \\times ' + formatearNumero(factor1) + ' = ' + formatearNumero(p1) + '$ pesos.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span><strong>Segundo descuento (' + formatearNumero(d2) + '%):</strong> $' + formatearNumero(p1) + ' \\times ' + formatearNumero(factor2) + ' = ' + formatearNumero(pf) + '$ pesos.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">4</span><span><strong>Método directo:</strong> $' + formatearNumero(po) + ' \\times ' + formatearNumero(factor1) + ' \\times ' + formatearNumero(factor2) + ' = ' + formatearNumero(pf) + '$ pesos.</span></div>';
+      html += '<div class="resultado-final">Precio final: ' + formatearNumero(pf) + ' pesos | Descuento efectivo: ' + formatearNumero(pctEfectivo) + '% (ahorro: ' + formatearNumero(descTotal) + ' pesos)</div>';
+      mostrarDesarrollo(html);
+    }
+
+    function calcularAumento() {
+      if (algunCampoVacio(['aum-po', 'aum-a'])) return mostrarAdvertenciaCalc('Completa ambos campos.');
+      var po = parsearNumero(document.getElementById('aum-po').value);
+      var a = parsearNumero(document.getElementById('aum-a').value);
+      if (isNaN(po) || isNaN(a)) return mostrarErrorCalc('Ingresa valores numéricos válidos.');
+      if (a < 0) return mostrarErrorCalc('El aumento no puede ser negativo.');
+      var monto = po * (a / 100);
+      var pf = po + monto;
+      var factor = (100 + a) / 100;
+      var html = '';
+      html += '<div class="paso-resultado"><span class="num-paso">1</span><span>Precio original: ' + formatearNumero(po) + ' pesos, aumento: ' + formatearNumero(a) + '%.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">2</span><span><strong>Método 1:</strong> monto del aumento: $' + formatearNumero(po) + ' \\cdot \\frac{' + formatearNumero(a) + '}{100} = ' + formatearNumero(monto) + '$. Precio final: $' + formatearNumero(po) + ' + ' + formatearNumero(monto) + ' = ' + formatearNumero(pf) + '$.</span></div>';
+      html += '<div class="paso-resultado"><span class="num-paso">3</span><span><strong>Método 2 (alternativo):</strong> $' + formatearNumero(po) + ' \\times ' + formatearNumero(factor) + ' = ' + formatearNumero(pf) + '$.</span></div>';
+      html += '<div class="resultado-final">Precio final: ' + formatearNumero(pf) + ' pesos (aumento: ' + formatearNumero(monto) + ' pesos)</div>';
+      mostrarDesarrollo(html);
+    }
+
+    function limpiarInputsCalculadora() {
+      var ids = ['razon-a', 'razon-b', 'prop-a', 'prop-b', 'prop-c', 'prop-d',
+                 'rdt-a', 'rdt-b', 'rdt-c', 'pct-p', 'pct-n',
+                 'inc-vi', 'inc-vf', 'dec-vi', 'dec-vf',
+                 'desc-po', 'desc-d', 'calc-dc-po', 'calc-dc-d1', 'calc-dc-d2',
+                 'aum-po', 'aum-a'];
+      ids.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+      mostrarDesarrollo('<div class="placeholder-inicial">Selecciona el tipo de operación, ingresa los datos y presiona "Calcular".</div>');
+    }
+
+    function cargarEjemplo(tipo) {
+      limpiarInputsCalculadora();
+      var sel = document.getElementById('tipo-operacion');
+      if (sel) sel.value = tipo;
+      actualizarCamposCalculadora();
+
+      function setVal(id, val) {
+        var el = document.getElementById(id);
+        if (el) el.value = val;
+      }
+
+      if (tipo === 'razon') {
+        setVal('razon-a', '12'); setVal('razon-b', '4');
+        var rt = document.getElementById('razon-tipo');
+        if (rt) rt.value = 'geometrica';
+      } else if (tipo === 'proporcion') {
+        setVal('prop-a', '4'); setVal('prop-b', '6'); setVal('prop-c', '8'); setVal('prop-d', '12');
+      } else if (tipo === 'regla-tres') {
+        setVal('rdt-a', '4'); setVal('rdt-b', '60'); setVal('rdt-c', '10');
+        var rdt = document.getElementById('rdt-tipo');
+        if (rdt) rdt.value = 'directa';
+      } else if (tipo === 'porcentaje') {
+        setVal('pct-p', '25'); setVal('pct-n', '80');
+      } else if (tipo === 'incremento') {
+        setVal('inc-vi', '200'); setVal('inc-vf', '250');
+      } else if (tipo === 'decremento') {
+        setVal('dec-vi', '500'); setVal('dec-vf', '400');
+      } else if (tipo === 'descuento') {
+        setVal('desc-po', '500'); setVal('desc-d', '20');
+      } else if (tipo === 'cascada') {
+        setVal('calc-dc-po', '500'); setVal('calc-dc-d1', '10'); setVal('calc-dc-d2', '20');
+      } else if (tipo === 'aumento') {
+        setVal('aum-po', '200'); setVal('aum-a', '15');
+      }
+      calcularSegunTipo();
+    }
+
+    function iniciarCalculadora() {
+      var selTipo = document.getElementById('tipo-operacion');
+      if (selTipo) selTipo.addEventListener('change', actualizarCamposCalculadora);
+
+      var btnCalcular = document.getElementById('btn-calcular');
+      if (btnCalcular) btnCalcular.addEventListener('click', calcularSegunTipo);
+
+      var btnReiniciar = document.getElementById('btn-reiniciar-calc');
+      if (btnReiniciar) btnReiniciar.addEventListener('click', limpiarInputsCalculadora);
+
+      var ejemplos = document.querySelectorAll('.ejemplo-btn');
+      ejemplos.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var tipo = this.getAttribute('data-ejemplo');
+          if (tipo) cargarEjemplo(tipo);
+        });
+      });
+    }
+
+    var casos = [
+      {
+        nivel: 'Básico',
+        tema: 'Razón geométrica',
+        enunciado: 'En una caja hay 12 lápices rojos y 4 lápices azules. ¿Cuál es la razón geométrica de lápices rojos a lápices azules?',
+        expresion: '',
+        fase1: {
+          anticipa: '¿Crees que la razón será mayor o menor que 1? ¿Por qué?',
+          anticipaResp: 'Será mayor que 1, porque hay más lápices rojos (12) que azules (4). El resultado es 12 ÷ 4 = 3, que es mayor que 1.',
+          pregunta: '¿Qué tipo de razón se debe calcular?',
+          opciones: [
+            { text: 'Razón geométrica', correct: true },
+            { text: 'Razón aritmética', correct: false },
+            { text: 'Proporción', correct: false }
+          ],
+          feedbackOK: 'Correcto. La razón geométrica compara dos cantidades por división.',
+          feedbackError: 'Es una razón geométrica: compara 12 y 4 mediante un cociente.'
+        },
+        fase2: {
+          anticipa: '¿Qué valores esperas encontrar en el antecedente y el consecuente?',
+          anticipaResp: 'El antecedente es 12 (lápices rojos) y el consecuente es 4 (lápices azules).',
+          inputs: [
+            { id: 'c1f2a', label: 'Antecedente (rojos):', correcto: 12 },
+            { id: 'c1f2b', label: 'Consecuente (azules):', correcto: 4 }
+          ],
+          pista: 'El antecedente es el primer término de la razón.',
+          feedbackOK: 'Correcto: 12 y 4.',
+          feedbackError: 'Los valores son 12 (rojos) y 4 (azules).'
+        },
+        fase3: {
+          anticipa: '¿El resultado será mayor o menor que 10?',
+          anticipaResp: 'Será mucho menor que 10, porque 12 ÷ 4 = 3.',
+          opciones: [
+            { text: '3', correct: true },
+            { text: '8', correct: false },
+            { text: '16', correct: false }
+          ],
+          pista: 'Divide el antecedente entre el consecuente.',
+          feedbackOK: 'Correcto: 12 ÷ 4 = 3.',
+          feedbackError: 'La razón es 12 ÷ 4 = 3.'
+        },
+        fase4: {
+          anticipa: '¿Cuál crees que es el error más común al calcular una razón?',
+          anticipaResp: 'El error más común es invertir los términos: poner 4/12 en lugar de 12/4.',
+          pregunta: '¿Cuál es el error más común al calcular esta razón?',
+          opciones: [
+            { text: 'Invertir los términos: 4/12', correct: true },
+            { text: 'Sumar en lugar de dividir', correct: false },
+            { text: 'Multiplicar en lugar de dividir', correct: false }
+          ],
+          feedbackOK: 'Correcto. El error común es invertir el orden: 4/12 en lugar de 12/4.',
+          feedbackError: 'El error común es invertir los términos: 4/12 en lugar de 12/4.'
+        }
+      },
+      {
+        nivel: 'Básico',
+        tema: 'Proporción directa',
+        enunciado: 'Verifica si $\\frac{3}{5} = \\frac{9}{15}$ es una proporción.',
+        expresion: '',
+        fase1: {
+          anticipa: '¿Crees que las fracciones son equivalentes? ¿Por qué?',
+          anticipaResp: 'Sí, porque 3 × 5 = 15 y 9 ÷ 3 = 3, así que ambas fracciones representan lo mismo (0.6).',
+          pregunta: '¿Qué propiedad permite verificar una proporción?',
+          opciones: [
+            { text: 'Producto de extremos = producto de medios', correct: true },
+            { text: 'Suma de extremos = suma de medios', correct: false },
+            { text: 'Resta de extremos = resta de medios', correct: false }
+          ],
+          feedbackOK: 'Correcto. La propiedad fundamental de las proporciones.',
+          feedbackError: 'La propiedad correcta es: extremos × extremos = medios × medios.'
+        },
+        fase2: {
+          anticipa: '¿Qué valor esperas obtener en cada producto?',
+          anticipaResp: 'Ambos productos deben dar 45 si es una proporción: 3×15 = 45 y 5×9 = 45.',
+          inputs: [
+            { id: 'c2f2a', label: 'Producto de extremos (3×15):', correcto: 45 },
+            { id: 'c2f2b', label: 'Producto de medios (5×9):', correcto: 45 }
+          ],
+          pista: 'Multiplica el numerador de la primera por el denominador de la segunda.',
+          feedbackOK: 'Correcto: 45 y 45.',
+          feedbackError: 'Los productos son: 3×15 = 45 y 5×9 = 45.'
+        },
+        fase3: {
+          anticipa: '¿Los productos serán iguales o diferentes?',
+          anticipaResp: 'Serán iguales (45 = 45), por lo que sí es una proporción.',
+          opciones: [
+            { text: 'Sí es proporción', correct: true },
+            { text: 'No es proporción', correct: false },
+            { text: 'Falta información', correct: false }
+          ],
+          pista: 'Compara los dos productos.',
+          feedbackOK: 'Correcto: 45 = 45, sí es proporción.',
+          feedbackError: 'Como 45 = 45, sí es proporción.'
+        },
+        fase4: {
+          anticipa: '¿Cuál crees que es el error más común al verificar una proporción?',
+          anticipaResp: 'Cruzar mal los términos: multiplicar extremos con medios en lugar de extremos con extremos.',
+          pregunta: '¿Qué error es más común al verificar una proporción?',
+          opciones: [
+            { text: 'Cruzar mal los términos (extremos con medios)', correct: true },
+            { text: 'Sumar en lugar de multiplicar', correct: false },
+            { text: 'Dividir en lugar de multiplicar', correct: false }
+          ],
+          feedbackOK: 'Correcto. Cruzar mal los términos es el error más común.',
+          feedbackError: 'El error más común es cruzar mal: extremos con extremos, medios con medios.'
+        }
+      },
+      {
+        nivel: 'Básico',
+        tema: 'Porcentaje básico',
+        enunciado: '¿Cuánto es el 40% de 250?',
+        expresion: '',
+        fase1: {
+          anticipa: '¿Crees que el resultado será mayor o menor que 100?',
+          anticipaResp: 'Será 100 exactamente, porque 40% de 250 = 0.40 × 250 = 100.',
+          pregunta: '¿Qué operación resuelve el problema?',
+          opciones: [
+            { text: 'Multiplicar 250 por 0.40', correct: true },
+            { text: 'Dividir 250 entre 0.40', correct: false },
+            { text: 'Sumar 250 más 0.40', correct: false }
+          ],
+          feedbackOK: 'Correcto. El porcentaje se convierte a decimal y se multiplica.',
+          feedbackError: 'El porcentaje se convierte a decimal: 40% = 0.40, y se multiplica.'
+        },
+        fase2: {
+          anticipa: '¿Qué valor decimal esperas obtener al convertir 40%?',
+          anticipaResp: '40 ÷ 100 = 0.40. Este es el factor por el que se multiplica la cantidad.',
+          inputs: [
+            { id: 'c3f2a', label: '40% como decimal:', correcto: 0.4 }
+          ],
+          pista: 'Divide el porcentaje entre 100.',
+          feedbackOK: 'Correcto: 0.40.',
+          feedbackError: '40 ÷ 100 = 0.40.'
+        },
+        fase3: {
+          anticipa: '¿Cuál será el resultado final?',
+          anticipaResp: '250 × 0.40 = 100.',
+          opciones: [
+            { text: '100', correct: true },
+            { text: '80', correct: false },
+            { text: '120', correct: false }
+          ],
+          pista: 'Multiplica 250 por 0.40.',
+          feedbackOK: 'Correcto: 250 × 0.40 = 100.',
+          feedbackError: '250 × 0.40 = 100.'
+        },
+        fase4: {
+          anticipa: '¿Cuál crees que es el error más común al calcular porcentajes?',
+          anticipaResp: 'Olvidar dividir el porcentaje entre 100 antes de multiplicar.',
+          pregunta: '¿Cuál es el error más común al calcular porcentajes?',
+          opciones: [
+            { text: 'No convertir el porcentaje a decimal', correct: true },
+            { text: 'Sumar en lugar de multiplicar', correct: false },
+            { text: 'Dividir el porcentaje entre 10', correct: false }
+          ],
+          feedbackOK: 'Correcto. Olvidar dividir entre 100 es el error más común.',
+          feedbackError: 'El error es no convertir 40% a 0.40 antes de multiplicar.'
+        }
+      },
+      {
+        nivel: 'Medio',
+        tema: 'Regla de tres directa',
+        enunciado: 'Si 4 cuadernos cuestan 60 pesos, ¿cuánto cuestan 10 cuadernos?',
+        expresion: '',
+        fase1: {
+          anticipa: '¿Crees que 10 cuadernos costarán más o menos que el doble de 60 pesos?',
+          anticipaResp: 'Costarán más que el doble: si 4 cuestan 60 pesos, 8 costarían 120 pesos, y 10 costarían 150 pesos.',
+          pregunta: '¿Qué tipo de regla de tres aplica?',
+          opciones: [
+            { text: 'Directa (más cuadernos, más costo)', correct: true },
+            { text: 'Inversa (más cuadernos, menos costo)', correct: false },
+            { text: 'No aplica regla de tres', correct: false }
+          ],
+          feedbackOK: 'Correcto. A más cuadernos, mayor costo: es directa.',
+          feedbackError: 'A más cuadernos, mayor costo. Es regla de tres directa.'
+        },
+        fase2: {
+          anticipa: '¿Qué valores esperas identificar como a, b y c?',
+          anticipaResp: 'a = 4 (cuadernos), b = 60 (costo), c = 10 (cuadernos nuevos).',
+          inputs: [
+            { id: 'c4f2a', label: 'Cuadernos (a):', correcto: 4 },
+            { id: 'c4f2b', label: 'Costo (b):', correcto: 60 },
+            { id: 'c4f2c', label: 'Cuadernos nuevos (c):', correcto: 10 }
+          ],
+          pista: 'Identifica: a → b, c → x.',
+          feedbackOK: 'Correcto: 4, 60 y 10.',
+          feedbackError: 'Los valores son a = 4, b = 60, c = 10.'
+        },
+        fase3: {
+          anticipa: '¿El resultado será mayor o menor que 100?',
+          anticipaResp: 'Será 150, que es mayor que 100. Se obtiene con (60 × 10) ÷ 4 = 150.',
+          opciones: [
+            { text: '150', correct: true },
+            { text: '120', correct: false },
+            { text: '200', correct: false }
+          ],
+          pista: 'x = (b × c) ÷ a.',
+          feedbackOK: 'Correcto: (60 × 10) ÷ 4 = 150.',
+          feedbackError: 'x = (60 × 10) ÷ 4 = 150.'
+        },
+        fase4: {
+          anticipa: '¿Cuál crees que es el error más común en regla de tres?',
+          anticipaResp: 'Invertir la proporción: colocar a/b = x/c en lugar de a/b = c/x.',
+          pregunta: '¿Cuál es el error más común en regla de tres?',
+          opciones: [
+            { text: 'Invertir los términos de la proporción', correct: true },
+            { text: 'Sumar los datos', correct: false },
+            { text: 'Dividir el total entre 2', correct: false }
+          ],
+          feedbackOK: 'Correcto. Invertir los términos es el error más común.',
+          feedbackError: 'El error es invertir: debe ser a/b = c/x, no b/a = c/x.'
+        }
+      },
+      {
+        nivel: 'Medio',
+        tema: 'Incremento porcentual',
+        enunciado: 'Un producto pasó de costar 200 pesos a 250 pesos. ¿Cuál fue el incremento porcentual?',
+        expresion: '',
+        fase1: {
+          anticipa: '¿El incremento será mayor o menor al 30%?',
+          anticipaResp: 'Será menor al 30%: el incremento es de 50 pesos sobre 200, que equivale al 25%.',
+          pregunta: '¿Qué fórmula permite calcular el incremento porcentual?',
+          opciones: [
+            { text: '$(V_f - V_i)/V_i \\times 100$', correct: true },
+            { text: '$(V_i - V_f)/V_i \\times 100$', correct: false },
+            { text: '$V_f - V_i$', correct: false }
+          ],
+          feedbackOK: 'Correcto. La fórmula es $(V_f - V_i)/V_i \\times 100$.',
+          feedbackError: 'La fórmula correcta es $(V_f - V_i)/V_i \\times 100$.'
+        },
+        fase2: {
+          anticipa: '¿Cuál es la diferencia entre el valor final y el inicial?',
+          anticipaResp: 'La diferencia es 250 - 200 = 50.',
+          inputs: [
+            { id: 'c5f2a', label: 'Diferencia ($V_f - V_i$):', correcto: 50 }
+          ],
+          pista: 'Resta el valor inicial al valor final.',
+          feedbackOK: 'Correcto: 50.',
+          feedbackError: '250 - 200 = 50.'
+        },
+        fase3: {
+          anticipa: '¿Cuál es el incremento porcentual?',
+          anticipaResp: 'El incremento es 25%, porque 50 ÷ 200 × 100 = 25.',
+          opciones: [
+            { text: '25%', correct: true },
+            { text: '20%', correct: false },
+            { text: '30%', correct: false }
+          ],
+          pista: 'Divide la diferencia entre el valor inicial y multiplica por 100.',
+          feedbackOK: 'Correcto: 50 ÷ 200 × 100 = 25%.',
+          feedbackError: 'El incremento es 50 ÷ 200 × 100 = 25%.'
+        },
+        fase4: {
+          anticipa: '¿Cuál crees que es el error más común al calcular incremento?',
+          anticipaResp: 'Dividir entre el valor final en lugar del valor inicial.',
+          pregunta: '¿Cuál es el error más común al calcular un incremento porcentual?',
+          opciones: [
+            { text: 'Dividir entre el valor final en lugar del inicial', correct: true },
+            { text: 'Sumar los valores', correct: false },
+            { text: 'Multiplicar por 100 dos veces', correct: false }
+          ],
+          feedbackOK: 'Correcto. El error es dividir entre $V_f$ en lugar de $V_i$.',
+          feedbackError: 'El error es dividir entre el valor final, no el inicial.'
+        }
+      },
+      {
+        nivel: 'Medio',
+        tema: 'Decremento porcentual',
+        enunciado: 'Un artículo pasó de costar 500 pesos a 400 pesos. ¿Cuál fue el decremento porcentual?',
+        expresion: '',
+        fase1: {
+          anticipa: '¿El decremento será igual, mayor o menor al 25%?',
+          anticipaResp: 'Será menor al 25%: el decremento es de 100 pesos sobre 500, que equivale al 20%.',
+          pregunta: '¿Qué fórmula permite calcular el decremento porcentual?',
+          opciones: [
+            { text: '$(V_i - V_f)/V_i \\times 100$', correct: true },
+            { text: '$(V_f - V_i)/V_f \\times 100$', correct: false },
+            { text: '$V_i - V_f$', correct: false }
+          ],
+          feedbackOK: 'Correcto. La fórmula es $(V_i - V_f)/V_i \\times 100$.',
+          feedbackError: 'La fórmula correcta es $(V_i - V_f)/V_i \\times 100$.'
+        },
+        fase2: {
+          anticipa: '¿Cuál es la diferencia entre el valor inicial y el final?',
+          anticipaResp: 'La diferencia es 500 - 400 = 100.',
+          inputs: [
+            { id: 'c6f2a', label: 'Diferencia ($V_i - V_f$):', correcto: 100 }
+          ],
+          pista: 'Resta el valor final al valor inicial.',
+          feedbackOK: 'Correcto: 100.',
+          feedbackError: '500 - 400 = 100.'
+        },
+        fase3: {
+          anticipa: '¿Cuál es el decremento porcentual?',
+          anticipaResp: 'El decremento es 20%, porque 100 ÷ 500 × 100 = 20.',
+          opciones: [
+            { text: '20%', correct: true },
+            { text: '25%', correct: false },
+            { text: '15%', correct: false }
+          ],
+          pista: 'Divide la diferencia entre el valor inicial y multiplica por 100.',
+          feedbackOK: 'Correcto: 100 ÷ 500 × 100 = 20%.',
+          feedbackError: 'El decremento es 100 ÷ 500 × 100 = 20%.'
+        },
+        fase4: {
+          anticipa: '¿Cuál crees que es el error más común al calcular decremento?',
+          anticipaResp: 'Dividir entre el valor final en lugar del valor inicial.',
+          pregunta: '¿Cuál es el error más común al calcular un decremento porcentual?',
+          opciones: [
+            { text: 'Dividir entre el valor final en lugar del inicial', correct: true },
+            { text: 'Restar en lugar de dividir', correct: false },
+            { text: 'Multiplicar por 100 dos veces', correct: false }
+          ],
+          feedbackOK: 'Correcto. El error es dividir entre $V_f$ en lugar de $V_i$.',
+          feedbackError: 'El error es dividir entre el valor final, no el inicial.'
+        }
+      },
+      {
+        nivel: 'Medio',
+        tema: 'Descuento simple',
+        enunciado: 'Un artículo cuesta 500 pesos y tiene 20% de descuento. ¿Cuál es el precio final?',
+        expresion: '',
+        fase1: {
+          anticipa: '¿El precio final será mayor o menor que 450 pesos?',
+          anticipaResp: 'Será menor: el 20% de 500 pesos es 100 pesos y 500 − 100 = 400 pesos.',
+          pregunta: '¿Sobre qué cantidad se aplica el descuento?',
+          opciones: [
+            { text: 'Sobre el precio original', correct: true },
+            { text: 'Sobre el precio ya rebajado', correct: false },
+            { text: 'Sobre el IVA', correct: false }
+          ],
+          feedbackOK: 'Correcto. El descuento siempre se aplica sobre el precio original.',
+          feedbackError: 'El descuento se aplica sobre el precio original (500 pesos).'
+        },
+        fase2: {
+          anticipa: '¿Cuánto dinero crees que se descontará?',
+          anticipaResp: 'Se descontarán 100 pesos, porque 500 × 0.20 = 100.',
+          inputs: [
+            { id: 'c7f2a', label: 'Monto del descuento (500 × 0.20):', correcto: 100 }
+          ],
+          pista: 'Multiplica 500 por 0.20.',
+          feedbackOK: 'Correcto: 100.',
+          feedbackError: '500 × 0.20 = 100.'
+        },
+        fase3: {
+          anticipa: '¿Cuál será el precio final después del descuento?',
+          anticipaResp: '400 pesos, porque 500 − 100 = 400.',
+          opciones: [
+            { text: '400 pesos', correct: true },
+            { text: '480 pesos', correct: false },
+            { text: '380 pesos', correct: false }
+          ],
+          pista: 'Resta el descuento al precio original o multiplica por 0.80.',
+          feedbackOK: 'Correcto: 500 × 0.80 = 400.',
+          feedbackError: '500 × 0.80 = 400.'
+        },
+        fase4: {
+          anticipa: '¿Cuál crees que es el error más común al calcular descuentos?',
+          anticipaResp: 'Aplicar el descuento sobre el precio ya rebajado (calcular dos veces el descuento).',
+          pregunta: '¿Cuál es el error más común al calcular descuentos?',
+          opciones: [
+            { text: 'Aplicar el descuento sobre el precio ya rebajado', correct: true },
+            { text: 'Sumar el descuento en lugar de restar', correct: false },
+            { text: 'Multiplicar el descuento por 2', correct: false }
+          ],
+          feedbackOK: 'Correcto. Aplicarlo dos veces es el error más común.',
+          feedbackError: 'El descuento se aplica una sola vez, sobre el precio original.'
+        }
+      },
+      {
+        nivel: 'Medio',
+        tema: 'Aumento simple',
+        enunciado: 'Un producto cuesta 200 pesos y tiene un aumento del 15%. ¿Cuál es el precio final?',
+        expresion: '',
+        fase1: {
+          anticipa: '¿El precio final será mayor o menor que 220 pesos?',
+          anticipaResp: 'Será mayor: el 15% de 200 pesos es 30 pesos, así que el precio final es 230 pesos.',
+          pregunta: '¿Cómo se calcula el precio final con aumento?',
+          opciones: [
+            { text: 'Sumar el aumento al precio original', correct: true },
+            { text: 'Restar el aumento al precio original', correct: false },
+            { text: 'Multiplicar por el porcentaje', correct: false }
+          ],
+          feedbackOK: 'Correcto. El aumento se suma al precio original.',
+          feedbackError: 'El precio final = precio original + aumento.'
+        },
+        fase2: {
+          anticipa: '¿Cuánto dinero crees que se sumará al precio original?',
+          anticipaResp: 'Se sumarán 30 pesos, porque 200 × 0.15 = 30.',
+          inputs: [
+            { id: 'c8f2a', label: 'Monto del aumento (200 × 0.15):', correcto: 30 }
+          ],
+          pista: 'Multiplica 200 por 0.15.',
+          feedbackOK: 'Correcto: 30.',
+          feedbackError: '200 × 0.15 = 30.'
+        },
+        fase3: {
+          anticipa: '¿Cuál será el precio final?',
+          anticipaResp: '230 pesos, porque 200 + 30 = 230.',
+          opciones: [
+            { text: '230 pesos', correct: true },
+            { text: '215 pesos', correct: false },
+            { text: '170 pesos', correct: false }
+          ],
+          pista: 'Suma 200 + 30 o multiplica 200 × 1.15.',
+          feedbackOK: 'Correcto: 200 × 1.15 = 230.',
+          feedbackError: '200 × 1.15 = 230.'
+        },
+        fase4: {
+          anticipa: '¿Cuál crees que es el error más común al calcular aumentos?',
+          anticipaResp: 'Confundirlo con descuento y restar en lugar de sumar.',
+          pregunta: '¿Cuál es el error más común al calcular aumentos?',
+          opciones: [
+            { text: 'Confundirlo con descuento (restar)', correct: true },
+            { text: 'Multiplicar por 100', correct: false },
+            { text: 'Dividir entre 2', correct: false }
+          ],
+          feedbackOK: 'Correcto. Restar en lugar de sumar es el error más común.',
+          feedbackError: 'El aumento se suma, no se resta.'
+        }
+      },
+      {
+        nivel: 'Alto',
+        tema: 'Descuento en cascada',
+        enunciado: 'Un artículo cuesta 800 pesos. Se aplica primero un descuento del 10% y luego otro del 5% sobre el precio ya rebajado. ¿Cuál es el precio final?',
+        expresion: '',
+        fase1: {
+          anticipa: '¿El descuento total será igual a 15%? ¿Por qué?',
+          anticipaResp: 'No, no es 15%. Los descuentos sucesivos se aplican en cascada y el descuento efectivo es menor al 15%.',
+          pregunta: '¿Sobre qué se aplica el segundo descuento?',
+          opciones: [
+            { text: 'Sobre el precio después del primer descuento', correct: true },
+            { text: 'Sobre el precio original', correct: false },
+            { text: 'Sobre la suma de ambos descuentos', correct: false }
+          ],
+          feedbackOK: 'Correcto. El segundo descuento se aplica en cascada.',
+          feedbackError: 'El segundo descuento se aplica sobre el precio ya rebajado.'
+        },
+        fase2: {
+          anticipa: '¿Cuál será el precio después del primer descuento?',
+          anticipaResp: '720 pesos, porque 800 × 0.90 = 720.',
+          inputs: [
+            { id: 'c9f2a', label: 'Precio tras 1er descuento (800 × 0.90):', correcto: 720 }
+          ],
+          pista: 'Primero aplica el 10% de descuento a 800.',
+          feedbackOK: 'Correcto: 720.',
+          feedbackError: '800 × 0.90 = 720.'
+        },
+        fase3: {
+          anticipa: '¿El precio final será mayor o menor que 700 pesos?',
+          anticipaResp: 'Será 684 pesos, que es menor que 700. Se obtiene con 720 × 0.95 = 684.',
+          opciones: [
+            { text: '684 pesos', correct: true },
+            { text: '680 pesos', correct: false },
+            { text: '696 pesos', correct: false }
+          ],
+          pista: 'Aplica el 5% de descuento a 720.',
+          feedbackOK: 'Correcto: 720 × 0.95 = 684.',
+          feedbackError: '720 × 0.95 = 684.'
+        },
+        fase4: {
+          anticipa: '¿Cuál crees que es el error más común en descuentos sucesivos?',
+          anticipaResp: 'Sumar los porcentajes: creer que 10% + 5% = 15% de descuento total.',
+          pregunta: '¿Cuál es el error más común en descuentos sucesivos?',
+          opciones: [
+            { text: 'Sumar los porcentajes (10% + 5% = 15%)', correct: true },
+            { text: 'Multiplicar los descuentos', correct: false },
+            { text: 'Dividir entre 100', correct: false }
+          ],
+          feedbackOK: 'Correcto. Los descuentos sucesivos no se suman: se aplican en cascada.',
+          feedbackError: 'Los descuentos sucesivos NO se suman: se aplican en cascada.'
+        }
+      },
+      {
+        nivel: 'Alto',
+        tema: 'Problema combinado',
+        enunciado: 'Una tienda ofrece 25% de descuento y luego cobra 16% de IVA sobre el precio ya rebajado. Si el precio original es 400 pesos, ¿cuál es el precio final?',
+        expresion: '',
+        fase1: {
+          anticipa: '¿El IVA se aplica sobre el precio original o sobre el rebajado?',
+          anticipaResp: 'Se aplica sobre el precio ya rebajado. El orden importa: primero descuento, luego IVA.',
+          pregunta: '¿Cuál es el orden correcto de las operaciones?',
+          opciones: [
+            { text: 'Primero descuento, luego IVA', correct: true },
+            { text: 'Primero IVA, luego descuento', correct: false },
+            { text: 'Ambos al mismo tiempo', correct: false }
+          ],
+          feedbackOK: 'Correcto. Primero se aplica el descuento, luego el IVA.',
+          feedbackError: 'Primero descuento (25%), luego IVA (16%) sobre el precio ya rebajado.'
+        },
+        fase2: {
+          anticipa: '¿Cuál será el precio después del descuento?',
+          anticipaResp: '300 pesos, porque 400 × 0.75 = 300.',
+          inputs: [
+            { id: 'c10f2a', label: 'Precio tras descuento (400 × 0.75):', correcto: 300 }
+          ],
+          pista: 'Aplica el 25% de descuento a 400.',
+          feedbackOK: 'Correcto: 300.',
+          feedbackError: '400 × 0.75 = 300.'
+        },
+        fase3: {
+          anticipa: '¿El precio final será mayor o menor que 350 pesos?',
+          anticipaResp: 'Será 348 pesos, que es ligeramente menor que 350. Se obtiene con 300 × 1.16 = 348.',
+          opciones: [
+            { text: '348 pesos', correct: true },
+            { text: '364 pesos', correct: false },
+            { text: '336 pesos', correct: false }
+          ],
+          pista: 'Aplica el 16% de IVA a 300.',
+          feedbackOK: 'Correcto: 300 × 1.16 = 348.',
+          feedbackError: '300 × 1.16 = 348.'
+        },
+        fase4: {
+          anticipa: '¿Cuál crees que es el error más común en problemas combinados?',
+          anticipaResp: 'Aplicar los porcentajes al precio original en lugar del precio vigente en cada paso.',
+          pregunta: '¿Cuál es el error más común en problemas combinados?',
+          opciones: [
+            { text: 'Aplicar los porcentajes al precio original', correct: true },
+            { text: 'Sumar los porcentajes', correct: false },
+            { text: 'Dividir entre 2', correct: false }
+          ],
+          feedbackOK: 'Correcto. Cada porcentaje se aplica sobre el precio vigente.',
+          feedbackError: 'El descuento se aplica sobre 400 y el IVA sobre el resultado.'
+        }
+      }
+    ];
+
+    function cargarProgreso() {
+      try {
+        var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        if (Array.isArray(saved)) estado.casosCompletados = saved;
+      } catch (e) { estado.casosCompletados = []; }
+    }
+
+    function guardarProgreso() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(estado.casosCompletados));
+      } catch (e) { /* localStorage no disponible */ }
+    }
+
+    function setTexto(id, texto) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = texto || '';
+    }
+
+    function setHTML(id, html) {
+      var el = document.getElementById(id);
+      if (el) el.innerHTML = html || '';
+    }
+
+    function cargarCaso(index) {
+      if (index < 0 || index >= casos.length) return;
+      estado.casoActual = index;
+      estado.faseActual = 1;
+      estado.intentosFase = 1;
+
+      var c = casos[index];
+
+      setTexto('numeroCaso', 'Caso ' + (index + 1) + ' de ' + casos.length);
+      setTexto('indicadorCaso', 'Caso ' + (index + 1) + ' de ' + casos.length);
+      setTexto('etiquetaCaso', c.tema);
+
+      var niv = document.getElementById('nivelCaso');
+      if (niv) {
+        niv.textContent = c.nivel;
+        niv.className = 'nivel-caso ' + c.nivel.toLowerCase();
+      }
+
+      setHTML('textoEnunciado', c.enunciado);
+      setHTML('expresionCaso', c.expresion || '');
+
+      ['fase1','fase2','fase3','fase4'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+      ['feedbackFase1','feedbackFase2','feedbackFase3','feedbackFase4'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) { el.className = 'feedback'; el.innerHTML = ''; }
+      });
+
+      var f1 = document.getElementById('fase1');
+      if (f1) f1.style.display = 'block';
+
+      setTexto('anticipaFase1', c.fase1.anticipa);
+      setTexto('anticipaRespFase1', c.fase1.anticipaResp);
+      setTexto('preguntaFase1', c.fase1.pregunta);
+
+      var opf1 = document.getElementById('opcionesFase1');
+      if (opf1) {
+        opf1.innerHTML = '';
+        c.fase1.opciones.forEach(function (op, i) {
+          var btn = document.createElement('button');
+          btn.className = 'opcion-fase';
+          btn.setAttribute('type', 'button');
+          btn.textContent = op.text;
+          btn.addEventListener('click', function () { responderFase1(i); });
+          opf1.appendChild(btn);
+        });
+      }
+
+      setTexto('intentosFase1', 'Intento 1 de 3');
+      actualizarBotonesActividad();
+      actualizarProgresoActividad();
+      renderMath(document.getElementById('tarjetaCaso'));
+    }
+
+    function responderFase1(idx) {
+      var c = casos[estado.casoActual];
+      var opciones = document.querySelectorAll('#opcionesFase1 .opcion-fase');
+      var fb = document.getElementById('feedbackFase1');
+      if (!fb) return;
+
+      var elegida = c.fase1.opciones[idx];
+
+      if (elegida.correct) {
+        opciones.forEach(function (o, i) {
+          o.classList.add('disabled');
+          if (c.fase1.opciones[i].correct) o.classList.add('es-correcta');
+        });
+        fb.className = 'feedback visible exito';
+        fb.innerHTML = 'Correcto: ' + c.fase1.feedbackOK;
+        renderMath(fb);
+        setTimeout(function () { avanzarFase2(); }, 900);
+      } else {
+        opciones[idx].classList.add('es-incorrecta');
+        if (estado.intentosFase >= 3) {
+          opciones.forEach(function (o, i) {
+            o.classList.add('disabled');
+            if (c.fase1.opciones[i].correct) o.classList.add('es-correcta');
+          });
+          fb.className = 'feedback visible error';
+          fb.innerHTML = 'Incorrecto: ' + c.fase1.feedbackError + '<br><em>Se agotaron los intentos. Avanzando...</em>';
+          renderMath(fb);
+          setTimeout(function () { avanzarFase2(); }, 1800);
+        } else {
+          estado.intentosFase++;
+          fb.className = 'feedback visible error';
+          fb.innerHTML = 'Incorrecto: ' + c.fase1.feedbackError;
+          renderMath(fb);
+          setTexto('intentosFase1', 'Intento ' + estado.intentosFase + ' de 3');
+        }
+      }
+    }
+
+    function avanzarFase2() {
+      estado.faseActual = 2;
+      estado.intentosFase = 1;
+      var c = casos[estado.casoActual];
+      var f2 = document.getElementById('fase2');
+      if (f2) f2.style.display = 'block';
+
+      setTexto('anticipaFase2', c.fase2.anticipa);
+      setTexto('anticipaRespFase2', c.fase2.anticipaResp);
+
+      var cont = document.getElementById('inputsFase2');
+      if (cont) {
+        cont.innerHTML = '';
+        c.fase2.inputs.forEach(function (inp) {
+          var w = document.createElement('div');
+          w.className = 'input-wrapper';
+          w.innerHTML = '<label for="' + inp.id + '">' + inp.label + '</label>' +
+                        '<input type="text" id="' + inp.id + '" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="">';
+          cont.appendChild(w);
+        });
+      }
+      setTexto('intentosFase2', 'Intento 1 de 3');
+      renderMath(f2);
+    }
+
+    function responderFase2() {
+      var c = casos[estado.casoActual];
+      var ids = c.fase2.inputs.map(function (i) { return i.id; });
+      var fb = document.getElementById('feedbackFase2');
+      if (!fb) return;
+
+      if (algunCampoVacio(ids)) {
+        fb.className = 'feedback visible pista';
+        fb.innerHTML = 'Completa todos los campos.';
+        renderMath(fb);
+        return;
+      }
+
+      var todosCorrectos = true;
+      c.fase2.inputs.forEach(function (inp) {
+        var el = document.getElementById(inp.id);
+        var val = el ? parsearNumero(el.value) : NaN;
+        if (isNaN(val) || Math.abs(val - inp.correcto) > 1e-6) todosCorrectos = false;
+      });
+
+      if (todosCorrectos) {
+        fb.className = 'feedback visible exito';
+        fb.innerHTML = 'Correcto: ' + c.fase2.feedbackOK;
+        renderMath(fb);
+        setTimeout(function () { avanzarFase3(); }, 900);
+      } else {
+        if (estado.intentosFase >= 3) {
+          fb.className = 'feedback visible error';
+          fb.innerHTML = 'Incorrecto: ' + c.fase2.feedbackError + '<br><em>Se agotaron los intentos. Avanzando...</em>';
+          renderMath(fb);
+          setTimeout(function () { avanzarFase3(); }, 1800);
+        } else {
+          estado.intentosFase++;
+          fb.className = 'feedback visible error';
+          fb.innerHTML = 'Incorrecto: ' + c.fase2.feedbackError;
+          renderMath(fb);
+          setTexto('intentosFase2', 'Intento ' + estado.intentosFase + ' de 3');
+        }
+      }
+    }
+
+    function mostrarPistaFase2() {
+      var c = casos[estado.casoActual];
+      var fb = document.getElementById('feedbackFase2');
+      if (!fb) return;
+      fb.className = 'feedback visible pista';
+      fb.innerHTML = 'Pista: ' + c.fase2.pista;
+      renderMath(fb);
+    }
+
+    function avanzarFase3() {
+      estado.faseActual = 3;
+      estado.intentosFase = 1;
+      var c = casos[estado.casoActual];
+      var f3 = document.getElementById('fase3');
+      if (f3) f3.style.display = 'block';
+
+      setTexto('anticipaFase3', c.fase3.anticipa);
+      setTexto('anticipaRespFase3', c.fase3.anticipaResp);
+
+      var cont = document.getElementById('inputsFase3');
+      if (cont) {
+        cont.innerHTML = '';
+        var w = document.createElement('div');
+        w.className = 'input-wrapper';
+        var html = '<label for="fase3-select">Selecciona el resultado:</label>';
+        html += '<select id="fase3-select" autocomplete="off">';
+        html += '<option value="">-- Selecciona --</option>';
+        c.fase3.opciones.forEach(function (op, i) {
+          html += '<option value="' + i + '">' + op.text + '</option>';
+        });
+        html += '</select>';
+        w.innerHTML = html;
+        cont.appendChild(w);
+      }
+      setTexto('intentosFase3', 'Intento 1 de 3');
+      renderMath(f3);
+    }
+
+    function responderFase3() {
+      var c = casos[estado.casoActual];
+      var sel = document.getElementById('fase3-select');
+      var fb = document.getElementById('feedbackFase3');
+      if (!fb || !sel) return;
+
+      if (sel.value === '') {
+        fb.className = 'feedback visible pista';
+        fb.innerHTML = 'Selecciona una opción.';
+        renderMath(fb);
+        return;
+      }
+
+      var idx = parseInt(sel.value, 10);
+      var elegida = c.fase3.opciones[idx];
+
+      if (elegida.correct) {
+        sel.disabled = true;
+        fb.className = 'feedback visible exito';
+        fb.innerHTML = 'Correcto: ' + c.fase3.feedbackOK;
+        renderMath(fb);
+        setTimeout(function () { avanzarFase4(); }, 900);
+      } else {
+        if (estado.intentosFase >= 3) {
+          sel.disabled = true;
+          fb.className = 'feedback visible error';
+          fb.innerHTML = 'Incorrecto: ' + c.fase3.feedbackError + '<br><em>Se agotaron los intentos. Avanzando...</em>';
+          renderMath(fb);
+          setTimeout(function () { avanzarFase4(); }, 1800);
+        } else {
+          estado.intentosFase++;
+          fb.className = 'feedback visible error';
+          fb.innerHTML = 'Incorrecto: ' + c.fase3.feedbackError;
+          renderMath(fb);
+          setTexto('intentosFase3', 'Intento ' + estado.intentosFase + ' de 3');
+        }
+      }
+    }
+
+    function mostrarPistaFase3() {
+      var c = casos[estado.casoActual];
+      var fb = document.getElementById('feedbackFase3');
+      if (!fb) return;
+      fb.className = 'feedback visible pista';
+      fb.innerHTML = 'Pista: ' + c.fase3.pista;
+      renderMath(fb);
+    }
+
+    function avanzarFase4() {
+      estado.faseActual = 4;
+      estado.intentosFase = 1;
+      var c = casos[estado.casoActual];
+      var f4 = document.getElementById('fase4');
+      if (f4) f4.style.display = 'block';
+
+      setTexto('anticipaFase4', c.fase4.anticipa);
+      setTexto('anticipaRespFase4', c.fase4.anticipaResp);
+      setTexto('preguntaFase4', c.fase4.pregunta);
+
+      var opf4 = document.getElementById('opcionesFase4');
+      if (opf4) {
+        opf4.innerHTML = '';
+        c.fase4.opciones.forEach(function (op, i) {
+          var btn = document.createElement('button');
+          btn.className = 'opcion-fase';
+          btn.setAttribute('type', 'button');
+          btn.textContent = op.text;
+          btn.addEventListener('click', function () { responderFase4(i); });
+          opf4.appendChild(btn);
+        });
+      }
+      setTexto('intentosFase4', 'Intento 1 de 3');
+      renderMath(f4);
+    }
+
+    function responderFase4(idx) {
+      var c = casos[estado.casoActual];
+      var opciones = document.querySelectorAll('#opcionesFase4 .opcion-fase');
+      var fb = document.getElementById('feedbackFase4');
+      if (!fb) return;
+
+      var elegida = c.fase4.opciones[idx];
+
+      if (elegida.correct) {
+        opciones.forEach(function (o, i) {
+          o.classList.add('disabled');
+          if (c.fase4.opciones[i].correct) o.classList.add('es-correcta');
+        });
+        fb.className = 'feedback visible exito';
+        fb.innerHTML = 'Correcto: ' + c.fase4.feedbackOK;
+        renderMath(fb);
+        finalizarCaso(true);
+      } else {
+        opciones[idx].classList.add('es-incorrecta');
+        if (estado.intentosFase >= 3) {
+          opciones.forEach(function (o, i) {
+            o.classList.add('disabled');
+            if (c.fase4.opciones[i].correct) o.classList.add('es-correcta');
+          });
+          fb.className = 'feedback visible error';
+          fb.innerHTML = 'Incorrecto: ' + c.fase4.feedbackError;
+          renderMath(fb);
+          finalizarCaso(false);
+        } else {
+          estado.intentosFase++;
+          fb.className = 'feedback visible error';
+          fb.innerHTML = 'Incorrecto: ' + c.fase4.feedbackError;
+          renderMath(fb);
+          setTexto('intentosFase4', 'Intento ' + estado.intentosFase + ' de 3');
+        }
+      }
+    }
+
+    function finalizarCaso(exito) {
+      if (exito && estado.casosCompletados.indexOf(estado.casoActual) === -1) {
+        estado.casosCompletados.push(estado.casoActual);
+        guardarProgreso();
+      }
+      actualizarBotonesActividad();
+      actualizarProgresoActividad();
+    }
+
+    function actualizarBotonesActividad() {
+      var btnAnt = document.getElementById('btnAnterior');
+      var btnSig = document.getElementById('btnSiguiente');
+      if (!btnAnt || !btnSig) return;
+
+      btnAnt.disabled = estado.casoActual === 0;
+
+      var completado = estado.casosCompletados.indexOf(estado.casoActual) !== -1;
+      btnSig.disabled = !completado;
+
+      if (estado.casoActual === casos.length - 1) {
+        btnSig.textContent = 'Finalizar';
+      } else if (completado) {
+        btnSig.textContent = 'Siguiente caso';
+      } else {
+        btnSig.textContent = 'Siguiente caso (sin completar)';
+      }
+    }
+
+    function actualizarProgresoActividad() {
+      var fill = document.getElementById('progresoFill');
+      var txt = document.getElementById('progresoTexto');
+      var pun = document.getElementById('progresoPuntaje');
+      if (!fill || !txt || !pun) return;
+
+      var pct = (estado.casosCompletados.length / casos.length) * 100;
+      fill.style.width = pct + '%';
+      fill.setAttribute('aria-valuenow', Math.round(pct));
+      txt.textContent = 'Caso ' + (estado.casoActual + 1) + ' de ' + casos.length;
+      pun.textContent = estado.casosCompletados.length + ' / ' + casos.length;
+    }
+
+    function mostrarPantallaFinalActividad() {
+      var tarjeta = document.getElementById('tarjetaCaso');
+      var pantalla = document.getElementById('pantallaFinal');
+      if (!tarjeta || !pantalla) return;
+
+      tarjeta.style.display = 'none';
+      pantalla.classList.add('visible');
+
+      var completados = estado.casosCompletados.length;
+      var total = casos.length;
+      var pct = (completados / total) * 100;
+
+      var med = document.getElementById('medallaFinal');
+      if (med) med.textContent = pct === 100 ? '🏆' : (pct >= 70 ? '🥈' : '🥉');
+
+      var pf = document.getElementById('puntajeFinal');
+      if (pf) pf.textContent = completados + ' / ' + total;
+
+      var msg = document.getElementById('mensajeFinal');
+      if (msg) {
+        if (pct === 100) msg.textContent = 'Excelente. Completaste todos los casos correctamente.';
+        else if (pct >= 70) msg.textContent = 'Buen trabajo. Dominas la mayoría de los casos.';
+        else msg.textContent = 'Es recomendable repasar la presentación y volver a intentarlo.';
+      }
+    }
+
+    function iniciarActividad() {
+      cargarProgreso();
+
+      var btnAnt = document.getElementById('btnAnterior');
+      if (btnAnt) {
+        btnAnt.addEventListener('click', function () {
+          if (estado.casoActual > 0) cargarCaso(estado.casoActual - 1);
+        });
+      }
+
+      var btnSig = document.getElementById('btnSiguiente');
+      if (btnSig) {
+        btnSig.addEventListener('click', function () {
+          if (estado.casoActual < casos.length - 1) {
+            cargarCaso(estado.casoActual + 1);
+          } else {
+            mostrarPantallaFinalActividad();
+          }
+        });
+      }
+
+      var bp2 = document.getElementById('btnPistaFase2');
+      if (bp2) bp2.addEventListener('click', mostrarPistaFase2);
+      var bv2 = document.getElementById('btnVerificarFase2');
+      if (bv2) bv2.addEventListener('click', responderFase2);
+
+      var bp3 = document.getElementById('btnPistaFase3');
+      if (bp3) bp3.addEventListener('click', mostrarPistaFase3);
+      var bv3 = document.getElementById('btnVerificarFase3');
+      if (bv3) bv3.addEventListener('click', responderFase3);
+
+      var br = document.getElementById('btnReiniciarActividad');
+      if (br) {
+        br.addEventListener('click', function () {
+          estado.casosCompletados = [];
+          estado.casoActual = 0;
+          guardarProgreso();
+          var pantalla = document.getElementById('pantallaFinal');
+          var tarjeta = document.getElementById('tarjetaCaso');
+          if (pantalla) pantalla.classList.remove('visible');
+          if (tarjeta) tarjeta.style.display = 'block';
+          cargarCaso(0);
+        });
+      }
+
+      cargarCaso(0);
+    }
+
+    // ===== DISTRIBUCIÓN DE DIFICULTAD (interna, NO visible) =====
+    // Sesión: s01 — Razones, proporciones y porcentaje
+    // Perfil: Estándar
+    // Fáciles: 3 | Medios: 4 | Difíciles: 3
+    // Referencia: docs/clasificacion-dificultad-pm.md
+    var rawQuestions = [
+      {
+        tipo: 'Concepto',
+        question: '¿Cómo se llama el primer término de una razón geométrica?',
+        options: [
+          { text: 'Antecedente', correct: true, feedback: 'El primer término se llama antecedente.' },
+          { text: 'Consecuente', correct: false, feedback: 'El consecuente es el segundo término.' },
+          { text: 'Cociente', correct: false, feedback: 'El cociente es el resultado de la división.' }
+        ]
+      },
+      {
+        tipo: 'Concepto',
+        question: '¿Cuál es la propiedad fundamental de las proporciones?',
+        options: [
+          { text: 'Producto de extremos = producto de medios', correct: true, feedback: 'Correcto: $a \\cdot d = b \\cdot c$.' },
+          { text: 'Suma de extremos = suma de medios', correct: false, feedback: 'La igualdad se da en productos, no en sumas.' },
+          { text: 'Diferencia de extremos = diferencia de medios', correct: false, feedback: 'La propiedad es multiplicativa, no aditiva.' }
+        ]
+      },
+      {
+        tipo: 'Cálculo',
+        question: '¿Cuál es el 30% de 240?',
+        options: [
+          { text: '72', correct: true, feedback: 'Correcto: $0.30 \\times 240 = 72$.' },
+          { text: '80', correct: false, feedback: '30% de 240 es $0.30 \\cdot 240 = 72$, no 80.' },
+          { text: '60', correct: false, feedback: '$0.30 \\cdot 240 = 72$, no 60.' }
+        ]
+      },
+      {
+        tipo: 'Cálculo',
+        question: 'Un producto pasó de costar 80 pesos a 100 pesos. ¿Cuál fue el incremento porcentual?',
+        options: [
+          { text: '25%', correct: true, feedback: 'Correcto: $\\frac{100 - 80}{80} \\times 100 = 25\\%$.' },
+          { text: '20%', correct: false, feedback: 'El incremento es 20 ÷ 80 × 100 = 25%, no 20%.' },
+          { text: '30%', correct: false, feedback: 'El incremento es 25%, no 30%.' }
+        ]
+      },
+      {
+        tipo: 'Interpretación',
+        question: 'En la tabla se muestra la relación entre cuadernos y costo. ¿Cuál es la razón de costo por cuaderno?<br><br>Cuadernos: 2 → 4 → 6<br>Costo: 30 → 60 → 90',
+        options: [
+          { text: '15 pesos por cuaderno', correct: true, feedback: 'Correcto: 30 ÷ 2 = 15.' },
+          { text: '30 pesos por cuaderno', correct: false, feedback: '30 pesos es el costo de 2 cuadernos, no de 1.' },
+          { text: '10 pesos por cuaderno', correct: false, feedback: '30 ÷ 2 = 15, no 10.' }
+        ]
+      },
+      {
+        tipo: 'Modelación',
+        question: '¿Cuál ecuación modela la siguiente situación? "Si 5 lápices cuestan 40 pesos, ¿cuánto cuestan 8 lápices?"',
+        options: [
+          { text: '$\\frac{5}{40} = \\frac{8}{x}$', correct: true, feedback: 'Correcto: relaciona lápices/costo.' },
+          { text: '$\\frac{5}{8} = \\frac{40}{x}$', correct: false, feedback: 'La razón debe comparar lápices con lápices y costo con costo.' },
+          { text: '$5 \\cdot 40 = 8 \\cdot x$', correct: false, feedback: 'La regla de tres se plantea como proporción, no como producto directo.' }
+        ]
+      },
+      {
+        tipo: 'Resolución de problemas',
+        question: 'Si 3 obreros construyen un muro en 12 días, ¿en cuántos días lo construirán 6 obreros?',
+        options: [
+          { text: '6 días', correct: true, feedback: 'Correcto: regla de tres inversa. $\\frac{3 \\cdot 12}{6} = 6$.' },
+          { text: '24 días', correct: false, feedback: 'Más obreros tardan menos días: es inversa.' },
+          { text: '12 días', correct: false, feedback: 'Al duplicar obreros se reduce a la mitad el tiempo.' }
+        ]
+      },
+      {
+        tipo: 'Resolución de problemas',
+        question: 'Un producto cuesta 500 pesos. Se aplica 10% de descuento y luego 20% adicional sobre el precio rebajado. ¿Cuál es el precio final?',
+        options: [
+          { text: '360 pesos', correct: true, feedback: 'Correcto: 500 × 0.90 = 450; 450 × 0.80 = 360.' },
+          { text: '350 pesos', correct: false, feedback: 'Los descuentos no se suman: 30% no es lo mismo que 10% + 20% sucesivos.' },
+          { text: '400 pesos', correct: false, feedback: 'Los descuentos se aplican en cascada.' }
+        ]
+      },
+      {
+        tipo: 'Identificación de error',
+        question: 'Un estudiante resuelve: "El 15% de 80 es 1200, porque $15 \\times 80 = 1200$". ¿Cuál es el error?',
+        options: [
+          { text: 'No dividió entre 100', correct: true, feedback: 'Correcto: faltó dividir entre 100. $\\frac{15 \\cdot 80}{100} = 12$.' },
+          { text: 'Usó la operación incorrecta', correct: false, feedback: 'La operación (multiplicar) es correcta; el error es no dividir entre 100.' },
+          { text: 'El porcentaje está mal', correct: false, feedback: 'El 15% es correcto; el procedimiento está incompleto.' }
+        ]
+      },
+      {
+        tipo: 'Evaluación',
+        question: 'Un producto pasó de 80 pesos a 60 pesos. ¿Cuál fue el decremento porcentual?',
+        options: [
+          { text: '25%', correct: true, feedback: 'Correcto: $\\frac{80 - 60}{80} \\times 100 = 25\\%$.' },
+          { text: '20%', correct: false, feedback: 'El decremento es 20 ÷ 80 × 100 = 25%, no 20%.' },
+          { text: '33%', correct: false, feedback: 'El decremento es 25%, no 33%.' }
+        ]
+      }
+    ];
+
+    function shuffleArray(array) {
+      var arr = array.slice();
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+      }
+      return arr;
+    }
+
+    function initExamen() {
+      estado.preguntas = shuffleArray(rawQuestions).map(function (q) {
+        return {
+          tipo: q.tipo,
+          question: q.question,
+          options: shuffleArray(q.options)
+        };
+      });
+      estado.indiceActual = 0;
+      estado.puntaje = 0;
+      estado.respondido = false;
+
+      var rv = document.getElementById('resultsView');
+      if (rv) rv.classList.remove('visible');
+      var qv = document.getElementById('quizView');
+      if (qv) qv.classList.add('visible');
+
+      cargarPregunta();
+    }
+
+    function cargarPregunta() {
+      estado.respondido = false;
+      var q = estado.preguntas[estado.indiceActual];
+
+      setTexto('questionMeta', 'Reactivo ' + (estado.indiceActual + 1) + ' de ' + estado.preguntas.length);
+      setTexto('questionTipo', q.tipo);
+      setHTML('questionText', q.question);
+
+      var lista = document.getElementById('optionsList');
+      if (lista) {
+        lista.innerHTML = '';
+        q.options.forEach(function (opt, idx) {
+          var li = document.createElement('li');
+          li.className = 'option-item';
+          li.setAttribute('role', 'button');
+          li.setAttribute('tabindex', '0');
+          li.setAttribute('aria-label', 'Opción ' + String.fromCharCode(65 + idx) + ': ' + limpiarLatex(opt.text));
+
+          var letra = document.createElement('span');
+          letra.className = 'option-letter';
+          letra.textContent = String.fromCharCode(65 + idx) + ')';
+
+          var cont = document.createElement('span');
+          cont.innerHTML = opt.text;
+
+          li.appendChild(letra);
+          li.appendChild(cont);
+
+          li.addEventListener('click', function () { seleccionarOpcion(opt.correct, li, idx); });
+          li.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              seleccionarOpcion(opt.correct, li, idx);
+            }
+          });
+
+          lista.appendChild(li);
+        });
+      }
+
+      var fb = document.getElementById('feedbackBox');
+      if (fb) { fb.className = 'feedback-box'; fb.innerHTML = ''; }
+      var btnN = document.getElementById('btnNext');
+      if (btnN) { btnN.className = 'btn-next'; btnN.textContent = 'Siguiente Reactivo'; }
+
+      var prog = (estado.indiceActual / estado.preguntas.length) * 100;
+      var pb = document.getElementById('progressBar');
+      if (pb) {
+        pb.style.width = prog + '%';
+        pb.setAttribute('aria-valuenow', Math.round(prog));
+      }
+
+      renderMath(document.getElementById('quizView'));
+    }
+
+    function seleccionarOpcion(isCorrect, elemento, idx) {
+      if (estado.respondido) return;
+      estado.respondido = true;
+
+      var opciones = document.querySelectorAll('.option-item');
+      opciones.forEach(function (o) {
+        o.classList.add('disabled');
+        o.setAttribute('tabindex', '-1');
+      });
+
+      var fb = document.getElementById('feedbackBox');
+      var q = estado.preguntas[estado.indiceActual];
+
+      if (isCorrect) {
+        elemento.classList.add('es-correcta');
+        estado.puntaje++;
+        if (fb) {
+          fb.className = 'feedback-box visible exito';
+          fb.innerHTML = '<strong>Correcto:</strong> ' + q.options[idx].feedback;
+        }
+      } else {
+        elemento.classList.add('es-incorrecta');
+        opciones.forEach(function (o, i) {
+          if (q.options[i].correct) o.classList.add('es-correcta');
+        });
+        if (fb) {
+          fb.className = 'feedback-box visible error';
+          fb.innerHTML = '<strong>Incorrecto:</strong> ' + q.options[idx].feedback;
+        }
+      }
+
+      var btnN = document.getElementById('btnNext');
+      if (btnN) {
+        btnN.textContent = (estado.indiceActual === estado.preguntas.length - 1)
+          ? 'Ver Resultados Finales'
+          : 'Siguiente Reactivo';
+        btnN.classList.add('visible');
+        btnN.focus();
+      }
+
+      renderMath(document.getElementById('quizView'));
+    }
+
+    function mostrarResultadosExamen() {
+      var qv = document.getElementById('quizView');
+      var rv = document.getElementById('resultsView');
+      if (qv) qv.classList.remove('visible');
+      if (rv) rv.classList.add('visible');
+
+      var pb = document.getElementById('progressBar');
+      if (pb) { pb.style.width = '100%'; pb.setAttribute('aria-valuenow', 100); }
+
+      var fs = document.getElementById('finalScore');
+      if (fs) fs.textContent = estado.puntaje + '/' + estado.preguntas.length;
+
+      var msg = document.getElementById('resultsMessage');
+      if (msg) {
+        var pct = (estado.puntaje / estado.preguntas.length) * 100;
+        if (pct === 100) msg.textContent = 'Excelente dominio. Respondiste todo correctamente.';
+        else if (pct >= 70) msg.textContent = 'Buen trabajo. Dominas la mayoría de los reactivos.';
+        else msg.textContent = 'Es recomendable repasar la presentación y volver a intentarlo.';
+      }
+    }
+
+    function iniciarExamen() {
+      initExamen();
+
+      var btnN = document.getElementById('btnNext');
+      if (btnN) {
+        btnN.addEventListener('click', function () {
+          if (estado.indiceActual < estado.preguntas.length - 1) {
+            estado.indiceActual++;
+            cargarPregunta();
+          } else {
+            mostrarResultadosExamen();
+          }
+        });
+      }
+
+      var btnR = document.getElementById('btnRestart');
+      if (btnR) {
+        btnR.addEventListener('click', function () {
+          initExamen();
+        });
+      }
+    }
+
+    function iniciarRecurso() {
+      iniciarTabs();
+      iniciarCalculadora();
+      iniciarActividad();
+      iniciarExamen();
+      renderMath(document.body);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', iniciarRecurso);
+    } else {
+      iniciarRecurso();
+    }
+  </script>
+</body>
+</html>
